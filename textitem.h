@@ -20,12 +20,14 @@
 class TextItem	:public QGraphicsItem
 {
 public:
-	TextItem(const TextSvg& tg);
-	//由于QGraphicsItem是抽象基类，所以至少要实现两个纯虚函数boundingrect,paint
+	TextItem( TextSvg& tg);
 
+	//由于QGraphicsItem是抽象基类，所以至少要实现两个纯虚函数boundingrect,paint
 	QRectF	boundingRect() const;
 	void		paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
 
+private:
+	void		parserMatrix(TextSvg& mtx);
 private:
 
 	QPen		m_pen;

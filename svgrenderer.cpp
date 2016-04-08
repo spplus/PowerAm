@@ -113,6 +113,7 @@ void SvgRenderer::drawHeadLayer()
 	{
 		m_scene->setSceneRect(player->getX(),player->getY(),player->getWidth(),player->getHeight());
 		QGraphicsSvgItem *item = addItem(player->getId());
+		item->setZValue(-1);
 		item->setFlag(QGraphicsItem::ItemIsSelectable,false);
 	}
 }
@@ -150,7 +151,7 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
-		QRectF rect = m_renderer->getNodeTransformedBounds(id);
+		QRectF rect = m_renderer->boundsOnElement(id);
 		qreal xp = rect.x();
 		qreal yp = rect.y();
 		item->setPos(xp,yp);

@@ -392,7 +392,7 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 	BaseDevice *pdev = new BaseDevice;
 	
 	QString id = getAttribute(cnode,ATTR_ID);
-	if (id == "0")
+	if (id == "0" || id.length() == 0)
 	{
 		QString uuid = QUuid::createUuid().toString();
 		cnode.toElement().setAttribute(ATTR_ID,uuid);
@@ -414,19 +414,24 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 
 BaseDevice* SvgParser::parserTemplate(const QDomNode& cnode)
 {
-	BaseDevice *pdev = new BaseDevice;
 
 	QString id = getAttribute(cnode,ATTR_ID);
-	if (id == "0")
+	if (id == "0" )
 	{
 		QString uuid = QUuid::createUuid().toString();
 		cnode.toElement().setAttribute(ATTR_ID,uuid);
 	}
 
-	pdev->setSvgId(getAttribute(cnode,ATTR_ID));
 	if (cnode.hasChildNodes())
 	{
 		QDomNode ccnode = cnode.firstChild();
+		if (ccnode.nodeName() != TAG_USE)
+		{
+			return NULL;
+		}
+
+		BaseDevice *pdev = new BaseDevice;
+		pdev->setSvgId(getAttribute(cnode,ATTR_ID));
 
 		// 解析设备图形信息
 		parserUse(ccnode,pdev);
@@ -434,13 +439,22 @@ BaseDevice* SvgParser::parserTemplate(const QDomNode& cnode)
 
 		// 解析设备模型
 		parserMetaData(ccnode,pdev);
+
+		return pdev;
 	}
-	return pdev;
+	return NULL;
 }
 
 BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 {
 	Transformer* ptrans = new Transformer;
+	QString id = getAttribute(node,ATTR_ID);
+	if (id == "0" || id.length() == 0)
+	{
+		QString uuid = QUuid::createUuid().toString();
+		node.toElement().setAttribute(ATTR_ID,uuid);
+	}
+
 	ptrans->setSvgId(getAttribute(node,ATTR_ID));
 
 	// 解析绕组

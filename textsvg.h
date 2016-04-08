@@ -13,8 +13,8 @@
 class TextSvg
 {
 public:
-	int			m_x;
-	int			m_y;
+	qreal			m_x;
+	qreal			m_y;
 	int			m_fontSize;
 	int			m_fontWidth;
 	int			m_fontHeight;
