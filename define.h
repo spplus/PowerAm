@@ -51,9 +51,11 @@ const	QString		LOAD_LAYER				= "Load_Layer";
 const	QString		TERM_LAYER				= "Term_Layer";
 const	QString		ARRESTER_LAYER			= "Arrester_Layer";
 const	QString		MEASURE_LAYER			= "MeasurementValue_Layer";
+const	QString		MEASURE2_LAYER			= "MeasureValue_Layer";			// kedong图形的量测层
 const	QString		PT_LAYER				= "PT_Layer";
 const	QString		GZP_LAYER				= "GZP_Layer";
 const	QString		GENERATER_LAYER			= "Generator_Layer";
+const	QString		CONNECTNODE_LAYER = "ConnectNode_Layer";
 
 
 // 属性定义

@@ -41,6 +41,7 @@ private:
 	SvgLayer*			findLayer(QString lid);
 
 	SvgItem*			addItem(QString id,eDeviceType tp = eDEFAULT);
+	SvgItem*			addItem(BaseDevice* pdev);
 
 	// ≥ı ºªØsvg
 	QString				initSvgRenderer();

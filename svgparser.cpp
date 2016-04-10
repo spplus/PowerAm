@@ -94,7 +94,8 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 				}
 				else if (sid == LINK_LAYER 
 					|| sid == ACLINE_LAYER
-					|| sid == LOAD_LAYER)
+					|| sid == LOAD_LAYER
+					|| sid == CONNECTNODE_LAYER)
 				{
 					parserLink(pgraph,node);
 				}
@@ -107,7 +108,8 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 				{
 					parserText(pgraph,node);
 				}
-				else if (sid == MEASURE_LAYER)
+				else if (sid == MEASURE_LAYER
+					|| sid == MEASURE2_LAYER)
 				{
 					parserMeasure(pgraph,node);
 				}
@@ -242,7 +244,10 @@ void SvgParser::parserText(SvgGraph*grahp,QDomNode &node)
 	{
 		QDomNode cnode = cnodelist.at(i);
 		TextSvg* ptext = parserSvgText(cnode);
-		player->getTextList().append(ptext);
+		if (ptext != NULL)
+		{
+			player->getTextList().append(ptext);
+		}
 	}
 
 	grahp->getLayerList().append(player);
@@ -338,6 +343,11 @@ void SvgParser::parserUse(const QDomNode& ccnode,BaseDevice* pdev)
 	if (ccnode.nodeName() == TAG_USE)
 	{
 		pdev->setSymbolId( getAttribute(ccnode,ATTR_XLINK));
+		pdev->setX(getAttribute(ccnode,ATTR_X).toDouble());
+		pdev->setY(getAttribute(ccnode,ATTR_Y).toDouble());
+		pdev->setTransform(getAttribute(ccnode,ATTR_TRANSFORM));
+		pdev->m_w = getAttribute(ccnode,ATTR_WIDTH).toDouble();
+		pdev->m_h = getAttribute(ccnode,ATTR_HEIGHT).toDouble();
 	}
 }
 
@@ -462,6 +472,10 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 	for (int i = 0;i<cnodelist.size();i++)
 	{
 		QDomNode cnode = cnodelist.at(i);
+		
+		// kelong 变压器没有绕组，是整体
+		parserUse(cnode,ptrans);
+
 		ptrans->getWindList().push_back(parserTemplate(cnode));
 	}
 

@@ -94,8 +94,8 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 		for (int j = 0;j<devList.size();j++)
 		{
 			BaseDevice* pdev = devList.at(j);
-			
-			SvgItem *item = addItem(pdev->getSvgId(),pdev->getDevType());
+			int id = pdev->getSvgId().toInt();
+			SvgItem *item = addItem(pdev);
 			if (item != NULL)
 			{
 				item->setLayerId(layer->getId());
@@ -142,6 +142,46 @@ void SvgRenderer::drawTextLayer()
 	
 }
 
+
+SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
+{
+	if (pdev == NULL)
+	{
+		return NULL;
+	}
+	QString id = pdev->getSvgId();
+	int iid = id.toInt();
+	SvgItem* item = makeSvgItem(id);
+	if (item != NULL)
+	{
+		qreal xp,yp;
+		QRectF rect;
+		if (pdev->getTransform().length() == 0 && pdev->getX() != 0 && pdev->getY() != 0)
+		{
+			rect = m_renderer->boundsOnElement(id);
+			xp = pdev->getX();
+			yp = pdev->getY();
+			
+		}
+		else
+		{
+			rect = m_renderer->boundsOnElement(id);
+			xp = rect.x();
+			yp = rect.y();
+		}
+		
+		item->setPos(xp,yp);
+
+		// ÉèÖÃitem ÀàÐÍ
+		item->setType(pdev->getDevType());
+
+		m_scene->addItem(item);
+	}
+
+	return item;
+}
+
+
 SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 {
 	if (id.length() <= 0)
@@ -151,7 +191,7 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
-		QRectF rect = m_renderer->boundsOnElement(id);
+		QRectF rect = m_renderer->getNodeTransformedBounds(id);//m_renderer->boundsOnElement(id);
 		qreal xp = rect.x();
 		qreal yp = rect.y();
 		item->setPos(xp,yp);
@@ -162,7 +202,6 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 		m_scene->addItem(item);
 	}
 	
-
 	return item;
 }
 
