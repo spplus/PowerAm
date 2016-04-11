@@ -162,6 +162,7 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 			xp = pdev->getX();
 			yp = pdev->getY();
 			
+			// ≤‚ ‘github
 		}
 		else
 		{
