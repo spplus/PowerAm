@@ -161,8 +161,7 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 			rect = m_renderer->boundsOnElement(id);
 			xp = pdev->getX();
 			yp = pdev->getY();
-			
-			// ≤‚ ‘github
+		
 		}
 		else
 		{
