@@ -54,7 +54,7 @@ QString SvgRenderer::initSvgRenderer()
 	}
 }
 
-SvgItem* SvgRenderer::renderById(SvgGraph* graph,QString id)
+SvgItem* SvgRenderer::renderById(SvgGraph* graph,BaseDevice* pdev)
 {
 	SvgItem *item = NULL; 
 	QRectF rect;
@@ -62,12 +62,10 @@ SvgItem* SvgRenderer::renderById(SvgGraph* graph,QString id)
 	{
 		QString sxml = initSvgRenderer();
 		
-		if( m_renderer->load(sxml.toLatin1()))
+		if( m_renderer->load(sxml.toUtf8()))
 		{
-			item = makeSvgItem(id);
-
-			QRectF rect = m_renderer->getNodeTransformedBounds(id);
-			item->setPos(rect.x(),rect.y());
+			item = makeSvgItem(pdev->getSvgId());
+			setItemPos(item,pdev);
 		}
 	}
 
@@ -156,30 +154,8 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
-		qreal xp,yp;
-		QRectF rect ;
-
-		// 取边框矩形
-		rect = m_renderer->boundsOnElement(id);
-
-		// 取viewBox
-		qreal vx=0,vy=0;
-		QString symbolid = pdev->getSymbolId().right(pdev->getSymbolId().length()-1);
-		m_renderer->getViewBoxOnElement(symbolid,vx,vy);
-
-		// 判断是否需要坐标反转
-		if (isReverseCoordination(pdev))
-		{
-			xp = rect.x()+vx;
-			yp = rect.y()+vy;
-		}
-		else
-		{
-			xp = rect.x()-vx;
-			yp = rect.y()-vy;
-		}
-			
-		item->setPos(xp,yp);
+		// 设置生成后的item场景坐标
+		setItemPos(item,pdev);
 
 		// 设置item 类型
 		item->setType(pdev->getDevType());
@@ -190,6 +166,33 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 	return item;
 }
 
+void SvgRenderer::setItemPos(SvgItem* item,BaseDevice* pdev)
+{
+	qreal xp,yp;
+	QRectF rect ;
+
+	// 取边框矩形
+	rect = m_renderer->boundsOnElement(pdev->getSvgId());
+
+	// 取viewBox
+	qreal vx=0,vy=0;
+	QString symbolid = pdev->getSymbolId().right(pdev->getSymbolId().length()-1);
+	m_renderer->getViewBoxOnElement(symbolid,vx,vy);
+
+	// 判断是否需要坐标反转
+	if (isReverseCoordination(pdev))
+	{
+		xp = rect.x()+vx;
+		yp = rect.y()+vy;
+	}
+	else
+	{
+		xp = rect.x()-vx;
+		yp = rect.y()-vy;
+	}
+
+	item->setPos(xp,yp);
+}
 
 SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 {

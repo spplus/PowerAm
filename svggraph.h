@@ -22,7 +22,7 @@ public:
 
 	~SvgGraph();
 	void				setId(QString id);
-	QString		getId();
+	QString				getId();
 
 	void				setFilePath(QString path);
 	QString				getFilePath();
@@ -34,11 +34,15 @@ public:
 	// 获取图层列表的引用
 	QList<SvgLayer*>&	getLayerList();
 
-	// 设置节点属性
+	// 设置DOM节点属性
 	bool			setAttribute(QString nodeid,QString attr,QString val);
 
-	// 获取节点属性
-	QString	getAttribute(QString nodeid,QString attr);
+	// 获取DOM节点属性
+	QString			getAttribute(QString nodeid,QString attr);
+
+	// 根据svgId获取设备对象
+	BaseDevice*		getDevById(QString svgid);
+
 private:
 
 	QDomNode	getElementById(QString nodeid);

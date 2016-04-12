@@ -84,6 +84,31 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 
 	return QDomNode();
 }
+
+BaseDevice* SvgGraph::getDevById(QString svgid)
+{
+	for (int i = 0;i<m_layerList.size();i++)
+	{
+		SvgLayer* player = m_layerList.at(i);
+		QString layerid = player->getId();
+		if (layerid == BREAKER_LAYER
+			|| layerid == DISCONN_LAYER
+			|| layerid == GROUNDDISCONN_LAYER)
+		{
+			for (int j = 0;j<player->getDevList().size();j++)
+			{
+				BaseDevice* pdev = player->getDevList().at(j);
+				if (pdev->getSvgId() == svgid)
+				{
+					return pdev;
+				}
+			}
+		}
+	}
+
+	return NULL;
+}
+
 bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 {
 	QDomNode cnode = getElementById(nodeid);

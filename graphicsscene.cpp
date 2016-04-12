@@ -133,8 +133,17 @@ void GraphicsScene::switchChange(int state)
 	{
 		pgraph->setAttribute(svgid,ATTR_XLINK,symbolid);
 	}
+	else
+	{
+		return;
+	}
 
-	SvgItem* newItem = m_svgRender->renderById(pgraph,svgid);
+	BaseDevice* pdev = pgraph->getDevById(svgid);
+	if (pdev == NULL)
+	{
+		return;
+	}
+	SvgItem* newItem = m_svgRender->renderById(pgraph,pdev);
 
 	newItem->setType(m_curItem->getType());
 

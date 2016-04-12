@@ -31,10 +31,11 @@ public:
 	void		drawGraph(SvgGraph* graph);
 
 	// 根据ID创建svgItem
-	SvgItem*	renderById(SvgGraph* graph,QString id);
+	SvgItem*	renderById(SvgGraph* graph,BaseDevice* pdev);
 
 private:
 	SvgItem*		makeSvgItem(QString id);
+	void			setItemPos(SvgItem* item,BaseDevice* pdev);
 	void			drawHeadLayer();
 	void			drawTextLayer();
 
