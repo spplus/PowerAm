@@ -74,7 +74,7 @@ private:
 	QAction*						m_signOffAction;				// 摘牌
 	QAction*						m_viewModelAction;				// 设置视图选择类型
 
-
+	QString					m_title;
     GraphicsScene*		m_sence;
     GraphicsView*			m_view;
 

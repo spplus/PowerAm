@@ -19,10 +19,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
 	m_self = this;
-
+	m_title = "电力访误系统";
 	initWidget();
 	initToolBar();
 	initMenu();
+	setWindowTitle(m_title);
 }
 
 void MainWindow::initWidget()
@@ -139,6 +140,10 @@ void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
 	m_sence->openSvgFile(fileName);
+	int idx = fileName.lastIndexOf("/");
+	fileName = fileName.right(fileName.length()-idx-1);
+	fileName = m_title+"-"+fileName;
+	this->setWindowTitle(fileName);
 }
 
 void MainWindow::setViewModel()
