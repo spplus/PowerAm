@@ -46,6 +46,8 @@ private:
 	// 初始化svg
 	QString				initSvgRenderer();
 	
+	// 判断是否需要坐标反转
+	bool				isReverseCoordination(BaseDevice* pdev);
 
 private:
 	SvgGraph*		m_graph;

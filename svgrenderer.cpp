@@ -24,17 +24,18 @@ QString SvgRenderer::initSvgRenderer()
 	{
 		// 把symbol标签转成g标签
 		QString sxml = m_graph->getDom()->toString();
-		sxml = sxml.replace("symbol","g");
+		//sxml = sxml.replace("symbol","g");
 
 		// 替换class属性为style属性
 		sxml = sxml.replace("class","style");
 
 		// 替换横
-		sxml = sxml.replace("横","-");
+		//sxml = sxml.replace("横","-");
 
 		// 替换右
-		sxml = sxml.replace("右","R");
+		//sxml = sxml.replace("右","R");
 
+		
 		QMap<QString, QString>::const_iterator iter = m_graph->getStyleMap().constBegin();
 		while (iter != m_graph->getStyleMap().constEnd()) 
 		{
@@ -44,6 +45,7 @@ QString SvgRenderer::initSvgRenderer()
 			sxml = sxml.replace(key,value);		
 			iter ++;
 		}
+		
 		return sxml;
 	}
 	else
@@ -77,7 +79,7 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 	m_graph = graph;
 
 	// SVG文件格式转换
-	m_renderer = new QSvgRenderer(initSvgRenderer().toLatin1());
+	m_renderer = new QSvgRenderer(initSvgRenderer().toUtf8());
 	
 	// 背景层 
 	drawHeadLayer();
@@ -155,21 +157,28 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 	if (item != NULL)
 	{
 		qreal xp,yp;
-		QRectF rect;
-		if (pdev->getTransform().length() == 0 && pdev->getX() != 0 && pdev->getY() != 0)
+		QRectF rect ;
+
+		// 取边框矩形
+		rect = m_renderer->boundsOnElement(id);
+
+		// 取viewBox
+		qreal vx=0,vy=0;
+		QString symbolid = pdev->getSymbolId().right(pdev->getSymbolId().length()-1);
+		m_renderer->getViewBoxOnElement(symbolid,vx,vy);
+
+		// 判断是否需要坐标反转
+		if (isReverseCoordination(pdev))
 		{
-			rect = m_renderer->boundsOnElement(id);
-			xp = pdev->getX();
-			yp = pdev->getY();
-		
+			xp = rect.x()+vx;
+			yp = rect.y()+vy;
 		}
 		else
 		{
-			rect = m_renderer->boundsOnElement(id);
-			xp = rect.x();
-			yp = rect.y();
+			xp = rect.x()-vx;
+			yp = rect.y()-vy;
 		}
-		
+			
 		item->setPos(xp,yp);
 
 		// 设置item 类型
@@ -191,7 +200,7 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
-		QRectF rect = m_renderer->getNodeTransformedBounds(id);//m_renderer->boundsOnElement(id);
+		QRectF rect = m_renderer->boundsOnElement(id);
 		qreal xp = rect.x();
 		qreal yp = rect.y();
 		item->setPos(xp,yp);
@@ -221,12 +230,33 @@ SvgLayer* SvgRenderer::findLayer(QString lid)
 
 SvgItem* SvgRenderer::makeSvgItem(QString id)
 {
-	//QGraphicsSvgItem* item = new QGraphicsSvgItem();
-	SvgItem* item = new SvgItem();
 
-	//item->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+	SvgItem* item = new SvgItem();
 	item->setFlags( QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
 	item->setSharedRenderer(m_renderer);
 	item->setElementId(id.toLatin1());
 	return item;
+}
+
+bool SvgRenderer::isReverseCoordination(BaseDevice* pdev)
+{
+	QString trans = pdev->getTransform();
+	if (trans.length()<=0)
+	{
+		return false;
+	}
+	else
+	{
+		// 判断是否有rotate -180
+		int idx = trans.indexOf("rotate");
+		if (idx>=0)
+		{
+			QString angle = trans.mid(idx+6+1,4);
+			if (angle.toInt() == -180)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

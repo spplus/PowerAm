@@ -414,6 +414,9 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 	if (cnode.hasChildNodes())
 	{
 		QDomNode ccnode = cnode.firstChild();
+
+		// 解析设备图形信息
+		parserUse(ccnode,pdev);
 		ccnode = ccnode.nextSibling();
 		
 		// 解析设备模型
