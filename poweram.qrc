@@ -21,5 +21,6 @@
 		  <file>images/zoomout.png</file>
 		  <file>images/hand.png</file>
 		  <file>images/pointer.png</file>
+		  <file>images/zoom_original.png</file>
      </qresource>
 </RCC>

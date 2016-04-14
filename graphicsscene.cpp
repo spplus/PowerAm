@@ -1,6 +1,9 @@
 
 #include <QMessageBox>
 #include <QGraphicsSceneMouseEvent>
+#include <QPropertyAnimation>
+#include <QStateMachine>
+#include <QSignalTransition>
 #include "graphicsscene.h"
 #include "mainwindow.h"
 
@@ -162,4 +165,32 @@ QString GraphicsScene::getNewSymbolId(QString oldid,int state)
 	
 	QString newid = QString("%1%2").arg(oldid.mid(0,oldid.length()-1)).arg(state);
 	return newid;
+}
+
+void GraphicsScene::startAnimation()
+{
+	QPropertyAnimation animation(m_curItem, "ps");
+	animation.setDuration(2000);
+	animation.setStartValue(m_curItem->pos());
+	animation.setEndValue(QPointF(600,800));
+	//animation.start();
+
+	QStateMachine *machine = new QStateMachine;
+
+	QState *state1 = new QState(machine);
+	state1->assignProperty(m_curItem, "ps", m_curItem->pos());
+	machine->setInitialState(state1);
+
+	QState *state2 = new QState(machine);
+	state2->assignProperty(m_curItem, "ps", QPointF(250, 250));
+
+	QSignalTransition *transition1 = state1->addTransition(m_curItem,SIGNAL(test()), state2);
+	transition1->addAnimation(new QPropertyAnimation(m_curItem, "ps"));
+
+	QSignalTransition *transition2 = state2->addTransition(m_curItem,
+		SIGNAL(test()), state1);
+	transition2->addAnimation(new QPropertyAnimation(m_curItem, "ps"));
+
+	machine->start();
+
 }

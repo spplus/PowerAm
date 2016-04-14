@@ -37,7 +37,9 @@ public slots:
 
 	// ÷√∫œ
 	void			setClose();
-
+	
+	// ≤‚ ‘∂Øª≠
+	void			startAnimation();
 protected:
 	void			switchChange(int state);
 

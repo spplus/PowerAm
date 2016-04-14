@@ -54,6 +54,7 @@ private:
 	QAction *					m_openAction;			// 打开图形文件
 	QAction*						m_zoutAction;				// 放大
 	QAction*						m_zinAction;				// 缩小
+	QAction*						m_originalAction;		// 原始大小
 	QAction*						m_nextAction;				// 前进
 	QAction*						m_prevAction;				// 后退
 	QAction*						m_userMgrAction;		// 用户管理

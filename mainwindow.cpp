@@ -51,6 +51,7 @@ void MainWindow::initToolBar()
 	m_toolBar->addAction(m_nextAction);
 	m_toolBar->addAction(m_zoutAction);
 	m_toolBar->addAction(m_zinAction);
+	m_toolBar->addAction(m_originalAction);
 	m_toolBar->addAction(m_refreshAction);
 	m_toolBar->addAction(m_modelAction);
 
@@ -116,6 +117,7 @@ void MainWindow::initActions()
 	m_signOnAction = new QAction(QIcon(":images/signon.png"),tr("¹ÒÅÆ"),this);
 	m_signOffAction = new QAction(QIcon(":images/signoff.png"),tr("ÕªÅÆ"),this);
 	m_viewModelAction = new QAction(QIcon(":images/pointer.png"),tr("Ö¸Õë"),this);
+	m_originalAction = new QAction(QIcon(":images/zoom_original.png"),tr("Ô­Ê¼³ß´ç"),this);
 
 	// 1 Ö¸Õë 2 ÊÖÕÆ
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
@@ -125,10 +127,11 @@ void MainWindow::initActions()
 	connect(m_zoutAction,SIGNAL(triggered()),m_view,SLOT(zoomOut()));
 	connect(m_prevAction,SIGNAL(triggered()),m_sence,SLOT(goPrev()));
 	connect(m_nextAction,SIGNAL(triggered()),m_sence,SLOT(goNext()));
-	connect(m_refreshAction,SIGNAL(triggered()),m_view,SLOT(zoomHome()));
+	connect(m_originalAction,SIGNAL(triggered()),m_view,SLOT(zoomHome()));
 	connect(m_viewModelAction,SIGNAL(triggered()),this,SLOT(setViewModel()));
 	connect(m_offAction,SIGNAL(triggered()),m_sence,SLOT(setOpen()));
 	connect(m_onAction,SIGNAL(triggered()),m_sence,SLOT(setClose()));
+	connect(m_refreshAction,SIGNAL(triggered()),m_sence,SLOT(startAnimation()));
 }
 
 MainWindow::~MainWindow()
