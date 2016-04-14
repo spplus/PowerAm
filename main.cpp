@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 	// …Ë÷√±‡¬Î
-	QTextCodec::setCodecForTr(QTextCodec::codecForName("system"));
-	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("system"));
-	QTextCodec::setCodecForLocale(QTextCodec::codecForName("system"));
+	QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
 
 
     MainWindow w;
