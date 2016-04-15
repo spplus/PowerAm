@@ -10,7 +10,9 @@
 #define		__GRAPHICSSCENE_H__
 
 #include <QGraphicsScene>
+#include <QPropertyAnimation>
 
+#include "textitem.h"
 #include "svgparser.h"
 #include "svgrenderer.h"
 
@@ -57,6 +59,7 @@ private:
 	SvgParser			m_svgParser;
 	SvgRenderer*		m_svgRender;
 	QList<SvgGraph*>	m_graphList;
+	QPropertyAnimation	m_animation;
 };
 
 #endif

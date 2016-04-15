@@ -169,28 +169,12 @@ QString GraphicsScene::getNewSymbolId(QString oldid,int state)
 
 void GraphicsScene::startAnimation()
 {
-	QPropertyAnimation animation(m_curItem, "ps");
-	animation.setDuration(2000);
-	animation.setStartValue(m_curItem->pos());
-	animation.setEndValue(QPointF(600,800));
-	//animation.start();
-
-	QStateMachine *machine = new QStateMachine;
-
-	QState *state1 = new QState(machine);
-	state1->assignProperty(m_curItem, "ps", m_curItem->pos());
-	machine->setInitialState(state1);
-
-	QState *state2 = new QState(machine);
-	state2->assignProperty(m_curItem, "ps", QPointF(250, 250));
-
-	QSignalTransition *transition1 = state1->addTransition(m_curItem,SIGNAL(test()), state2);
-	transition1->addAnimation(new QPropertyAnimation(m_curItem, "ps"));
-
-	QSignalTransition *transition2 = state2->addTransition(m_curItem,
-		SIGNAL(test()), state1);
-	transition2->addAnimation(new QPropertyAnimation(m_curItem, "ps"));
-
-	machine->start();
-
+	QPropertyAnimation *animation = new QPropertyAnimation(m_curItem, "pos");
+	m_animation.setTargetObject(m_curItem);
+	m_animation.setPropertyName("pos");
+	m_animation.setDuration(2000);
+	m_animation.setStartValue(QPointF(0,0));
+	m_animation.setEndValue(m_curItem->pos());
+	m_animation.setEasingCurve(QEasingCurve::OutBounce);
+	m_animation.start();
 }

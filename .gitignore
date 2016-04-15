@@ -87,3 +87,4 @@ $RECYCLE.BIN/
 *.txt
 *.lastbuildstate
 debug
+*.idb

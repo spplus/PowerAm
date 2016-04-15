@@ -24,18 +24,10 @@ QString SvgRenderer::initSvgRenderer()
 	{
 		// 把symbol标签转成g标签
 		QString sxml = m_graph->getDom()->toString();
-		//sxml = sxml.replace("symbol","g");
 
 		// 替换class属性为style属性
 		sxml = sxml.replace("class","style");
 
-		// 替换横
-		//sxml = sxml.replace("横","-");
-
-		// 替换右
-		//sxml = sxml.replace("右","R");
-
-		
 		QMap<QString, QString>::const_iterator iter = m_graph->getStyleMap().constBegin();
 		while (iter != m_graph->getStyleMap().constEnd()) 
 		{
@@ -134,7 +126,7 @@ void SvgRenderer::drawTextLayer()
 					TextSvg* ptext = player->getTextList().at(i);
 					TextItem* item = new TextItem(*ptext);
 					item->setPos(ptext->m_x,ptext->m_y);
-					item->setFlag(QGraphicsItem::ItemIsSelectable,false);
+					//item->setFlag(QGraphicsItem::ItemIsSelectable,false);
 					m_scene->addItem(item);
 				}
 		}
