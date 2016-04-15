@@ -169,7 +169,6 @@ QString GraphicsScene::getNewSymbolId(QString oldid,int state)
 
 void GraphicsScene::startAnimation()
 {
-	QPropertyAnimation *animation = new QPropertyAnimation(m_curItem, "pos");
 	m_animation.setTargetObject(m_curItem);
 	m_animation.setPropertyName("pos");
 	m_animation.setDuration(2000);
