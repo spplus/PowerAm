@@ -12,10 +12,13 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
 	// …Ë÷√±‡¬Î
-	QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
-	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
-	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
+	//QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
+	//QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
+	//QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
 
+	QTextCodec::setCodecForTr(QTextCodec::codecForName("GB2312"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GB2312"));
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GB2312"));
 
     MainWindow w;
 

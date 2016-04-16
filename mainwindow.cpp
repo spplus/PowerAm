@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QDomDocument>
 #include <QCoreApplication>
+#include <QTextCodec>
 
 #include "navmodel.h"
 #include "navdelegate.h"
@@ -33,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::initWidget()
 {
 	initNavView();
-	QPushButton *pleft = new QPushButton;
 
 	m_spliter = new QSplitter(this);
 	
@@ -181,7 +181,7 @@ void MainWindow::openFile(QString fileName)
 		return;
 	}
 
-	m_sence->openSvgFile(fileName.toLocal8Bit());
+	m_sence->openSvgFile(fileName);
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
