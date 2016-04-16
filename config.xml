@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<layout>
+		<Node label="南瑞" count="40">
+			<Node label="10kV城关开关站" >10kV城关开关站.fac.svg</Node>
+			<Node label="35kV敖城变电站" >35kV敖城变电站.fac.svg</Node>
+			<Node label="35kV白云山电站" >35kV白云山电站.fac.svg</Node>
+			<Node label="35kV大冲变电站" >35kV大冲变电站.fac.svg</Node>
+			<Node label="35kV高塘变电站" >35kV高塘变电站.fac.svg</Node>
+			<Node label="35kV天矿变电站" >35kV高塘变电站1.fac.svg</Node>
+			<Node label="35kV洋田发电厂" >35kV固江变电站.fac.svg</Node>
+			<Node label="35kV永阳变电站" >35kV盘田变电站.fac.svg</Node>
+			<Node label="35kV油田变电站" >35kV天矿变电站.fac.svg</Node>
+			<Node label="110kV天河发电厂" >35kV洋田发电厂.fac.svg</Node>
+			<Node label="11135kV高塘变电站" >35kV永阳变电站.fac.svg</Node>
+			<Node label="ja_10kV神岗山站" >35kV油田变电站.fac.svg</Node>
+		</Node>	
+			
+		<Node label="东方电子" count="100" collapse="1">
+			<Node label="10kV城关开关站" ></Node>
+			<Node label="35kV敖城变电站" ></Node>
+			<Node label="35kV白云山电站" ></Node>
+			<Node label="35kV大冲变电站" ></Node>
+			<Node label="35kV高塘变电站" ></Node>
+			<Node label="35kV天矿变电站" ></Node>
+			<Node label="35kV洋田发电厂" ></Node>
+			<Node label="35kV永阳变电站" ></Node>
+			<Node label="35kV油田变电站" ></Node>
+			<Node label="110kV天河发电厂" ></Node>
+			<Node label="11135kV高塘变电站" ></Node>
+			<Node label="ja_10kV神岗山站" ></Node>
+		</Node>
+		<Node label="科东" count="80" collapse="1">
+			<Node label="10kV城关开关站" ></Node>
+			<Node label="35kV敖城变电站" ></Node>
+			<Node label="35kV白云山电站" ></Node>
+			<Node label="35kV大冲变电站" ></Node>
+			<Node label="35kV高塘变电站" ></Node>
+			<Node label="35kV天矿变电站" ></Node>
+			<Node label="35kV洋田发电厂" ></Node>
+			<Node label="35kV永阳变电站" ></Node>
+			<Node label="35kV油田变电站" ></Node>
+			<Node label="110kV天河发电厂" ></Node>
+			<Node label="11135kV高塘变电站" ></Node>
+			<Node label="ja_10kV神岗山站" ></Node>
+		</Node>
+	</layout>
+</root>

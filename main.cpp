@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QTextCodec>
+#include <QPlastiqueStyle>
 #include <qdir.h>
 #include <QObject>
 #include <QTranslator>
@@ -22,6 +23,8 @@ int main(int argc, char *argv[])
 	QObject::connect(NetClient::instance(),SIGNAL(connected()),&w,SLOT(connected()));
 	QObject::connect(NetClient::instance(),SIGNAL(disconnected()),&w,SLOT(disconnected()));
 	QObject::connect(NetClient::instance(),SIGNAL(recvdata(int,const char*,int)),&w,SLOT(recvdata(int,const char*,int)));
+
+	a.setStyle(new QPlastiqueStyle);
 
     w.show();
 

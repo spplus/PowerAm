@@ -49,6 +49,15 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="navdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="navmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="navview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="netclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,6 +84,9 @@
     <ClInclude Include="breaker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="colordefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -85,6 +97,15 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="navdelegate.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="navmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="navview.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="netclient.h">
@@ -137,6 +158,24 @@
     <ClCompile Include="release\moc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_navdelegate.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_navdelegate.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_navmodel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_navmodel.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_navview.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_navview.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_netclient.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -155,6 +194,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\cutquery.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\expand_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\expand_selected.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\gswitchquery.png">
@@ -208,7 +253,16 @@
     <None Include="images\stationrela.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\unexpand_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\unexpand_selected.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\usermgr.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\zoom_original.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\zoomin.png">

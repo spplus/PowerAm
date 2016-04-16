@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "svgparser.h"
 
-
+#include <QPushButton>
 #include <QFileDialog>
 #include <QGraphicsTextItem>
 #include <QGraphicsRectItem>
@@ -10,8 +10,12 @@
 #include <qfile.h>
 #include <QMessageBox>
 #include <QDomDocument>
+#include <QCoreApplication>
 
+#include "navmodel.h"
+#include "navdelegate.h"
 #include "textitem.h"
+
 
 MainWindow * MainWindow::m_self = 0;
 
@@ -28,17 +32,41 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initWidget()
 {
+	initNavView();
+	QPushButton *pleft = new QPushButton;
 
+	m_spliter = new QSplitter(this);
+	
 	m_contextMenu = new QMenu(this);
 	m_sence = new GraphicsScene(this,m_contextMenu);
 
 	m_sence->setBackgroundBrush(QBrush(Qt::white));
 	m_view = new GraphicsView(m_sence);
 
-	//m_sence->setSceneRect(0,0,1500,1200);
 	this->setGeometry(100, 100, 800, 500);
-	setCentralWidget(m_view);
+	m_spliter->addWidget(m_navview);
+	m_spliter->addWidget(m_view);
+
+	QList<int> sizes;
+	sizes.append(200);
+	sizes.append(20);
+	m_spliter->setSizes(sizes);
+	m_spliter->setStretchFactor(1,1);
+
+	setCentralWidget(m_spliter);
 	this->showMaximized();
+}
+
+void MainWindow::initNavView()
+{
+	m_navview = new NavView(this);
+	NavModel* model = new NavModel(this);
+	model->ReadDataFromConfig(QCoreApplication::applicationDirPath() + "/config.xml");
+	NavDelegate* delegate = new NavDelegate(this);
+	m_navview->setModel(model);
+	m_navview->setItemDelegate(delegate);
+	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), model, SLOT(Collapse(const QModelIndex&)));
+	connect(model,SIGNAL(openFile(QString)),this,SLOT(openFile(QString)));
 }
 
 void MainWindow::initToolBar()
@@ -142,7 +170,18 @@ MainWindow::~MainWindow()
 void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
-	m_sence->openSvgFile(fileName);
+	openFile(fileName);
+}
+
+void MainWindow::openFile(QString fileName)
+{
+	if (fileName.length()== 0)
+	{
+		QMessageBox::warning(this,"系统提示","文件名称为空");
+		return;
+	}
+
+	m_sence->openSvgFile(fileName.toLocal8Bit());
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;

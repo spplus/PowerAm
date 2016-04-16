@@ -8,10 +8,13 @@
 #include <qaction.h>
 #include <QMenu>
 #include <QMenuBar>
+#include <QSplitter>
 
 #include "svgrenderer.h"
 #include "graphicsscene.h"
 #include "graphicsview.h"
+#include "navview.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -29,7 +32,8 @@ public:
 public slots:
     void		openFile();
 	void		setViewModel();
-	
+	void		openFile(QString fname);
+
 	// 连接服务器成功
 	void		connected();
 	void		disconnected();
@@ -43,6 +47,7 @@ private:
 	void		initActions();
 	void		initMenu();
 	void		initStatusBar();
+	void		initNavView();
 
 private:
 	QMenu*						m_sysMenu;
@@ -75,9 +80,12 @@ private:
 	QAction*						m_signOffAction;				// 摘牌
 	QAction*						m_viewModelAction;				// 设置视图选择类型
 
+	NavView*				m_navview;
 	QString					m_title;
-    GraphicsScene*		m_sence;
+    QSplitter*				m_spliter;
+	GraphicsScene*			m_sence;
     GraphicsView*			m_view;
+
 
 };
 

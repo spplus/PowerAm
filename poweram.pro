@@ -21,7 +21,10 @@ SOURCES += main.cpp\
 	textitem.cpp \ 
     graphicsscene.cpp \
     graphicsview.cpp \
-    netclient.cpp
+    netclient.cpp \
+    navview.cpp \
+    navdelegate.cpp \
+    navmodel.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -39,6 +42,10 @@ HEADERS  += mainwindow.h \
 	textsvg.h \
     graphicsscene.h \
     graphicsview.h \
-    netclient.h
+    netclient.h \
+    navview.h \
+    colordefines.h \
+    navdelegate.h \
+    navmodel.h
 
 
