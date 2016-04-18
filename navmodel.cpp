@@ -90,7 +90,7 @@ QVariant NavModel::data( const QModelIndex &index, int role /* = Qt::DisplayRole
 	if ( role == Qt::DisplayRole ) 
 		return m_list[index.row()].label;
 	else if ( role == Qt::UserRole )
-		return (unsigned int)(m_list[index.row()].treeNode);
+		return (qlonglong)(m_list[index.row()].treeNode);
 
 	return QVariant();
 }

@@ -94,5 +94,5 @@ const	QString		TAG_STYLE				= "style";
 const	QString		TAG_TEXT				= "text";
 
 // SVG文件保存的目录
-const	QString		SVG_ROOT				= QString::fromLocal8Bit("D:\\work\\电力防误\\代码\\SVG\\nanrui\\吉安SVG和CIM文件\\svg_output\\");
+const	QString		SVG_ROOT				= QString::fromLocal8Bit("F:\\QtProject\\SVG\\nanrui\\吉安SVG和CIM文件\\svg_output\\");
 #endif
