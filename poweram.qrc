@@ -26,5 +26,6 @@
         <file>images/expand_selected.png</file>
         <file>images/unexpand_normal.png</file>
         <file>images/unexpand_selected.png</file>
+		<file>images/bk.jpg</file>
     </qresource>
 </RCC>

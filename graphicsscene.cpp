@@ -14,6 +14,13 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_cntMenu = cntmenu;
 	m_curItem = NULL;
 	m_curIndex = -1;
+	QPixmap p(800,600);
+	p.load(":/images/bk.jpg");
+
+	m_bkItem = new QGraphicsPixmapItem;
+	m_bkItem->setPixmap(p);
+	addItem(m_bkItem);
+	m_bkItem->setPos(0,0);
 }
 
 GraphicsScene::~GraphicsScene()
@@ -39,6 +46,12 @@ void GraphicsScene::openSvgFile(QString filename)
 	SvgGraph *pgrahp = m_svgParser.parserSvg(filename);
 	if (pgrahp != NULL)
 	{
+		if (m_bkItem != NULL)
+		{
+			this->removeItem(m_bkItem);
+			delete m_bkItem;
+			m_bkItem = NULL;
+		}
 		
 		this->clear();
 		m_svgRender->drawGraph(pgrahp);
