@@ -89,6 +89,8 @@ void MainWindow::initToolBar()
 void MainWindow::initMenu()
 {
 	m_sysMenu = this->menuBar()->addMenu(tr("系统&"));
+	m_sysMenu->addAction(m_downSvg);
+
 	m_editMenu = this->menuBar()->addMenu(tr("设置&"));
 	m_editMenu->addAction(m_userMgrAction);
 	m_editMenu->addAction(m_stationTypeAction);
@@ -146,6 +148,7 @@ void MainWindow::initActions()
 	m_signOffAction = new QAction(QIcon(":images/signoff.png"),tr("摘牌"),this);
 	m_viewModelAction = new QAction(QIcon(":images/pointer.png"),tr("指针"),this);
 	m_originalAction = new QAction(QIcon(":images/zoom_original.png"),tr("原始尺寸"),this);
+	m_downSvg = new QAction(QIcon(":images/download.png"),tr("下载Svg"),this);
 
 	// 1 指针 2 手掌
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
@@ -160,6 +163,7 @@ void MainWindow::initActions()
 	connect(m_offAction,SIGNAL(triggered()),m_sence,SLOT(setOpen()));
 	connect(m_onAction,SIGNAL(triggered()),m_sence,SLOT(setClose()));
 	connect(m_refreshAction,SIGNAL(triggered()),m_sence,SLOT(startAnimation()));
+	connect(m_downSvg,SIGNAL(triggered()),this,SLOT(showDownSvg()));
 }
 
 MainWindow::~MainWindow()
@@ -206,6 +210,10 @@ void MainWindow::setViewModel()
 	m_view->setDragMode(md);
 }
 
+void MainWindow::showDownSvg()
+{
+	m_ftpUtil.exec();
+}
 
 void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 {

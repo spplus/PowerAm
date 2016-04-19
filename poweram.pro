@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     netclient.cpp \
     navview.cpp \
     navdelegate.cpp \
-    navmodel.cpp
+    navmodel.cpp \
+	ftputil.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -46,6 +47,7 @@ HEADERS  += mainwindow.h \
     navview.h \
     colordefines.h \
     navdelegate.h \
-    navmodel.h
+    navmodel.h \
+	ftputil.h
 
 

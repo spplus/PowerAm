@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>PowerAm</PrimaryOutput>
@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(QTDIR)\include\QtCore;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtXml;$(QTDIR)\include\QtSvg;$(QTDIR)\include;$(QTDIR)\include\ActiveQt;debug;$(QTDIR)\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>"..\..\Qt\4.8.7\include\QtCore";"..\..\Qt\4.8.7\include\QtNetwork";"..\..\Qt\4.8.7\include\QtGui";"..\..\Qt\4.8.7\include\QtXml";"..\..\Qt\4.8.7\include\QtSvg";"..\..\Qt\4.8.7\include";"..\..\Qt\4.8.7\include\ActiveQt";"debug";..\..\Qt\4.8.7\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -72,8 +72,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>QtSvgd4.lib;QtXmld4.lib;QtGuid4.lib;QtNetworkd4.lib;QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>f:\Qt\4.8.7\lib\QtSvgd4.lib;f:\Qt\4.8.7\lib\QtXmld4.lib;f:\Qt\4.8.7\lib\QtGuid4.lib;f:\Qt\4.8.7\lib\QtNetworkd4.lib;f:\Qt\4.8.7\lib\QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>f:\Qt\4.8.7\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -133,6 +133,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ftputil.cpp" />
     <ClCompile Include="graphicsscene.cpp" />
     <ClCompile Include="graphicsview.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,13 +153,31 @@
     <ClInclude Include="breaker.h" />
     <ClInclude Include="colordefines.h" />
     <ClInclude Include="define.h" />
+    <CustomBuild Include="ftputil.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem;ftputil.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem IncrediBuild_AllowRemote 
+if errorlevel 1 goto VCEnd
+ Rem IncrediBuild_OutputFile debug\moc_ftputil.cpp 
+if errorlevel 1 goto VCEnd
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 ftputil.h -o debug\moc_ftputil.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ftputil.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_ftputil.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;ftputil.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem IncrediBuild_AllowRemote 
+if errorlevel 1 goto VCEnd
+ Rem IncrediBuild_OutputFile release\moc_ftputil.cpp 
+if errorlevel 1 goto VCEnd
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"release" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 ftputil.h -o release\moc_ftputil.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ftputil.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_ftputil.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
     <CustomBuild Include="graphicsscene.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem;graphicsscene.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem IncrediBuild_AllowRemote 
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_graphicsscene.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsscene.h -o debug\moc_graphicsscene.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsscene.h -o debug\moc_graphicsscene.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC graphicsscene.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_graphicsscene.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;graphicsscene.h;%(AdditionalInputs)</AdditionalInputs>
@@ -176,7 +195,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_graphicsview.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsview.h -o debug\moc_graphicsview.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsview.h -o debug\moc_graphicsview.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC graphicsview.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_graphicsview.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
@@ -194,7 +213,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_mainwindow.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC mainwindow.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_mainwindow.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
@@ -212,7 +231,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navdelegate.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navdelegate.h -o debug\moc_navdelegate.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navdelegate.h -o debug\moc_navdelegate.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navdelegate.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navdelegate.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navdelegate.h;%(AdditionalInputs)</AdditionalInputs>
@@ -230,7 +249,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navmodel.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navmodel.h -o debug\moc_navmodel.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navmodel.h -o debug\moc_navmodel.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navmodel.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navmodel.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navmodel.h;%(AdditionalInputs)</AdditionalInputs>
@@ -248,7 +267,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navview.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navview.h -o debug\moc_navview.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navview.h -o debug\moc_navview.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navview.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navview.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navview.h;%(AdditionalInputs)</AdditionalInputs>
@@ -266,7 +285,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_netclient.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 netclient.h -o debug\moc_netclient.cpp</Command>
+ F:\Qt\4.8.7\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"..\..\Qt\4.8.7\include\QtCore" -I"..\..\Qt\4.8.7\include\QtNetwork" -I"..\..\Qt\4.8.7\include\QtGui" -I"..\..\Qt\4.8.7\include\QtXml" -I"..\..\Qt\4.8.7\include\QtSvg" -I"..\..\Qt\4.8.7\include" -I"..\..\Qt\4.8.7\include\ActiveQt" -I"debug" -I..\..\Qt\4.8.7\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 netclient.h -o debug\moc_netclient.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC netclient.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_netclient.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;netclient.h;%(AdditionalInputs)</AdditionalInputs>
@@ -289,6 +308,12 @@ if errorlevel 1 goto VCEnd
     <ClInclude Include="transformer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_ftputil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_ftputil.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="debug\moc_graphicsscene.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -339,6 +364,7 @@ if errorlevel 1 goto VCEnd
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="images\bk.jpg" />
     <None Include="images\circlequery.png" />
     <None Include="images\cutquery.png" />
     <None Include="images\expand_normal.png" />
@@ -354,11 +380,11 @@ if errorlevel 1 goto VCEnd
     <None Include="images\pointer.png" />
     <CustomBuild Include="poweram.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\circlequery.png;images\cutquery.png;images\expand_normal.png;images\expand_selected.png;images\gswitchquery.png;images\hand.png;images\model.png;images\msetquery.png;images\next.png;images\off.png;images\on.png;images\open.png;images\pointer.png;images\prev.png;images\refresh.png;images\signoff.png;images\signon.png;images\signquery.png;images\stationmgr.png;images\stationrela.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\zoom_original.png;images\zoomin.png;images\zoomout.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\rcc.exe -name poweram poweram.qrc -o debug\qrc_poweram.cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\bk.jpg;images\circlequery.png;images\cutquery.png;images\expand_normal.png;images\expand_selected.png;images\gswitchquery.png;images\hand.png;images\model.png;images\msetquery.png;images\next.png;images\off.png;images\on.png;images\open.png;images\pointer.png;images\prev.png;images\refresh.png;images\signoff.png;images\signon.png;images\signquery.png;images\stationmgr.png;images\stationrela.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\zoom_original.png;images\zoomin.png;images\zoomout.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe -name poweram poweram.qrc -o debug\qrc_poweram.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RCC poweram.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\qrc_poweram.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\circlequery.png;images\cutquery.png;images\expand_normal.png;images\expand_selected.png;images\gswitchquery.png;images\hand.png;images\model.png;images\msetquery.png;images\next.png;images\off.png;images\on.png;images\open.png;images\pointer.png;images\prev.png;images\refresh.png;images\signoff.png;images\signon.png;images\signquery.png;images\stationmgr.png;images\stationrela.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\zoom_original.png;images\zoomin.png;images\zoomout.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\bk.jpg;images\circlequery.png;images\cutquery.png;images\expand_normal.png;images\expand_selected.png;images\gswitchquery.png;images\hand.png;images\model.png;images\msetquery.png;images\next.png;images\off.png;images\on.png;images\open.png;images\pointer.png;images\prev.png;images\refresh.png;images\signoff.png;images\signon.png;images\signquery.png;images\stationmgr.png;images\stationrela.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\zoom_original.png;images\zoomin.png;images\zoomout.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe -name poweram poweram.qrc -o release\qrc_poweram.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RCC poweram.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\qrc_poweram.cpp;%(Outputs)</Outputs>

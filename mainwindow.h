@@ -14,7 +14,7 @@
 #include "graphicsscene.h"
 #include "graphicsview.h"
 #include "navview.h"
-
+#include "ftputil.h"
 
 class MainWindow : public QMainWindow
 {
@@ -33,6 +33,7 @@ public slots:
     void		openFile();
 	void		setViewModel();
 	void		openFile(QString fname);
+	void		showDownSvg();
 
 	// 连接服务器成功
 	void		connected();
@@ -79,7 +80,9 @@ private:
 	QAction*						m_signOnAction;					// 挂牌
 	QAction*						m_signOffAction;				// 摘牌
 	QAction*						m_viewModelAction;				// 设置视图选择类型
+	QAction*						m_downSvg;						// 下载svg文件
 
+	FtpUtil					m_ftpUtil;
 	NavView*				m_navview;
 	QString					m_title;
     QSplitter*				m_spliter;

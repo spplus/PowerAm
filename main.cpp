@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QTranslator>
 #include "netclient.h"
+#include "ftputil.h"
 
 int main(int argc, char *argv[])
 {

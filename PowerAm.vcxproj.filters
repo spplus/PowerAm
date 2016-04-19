@@ -37,6 +37,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ftputil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="graphicsscene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,6 +93,9 @@
     <ClInclude Include="define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="ftputil.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="graphicsscene.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -140,6 +146,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_ftputil.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_ftputil.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_graphicsscene.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -190,6 +202,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="images\bk.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\circlequery.png">
       <Filter>Resource Files</Filter>
     </None>
