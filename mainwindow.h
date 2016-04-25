@@ -75,10 +75,19 @@ private:
 	QAction*						m_msetQueryAction;			// 人工设置查询
 	QAction*						m_cutQueryAction;				// 电路截面查询
 
+	QAction*						m_roleQueryAction;			// 校验规则
+	QAction*						m_topoQueryAction;			// 拓扑信息查询
+	QAction*						m_intervalQueryAction;		// 间隔查询
+	QAction*						m_scadaLogQueryAction;		// scada日志查询
+	QAction*						m_eventQueryAction;			// 事件查询
+
+
 	QAction*						m_onAction;						// 置合操作
-	QAction*						m_offAction;						// 置分操作
+	QAction*						m_offAction;					// 置分操作
 	QAction*						m_signOnAction;					// 挂牌
 	QAction*						m_signOffAction;				// 摘牌
+	QAction*						m_powerSetAction;				// 设置电源点
+	QAction*						m_inLineSetAction;				// 设置进出线
 	QAction*						m_viewModelAction;				// 设置视图选择类型
 	QAction*						m_downSvg;						// 下载svg文件
 

@@ -94,7 +94,7 @@ void MainWindow::initMenu()
 	m_editMenu = this->menuBar()->addMenu(tr("设置&"));
 	m_editMenu->addAction(m_userMgrAction);
 	m_editMenu->addAction(m_stationTypeAction);
-	m_editMenu->addAction(m_stationTypeAction);
+	m_editMenu->addAction(m_stationRelaAction);
 	
 	m_queryMenu = this->menuBar()->addMenu(tr("查询&"));
 	m_queryMenu->addAction(m_circleQueryAction);
@@ -102,6 +102,11 @@ void MainWindow::initMenu()
 	m_queryMenu->addAction(m_gswitchQueryAction);
 	m_queryMenu->addAction(m_msetQueryAction);
 	m_queryMenu->addAction(m_signQueryAction);
+	m_queryMenu->addAction(m_roleQueryAction);
+	m_queryMenu->addAction(m_topoQueryAction);
+	m_queryMenu->addAction(m_scadaLogQueryAction);
+	m_queryMenu->addAction(m_eventQueryAction);
+	m_queryMenu->addAction(m_intervalQueryAction);
 
 }
 
@@ -149,6 +154,14 @@ void MainWindow::initActions()
 	m_viewModelAction = new QAction(QIcon(":images/pointer.png"),tr("指针"),this);
 	m_originalAction = new QAction(QIcon(":images/zoom_original.png"),tr("原始尺寸"),this);
 	m_downSvg = new QAction(QIcon(":images/download.png"),tr("下载Svg"),this);
+
+
+	m_roleQueryAction = new QAction(QIcon(":images/download.png"),tr("校验规则"),this);
+	m_topoQueryAction = new QAction(QIcon(":images/download.png"),tr("拓扑查询"),this);
+	m_intervalQueryAction = new QAction(QIcon(":images/download.png"),tr("间隔查询"),this);
+	m_scadaLogQueryAction = new QAction(QIcon(":images/download.png"),tr("scada日志查询"),this);
+	m_eventQueryAction	= new QAction(QIcon(":images/download.png"),tr("事件查询"),this);
+
 
 	// 1 指针 2 手掌
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
