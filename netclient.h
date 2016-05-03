@@ -12,7 +12,12 @@
 
 
 #include <QObject>
+#include <QTcpSocket>
+#include <QTimer>
+#include <QTextCodec>
 
+#define MSGHEAD "0xff"
+#define MSGTAIL "0x88"
 
 class NetClient :public QObject
 {
@@ -22,7 +27,7 @@ public:
 	static NetClient* instance();
 
 	// 连接服务器
-	void	connectToServer(const QString srvName,qint16 port);
+	bool	connectToServer(const QString srvName,quint16 port);
 
 	// 向服务器发送数据
 	int		sendData(int msgtype,const char* msg,int msglength);
@@ -32,8 +37,6 @@ public:
 
 private:
 	NetClient();
-
-public slots:
 
 signals:
 	
@@ -46,16 +49,28 @@ signals:
 	// 接收数据完成，向应用层传递
 	void	recvdata(int msgtype,const char* msg,int msglength);
 
+	void	testrec(int msgtype);
+
+public slots:
+	void testconn();
+	//接收服务器数据
+	void readMessage();
+
 private:
 	// 打包
-	char*	pack(const char* msg,const int msgtype,const int msglength);
+	//char*	pack(const char* msg,const int msgtype,const int msglength);
+	QByteArray	pack(const char* msg,const int msgtype,const int msglength);
 
 	// 解包 
-	char*	unpack(const char* msg,const int msglength,int &msgtyhpe);
+	//char*	unpack(const char* msg,const int msglength,int &msgtype);
+	QByteArray  unpack(QByteArray qByte,int &msgtype,int recvlen);
+
 
 private:
 	static NetClient*	m_inst;
 
+	//Socket对象
+	QTcpSocket*		m_pTcpScoket;
 };
 
 #endif

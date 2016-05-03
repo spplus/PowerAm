@@ -211,6 +211,9 @@
     <None Include="images\cutquery.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\download.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\expand_normal.png">
       <Filter>Resource Files</Filter>
     </None>
