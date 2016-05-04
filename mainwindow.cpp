@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "svgparser.h"
-
+#include <string>
 #include <QPushButton>
 #include <QFileDialog>
 #include <QGraphicsTextItem>
@@ -16,8 +16,10 @@
 #include "navmodel.h"
 #include "navdelegate.h"
 #include "textitem.h"
+#include "buff/msgbody.pb.h"
+#include "include/commands.h"
 
-
+using namespace std;
 MainWindow * MainWindow::m_self = 0;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -71,6 +73,7 @@ void MainWindow::initNavView()
 	m_navview->setItemDelegate(delegate);
 	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), model, SLOT(Collapse(const QModelIndex&)));
 	connect(model,SIGNAL(openFile(QString)),this,SLOT(openFile(QString)));
+
 }
 
 void MainWindow::initToolBar()
@@ -193,6 +196,8 @@ void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
 	openFile(fileName);
+
+
 }
 
 void MainWindow::openFile(QString fileName)
@@ -208,6 +213,15 @@ void MainWindow::openFile(QString fileName)
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
 	this->setWindowTitle(fileName);
+
+
+	// 加载设备状态数据
+	PBNS::DevStateMsg_Request req;
+	req.set_saveid(1);
+	req.set_stationid(1);
+	string reqstr;
+	req.SerializeToString(&reqstr);
+	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
 }
 
 void MainWindow::setViewModel()
@@ -263,9 +277,7 @@ void MainWindow::initNet()
 	connect(NetClient::instance(),SIGNAL(connected()),this,SLOT(connected()));
 	connect(NetClient::instance(),SIGNAL(disconnected()),this,SLOT(disconnected()));
 
-	connect(NetClient::instance(),SIGNAL(recvdata(int,const char* ,int)),this,SLOT(recvData(int,const char* ,int)));
-	connect(NetClient::instance(),SIGNAL(testrec(int)),this,SLOT(testrec(int)));
-
+	connect(NetClient::instance(),SIGNAL(recvdata(int,const char* ,int)),this,SLOT(recvdata(int,const char* ,int)));
 
 	//定时器
 	pTimer = new QTimer(this);

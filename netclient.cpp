@@ -92,8 +92,7 @@ void NetClient::readMessage()
 
 	//向应用层发信号
 	emit recvdata(nmsgty,msg,qbarecv.length());
-	emit testrec(nmsgty);
-
+	
 	return;
 }
 
