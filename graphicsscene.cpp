@@ -6,6 +6,7 @@
 #include <QSignalTransition>
 #include "graphicsscene.h"
 #include "mainwindow.h"
+#include "buff/msgbody.pb.h"
 
 GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	:QGraphicsScene(parant)
@@ -189,4 +190,22 @@ void GraphicsScene::startAnimation()
 	m_animation.setEndValue(m_curItem->pos());
 	m_animation.setEasingCurve(QEasingCurve::OutBounce);
 	m_animation.start();
+}
+
+void GraphicsScene::showDevState(const char* msg,int length)
+{
+	PBNS::DevStateMsg_Response res;
+	res.ParseFromArray(msg,length);
+
+	// 设置图形中的设备状态
+	int size = res.devstate_size();
+	PBNS::StateBean bean = res.devstate(0);
+	
+	// 根据cimid在图形中找到对应的设备对象
+
+	// 根据svgid 修改dom中的图元模板,改变状态。
+
+	// 重新加载图形
+
+
 }

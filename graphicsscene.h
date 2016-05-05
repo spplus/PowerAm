@@ -27,6 +27,9 @@ public:
 	// 打开图形文件
 	void			openSvgFile(QString filename);
 
+	// 显示设备状态信息
+	void			showDevState(const char* msg,int length);
+
 public slots:
 
 	// 前进

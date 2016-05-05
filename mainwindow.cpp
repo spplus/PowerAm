@@ -261,6 +261,13 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	qDebug()<<msgtype;
 	qDebug()<<msg;
 	qDebug()<<msglength;
+	
+	switch (msgtype)
+	{
+	case CMD_DEV_STATE:
+		m_sence->showDevState(msg,msglength);
+		break;
+	}
 
 }
 //³õÊ¼»¯ÍøÂç
