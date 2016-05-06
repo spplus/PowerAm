@@ -80,14 +80,28 @@ void MainWindow::initToolBar()
 {
 	initActions();
 	m_toolBar =  this->addToolBar(tr("toolbar"));
+	m_toolBar->addAction(m_homeAction);
 	m_toolBar->addAction(m_viewModelAction);
 	m_toolBar->addAction(m_openAction);
 	m_toolBar->addAction(m_prevAction);
 	m_toolBar->addAction(m_nextAction);
+	m_toolBar->addAction(m_originalAction);
 	m_toolBar->addAction(m_zoutAction);
 	m_toolBar->addAction(m_zinAction);
-	m_toolBar->addAction(m_originalAction);
 	m_toolBar->addAction(m_refreshAction);
+	m_toolBar->addAction(m_saveAction);
+	m_toolBar->addAction(m_readAction);
+	m_toolBar->addAction(m_controlAction);
+	m_toolBar->addAction(m_chekAction);
+	m_toolBar->addAction(m_netAction);
+	m_toolBar->addAction(m_soundAction);
+	m_toolBar->addAction(m_roleAction);
+	m_toolBar->addAction(m_circleQueryAction);
+	m_toolBar->addAction(m_signQueryAction);
+	m_toolBar->addAction(m_gswitchQueryAction);
+	m_toolBar->addAction(m_opQueryAction);
+	m_toolBar->addAction(m_eventQueryAction);
+
 	m_toolBar->addAction(m_modelAction);
 
 	m_toolBar->setIconSize(QSize(36,36));
@@ -138,20 +152,31 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 
 void MainWindow::initActions()
 {
-	
+	m_homeAction = new QAction(QIcon(":images/open.png"),tr("主页"),this);
 	m_openAction = new QAction(QIcon(":images/open.png"),tr("打开"),this);
 	m_zoutAction	 = new QAction(QIcon(":images/zoomout.png"),tr("放大"),this);
 	m_zinAction = new QAction(QIcon(":images/zoomin.png"),tr("缩小"),this);
 	m_nextAction = new QAction(QIcon(":images/next.png"),tr("前进"),this);
 	m_prevAction = new QAction(QIcon(":images/prev.png"),tr("后退"),this);
+	m_refreshAction = new QAction(QIcon(":images/refresh.png"),tr("刷新"),this);
+	m_saveAction = new QAction(QIcon(":images/signquery.png"),tr("保存"),this);
+	m_readAction = new QAction(QIcon(":images/signquery.png"),tr("读取"),this);
+	m_controlAction = new QAction(QIcon(":images/signquery.png"),tr("控制"),this);
+	m_chekAction = new QAction(QIcon(":images/signquery.png"),tr("校验"),this);
+	m_netAction = new QAction(QIcon(":images/prev.png"),tr("网络"),this);
+	m_soundAction = new QAction(QIcon(":images/prev.png"),tr("声音告警"),this);
+	m_roleAction = new QAction(QIcon(":images/prev.png"),tr("规则设置"),this);
+	m_circleQueryAction = new QAction(QIcon(":images/circlequery.png"),tr("环路查询"),this);
+	m_signQueryAction = new QAction(QIcon(":images/signquery.png"),tr("挂牌查询"),this);
+	m_gswitchQueryAction = new QAction(QIcon(":images/gswitchquery.png"),tr("接地查询"),this);
+	m_opQueryAction = new QAction(QIcon(":images/gswitchquery.png"),tr("操作查询"),this);
+	m_eventQueryAction	= new QAction(QIcon(":images/download.png"),tr("事件查询"),this);
+	m_modelAction = new QAction(QIcon(":images/model.png"),tr("运行模式"),this);
+
 	m_userMgrAction = new QAction(QIcon(":images/usermgr.png"),tr("用户设置"),this);
 	m_stationTypeAction = new QAction(QIcon(":images/stationmgr.png"),tr("电站类别设置"),this);
 	m_stationRelaAction = new QAction(QIcon(":images/stationrela.png"),tr("电站设置"),this);
-	m_modelAction = new QAction(QIcon(":images/model.png"),tr("运行模式"),this);
-	m_refreshAction = new QAction(QIcon(":images/refresh.png"),tr("刷新数据"),this);
-	m_circleQueryAction = new QAction(QIcon(":images/circlequery.png"),tr("环路查询"),this);
-	m_signQueryAction = new QAction(QIcon(":images/signquery.png"),tr("挂牌查询"),this);
-	m_gswitchQueryAction = new QAction(QIcon(":images/gswitchquery.png"),tr("地刀查询"),this);
+
 	m_msetQueryAction = new QAction(QIcon(":images/msetquery.png"),tr("人工设置查询"),this);
 	m_cutQueryAction = new QAction(QIcon(":images/cutquery.png"),tr("电路截面查询"),this);
 	m_onAction = new QAction(QIcon(":images/on.png"),tr("置合"),this);
@@ -167,7 +192,7 @@ void MainWindow::initActions()
 	m_topoQueryAction = new QAction(QIcon(":images/download.png"),tr("拓扑查询"),this);
 	m_intervalQueryAction = new QAction(QIcon(":images/download.png"),tr("间隔查询"),this);
 	m_scadaLogQueryAction = new QAction(QIcon(":images/download.png"),tr("scada日志查询"),this);
-	m_eventQueryAction	= new QAction(QIcon(":images/download.png"),tr("事件查询"),this);
+	
 
 
 	// 1 指针 2 手掌

@@ -74,21 +74,33 @@ private:
 	QMenu*						m_contextMenu;             //右键菜单
     QToolBar*					m_toolBar;
    
+	QAction*						m_homeAction;			// 返回主页
 	QAction *					m_openAction;			// 打开图形文件
+	QAction*						m_nextAction;				// 前进
+	QAction*						m_prevAction;				// 后退
+	QAction*						m_refreshAction;			// 刷新数据
+	QAction*						m_saveAction;				// 保存
+	QAction*						m_readAction;				// 读取
+	QAction*						m_controlAction;			// 控制（禁止控制，允许控制）
+	QAction*						m_chekAction;				// 校验 （禁止校验，运行校验）
+	QAction*						m_netAction;				// 网络状态
+	QAction*						m_soundAction;			// 声音告警
+	QAction*						m_roleAction;				// 设置规则
+	QAction*						m_circleQueryAction;	// 环路查询
+	QAction*						m_signQueryAction;	// 挂牌查询
+	QAction*						m_gswitchQueryAction;		// 接地查询
+	QAction*						m_opQueryAction;				// 操作查询
+	QAction*						m_eventQueryAction;			// 事件查询
+
 	QAction*						m_zoutAction;				// 放大
 	QAction*						m_zinAction;				// 缩小
 	QAction*						m_originalAction;		// 原始大小
-	QAction*						m_nextAction;				// 前进
-	QAction*						m_prevAction;				// 后退
+
 	QAction*						m_userMgrAction;		// 用户管理
 	QAction*						m_stationTypeAction;	// 电站分类设置
 	QAction*						m_stationRelaAction;	// 电站类别、图形绑定
 	QAction*						m_modelAction;			// 状态，实时态，模拟态
-	QAction*						m_refreshAction;			// 刷新数据
-
-	QAction*						m_circleQueryAction;	// 环路查询
-	QAction*						m_signQueryAction;	// 挂牌查询
-	QAction*						m_gswitchQueryAction;		// 地刀查询
+	
 	QAction*						m_msetQueryAction;			// 人工设置查询
 	QAction*						m_cutQueryAction;				// 电路截面查询
 
@@ -96,8 +108,6 @@ private:
 	QAction*						m_topoQueryAction;			// 拓扑信息查询
 	QAction*						m_intervalQueryAction;		// 间隔查询
 	QAction*						m_scadaLogQueryAction;		// scada日志查询
-	QAction*						m_eventQueryAction;			// 事件查询
-
 
 	QAction*						m_onAction;						// 置合操作
 	QAction*						m_offAction;					// 置分操作
