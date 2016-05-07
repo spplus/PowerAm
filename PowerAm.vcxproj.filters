@@ -46,6 +46,9 @@
     <ClCompile Include="graphicsview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="homewindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +109,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="graphicsview.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="homewindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
@@ -176,6 +182,12 @@
     <ClCompile Include="release\moc_graphicsview.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_homewindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_homewindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -223,9 +235,6 @@
     <None Include="images\cutquery.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\download.png">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="images\expand_normal.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -236,6 +245,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\hand.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\logo.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\model.png">
@@ -283,6 +295,9 @@
     <None Include="images\stationrela.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\unexpand_normal.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -290,6 +305,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\usermgr.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\welcome.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\zoom_original.png">

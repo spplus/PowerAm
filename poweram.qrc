@@ -26,7 +26,11 @@
         <file>images/expand_selected.png</file>
         <file>images/unexpand_normal.png</file>
         <file>images/unexpand_selected.png</file>
-		<file>images/bk.jpg</file>
-		<file>images/download.png</file>
+		    <file>images/bk.jpg</file>
+		    <file>images/logo.png</file>
+		    <file>images/title.png</file>
+		    <file>images/home.png</file>
+		    
+		
     </qresource>
 </RCC>

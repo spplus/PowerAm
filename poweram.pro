@@ -52,6 +52,7 @@ SOURCES += main.cpp\
     navdelegate.cpp \
     navmodel.cpp \
 	ftputil.cpp \
+	homewindow.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -77,6 +78,7 @@ HEADERS  += mainwindow.h \
     navdelegate.h \
     navmodel.h \
 	ftputil.h \
+	homewindow.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

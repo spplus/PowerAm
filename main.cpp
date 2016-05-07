@@ -7,6 +7,7 @@
 #include <QTranslator>
 #include "netclient.h"
 #include "ftputil.h"
+#include "homewindow.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,16 +18,19 @@ int main(int argc, char *argv[])
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("system"));
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("system"));
 
-    MainWindow w;
+	HomeWindow hw;
+	hw.show();
+
+    //MainWindow w;
 
 	// 建立业务层和网络层连接
-	QObject::connect(NetClient::instance(),SIGNAL(connected()),&w,SLOT(connected()));
+	/*QObject::connect(NetClient::instance(),SIGNAL(connected()),&w,SLOT(connected()));
 	QObject::connect(NetClient::instance(),SIGNAL(disconnected()),&w,SLOT(disconnected()));
 	QObject::connect(NetClient::instance(),SIGNAL(recvdata(int,const char*,int)),&w,SLOT(recvdata(int,const char*,int)));
-
+*/
 	a.setStyle(new QPlastiqueStyle);
 
-    w.show();
+   // w.show();
 
     return a.exec();
 }
