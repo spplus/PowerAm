@@ -29,6 +29,8 @@ private:
 	QWidget*	initMidWidget();
 	QWidget*	initRightWidet();
 	QWidget*	initRightTopWidget();
+	QWidget*	initRightBottomWidget();
+	QWidget*	initBottomWidget();
 private:
 
 	QScrollArea*	m_scrollArea;

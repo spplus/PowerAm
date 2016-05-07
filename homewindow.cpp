@@ -1,11 +1,12 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGridLayout>
 #include <QToolButton>
 #include <QWidget>
 #include <QListWidget>
+#include <QStatusBar>
 #include <QLabel>
-#include <QApplication>
-#include <QDesktopWidget>
+#include <QPushButton>
 #include <QPixmap>
 #include "homewindow.h"
 
@@ -40,19 +41,23 @@ void HomeWindow::initUi()
 	mainHbox->addLayout(midVbox);
 	mainHbox->addLayout(rightVbox,2);
 	
-	mainHbox->setMargin(0);
-	leftVbox->setMargin(0);
-	rightVbox->setMargin(0);
-	midVbox->setMargin(0);
+	QHBoxLayout* bottomHbox = new QHBoxLayout;
+	bottomHbox->addWidget(initBottomWidget());
+	//mainHbox->setMargin(0);
+	//leftVbox->setMargin(0);
+	//rightVbox->setMargin(0);
+	//midVbox->setMargin(0);
 	vmain->setMargin(0);
-	titleHbox->setMargin(0);
+	//titleHbox->setMargin(0);
 
 	vmain->addLayout(titleHbox);
 	vmain->addLayout(mainHbox,1);
+	vmain->addLayout(bottomHbox);
 
 	QWidget *centralWidget = new QWidget;
 	centralWidget->setLayout(vmain);
 	setCentralWidget(centralWidget);
+	this->showMaximized();
 }
 
 QWidget* HomeWindow::initTitleWidget()
@@ -114,10 +119,13 @@ QWidget* HomeWindow::initLeftWidget()
 	QWidget* leftWidget = new QWidget;
 	QVBoxLayout* vbox = new QVBoxLayout;
 	QListWidget* list = new QListWidget;
+	list->setFrameShape(QListWidget::NoFrame);
 	for (int i = 0;i<10;i++)
 	{
 		QListWidgetItem* item = new QListWidgetItem;
+		item->setSizeHint(QSize(100,40));
 		item->setText("测试测试");
+		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		list->addItem(item);
 	}
 	vbox->addWidget(list);
@@ -139,23 +147,41 @@ QWidget* HomeWindow::initMidWidget()
 
 	return midWidget;
 }
+QWidget* HomeWindow::initRightBottomWidget()
+{
+	QWidget* rightBottomWidget = new QWidget;
 
+	QGridLayout* gbox = new QGridLayout;
+
+	// 加载按钮
+	for (int i = 0;i<10;i++)
+	{
+		for (int j = 0;j<5;j++)
+		{
+			QPushButton* btn = new QPushButton("站点");
+			gbox->addWidget(btn,i,j,1,1);
+		}
+	}
+
+	rightBottomWidget->setLayout(gbox);
+
+	QScrollArea * scrollArea = new QScrollArea;
+	scrollArea->setWidget(rightBottomWidget);
+	scrollArea->setFrameShape(QScrollArea::NoFrame);
+
+	return scrollArea;
+}
 QWidget* HomeWindow::initRightWidet()
 {
 	QWidget* rightWidget = new QWidget;
 	QVBoxLayout* vbox = new QVBoxLayout;
 	QHBoxLayout* hbox1 = new QHBoxLayout;
+	QHBoxLayout* hbox2 = new QHBoxLayout;
 
 	hbox1->addWidget(initRightTopWidget());
-
-	QHBoxLayout* hbox2 = new QHBoxLayout;
-	
+	hbox2->addWidget(initRightBottomWidget());
 	vbox->addLayout(hbox1);
 	vbox->addLayout(hbox2,1);
-
-	hbox1->setMargin(0);
-	vbox->setMargin(0);
-
 	rightWidget->setLayout(vbox);
 	return rightWidget;
 }
@@ -175,6 +201,27 @@ QWidget* HomeWindow::initRightTopWidget()
 	rightTopWidget->setStyleSheet("background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2);");
 	rightTopWidget->setLayout(hbox1);
 	//hbox1->setMargin(0);
-
+	hbox1->setContentsMargins(10,5,0,5);
+	
 	return rightTopWidget;
+}
+
+QWidget* HomeWindow::initBottomWidget()
+{
+	QWidget* bottomWidget = new QWidget;
+	bottomWidget->setObjectName("bottom");
+	bottomWidget->setMaximumHeight(40);
+	QHBoxLayout*hbox = new QHBoxLayout;
+	QLabel* sysname = new QLabel;
+	sysname->setObjectName("sysname");
+	sysname->setText("调控一体化防误系统");
+	sysname->setStyleSheet("color:#006A6A;font-size:13px;");
+
+	hbox->addStretch();
+	hbox->addWidget(sysname);
+	hbox->addStretch();
+	hbox->setMargin(0);
+	bottomWidget->setStyleSheet("#bottom {background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2)}");
+	bottomWidget->setLayout(hbox);
+	return bottomWidget;
 }

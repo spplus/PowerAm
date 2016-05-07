@@ -51,14 +51,15 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PowerAm</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>"..\..\..\Qt\4.8.7\include\QtCore";"..\..\..\Qt\4.8.7\include\QtNetwork";"..\..\..\Qt\4.8.7\include\QtGui";"..\..\..\Qt\4.8.7\include\QtXml";"..\..\..\Qt\4.8.7\include\QtSvg";"..\..\..\Qt\4.8.7\include";"..\common";"d:\work\3rd\pbuff\include";"..\..\..\Qt\4.8.7\include\ActiveQt";"debug";..\..\..\Qt\4.8.7\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Qt\4.8.7\include\QtCore;..\..\..\Qt\4.8.7\include\QtNetwork;..\..\..\Qt\4.8.7\include\QtGui;..\..\..\Qt\4.8.7\include\QtXml;..\..\..\Qt\4.8.7\include\QtSvg;..\..\..\Qt\4.8.7\include;..\common;$(PB_ROOT)\include;..\..\..\Qt\4.8.7\include\ActiveQt;debug;..\..\..\Qt\4.8.7\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>debug\</ObjectFileName>
       <Optimization>Disabled</Optimization>
@@ -70,10 +71,11 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libprotobufd.lib;f:\Qt\4.8.7\lib\QtSvgd4.lib;f:\Qt\4.8.7\lib\QtXmld4.lib;f:\Qt\4.8.7\lib\QtGuid4.lib;f:\Qt\4.8.7\lib\QtNetworkd4.lib;f:\Qt\4.8.7\lib\QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>f:\Qt\4.8.7\lib;D:\work\3rd\pbuff/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobufd.lib;QtSvgd4.lib;QtXmld4.lib;QtGuid4.lib;QtNetworkd4.lib;QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)/lib;$(PB_ROOT)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>

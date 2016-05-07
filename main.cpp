@@ -18,6 +18,11 @@ int main(int argc, char *argv[])
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("system"));
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("system"));
 
+	QFile qss("style.qss");
+	qss.open(QFile::ReadOnly);
+	a.setStyleSheet(qss.readAll());
+	qss.close();
+
 	HomeWindow hw;
 	hw.show();
 
