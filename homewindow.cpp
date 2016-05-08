@@ -39,7 +39,7 @@ void HomeWindow::initUi()
 	rightVbox->addWidget(initRightWidet());
 	mainHbox->addLayout(leftVbox);
 	mainHbox->addLayout(midVbox);
-	mainHbox->addLayout(rightVbox,2);
+	mainHbox->addLayout(rightVbox,1);
 	
 	QHBoxLayout* bottomHbox = new QHBoxLayout;
 	bottomHbox->addWidget(initBottomWidget());
@@ -119,12 +119,15 @@ QWidget* HomeWindow::initLeftWidget()
 	QWidget* leftWidget = new QWidget;
 	QVBoxLayout* vbox = new QVBoxLayout;
 	QListWidget* list = new QListWidget;
+	list->setSpacing(2);
+	
 	list->setFrameShape(QListWidget::NoFrame);
 	for (int i = 0;i<10;i++)
 	{
 		QListWidgetItem* item = new QListWidgetItem;
-		item->setSizeHint(QSize(100,40));
+
 		item->setText("²âÊÔ²âÊÔ");
+		
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		list->addItem(item);
 	}
@@ -194,14 +197,14 @@ QWidget* HomeWindow::initRightTopWidget()
 	home->setPixmap(QPixmap(":images/home.png"));
 	QLabel* nav = new QLabel;
 	nav->setText("Ê×Ò³>°Á³ÇÕ¾");
-	hbox1->addWidget(home);
+	hbox1->addSpacing(40);
 	hbox1->addWidget(nav);
 	hbox1->addStretch();
 
-	rightTopWidget->setStyleSheet("background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2);");
+	rightTopWidget->setStyleSheet("background:url(:images/righttop.png);");
 	rightTopWidget->setLayout(hbox1);
 	//hbox1->setMargin(0);
-	hbox1->setContentsMargins(10,5,0,5);
+	//hbox1->setContentsMargins(10,5,0,5);
 	
 	return rightTopWidget;
 }
@@ -210,7 +213,7 @@ QWidget* HomeWindow::initBottomWidget()
 {
 	QWidget* bottomWidget = new QWidget;
 	bottomWidget->setObjectName("bottom");
-	bottomWidget->setMaximumHeight(40);
+	//bottomWidget->setMaximumHeight(70);
 	QHBoxLayout*hbox = new QHBoxLayout;
 	QLabel* sysname = new QLabel;
 	sysname->setObjectName("sysname");
@@ -220,8 +223,9 @@ QWidget* HomeWindow::initBottomWidget()
 	hbox->addStretch();
 	hbox->addWidget(sysname);
 	hbox->addStretch();
-	hbox->setMargin(0);
-	bottomWidget->setStyleSheet("#bottom {background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2)}");
+	hbox->setContentsMargins(0,5,0,5);
+	//bottomWidget->setStyleSheet("#bottom {background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2)}");
+	bottomWidget->setStyleSheet("#bottom {background:url(:images/bottom.png);}");
 	bottomWidget->setLayout(hbox);
 	return bottomWidget;
 }

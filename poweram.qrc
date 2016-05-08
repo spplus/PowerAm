@@ -26,11 +26,14 @@
         <file>images/expand_selected.png</file>
         <file>images/unexpand_normal.png</file>
         <file>images/unexpand_selected.png</file>
-		    <file>images/bk.jpg</file>
-		    <file>images/logo.png</file>
-		    <file>images/title.png</file>
-		    <file>images/home.png</file>
-		    
-		
+        <file>images/bk.jpg</file>
+        <file>images/logo.png</file>
+        <file>images/title.png</file>
+        <file>images/home.png</file>
+        <file>images/item.png</file>
+        <file>images/item-hover.png</file>
+        <file>images/bottom.png</file>
+        <file>images/leftbk.png</file>
+        <file>images/righttop.png</file>
     </qresource>
 </RCC>
