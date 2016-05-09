@@ -24,7 +24,7 @@ private slots:
 	void	currentItemChange(QListWidgetItem * current, QListWidgetItem * previous);
 
 signals:
-	void	loadStations(int stationType);
+	void	loadStations(int stationType,QString typeName);
 private:
 	void initUi();
 

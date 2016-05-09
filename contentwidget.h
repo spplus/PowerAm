@@ -21,19 +21,20 @@ public:
 signals:
 	
 	// 打开图形
-	void	openfile(QString fname);
+	void	openfile(QString fname,QString sname);
 
 public slots:
 	
 	// 加载站点
-	void	loadData();
+	void	loadData(int row=5,int col=4);
 
-private:
-	void	initUi();
+	// 按钮触发事件
+	void	btnPressed();
 	
 private:
+	
 	QGridLayout*	m_gbox;
-
+	QWidget*		m_widget;
 };
 
 #endif

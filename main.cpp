@@ -23,16 +23,9 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(qss.readAll());
 	qss.close();
 
-	HomeWindow hw;
-	hw.show();
+	//MainWindow w;
+	HomeWindow::instance()->show();
 
-    //MainWindow w;
-
-	// 建立业务层和网络层连接
-	/*QObject::connect(NetClient::instance(),SIGNAL(connected()),&w,SLOT(connected()));
-	QObject::connect(NetClient::instance(),SIGNAL(disconnected()),&w,SLOT(disconnected()));
-	QObject::connect(NetClient::instance(),SIGNAL(recvdata(int,const char*,int)),&w,SLOT(recvdata(int,const char*,int)));
-*/
 	a.setStyle(new QPlastiqueStyle);
 
    // w.show();

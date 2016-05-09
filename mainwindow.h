@@ -19,24 +19,21 @@
 #include "navview.h"
 #include "ftputil.h"
 
-//定义配置文件路径的常量D:\work\qt\PowerAm_1604241106\conf
-static QString PAMCFGINI = "D:\\work\\qt\\PowerAm_1604241106\\conf\\PAMConfig.ini";
-
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+   static MainWindow* instance();
 
-	static MainWindow * m_self;
+    ~MainWindow();
 
 public:
 	void		addContextMenuAction(eDeviceType type);
 
 public slots:
+	void		goHome();
     void		openFile();
 	void		setViewModel();
 	void		openFile(QString fname);
@@ -53,6 +50,8 @@ public slots:
 	void		recvdata(int msgtype,const char* msg,int msglength);
 
 private:
+
+	 MainWindow(QWidget *parent = 0);
 	void		initWidget();
 	void		initToolBar();
 	void		initActions();
@@ -62,8 +61,10 @@ private:
 
 	//初始化网络连接
 	void	initNet();
+
 	//读取连接服务器IP和端口
 	bool	readIpPort();
+
 	//关闭响应事件
 	void closeEvent(QCloseEvent *event);
 
@@ -119,30 +120,30 @@ private:
 	QAction*						m_downSvg;						// 下载svg文件
 
 	//状态栏标签
-	QLabel*				m_pConnLabel;
+	QLabel*						m_pConnLabel;
 
 	//连接端口号
-	QString m_Port;
+	QString						m_Port;
 	//连接IP地址
-	QString m_IP;
+	QString						m_IP;
 
 	//检测与服务器端连接情况的定时器
-	QTimer*		pTimer;
+	QTimer*						pTimer;
 
 	//客户端连接服务器标志
-	bool bNetflag;
+	bool								bNetflag;
 
 	//客户端连接对象
-	NetClient*		m_pNetClient;
+	NetClient*				m_pNetClient;
 
-	FtpUtil					m_ftpUtil;
+	FtpUtil						m_ftpUtil;
 	NavView*				m_navview;
 	QString					m_title;
     QSplitter*				m_spliter;
 	GraphicsScene*			m_sence;
     GraphicsView*			m_view;
 
-
+	static		MainWindow*		m_inst;
 };
 
 #endif // MAINWINDOW_H

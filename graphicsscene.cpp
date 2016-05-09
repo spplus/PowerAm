@@ -96,7 +96,7 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 		if (item1 != NULL)
 		{
 			// 根据类型，创建菜单项
-			MainWindow::m_self->addContextMenuAction(item1->getType());
+			MainWindow::instance()->addContextMenuAction(item1->getType());
 			
 
 			// 保存当前选中的item；

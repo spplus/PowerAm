@@ -12,7 +12,7 @@
 #include <QDomDocument>
 #include <QCoreApplication>
 #include <QTextCodec>
-
+#include "homewindow.h"
 #include "navmodel.h"
 #include "navdelegate.h"
 #include "textitem.h"
@@ -20,12 +20,21 @@
 #include "include/commands.h"
 
 using namespace std;
-MainWindow * MainWindow::m_self = 0;
+MainWindow * MainWindow::m_inst = NULL;
+
+MainWindow* MainWindow::instance()
+{
+	if (m_inst == NULL)
+	{
+		m_inst = new MainWindow;
+	}
+	return m_inst;
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-	m_self = this;
+	
 	m_title = "电力访误系统";
 	initWidget();
 	initToolBar();
@@ -198,6 +207,7 @@ void MainWindow::initActions()
 	// 1 指针 2 手掌
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
 
+	connect(m_homeAction,SIGNAL(triggered()),this,SLOT(goHome()));
 	connect(m_openAction,SIGNAL(triggered()),this,SLOT(openFile()));
 	connect(m_zinAction,SIGNAL(triggered()),m_view,SLOT(zoomIn()));
 	connect(m_zoutAction,SIGNAL(triggered()),m_view,SLOT(zoomOut()));
@@ -215,6 +225,12 @@ MainWindow::~MainWindow()
 {
 	pTimer->stop();
 	NetClient::instance()->close();
+}
+
+void MainWindow::goHome()
+{
+	this->hide();
+	HomeWindow::instance()->show();
 }
 
 void MainWindow::openFile()

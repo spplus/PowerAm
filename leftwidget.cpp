@@ -30,7 +30,7 @@ void LeftWidget::loadData()
 	{
 		QListWidgetItem* item = new QListWidgetItem;
 
-		item->setText("测试测试");
+		item->setText(tr("测试测试 %1").arg(i+1));
 
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		m_list->addItem(item);
@@ -41,5 +41,6 @@ void LeftWidget::currentItemChange(QListWidgetItem * current, QListWidgetItem * 
 {
 	// 获取当前选中的站点类型
 	int id = current->data(Qt::UserRole).toInt();
-	emit loadStations(id);
+	QString tname = current->text();
+	emit loadStations(id,tname);
 }

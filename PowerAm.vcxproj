@@ -51,6 +51,7 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PowerAm</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -70,6 +71,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libprotobufd.lib;f:\Qt\4.8.7\lib\QtSvgd4.lib;f:\Qt\4.8.7\lib\QtXmld4.lib;f:\Qt\4.8.7\lib\QtGuid4.lib;f:\Qt\4.8.7\lib\QtNetworkd4.lib;f:\Qt\4.8.7\lib\QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -147,6 +149,7 @@
     <ClCompile Include="navmodel.cpp" />
     <ClCompile Include="navview.cpp" />
     <ClCompile Include="netclient.cpp" />
+    <ClCompile Include="righttopwidget.cpp" />
     <ClCompile Include="svggraph.cpp" />
     <ClCompile Include="svgitem.cpp" />
     <ClCompile Include="svgparser.cpp" />
@@ -359,6 +362,7 @@ if errorlevel 1 goto VCEnd
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC netclient.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_netclient.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="righttopwidget.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="svggraph.h" />
     <ClInclude Include="svgitem.h" />

@@ -15,12 +15,14 @@
 #include "titlewidget.h"
 #include "leftwidget.h"
 #include "contentwidget.h"
+#include "righttopwidget.h"
 
 class HomeWindow	:public QMainWindow
 {
 	 Q_OBJECT
 public:
-	explicit HomeWindow(QWidget *parent = 0);
+	static HomeWindow* instance();
+
 	~HomeWindow();
 
 public slots:
@@ -28,17 +30,17 @@ public slots:
 	void	logout();
 
 	// 根据站点类别加载站点
-	void	loadStationsById(int id);
+	void	loadStationsById(int id,QString tname);
 
+	// 打开图形文件
+	void	openFile(QString fname,QString sname);
 private:
-
+	 HomeWindow(QWidget *parent = 0);
 	void		initUi();
-	QWidget*	initTitleWidget();
-	QWidget*	initLeftWidget();
+
 	QWidget*	initMidWidget();
 	QWidget*	initRightWidet();
-	QWidget*	initRightTopWidget();
-	QWidget*	initRightBottomWidget();
+
 	QWidget*	initBottomWidget();
 
 	// 初始化信号槽
@@ -47,11 +49,11 @@ private:
 	// 加载数据
 	void		loadData();
 private:
-
+	static HomeWindow*	m_inst;
 	LeftWidget*		m_leftWidget;
 	TitleWidget*	m_titleWidget;
 	ContentWidget*	m_contentWidget;
-	QScrollArea*	m_scrollArea;
+	RightTopWidget*	m_rightTopWidget;
 };
 
 #endif
