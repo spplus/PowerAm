@@ -15,6 +15,8 @@ HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
 {
 	initUi();
+
+	loadData();
 }
 
 HomeWindow::~HomeWindow()
@@ -26,11 +28,14 @@ void HomeWindow::initUi()
 {
 	QVBoxLayout* vmain = new QVBoxLayout;
 	QHBoxLayout* titleHbox = new QHBoxLayout;
-	titleHbox->addWidget(initTitleWidget());
+	m_titleWidget = new TitleWidget("管理员");
+	
+	titleHbox->addWidget(m_titleWidget);
 
 	QHBoxLayout* mainHbox = new QHBoxLayout;
 	QVBoxLayout* leftVbox = new QVBoxLayout;
-	leftVbox->addWidget(initLeftWidget());
+	m_leftWidget = new LeftWidget;
+	leftVbox->addWidget(m_leftWidget);
 
 	QVBoxLayout* midVbox = new QVBoxLayout;
 	midVbox->addWidget(initMidWidget());
@@ -60,9 +65,33 @@ void HomeWindow::initUi()
 	this->showMaximized();
 }
 
+void HomeWindow::loadData()
+{
+	m_leftWidget->loadData();
+	m_contentWidget->loadData();
+}
+
+void HomeWindow::initConnections()
+{
+	connect(m_leftWidget,SIGNAL(loadStations(int)),this,SLOT(loadStationsById(int)));
+	connect(m_titleWidget,SIGNAL(logout()),this,SLOT(logout()));
+}
+
+void HomeWindow::logout()
+{
+
+}
+
+void HomeWindow::loadStationsById(int id)
+{
+
+}
+
 QWidget* HomeWindow::initTitleWidget()
 {
-	QWidget* titleWidget = new QWidget;
+	QWidget* titleWidget = new TitleWidget("管理员");
+
+	/*
 
 	titleWidget->setObjectName("title");
 	titleWidget->setStyleSheet("#title { border-image: url(:/images/title.png); }#title * { border-image:url(); } ");
@@ -79,6 +108,7 @@ QWidget* HomeWindow::initTitleWidget()
 	QLabel* puser = new QLabel;
 	puser->setText("管理员");
 	puser->setStyleSheet("color:yellow");
+	
 	QToolButton* logout= new QToolButton;
 	logout->setAutoRaise(true);
 	
@@ -93,6 +123,7 @@ QWidget* HomeWindow::initTitleWidget()
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 
 	QLabel *title = new QLabel;
+	title->setObjectName("titleText");
 	title->setText("调控一体化系统");
 	title->setStyleSheet("font-size:30px;color:white;font-family:微软雅黑,宋体;font-weight:bold;");
 
@@ -109,10 +140,9 @@ QWidget* HomeWindow::initTitleWidget()
 	vbox->addLayout(hbox);
 
 	titleWidget->setLayout(vbox);
-
+	*/
 	return titleWidget;
 }
-
 
 QWidget* HomeWindow::initLeftWidget()
 {
@@ -165,7 +195,7 @@ QWidget* HomeWindow::initRightBottomWidget()
 			gbox->addWidget(btn,i,j,1,1);
 		}
 	}
-
+	
 	rightBottomWidget->setLayout(gbox);
 
 	QScrollArea * scrollArea = new QScrollArea;
@@ -180,9 +210,9 @@ QWidget* HomeWindow::initRightWidet()
 	QVBoxLayout* vbox = new QVBoxLayout;
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 	QHBoxLayout* hbox2 = new QHBoxLayout;
-
+	m_contentWidget = new ContentWidget;
 	hbox1->addWidget(initRightTopWidget());
-	hbox2->addWidget(initRightBottomWidget());
+	hbox2->addWidget(m_contentWidget);
 	vbox->addLayout(hbox1);
 	vbox->addLayout(hbox2,1);
 	rightWidget->setLayout(vbox);
@@ -196,7 +226,7 @@ QWidget* HomeWindow::initRightTopWidget()
 	QLabel* home = new QLabel;
 	home->setPixmap(QPixmap(":images/home.png"));
 	QLabel* nav = new QLabel;
-	nav->setText("首页>傲城站");
+	nav->setText("首页 > 傲城站");
 	hbox1->addSpacing(40);
 	hbox1->addWidget(nav);
 	hbox1->addStretch();

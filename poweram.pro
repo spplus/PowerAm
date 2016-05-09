@@ -53,6 +53,9 @@ SOURCES += main.cpp\
     navmodel.cpp \
 	ftputil.cpp \
 	homewindow.cpp \
+	titlewidget.cpp \
+	leftwidget.cpp \
+	contentwidget.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -79,6 +82,9 @@ HEADERS  += mainwindow.h \
     navmodel.h \
 	ftputil.h \
 	homewindow.h \
+	titlewidget.h \
+	leftwidget.h \
+	contentwidget.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 
