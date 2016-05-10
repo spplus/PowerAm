@@ -1,4 +1,5 @@
 #include "titlewidget.h"
+#include "comutil.h"
 
 TitleWidget::TitleWidget(QString username,QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
@@ -47,7 +48,7 @@ void TitleWidget::initUi()
 
 	QLabel *title = new QLabel;
 	title->setObjectName("titleText");
-	title->setText("调控一体化系统");
+	title->setText(ComUtil::instance()->getSysName());
 	title->setStyleSheet("font-size:30px;color:white;font-family:微软雅黑,宋体;font-weight:bold;");
 
 	QLabel* logo = new QLabel;

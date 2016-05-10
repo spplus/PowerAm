@@ -35,13 +35,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
 	
-	m_title = "电力访误系统";
+	m_title = ComUtil::instance()->getSysName();
 	initWidget();
 	initToolBar();
 	initMenu();
 	initStatusBar();
+
 	//初始化网络连接
-	initNet();
+	//initNet();
 
 	setWindowTitle(m_title);
 }
@@ -224,7 +225,7 @@ void MainWindow::initActions()
 MainWindow::~MainWindow()
 {
 	pTimer->stop();
-	NetClient::instance()->close();
+	//NetClient::instance()->close();
 }
 
 void MainWindow::goHome()

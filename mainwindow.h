@@ -12,7 +12,7 @@
 #include <Qtimer>
 #include <QtGui>
 #include "netclient.h"
-
+#include "comutil.h"
 #include "svgrenderer.h"
 #include "graphicsscene.h"
 #include "graphicsview.h"
@@ -66,7 +66,7 @@ private:
 	bool	readIpPort();
 
 	//关闭响应事件
-	void closeEvent(QCloseEvent *event);
+	void	closeEvent(QCloseEvent *event);
 
 private:
 	QMenu*						m_sysMenu;

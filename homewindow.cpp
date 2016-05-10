@@ -156,7 +156,7 @@ QWidget* HomeWindow::initBottomWidget()
 	QHBoxLayout*hbox = new QHBoxLayout;
 	QLabel* sysname = new QLabel;
 	sysname->setObjectName("sysname");
-	sysname->setText("调控一体化防误系统");
+	sysname->setText(ComUtil::instance()->getSysName());
 	sysname->setStyleSheet("color:#006A6A;font-size:13px;");
 
 	hbox->addStretch();

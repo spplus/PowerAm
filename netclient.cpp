@@ -1,15 +1,24 @@
+
+#include <QSettings>
+#include <QCoreApplication>
+#include <QMessageBox>
 #include "netclient.h"
+#include "mainwindow.h"
+#include "homewindow.h"
+#include "msgrouter.h"
 
 NetClient* NetClient::m_inst = NULL;
 
 NetClient::NetClient()
 {
 	m_pTcpScoket = new QTcpSocket(this);
+
 	//客户端连接信号
-	connect(m_pTcpScoket,SIGNAL(connected()),this,SIGNAL(connected()));
-	//connect(m_pTcpScoket,SIGNAL(connected()),this,SLOT(testconn()));
+	connect(m_pTcpScoket,SIGNAL(connected()),this,SLOT(connectOpen()));
+
 	//客户端断开信号
-	connect(m_pTcpScoket,SIGNAL(disconnected()),this,SIGNAL(disconnected()));
+	connect(m_pTcpScoket,SIGNAL(disconnected()),this,SLOT(connectLost()));
+
 	//客户端接收服务器端的数据响应
 	connect(m_pTcpScoket,SIGNAL(readyRead()),this,SLOT(readMessage()));
 
@@ -25,14 +34,75 @@ NetClient* NetClient::instance()
 	return m_inst;
 }
 
+bool NetClient::init()
+{
+	QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
+	syncini.setIniCodec("UTF8");
+	QString strIP = syncini.value("NETCLIENT/IP").toString();
+	QString strPort = syncini.value("NETCLIENT/PORT").toString();
 
+	//赋值
+	m_IP = strIP;
+	m_Port = strPort;
+
+	//判断读取INI配置文件是否正确
+	if(m_IP=="" || m_Port=="")
+	{
+		QMessageBox::information(NULL,tr("读取配置文件提示:"),tr("请检查配置文件内容是否正确或文件是否存在!"));
+		return false;
+	}
+
+	//建立网络连接类与当前类的信号与槽的关系
+	connect(this,SIGNAL(recvdata(int,const char* ,int)),MsgRouter::instance(),SLOT(recvdata(int,const char* ,int)));
+
+	//定时器
+	m_pTimer = new QTimer(this);
+	connect(m_pTimer,SIGNAL(timeout()),this,SLOT(checkConnect()));
+
+	//连接指定IP和端口的服务器
+	m_netflag = connectToServer(m_IP,m_Port.toUInt());
+
+	if (!m_netflag)
+	{
+		m_pTimer->start();
+	}
+	return m_netflag;
+}
+
+void NetClient::checkConnect()
+{
+	//定时检测连接服务端是否正常，不正常进行重连
+	if(!m_netflag)
+	{
+		//重新连接指定IP和端口的服务器
+		m_netflag =connectToServer(m_IP,m_Port.toUInt());
+	}
+}
+
+void NetClient::connectOpen()
+{
+	m_netflag = true;
+	m_pTimer->stop();
+
+	// 发送连接建立消息
+	emit recvdata(CMD_CONNECTED,0,0);
+}
+
+void NetClient::connectLost()
+{
+	m_netflag = false;
+	m_pTimer->start();
+	emit recvdata(CMD_DISCONNECTED,0,0);
+}
 bool NetClient::connectToServer(const QString srvName,quint16 port)
 {
 	
 	//取消已有的连接
 	m_pTcpScoket->abort();
+
 	//连接服务器
 	m_pTcpScoket->connectToHost(srvName,port);
+
 	//等待客户端是否真正连上服务端
 	if(!m_pTcpScoket->waitForConnected(1000))
 	{
@@ -44,11 +114,7 @@ bool NetClient::connectToServer(const QString srvName,quint16 port)
 
 }
 
-void NetClient::testconn()
-{
-	qDebug("==================testconn=====================");
 
-}
 
 void NetClient::close()
 {

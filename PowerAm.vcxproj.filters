@@ -67,6 +67,9 @@
     <ClCompile Include="..\common\buff\msgbody.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="msgrouter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="navdelegate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -77,6 +80,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="netclient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="righttopwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="svggraph.cpp">
@@ -97,7 +103,7 @@
     <ClCompile Include="titlewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="righttopwidget.cpp">
+    <ClCompile Include="comutil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -141,6 +147,9 @@
     <ClInclude Include="..\common\buff\msgbody.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="msgrouter.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="navdelegate.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -153,6 +162,9 @@
     <CustomBuild Include="netclient.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="righttopwidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="structs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -183,7 +195,7 @@
     <ClInclude Include="transformer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="righttopwidget.h">
+    <ClInclude Include="comutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -228,6 +240,12 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_mainwindow.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_msgrouter.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_msgrouter.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_navdelegate.cpp">

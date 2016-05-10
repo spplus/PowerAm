@@ -24,7 +24,11 @@ class NetClient :public QObject
 	Q_OBJECT
 public:
 
+	// 获取对象
 	static NetClient* instance();
+
+	// 初始化网络
+	bool	init();
 
 	// 连接服务器
 	bool	connectToServer(const QString srvName,quint16 port);
@@ -49,20 +53,25 @@ signals:
 	// 接收数据完成，向应用层传递
 	void	recvdata(int msgtype,const char* msg,int msglength);
 
-	void	testrec(int msgtype);
-
 public slots:
-	void testconn();
+
+	// 连接建立
+	void		connectOpen();
+
+	// 连接断开
+	void		connectLost();
+
 	//接收服务器数据
-	void readMessage();
+	void		readMessage();
+
+	//监测与服务器的连接
+	void		checkConnect();
 
 private:
 	// 打包
-	//char*	pack(const char* msg,const int msgtype,const int msglength);
 	QByteArray	pack(const char* msg,const int msgtype,const int msglength);
 
 	// 解包 
-	//char*	unpack(const char* msg,const int msglength,int &msgtype);
 	QByteArray  unpack(QByteArray qByte,int &msgtype,int recvlen);
 
 
@@ -71,6 +80,18 @@ private:
 
 	//Socket对象
 	QTcpSocket*		m_pTcpScoket;
+
+	//连接端口号
+	QString			m_Port;
+
+	//连接IP地址
+	QString			m_IP;
+
+	//检测与服务器端连接情况的定时器
+	QTimer*			m_pTimer;
+
+	//客户端连接服务器标志
+	bool			m_netflag;
 };
 
 #endif

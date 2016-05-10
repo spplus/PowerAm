@@ -2,11 +2,7 @@
 #include <QApplication>
 #include <QTextCodec>
 #include <QPlastiqueStyle>
-#include <qdir.h>
-#include <QObject>
-#include <QTranslator>
 #include "netclient.h"
-#include "ftputil.h"
 #include "homewindow.h"
 
 int main(int argc, char *argv[])
@@ -23,7 +19,13 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(qss.readAll());
 	qss.close();
 
-	//MainWindow w;
+	// 初始化网络连接
+	if(!NetClient::instance()->init())
+	{
+		QMessageBox::warning(NULL,"系统提示","连接服务器失败");
+		return -1;
+	}
+
 	HomeWindow::instance()->show();
 
 	a.setStyle(new QPlastiqueStyle);
