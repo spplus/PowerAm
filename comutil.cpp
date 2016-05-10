@@ -1,4 +1,4 @@
-
+#include <QTextCodec>
 #include <QCoreApplication>
 #include <QSettings>
 #include "comutil.h"
@@ -23,6 +23,8 @@ QString ComUtil::getSysName()
 {
 	QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
 	syncini.setIniCodec("UTF8");
+	syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
+
 	return syncini.value("AM/SysName").toString();
 }
 
