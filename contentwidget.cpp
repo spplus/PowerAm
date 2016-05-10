@@ -40,6 +40,7 @@ void ContentWidget::loadData(int row,int col)
 		for (int j = 0;j<col;j++)
 		{
 			QPushButton* btn = new QPushButton(tr("站点%1").arg((i+1)*(j+1)));
+			btn->setObjectName("station");
 			// 设置文件名称
 			btn->setProperty("fname",QVariant(i*j));
 			btn->setProperty("sname",btn->text());
