@@ -37,7 +37,18 @@ void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 		item->setData(Qt::UserRole,bean.id());
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		m_list->addItem(item);
+		ComUtil::instance()->saveStationType(makeNode(bean,0));
+		
 	}
+}
+
+TreeNode* LeftWidget::makeNode(PBNS::StationTypeBean & bean,int count)
+{
+	TreeNode* node = new TreeNode;
+	node->nodeId = bean.id();
+	node->count = count;
+	node->label = bean.name().c_str();
+	return node;
 }
 
 void LeftWidget::currentItemChange(QListWidgetItem * current, QListWidgetItem * previous)

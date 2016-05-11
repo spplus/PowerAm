@@ -17,6 +17,7 @@
 #include "graphicsscene.h"
 #include "graphicsview.h"
 #include "navview.h"
+#include "navmodel.h"
 #include "ftputil.h"
 
 
@@ -31,7 +32,7 @@ public:
 
 public:
 	void		addContextMenuAction(eDeviceType type);
-
+	void		showWnd();
 public slots:
 	void		goHome();
     void		openFile();
@@ -39,12 +40,6 @@ public slots:
 	void		openFile(QString fname);
 	void		showDownSvg();
 
-	// 连接服务器成功
-	void		connected();
-	void		disconnected();
-
-	//监测与服务器的连接
-	void		checkConnect();
 
 	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
@@ -58,12 +53,7 @@ private:
 	void		initMenu();
 	void		initStatusBar();
 	void		initNavView();
-
-	//初始化网络连接
-	void	initNet();
-
-	//读取连接服务器IP和端口
-	bool	readIpPort();
+	void		updateModel();
 
 	//关闭响应事件
 	void	closeEvent(QCloseEvent *event);
@@ -122,22 +112,10 @@ private:
 	//状态栏标签
 	QLabel*						m_pConnLabel;
 
-	//连接端口号
-	QString						m_Port;
-	//连接IP地址
-	QString						m_IP;
-
-	//检测与服务器端连接情况的定时器
-	QTimer*						pTimer;
-
-	//客户端连接服务器标志
-	bool								bNetflag;
-
-	//客户端连接对象
-	NetClient*				m_pNetClient;
 
 	FtpUtil						m_ftpUtil;
 	NavView*				m_navview;
+	NavModel*				m_model;
 	QString					m_title;
     QSplitter*				m_spliter;
 	GraphicsScene*			m_sence;

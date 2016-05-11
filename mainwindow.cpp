@@ -16,6 +16,7 @@
 #include "navmodel.h"
 #include "navdelegate.h"
 #include "textitem.h"
+#include "comutil.h"
 #include "buff/msgbody.pb.h"
 #include "include/commands.h"
 
@@ -72,14 +73,20 @@ void MainWindow::initWidget()
 void MainWindow::initNavView()
 {
 	m_navview = new NavView(this);
-	NavModel* model = new NavModel(this);
-	model->ReadDataFromConfig(QCoreApplication::applicationDirPath() + "/config.xml");
+	m_model = new NavModel(this);
+	//model->ReadDataFromConfig(QCoreApplication::applicationDirPath() + "/config.xml");
+	m_model->setData(ComUtil::instance()->getStationList());
 	NavDelegate* delegate = new NavDelegate(this);
-	m_navview->setModel(model);
+	m_navview->setModel(m_model);
 	m_navview->setItemDelegate(delegate);
-	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), model, SLOT(Collapse(const QModelIndex&)));
-	connect(model,SIGNAL(openFile(QString)),this,SLOT(openFile(QString)));
+	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), m_model, SLOT(Collapse(const QModelIndex&)));
+	connect(m_model,SIGNAL(openFile(QString)),this,SLOT(openFile(QString)));
 
+}
+
+void MainWindow::updateModel()
+{
+	m_model->setData(ComUtil::instance()->getStationList());
 }
 
 void MainWindow::initToolBar()
@@ -220,8 +227,13 @@ void MainWindow::initActions()
 
 MainWindow::~MainWindow()
 {
-	pTimer->stop();
-	//NetClient::instance()->close();
+	
+}
+
+void MainWindow::showWnd()
+{
+	show();
+	updateModel();
 }
 
 void MainWindow::goHome()
@@ -308,100 +320,6 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	}
 
 }
-//初始化网络
-void MainWindow::initNet()
-{
-	//读取配置文件信息
-	if(!readIpPort())
-	{
-		QMessageBox::information(this,tr("读取配置文件提示:"),tr("请检查配置文件内容是否正确或文件是否存在!"));
-		//return;
-	}
-
-	//建立网络连接类与当前类的信号与槽的关系
-	connect(NetClient::instance(),SIGNAL(connected()),this,SLOT(connected()));
-	connect(NetClient::instance(),SIGNAL(disconnected()),this,SLOT(disconnected()));
-
-	connect(NetClient::instance(),SIGNAL(recvdata(int,const char* ,int)),this,SLOT(recvdata(int,const char* ,int)));
-
-	//定时器
-	pTimer = new QTimer(this);
-	connect(pTimer,SIGNAL(timeout()),this,SLOT(checkConnect()));
-
-	//连接指定IP和端口的服务器
-	bNetflag = NetClient::instance()->connectToServer(m_IP,m_Port.toUInt());
-
-	//当客户端连接上启动定时器
-	//pTimer->start(5000);
-
-}
-
-//读取连接服务器IP和端口
-bool MainWindow::readIpPort()
-{
-	//从指定的路径下读取INI文件对应节点信息:连接IP和指定端口
-	QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
-	QString strIP = syncini.value("NETCLIENT/IP").toString();
-	QString strPort = syncini.value("NETCLIENT/PORT").toString();
-
-	//赋值
-	m_IP = strIP;
-	m_Port = strPort;
-
-	//判断读取INI配置文件是否正确
-	if(m_IP=="" || m_Port=="")
-	{
-		QString warning = "================= 请检查配置文件内容是否正确或文件是否存在! ===================!";
-		qWarning(warning.toLatin1().data());
-
-		return false;
-	}
-
-	return true;
-}
-
-void MainWindow::checkConnect()
-{
-	qDebug()<<"============检查与服务器连接============";
-
-	//定时检测连接服务端是否正常，不正常进行重连
-	if(!bNetflag)
-	{
-		QPalette pe;
-		pe.setColor(QPalette::WindowText,Qt::red);
-		m_pConnLabel->setPalette(pe);
-		m_pConnLabel->setText(tr("通信状态:%1连接失败").arg(m_IP));
-
-		//重新连接指定IP和端口的服务器
-		bNetflag = NetClient::instance()->connectToServer(m_IP,m_Port.toUInt());
-	}
-
-	return;
-}
-
-void MainWindow::connected()
-{
-	bNetflag = true;
-	QPalette pa;
-	pa.setColor(QPalette::WindowText,Qt::green);
-	m_pConnLabel->setPalette(pa);
-	m_pConnLabel->setText(tr("通信状态:%1连接成功").arg(m_IP));
-
-	pTimer->stop();
-}
-
-void MainWindow::disconnected()
-{
-	pTimer->start(1);
-
-	bNetflag = false;
-	QPalette pe;
-	pe.setColor(QPalette::WindowText,Qt::red);
-	m_pConnLabel->setPalette(pe);
-	m_pConnLabel->setText(tr("通信状态:%1连接失败").arg(m_IP));
-
-}
-
 
 //关闭响应事件
 void MainWindow::closeEvent(QCloseEvent *event)

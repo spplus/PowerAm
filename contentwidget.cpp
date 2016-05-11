@@ -37,13 +37,24 @@ void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 	m_widget->setLayout(m_gbox);
 
 	int idx = 0;
-
-	// 加载按钮
-	for (int i = 0;i<res.stationlist_size();i++)
+	int count =res.stationlist_size();
+	int row = count/COL;
+	if (count%COL>0)
 	{
-		for (int j = 0;j<COL;j++)
+		row++;
+	}
+	// 加载按钮
+
+	for (int i = 1;i<=row;i++)
+	{
+		for (int j = 1;j<=COL;j++)
 		{
-			idx = (i+1)*(j+1);
+			
+			if (idx>= count)
+			{
+				break;
+			}
+
 			PBNS::StationBean bean = res.stationlist(idx);
 
 			QPushButton* btn = new QPushButton(bean.currentname().c_str());
@@ -54,10 +65,26 @@ void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 			btn->setProperty("sname",btn->text());
 			m_gbox->addWidget(btn,i,j,1,1);
 			connect(btn,SIGNAL(pressed()),this,SLOT(btnPressed()));
+
+			idx++;
+
+			// 保持node
+			ComUtil::instance()->saveStationList(makeNode(bean,idx==count?true:false),bean.categoryid());
 		}
 	}
 
 	setWidget(m_widget);
+}
+
+TreeNode* ContentWidget::makeNode(PBNS::StationBean & bean,bool islast)
+{
+	TreeNode * node = new TreeNode;
+	node->theLast = islast;
+	node->filePath = bean.path().c_str();
+	node->label = bean.currentname().c_str();
+	node->level = 2;
+	node->nodeId = bean.id();
+	return node;
 }
 
 void ContentWidget::btnPressed()

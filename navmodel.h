@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <vector>
+#include "structs.h"
 
 class NavModel : public QAbstractListModel
 {
@@ -10,24 +11,6 @@ class NavModel : public QAbstractListModel
 
 
 public:
-
-	struct TreeNode
-	{
-		QString label;
-		int level;
-		bool collapse;
-		bool theLast;
-		int count;
-		QString	filePath;
-		std::list<TreeNode*> children;
-	};
-
-	struct ListNode
-	{
-		QString label;
-		TreeNode* treeNode;
-	};
-
 	NavModel(QObject *parent);
 	~NavModel();
 
@@ -38,6 +21,8 @@ public:
 	void ReadDataFromConfig(QString path);
 
 	void Refresh();
+
+	void	setData(std::vector<TreeNode*>& datalist);
 
 signals:
 	void	openFile(QString fname);

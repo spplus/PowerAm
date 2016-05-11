@@ -9,9 +9,10 @@
 #ifndef __LEFTWIDGET_H__
 #define __LEFTWIDGET_H__
 
-#include "define.h"
-#include "buff/msgbody.pb.h"
+
 #include <QtGui>
+#include "comutil.h"
+
 
 class LeftWidget	:public QWidget
 {
@@ -21,15 +22,16 @@ public:
 	~LeftWidget();
 
 	// 加载站点分类
-	void	loadData(PBNS::StationTypeMsg_Response& res);
+	void					loadData(PBNS::StationTypeMsg_Response& res);
 
 private slots:
-	void	currentItemChange(QListWidgetItem * current, QListWidgetItem * previous);
+	void					currentItemChange(QListWidgetItem * current, QListWidgetItem * previous);
 
 signals:
-	void	loadStations(int stationType,QString typeName);
+	void					loadStations(int stationType,QString typeName);
 private:
-	void initUi();
+	void					initUi();
+	TreeNode*		makeNode(PBNS::StationTypeBean & bean,int count);
 
 private:
 	QListWidget*	m_list;

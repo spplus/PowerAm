@@ -4,6 +4,7 @@
 #include <QPlastiqueStyle>
 #include "netclient.h"
 #include "homewindow.h"
+#include "comutil.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,9 @@ int main(int argc, char *argv[])
 		QMessageBox::warning(NULL,"系统提示","连接服务器失败");
 		return -1;
 	}
+	// 加载分类列表
+	ComUtil::instance()->getStationType();
+	
 
 	HomeWindow::instance()->show();
 

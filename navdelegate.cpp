@@ -20,7 +20,7 @@ NavDelegate::~NavDelegate()
 
 QSize NavDelegate::sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {
-	NavModel::TreeNode* node = (NavModel::TreeNode*)index.data(Qt::UserRole).toUInt();
+	TreeNode* node = (TreeNode*)index.data(Qt::UserRole).toUInt();
 
 	if ( node->level == 1)
 		return QSize(50, 35);
@@ -30,7 +30,7 @@ QSize NavDelegate::sizeHint( const QStyleOptionViewItem &option, const QModelInd
 
 void NavDelegate::paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {
-	NavModel::TreeNode* node = (NavModel::TreeNode*)index.data(Qt::UserRole).toUInt();
+	TreeNode* node = (TreeNode*)index.data(Qt::UserRole).toUInt();
 
 	painter->setRenderHint(QPainter::Antialiasing);
 

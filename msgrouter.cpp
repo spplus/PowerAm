@@ -32,6 +32,10 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_DEV_STATE:
 		MainWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
+	case CMD_STATION_TYPE:
+	case CMD_STATION_LIST:
+		HomeWindow::instance()->recvdata(msgtype,msg,msglength);
+		break;
 	default:
 		break;
 	}

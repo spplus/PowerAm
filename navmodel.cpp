@@ -27,6 +27,14 @@ NavModel::~NavModel()
 	}
 }
 
+void NavModel::setData(std::vector<TreeNode*>& datalist)
+{
+	m_nodeList = datalist;
+	RefreshList();
+	beginInsertRows(QModelIndex(), 0, m_list.size());
+	endInsertRows();
+}
+
 void NavModel::ReadDataFromConfig(QString path)
 {
 	QFile xml(path);

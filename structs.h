@@ -15,80 +15,32 @@
 #include <QMap>
 #include <QDomDocument>
 
-typedef struct sEleDevice{
-
-	QString			sid;
-	int				sxPos;
-	int				syPos;
-	QString			sclass;
-	QString			sdevId;
-	QString			sdevName;
-	QString			smeasId;
-	QString			shrefId;
-	QString			stransform;
-
-} svgDevice;
-
-typedef struct sGraphLayer {
-
-	QString				sid;
-	int					height;
-	int					width;
-	QString				fill;
-	QList<svgDevice*>	sdevList;
-	sGraphLayer()
+struct TreeNode
+{
+	QString			label;
+	int					level;
+	bool					collapse;
+	bool					theLast;
+	int					count;
+	int					nodeId;
+	QString			filePath;
+	std::list<TreeNode*> children;
+	TreeNode()
 	{
-		sid = "";
-		height = 0;
-		width = 0;
-		fill = "";
+		label = "";
+		level = 1;
+		collapse = false;
+		theLast = false;
+		count = 0;
+		nodeId = 0;
+		filePath = "";
 	}
-	~sGraphLayer()
-	{
-		for (int i=0;i<sdevList.size();i++)
-		{
-			svgDevice* pdev = sdevList.at(i);
-			if (pdev != NULL)
-			{
-				delete pdev;
-				pdev = NULL;
-			}
-		}
-	}
+};
 
-}svgLayer;
-
-typedef struct sGraph{
-
-	QString			sid;
-	QString			sfilePath;
-	QDomDocument*	sdom;
-	QList<svgLayer*>slayerList;
-	QMap<QString,QString> sStyleMap;
-
-	sGraph()
-	{
-		sid = "";
-		sfilePath = "";
-		sdom = new QDomDocument();
-	}
-	~sGraph()
-	{
-		if (sdom != NULL)
-		{
-			delete sdom;
-		}
-		for (int i=0;i<slayerList.size();i++)
-		{
-			svgLayer *player = slayerList.at(i);
-			if (player != NULL)
-			{
-				delete player;
-				player = NULL;
-			}
-		}
-	}
-
-}svgGraph;
+struct ListNode
+{
+	QString label;
+	TreeNode* treeNode;
+};
 
 #endif

@@ -9,8 +9,7 @@
 #ifndef __CONTENTWIDGET_H__
 #define __CONTENTWIDGET_H__
 
-#include "define.h"
-#include "buff/msgbody.pb.h"
+#include "comutil.h"
 #include <QtGui>
 
 class ContentWidget	:public QScrollArea
@@ -33,6 +32,8 @@ public slots:
 	// 按钮触发事件
 	void	btnPressed();
 	
+private:
+	TreeNode* makeNode(PBNS::StationBean & bean,bool islast=false);
 private:
 	
 	QGridLayout*	m_gbox;
