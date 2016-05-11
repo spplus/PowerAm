@@ -9,6 +9,8 @@
 #ifndef __CONTENTWIDGET_H__
 #define __CONTENTWIDGET_H__
 
+#include "define.h"
+#include "buff/msgbody.pb.h"
 #include <QtGui>
 
 class ContentWidget	:public QScrollArea
@@ -26,7 +28,7 @@ signals:
 public slots:
 	
 	// 加载站点
-	void	loadData(int row=5,int col=4);
+	void	loadData(PBNS::StationListMsg_Response& res);
 
 	// 按钮触发事件
 	void	btnPressed();
@@ -35,6 +37,8 @@ private:
 	
 	QGridLayout*	m_gbox;
 	QWidget*		m_widget;
+
+	PBNS::StationListMsg_Response m_stationList;
 };
 
 #endif

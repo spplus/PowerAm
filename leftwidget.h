@@ -8,6 +8,9 @@
 
 #ifndef __LEFTWIDGET_H__
 #define __LEFTWIDGET_H__
+
+#include "define.h"
+#include "buff/msgbody.pb.h"
 #include <QtGui>
 
 class LeftWidget	:public QWidget
@@ -18,7 +21,7 @@ public:
 	~LeftWidget();
 
 	// 加载站点分类
-	void	loadData();
+	void	loadData(PBNS::StationTypeMsg_Response& res);
 
 private slots:
 	void	currentItemChange(QListWidgetItem * current, QListWidgetItem * previous);
@@ -30,6 +33,8 @@ private:
 
 private:
 	QListWidget*	m_list;
+
+	PBNS::StationTypeMsg_Response m_typeList;
 };
 
 #endif

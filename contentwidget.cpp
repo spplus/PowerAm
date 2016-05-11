@@ -1,5 +1,6 @@
 #include "contentwidget.h"
 
+
 ContentWidget::ContentWidget(QWidget* parent/* = NULL */)
 	:QScrollArea(parent)
 {
@@ -15,8 +16,9 @@ ContentWidget::~ContentWidget()
 }
 
 
-void ContentWidget::loadData(int row,int col)
+void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 {
+	m_stationList = res;
 
 	if (m_gbox != NULL)
 	{
@@ -34,15 +36,21 @@ void ContentWidget::loadData(int row,int col)
 	m_gbox = new QGridLayout;
 	m_widget->setLayout(m_gbox);
 
+	int idx = 0;
+
 	// 加载按钮
-	for (int i = 0;i<row;i++)
+	for (int i = 0;i<res.stationlist_size();i++)
 	{
-		for (int j = 0;j<col;j++)
+		for (int j = 0;j<COL;j++)
 		{
-			QPushButton* btn = new QPushButton(tr("站点%1").arg((i+1)*(j+1)));
+			idx = (i+1)*(j+1);
+			PBNS::StationBean bean = res.stationlist(idx);
+
+			QPushButton* btn = new QPushButton(bean.currentname().c_str());
 			btn->setObjectName("station");
+
 			// 设置文件名称
-			btn->setProperty("fname",QVariant(i*j));
+			btn->setProperty("fname",bean.path().c_str());
 			btn->setProperty("sname",btn->text());
 			m_gbox->addWidget(btn,i,j,1,1);
 			connect(btn,SIGNAL(pressed()),this,SLOT(btnPressed()));

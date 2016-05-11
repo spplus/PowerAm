@@ -10,6 +10,9 @@
 #include <QPixmap>
 #include "homewindow.h"
 #include "mainwindow.h"
+#include "include/commands.h"
+#include "buff/msgbody.pb.h"
+#include "netclient.h"
 
 HomeWindow* HomeWindow::m_inst = NULL;
 
@@ -81,10 +84,34 @@ void HomeWindow::initUi()
 	this->showMaximized();
 }
 
+void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
+{
+
+	switch (msgtype)
+	{
+	case CMD_STATION_TYPE:
+		{
+			PBNS::StationTypeMsg_Response res;
+			res.ParseFromArray(msg,msglength);
+			m_leftWidget->loadData(res);
+		}
+		break;
+	case CMD_STATION_LIST:
+		{
+			PBNS::StationListMsg_Response res;
+			res.ParseFromArray(msg,msglength);
+			m_contentWidget->loadData(res);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 void HomeWindow::loadData()
 {
-	m_leftWidget->loadData();
-	m_contentWidget->loadData();
+	//m_leftWidget->loadData();
+	//m_contentWidget->loadData();
 }
 
 void HomeWindow::initConnections()
@@ -112,7 +139,14 @@ void HomeWindow::logout()
 
 void HomeWindow::loadStationsById(int id,QString tname)
 {
-	m_contentWidget->loadData(4,4);
+	// 发送加载站点列表的命令
+	PBNS::StationListMsg_Request req;
+	req.set_stationid(id);
+	string reqstr;
+	req.SerializeToString(&reqstr);
+
+	NetClient::instance()->sendData(CMD_STATION_LIST,reqstr.c_str(),reqstr.length());
+
 	m_rightTopWidget->setOppath(tname);
 }
 

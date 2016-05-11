@@ -1,4 +1,5 @@
 #include "leftwidget.h"
+#include "define.h"
 
 LeftWidget::LeftWidget(QWidget* parent/* =NULL */)
 	:QWidget(parent)
@@ -24,14 +25,16 @@ void LeftWidget::initUi()
 	connect(m_list,SIGNAL(currentItemChanged(QListWidgetItem * ,QListWidgetItem * )),this,SLOT(currentItemChange(QListWidgetItem * , QListWidgetItem * )));
 }
 
-void LeftWidget::loadData()
+void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 {
-	for (int i = 0;i<10;i++)
+	m_typeList = res;
+	for (int i = 0;i<res.typelist_size();i++)
 	{
+		PBNS::StationTypeBean bean = res.typelist(i);
 		QListWidgetItem* item = new QListWidgetItem;
 
-		item->setText(tr("²âÊÔ²âÊÔ %1").arg(i+1));
-
+		item->setText(bean.name().c_str());
+		item->setData(Qt::UserRole,bean.id());
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		m_list->addItem(item);
 	}

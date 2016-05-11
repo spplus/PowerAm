@@ -11,12 +11,13 @@
 
 #include <QMainWindow>
 #include <QScrollArea>
-
+#include <string>
 #include "titlewidget.h"
 #include "leftwidget.h"
 #include "contentwidget.h"
 #include "righttopwidget.h"
 
+using namespace std;
 class HomeWindow	:public QMainWindow
 {
 	 Q_OBJECT
@@ -34,6 +35,10 @@ public slots:
 
 	// 打开图形文件
 	void	openFile(QString fname,QString sname);
+
+	// 接收数据
+	void		recvdata(int msgtype,const char* msg,int msglength);
+
 private:
 	 HomeWindow(QWidget *parent = 0);
 	void		initUi();

@@ -60,7 +60,7 @@ QListWidget::item:hover {
 	background-image: url(:/images/item-hover.png);							
 }
 
-QPushButton {
+QPushButton#station{
     border: 1px solid #8f8f91;
     border-radius: 6px;
     background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(235, 235, 235, 255), stop:0.5 rgba(245, 245, 245, 255));
@@ -71,26 +71,26 @@ QPushButton {
 	
 }
 
-QPushButton:hover{
+QPushButton#station:hover{
   background-color: #26ABAB;
   border-radius:5px;
   border: 1px solid #3C80B1;  
  
 }
 
-QPushButton:pressed{
+QPushButton#station:pressed{
   background-color: qconicalgradient(cx:0.5, cy:0.522909, angle:179.9, stop:0.494318 rgba(134, 198, 233, 255), stop:0.5 rgba(206, 234, 248, 255));
   border-radius:5px;
   border: 1px solid #5F92B2;  
 }
 
 
-QPushButton:open { /* when the button has its menu open */
+QPushButton#station:open { /* when the button has its menu open */
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
 }
 
-QPushButton::menu-indicator {
+QPushButton#station::menu-indicator {
     image: url(menu_indicator.png);
     subcontrol-origin: padding;
     subcontrol-position: bottom right;

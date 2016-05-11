@@ -40,10 +40,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	initToolBar();
 	initMenu();
 	initStatusBar();
-
-	//初始化网络连接
-	//initNet();
-
 	setWindowTitle(m_title);
 }
 
