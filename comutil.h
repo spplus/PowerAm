@@ -33,10 +33,7 @@ public:
 	void						getStationType();
 
 	// 保存站点列表
-	void						saveStationList(TreeNode* node,int nodeid);
-
-	// 保持站点分类
-	void						saveStationType(TreeNode* node);
+	void						saveStationList(PBNS::StationTypeMsg_Response& res);
 
 	// 获取站点列表
 	std::vector<TreeNode*>	getStationList();

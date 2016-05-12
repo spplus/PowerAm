@@ -59,6 +59,8 @@ private:
 	TitleWidget*	m_titleWidget;
 	ContentWidget*	m_contentWidget;
 	RightTopWidget*	m_rightTopWidget;
+
+	PBNS::StationTypeMsg_Response	m_stationList;
 };
 
 #endif

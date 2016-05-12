@@ -84,10 +84,6 @@ void MainWindow::initNavView()
 
 }
 
-void MainWindow::updateModel()
-{
-	m_model->setData(ComUtil::instance()->getStationList());
-}
 
 void MainWindow::initToolBar()
 {
@@ -228,12 +224,6 @@ void MainWindow::initActions()
 MainWindow::~MainWindow()
 {
 	
-}
-
-void MainWindow::showWnd()
-{
-	show();
-	updateModel();
 }
 
 void MainWindow::goHome()

@@ -27,7 +27,7 @@ signals:
 public slots:
 	
 	// 加载站点
-	void	loadData(PBNS::StationListMsg_Response& res);
+	void	loadData(PBNS::StationTypeMsg_Response& res,int tpid);
 
 	// 按钮触发事件
 	void	btnPressed();
@@ -39,7 +39,7 @@ private:
 	QGridLayout*	m_gbox;
 	QWidget*		m_widget;
 
-	PBNS::StationListMsg_Response m_stationList;
+	PBNS::StationTypeMsg_Response m_stationList;
 };
 
 #endif

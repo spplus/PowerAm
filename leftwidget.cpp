@@ -37,7 +37,7 @@ void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 		item->setData(Qt::UserRole,bean.id());
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		m_list->addItem(item);
-		ComUtil::instance()->saveStationType(makeNode(bean,0));
+		//ComUtil::instance()->saveStationType(makeNode(bean,0));
 		
 	}
 }

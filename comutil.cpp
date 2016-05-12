@@ -37,24 +37,39 @@ void ComUtil::getStationType()
 	NetClient::instance()->sendData(CMD_STATION_TYPE,reqstr.c_str(),reqstr.length());
 }
 
-void ComUtil::saveStationList(TreeNode* node,int nodeid)
-{
-	for (int i = 0;i<m_stationList.size();i++)
-	{
-		TreeNode* pnode = m_stationList.at(i);
-		if (pnode->nodeId == nodeid)
-		{
-			pnode->children.push_back(node);
-		}
-	}
-}
-
-void ComUtil::saveStationType(TreeNode* node)
-{
-	m_stationList.push_back(node);
-}
-
 vector<TreeNode*> ComUtil::getStationList()
 {
 	return m_stationList;
+}
+
+void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
+{
+	for (int i = 0;i<res.typelist_size();i++)
+	{
+		PBNS::StationTypeBean bean = res.typelist(i);
+		TreeNode* pnode = new TreeNode;
+		pnode->label = bean.name().c_str();
+		pnode->count = bean.stationlist_size();
+		pnode->level = 1;
+		pnode->nodeId = bean.id();
+		pnode->theLast = (i==res.typelist_size()-1?true:false);
+		if (i == 0)
+		{
+			pnode->collapse = false;
+		}
+		for (int j = 0;j<bean.stationlist_size();j++)
+		{
+			PBNS::StationBean sbean = bean.stationlist(j);
+			TreeNode *cnode = new TreeNode;
+			cnode->label = sbean.currentname().c_str();
+			cnode->filePath = sbean.path().c_str();
+			cnode->level = 2;
+			cnode->nodeId = sbean.id();
+			cnode->theLast = (j==bean.stationlist_size()-1?true:false);
+
+			pnode->children.push_back(cnode);
+		}
+
+		m_stationList.push_back(pnode);
+	}
 }

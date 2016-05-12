@@ -58,6 +58,7 @@ SOURCES += main.cpp\
 	contentwidget.cpp \
 	righttopwidget.cpp \
 	msgrouter.cpp \
+	comutil.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -89,6 +90,7 @@ HEADERS  += mainwindow.h \
 	contentwidget.h \
 	righttopwidget.h \
 	msgrouter.h \
+	comutil.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

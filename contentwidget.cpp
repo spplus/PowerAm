@@ -16,7 +16,7 @@ ContentWidget::~ContentWidget()
 }
 
 
-void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
+void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 {
 	m_stationList = res;
 
@@ -36,8 +36,19 @@ void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 	m_gbox = new QGridLayout;
 	m_widget->setLayout(m_gbox);
 
+	// 查找该类别的站点列表
+	PBNS::StationTypeBean typebean;
+	for (int i = 0;i<res.typelist_size();i++)
+	{
+		typebean = res.typelist(i);
+		if (typebean.id() == tpid)
+		{
+			break;
+		}
+	}
+
 	int idx = 0;
-	int count =res.stationlist_size();
+	int count =typebean.stationlist_size();
 	int row = count/COL;
 	if (count%COL>0)
 	{
@@ -55,7 +66,7 @@ void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 				break;
 			}
 
-			PBNS::StationBean bean = res.stationlist(idx);
+			PBNS::StationBean bean = typebean.stationlist(idx);
 
 			QPushButton* btn = new QPushButton(bean.currentname().c_str());
 			btn->setObjectName("station");
@@ -69,7 +80,7 @@ void ContentWidget::loadData(PBNS::StationListMsg_Response& res)
 			idx++;
 
 			// 保持node
-			ComUtil::instance()->saveStationList(makeNode(bean,idx==count?true:false),bean.categoryid());
+			//ComUtil::instance()->saveStationList(makeNode(bean,idx==count?true:false),bean.categoryid());
 		}
 	}
 

@@ -29,7 +29,7 @@ struct TreeNode
 	{
 		label = "";
 		level = 1;
-		collapse = false;
+		collapse = true;
 		theLast = false;
 		count = 0;
 		nodeId = 0;

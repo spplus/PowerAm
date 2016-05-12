@@ -94,15 +94,11 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			PBNS::StationTypeMsg_Response res;
 			res.ParseFromArray(msg,msglength);
 			m_leftWidget->loadData(res);
+			m_stationList = res;
+			ComUtil::instance()->saveStationList(res);
 		}
 		break;
-	case CMD_STATION_LIST:
-		{
-			PBNS::StationListMsg_Response res;
-			res.ParseFromArray(msg,msglength);
-			m_contentWidget->loadData(res);
-		}
-		break;
+
 	default:
 		break;
 	}
@@ -139,14 +135,15 @@ void HomeWindow::logout()
 
 void HomeWindow::loadStationsById(int id,QString tname)
 {
+	m_contentWidget->loadData(m_stationList,id);
 	// 发送加载站点列表的命令
-	PBNS::StationListMsg_Request req;
+	/*PBNS::StationListMsg_Request req;
 	req.set_stationid(id);
 	string reqstr;
 	req.SerializeToString(&reqstr);
 
 	NetClient::instance()->sendData(CMD_STATION_LIST,reqstr.c_str(),reqstr.length());
-
+*/
 	m_rightTopWidget->setOppath(tname);
 }
 

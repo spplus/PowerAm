@@ -32,7 +32,7 @@ public:
 
 public:
 	void		addContextMenuAction(eDeviceType type);
-	void		showWnd();
+
 public slots:
 	void		goHome();
     void		openFile();
