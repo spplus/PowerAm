@@ -39,7 +39,7 @@ public slots:
 	void		setViewModel();
 	void		openFile(QString fname);
 	void		showDownSvg();
-
+	void		onToolButton();
 
 	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
@@ -64,7 +64,7 @@ private:
 	QMenu*						m_queryMenu;
 	QMenu*						m_contextMenu;             //右键菜单
     QToolBar*					m_toolBar;
-   
+	QToolButton*				m_drawerBtn;				// 抽屉按钮
 	QAction*						m_homeAction;			// 返回主页
 	QAction *					m_openAction;			// 打开图形文件
 	QAction*						m_nextAction;				// 前进

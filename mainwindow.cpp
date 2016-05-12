@@ -47,9 +47,37 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::initWidget()
 {
 	initNavView();
-
 	m_spliter = new QSplitter(this);
+
+	QWidget* widget = new QWidget(m_spliter);
+	QHBoxLayout* horizontalLayout_3= new QHBoxLayout(widget);
+	horizontalLayout_3->setSpacing(6);
+	horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+	horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+
+	m_drawerBtn= new QToolButton(widget);
+	m_drawerBtn->setMaximumSize(QSize(10, 50));
+	m_drawerBtn->setAutoRaise(true);
+
+	horizontalLayout_3->addWidget(m_drawerBtn);
+
+	m_contextMenu = new QMenu(this);
+	m_sence = new GraphicsScene(widget,m_contextMenu);
+	m_sence->setBackgroundBrush(QBrush(Qt::white));
+	m_view = new GraphicsView(m_sence);
+
+	horizontalLayout_3->addWidget(m_view);
+
+	m_navview->setParent(m_spliter);
+	m_spliter->addWidget(m_navview);
+	m_spliter->addWidget(widget);
 	
+	m_navview->hide();
+	m_drawerBtn->setText(">");
+	connect(m_drawerBtn,SIGNAL(pressed()),this,SLOT(onToolButton()));
+
+	/*
+	m_spliter = new QSplitter(this);
 	m_contextMenu = new QMenu(this);
 	m_sence = new GraphicsScene(this,m_contextMenu);
 
@@ -65,9 +93,24 @@ void MainWindow::initWidget()
 	sizes.append(20);
 	m_spliter->setSizes(sizes);
 	m_spliter->setStretchFactor(1,1);
-
+	//m_spliter->setHandleWidth(20);
+	*/
 	setCentralWidget(m_spliter);
 	this->showMaximized();
+}
+
+void MainWindow::onToolButton()
+{
+	if (m_navview->isHidden())
+	{
+		m_navview->show();
+		m_drawerBtn->setText("<");
+	}
+	else
+	{
+		m_navview->hide();
+		m_drawerBtn->setText(">");
+	}
 }
 
 void MainWindow::initNavView()
