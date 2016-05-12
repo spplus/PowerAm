@@ -75,7 +75,7 @@ void MainWindow::initWidget()
 	m_navview->hide();
 	m_drawerBtn->setText(">");
 	connect(m_drawerBtn,SIGNAL(pressed()),this,SLOT(onToolButton()));
-
+	m_spliter->setHandleWidth(1);
 	/*
 	m_spliter = new QSplitter(this);
 	m_contextMenu = new QMenu(this);
