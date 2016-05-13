@@ -50,51 +50,30 @@ void MainWindow::initWidget()
 	m_spliter = new QSplitter(this);
 
 	QWidget* widget = new QWidget(m_spliter);
-	QHBoxLayout* horizontalLayout_3= new QHBoxLayout(widget);
-	horizontalLayout_3->setSpacing(6);
-	horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-	horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-
+	QHBoxLayout* hbox= new QHBoxLayout(widget);
+	hbox->setMargin(0);
 	m_drawerBtn= new QToolButton(widget);
 	m_drawerBtn->setMaximumSize(QSize(10, 50));
 	m_drawerBtn->setAutoRaise(true);
-
-	horizontalLayout_3->addWidget(m_drawerBtn);
+	m_drawerBtn->setObjectName("drawer");
+	m_drawerBtn->setText(">");
+	hbox->addWidget(m_drawerBtn);
 
 	m_contextMenu = new QMenu(this);
 	m_sence = new GraphicsScene(widget,m_contextMenu);
 	m_sence->setBackgroundBrush(QBrush(Qt::white));
 	m_view = new GraphicsView(m_sence);
-
-	horizontalLayout_3->addWidget(m_view);
+	m_view->setFrameShape(QGraphicsView::NoFrame);
+	hbox->addWidget(m_view);
 
 	m_navview->setParent(m_spliter);
 	m_spliter->addWidget(m_navview);
 	m_spliter->addWidget(widget);
 	
 	m_navview->hide();
-	m_drawerBtn->setText(">");
 	connect(m_drawerBtn,SIGNAL(pressed()),this,SLOT(onToolButton()));
 	m_spliter->setHandleWidth(1);
-	/*
-	m_spliter = new QSplitter(this);
-	m_contextMenu = new QMenu(this);
-	m_sence = new GraphicsScene(this,m_contextMenu);
 
-	m_sence->setBackgroundBrush(QBrush(Qt::white));
-	m_view = new GraphicsView(m_sence);
-
-	this->setGeometry(100, 100, 800, 500);
-	m_spliter->addWidget(m_navview);
-	m_spliter->addWidget(m_view);
-
-	QList<int> sizes;
-	sizes.append(200);
-	sizes.append(20);
-	m_spliter->setSizes(sizes);
-	m_spliter->setStretchFactor(1,1);
-	//m_spliter->setHandleWidth(20);
-	*/
 	setCentralWidget(m_spliter);
 	this->showMaximized();
 }
@@ -156,7 +135,7 @@ void MainWindow::initToolBar()
 
 	m_toolBar->addAction(m_modelAction);
 
-	m_toolBar->setIconSize(QSize(36,36));
+	m_toolBar->setIconSize(QSize(24,24));
 }
 
 void MainWindow::initMenu()
@@ -204,7 +183,7 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 
 void MainWindow::initActions()
 {
-	m_homeAction = new QAction(QIcon(":images/open.png"),tr("主页"),this);
+	m_homeAction = new QAction(QIcon(":images/home.png"),tr("主页"),this);
 	m_openAction = new QAction(QIcon(":images/open.png"),tr("打开"),this);
 	m_zoutAction	 = new QAction(QIcon(":images/zoomout.png"),tr("放大"),this);
 	m_zinAction = new QAction(QIcon(":images/zoomin.png"),tr("缩小"),this);

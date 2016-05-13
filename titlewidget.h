@@ -16,7 +16,7 @@ class TitleWidget	:public QMainWindow
 	Q_OBJECT
 public:
 
-	explicit TitleWidget(QString username,QWidget *parent = 0);
+	explicit TitleWidget(QWidget *parent = 0);
 	~TitleWidget();
 
 	void setUserName(QString userName);
@@ -24,12 +24,36 @@ public:
 signals:
 	void	logout();
 
-private:
-	void		initUi();
-	QString		getDate();
+private slots:
+
+	// 用户管理
+	void	userMgr();
+
+	// 电站分类管理
+	void	typeMgr();
+
+	// 电站编辑
+	void	stationMgr();
+
+	// 规则库编辑
+	void	roleMgr();
 
 private:
-	QString		m_userName;
+	void		initUi();
+	void		createMenu();
+	QString		getDate();
+	 
+private:
+	QLabel*			m_userName;
+	QMenu*			m_menu;
+	QAction*		m_userAction;
+	QAction*		m_typeAction;
+	QAction*		m_stationAction;
+	QAction*		m_roleAction;
+
+	QToolButton*	m_logout;
+	QToolButton*	m_setting;
+
 };
 
 #endif

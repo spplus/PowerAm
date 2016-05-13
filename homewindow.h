@@ -25,6 +25,7 @@ public:
 	static HomeWindow* instance();
 
 	~HomeWindow();
+	void	setUserName(QString username);
 
 public slots:
 	// 注销登录
@@ -54,6 +55,7 @@ private:
 	// 加载数据
 	void		loadData();
 private:
+
 	static HomeWindow*	m_inst;
 	LeftWidget*		m_leftWidget;
 	TitleWidget*	m_titleWidget;

@@ -1,10 +1,9 @@
 #include "titlewidget.h"
 #include "comutil.h"
 
-TitleWidget::TitleWidget(QString username,QWidget *parent /* = 0 */)
+TitleWidget::TitleWidget(QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
 {
-	m_userName = username;
 	initUi();
 }
 
@@ -29,20 +28,35 @@ void TitleWidget::initUi()
 	pwelcome->setText("欢迎您,");
 	pwelcome->setStyleSheet("color:white");
 
-	QLabel* puser = new QLabel;
-	puser->setText(m_userName);
-	puser->setStyleSheet("color:yellow");
+	m_userName = new QLabel;
+	m_userName->setStyleSheet("color:yellow");
 
-	QToolButton* logout= new QToolButton;
-	logout->setAutoRaise(true);
-	logout->setObjectName("logout");
+	m_logout= new QToolButton;
+	m_logout->setAutoRaise(true);
+	m_logout->setObjectName("logout");
 	
-	logout->setText("注销");
+	m_logout->setText(tr("注销"));
+	m_logout->setIcon(QIcon(":images/logout.png"));
+	m_logout->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+	m_setting = new QToolButton();
+
+	m_setting->setText(tr("设置"));
+	m_setting->setObjectName("logout");
+	m_setting->setAutoRaise(true);
+	
+	m_setting->setIcon(QIcon(":images/set_system.png"));
+	m_setting->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+	createMenu();
+	m_setting->setMenu(m_menu);
+	m_setting->setPopupMode(QToolButton::InstantPopup);
+
 	hbox->addWidget(ptime);
 	hbox->addStretch(3);
 	hbox->addWidget(pwelcome);
-	hbox->addWidget(puser);
-	hbox->addWidget(logout);
+	hbox->addWidget(m_userName);
+	hbox->addWidget(m_setting);
+	hbox->addWidget(m_logout);
 
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 
@@ -67,12 +81,31 @@ void TitleWidget::initUi()
 
 	setCentralWidget(titleWidget);
 
-	connect(logout,SIGNAL(pressed()),this,SIGNAL(logout()));
+	connect(m_logout,SIGNAL(pressed()),this,SIGNAL(logout()));
+}
+
+void TitleWidget::createMenu()
+{
+	m_menu = new QMenu;
+	m_userAction = new QAction(QIcon(":images/usermgr.png"),tr("用户管理"),this);
+	m_typeAction= new QAction(QIcon(":images/typemgr.png"),tr("类别管理"),this);
+	m_stationAction= new QAction(QIcon(":images/stationmgr.png"),tr("站点编辑"),this);
+	m_roleAction= new QAction(QIcon(":images/rolemgr.png"),tr("规则编辑"),this);
+	m_menu->addAction(m_userAction);
+	m_menu->addAction(m_typeAction);
+	m_menu->addAction(m_roleAction);
+	m_menu->addAction(m_stationAction);
+
+	connect(m_userAction,SIGNAL(triggered()),this,SLOT(userMgr()));
+	connect(m_typeAction,SIGNAL(triggered()),this,SLOT(typeMgr()));
+	connect(m_stationAction,SIGNAL(triggered()),this,SLOT(stationMgr()));
+	connect(m_roleAction,SIGNAL(triggered()),this,SLOT(roleMgr()));
+
 }
 
 void TitleWidget::setUserName(QString userName)
 {
-	m_userName = userName;
+	m_userName->setText(userName);
 }
 
 QString TitleWidget::getDate()
@@ -110,4 +143,24 @@ QString TitleWidget::getDate()
 		break;
 	}
 	return tr("今天是:%1年%2月%3日 %4").arg(year).arg(month).arg(day).arg(week);
+}
+
+void TitleWidget::userMgr()
+{
+
+}
+
+void TitleWidget::typeMgr()
+{
+
+}
+
+void TitleWidget::stationMgr()
+{
+
+}
+
+void TitleWidget::roleMgr()
+{
+
 }

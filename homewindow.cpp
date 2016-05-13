@@ -25,6 +25,10 @@ HomeWindow* HomeWindow::instance()
 	return m_inst;
 }
 
+void HomeWindow::setUserName(QString username)
+{
+	m_titleWidget->setUserName(username);
+}
 HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
 {
@@ -47,8 +51,8 @@ void HomeWindow::initUi()
 {
 	QVBoxLayout* vmain = new QVBoxLayout;
 	QHBoxLayout* titleHbox = new QHBoxLayout;
-	m_titleWidget = new TitleWidget("管理员");
-	
+	m_titleWidget = new TitleWidget;
+
 	titleHbox->addWidget(m_titleWidget);
 
 	QHBoxLayout* mainHbox = new QHBoxLayout;
@@ -135,15 +139,10 @@ void HomeWindow::logout()
 
 void HomeWindow::loadStationsById(int id,QString tname)
 {
+	// 按类别加载站点
 	m_contentWidget->loadData(m_stationList,id);
-	// 发送加载站点列表的命令
-	/*PBNS::StationListMsg_Request req;
-	req.set_stationid(id);
-	string reqstr;
-	req.SerializeToString(&reqstr);
 
-	NetClient::instance()->sendData(CMD_STATION_LIST,reqstr.c_str(),reqstr.length());
-*/
+	// 设置操作路径
 	m_rightTopWidget->setOppath(tname);
 }
 

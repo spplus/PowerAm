@@ -14,9 +14,7 @@
         <file>images/signoff.png</file>
         <file>images/signon.png</file>
         <file>images/signquery.png</file>
-        <file>images/stationmgr.png</file>
         <file>images/stationrela.png</file>
-        <file>images/usermgr.png</file>
         <file>images/zoomin.png</file>
         <file>images/zoomout.png</file>
         <file>images/hand.png</file>
@@ -35,5 +33,11 @@
         <file>images/bottom.png</file>
         <file>images/leftbk.png</file>
         <file>images/righttop.png</file>
+        <file>images/logout.png</file>
+        <file>images/set_system.png</file>
+        <file>images/usermgr.png</file>
+        <file>images/stationmgr.png</file>
+        <file>images/rolemgr.png</file>
+        <file>images/typemgr.png</file>
     </qresource>
 </RCC>

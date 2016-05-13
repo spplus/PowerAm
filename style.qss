@@ -108,3 +108,14 @@ QToolButton#logout:hover{
 color: rgb(224, 0, 0);
 border-style: inset;
 }
+
+QToolButton#logout::menu-indicator:pressed, QToolButton::menu-indicator:open {
+    position: relative;
+    top: 2px; left: 2px; /* shift the arrow by 2 px */
+}
+
+QToolButton#drawer{
+	font-weight:bold;
+    color:rgb(0, 0, 255);
+	background-color: rgb(167, 220, 205);						
+}

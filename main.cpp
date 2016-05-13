@@ -29,12 +29,10 @@ int main(int argc, char *argv[])
 	// 加载分类列表
 	ComUtil::instance()->getStationType();
 	
-
+	HomeWindow::instance()->setUserName("超级管理员");
 	HomeWindow::instance()->show();
-
+	
 	a.setStyle(new QPlastiqueStyle);
-
-   // w.show();
 
     return a.exec();
 }
