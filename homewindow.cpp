@@ -35,9 +35,6 @@ HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 	// 初始化界面
 	initUi();
 
-	// 加载数据
-	loadData();
-
 	// 初始化信号槽
 	initConnections();
 }
@@ -97,21 +94,16 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 		{
 			PBNS::StationTypeMsg_Response res;
 			res.ParseFromArray(msg,msglength);
-			m_leftWidget->loadData(res);
+			
 			m_stationList = res;
 			ComUtil::instance()->saveStationList(res);
+			m_leftWidget->loadData(res);
 		}
 		break;
 
 	default:
 		break;
 	}
-}
-
-void HomeWindow::loadData()
-{
-	//m_leftWidget->loadData();
-	//m_contentWidget->loadData();
 }
 
 void HomeWindow::initConnections()
@@ -136,7 +128,10 @@ void HomeWindow::openFile(QString fname,QString sname)
 
 void HomeWindow::logout()
 {
-
+	if(QMessageBox::question(this,"系统提示","确定退出系统吗？",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+	{
+		exit(0);
+	}
 }
 
 void HomeWindow::loadStationsById(int id,QString tname)

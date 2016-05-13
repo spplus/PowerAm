@@ -23,19 +23,11 @@ ComUtil* ComUtil::instance()
 
 QString ComUtil::getSysName()
 {
-	//QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
-	//syncini.setIniCodec("UTF8");
-	//syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
-
 	return m_config->value("AM/SysName").toString();
 }
 
 QString ComUtil::getSvgRoot()
 {
-	//QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
-	//syncini.setIniCodec("UTF8");
-	//syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
-
 	return m_config->value("AM/SvgRoot").toString();
 }
 

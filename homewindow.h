@@ -52,8 +52,6 @@ private:
 	// 初始化信号槽
 	void		initConnections();
 
-	// 加载数据
-	void		loadData();
 private:
 
 	static HomeWindow*	m_inst;

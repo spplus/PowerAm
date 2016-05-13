@@ -37,8 +37,16 @@ void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 		item->setData(Qt::UserRole,bean.id());
 		item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 		m_list->addItem(item);
-		//ComUtil::instance()->saveStationType(makeNode(bean,0));
-		
+		if (i == 0)
+		{
+			item->setSelected(true);
+		}
+	}
+	// 加载第一个类别的站点
+	if (res.typelist_size() > 0)
+	{
+		PBNS::StationTypeBean bean = res.typelist(0);
+		emit loadStations(bean.id(),bean.name().c_str());
 	}
 }
 
