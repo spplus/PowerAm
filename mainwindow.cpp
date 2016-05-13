@@ -264,11 +264,21 @@ void MainWindow::openFile()
 
 void MainWindow::openFile(QString fileName)
 {
+
 	if (fileName.length()== 0)
 	{
 		QMessageBox::warning(this,"系统提示","文件名称为空");
 		return;
 	}
+
+	QString svgRoot = ComUtil::instance()->getSvgRoot();
+	if (svgRoot.length() == 0)
+	{
+		QMessageBox::warning(this,"系统提示","Svg路径为空");
+		return;
+	}
+
+	fileName = svgRoot+"/"+fileName;
 
 	m_sence->openSvgFile(fileName);
 	int idx = fileName.lastIndexOf("/");

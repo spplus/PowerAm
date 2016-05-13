@@ -1,13 +1,14 @@
 #include <QTextCodec>
 #include <QCoreApplication>
-#include <QSettings>
+
 #include "comutil.h"
 
 ComUtil* ComUtil::m_inst = NULL;
 
 ComUtil::ComUtil()
 {
-
+	m_config = new QSettings(QCoreApplication::applicationDirPath()+"/"+CONFIG,QSettings::IniFormat);
+	m_config->setIniCodec(QTextCodec::codecForName("GB2312")); 
 }
 
 ComUtil* ComUtil::instance()
@@ -16,16 +17,26 @@ ComUtil* ComUtil::instance()
 	{
 		m_inst = new ComUtil;
 	}
+
 	return m_inst;
 }
 
 QString ComUtil::getSysName()
 {
-	QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
-	syncini.setIniCodec("UTF8");
-	syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
+	//QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
+	//syncini.setIniCodec("UTF8");
+	//syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
 
-	return syncini.value("AM/SysName").toString();
+	return m_config->value("AM/SysName").toString();
+}
+
+QString ComUtil::getSvgRoot()
+{
+	//QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
+	//syncini.setIniCodec("UTF8");
+	//syncini.setIniCodec(QTextCodec::codecForName("GB2312")); 
+
+	return m_config->value("AM/SvgRoot").toString();
 }
 
 void ComUtil::getStationType()

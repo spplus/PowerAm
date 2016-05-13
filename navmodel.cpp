@@ -141,11 +141,14 @@ void NavModel::Collapse( const QModelIndex& index )
 {
 	TreeNode* node = m_list[index.row()].treeNode;
 
-	if ( node->children.size() == 0 )
+	if ( node->level ==2 )
 	{
 		// 打开SVG文件
-
-		emit openFile(SVG_ROOT+node->filePath);
+		emit openFile(node->filePath);
+		return;
+	}
+	else if (node->children.size() == 0)
+	{
 		return;
 	}
 	node->collapse = !node->collapse;

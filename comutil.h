@@ -14,6 +14,7 @@
 #include "include/commands.h"
 #include <QString>
 #include <string>
+#include <QSettings>
 #include <vector>
 #include "structs.h"
 
@@ -29,6 +30,9 @@ public:
 	//  获取系统名称
 	QString				getSysName();
 
+	// 获取SVG文件保存目录
+	QString				getSvgRoot();
+
 	// 加载分类列表
 	void						getStationType();
 
@@ -41,8 +45,8 @@ private:
 	ComUtil();
 
 private:
-	static	ComUtil*	m_inst;
-
+	static	ComUtil*			m_inst;
+	QSettings*					m_config;
 	vector<TreeNode*>	m_stationList;
 };
 

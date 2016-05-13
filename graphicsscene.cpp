@@ -199,7 +199,11 @@ void GraphicsScene::showDevState(const char* msg,int length)
 
 	// 设置图形中的设备状态
 	int size = res.devstate_size();
-	PBNS::StateBean bean = res.devstate(0);
+	if (size>0)
+	{
+		PBNS::StateBean bean = res.devstate(0);
+	}
+	
 	
 	// 根据cimid在图形中找到对应的设备对象
 

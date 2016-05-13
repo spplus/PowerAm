@@ -93,6 +93,9 @@ const	QString		TAG_POLYLINE			= "polyline";
 const	QString		TAG_STYLE				= "style";
 const	QString		TAG_TEXT				= "text";
 
+// 配置文件名称
+const	QString		CONFIG		=		"client.conf";
+
 // SVG文件保存的目录
 const	QString		SVG_ROOT				= QString::fromLocal8Bit("F:\\Work\\SVG\\nanrui\\吉安SVG和CIM文件\\svg_output\\");
 

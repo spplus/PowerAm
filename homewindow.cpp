@@ -130,6 +130,8 @@ void HomeWindow::openFile(QString fname,QString sname)
 	this->hide();
 
 	MainWindow::instance()->show();
+	MainWindow::instance()->openFile(fname);
+
 }
 
 void HomeWindow::logout()
