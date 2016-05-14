@@ -119,7 +119,8 @@ void SvgRenderer::drawTextLayer()
 		player = m_graph->getLayerList().at(i);
 		if (player->getId() == MEASURE_LAYER
 			|| player->getId() == TEXT_LAYER  
-			|| player->getId() == MEASURE2_LAYER)//
+			|| player->getId() == MEASURE2_LAYER
+			|| player->getId() == MEASURE3_LAYER)//
 		{
 				for (int i = 0;i<player->getTextList().size();i++)
 				{

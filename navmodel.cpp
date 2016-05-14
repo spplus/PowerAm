@@ -1,7 +1,8 @@
 
 #include "navmodel.h"
-
+#include "comutil.h"
 #include <QFile>
+#include <QMessageBox>
 #include <QDomDocument>
 #include "define.h"
 
@@ -143,8 +144,10 @@ void NavModel::Collapse( const QModelIndex& index )
 
 	if ( node->level ==2 )
 	{
+		QString fileName = node->filePath;
+
 		// 打开SVG文件
-		emit openFile(node->filePath);
+		emit openFile(fileName);
 		return;
 	}
 	else if (node->children.size() == 0)

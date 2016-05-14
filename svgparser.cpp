@@ -76,7 +76,8 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 				{
 					parserHeader(pgraph,node);
 				}
-				else if (sid == BUS_LAYER)
+				else if (sid == BUS_LAYER 
+						  ||sid == BUS_LAYER_JC)
 				{
 					parserBus(pgraph,node);
 				}
@@ -109,7 +110,8 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 					parserText(pgraph,node);
 				}
 				else if (sid == MEASURE_LAYER
-					|| sid == MEASURE2_LAYER)
+					|| sid == MEASURE2_LAYER
+					|| sid == MEASURE3_LAYER)
 				{
 					parserMeasure(pgraph,node);
 				}
@@ -220,6 +222,9 @@ void SvgParser::parserTransformer(SvgGraph*grahp,QDomNode &node)
 void SvgParser::parserMeasure(SvgGraph* graph,QDomNode& node)
 {
 	SvgLayer *player = new SvgLayer;
+
+	checkIdAttr(node);
+
 	player->setId(getAttribute(node,ATTR_ID));
 	QDomNodeList cnodelist = node.childNodes();
 	for (int i=0;i<cnodelist.size();i++)
@@ -358,7 +363,7 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 	player->setId(getAttribute(node,ATTR_ID));
 
 	QDomNodeList cnodes = node.childNodes();
-	//QList<BaseDevice*> dlist = player->getDevList();
+
 	BaseDevice* pdev = NULL;
 	for (int i = 0;i<cnodes.count();i++)
 	{
@@ -381,7 +386,10 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 		case eARRESTER:
 		case eDEFAULT:
 			pdev = parserTemplate(cnode);
-			
+			if (pdev == NULL)
+			{
+				pdev = parserOriginal(cnode);
+			}
 			break;
 		case eTRANSFORMER:
 			pdev = parserTransformer(cnode);
@@ -401,12 +409,7 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 {
 	BaseDevice *pdev = new BaseDevice;
 	
-	QString id = getAttribute(cnode,ATTR_ID);
-	if (id == "0" || id.length() == 0)
-	{
-		QString uuid = QUuid::createUuid().toString();
-		cnode.toElement().setAttribute(ATTR_ID,uuid);
-	}
+	checkIdAttr(cnode);
 
 	pdev->setSvgId(getAttribute(cnode,ATTR_ID));
 
@@ -428,12 +431,7 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 BaseDevice* SvgParser::parserTemplate(const QDomNode& cnode)
 {
 
-	QString id = getAttribute(cnode,ATTR_ID);
-	if (id == "0" )
-	{
-		QString uuid = QUuid::createUuid().toString();
-		cnode.toElement().setAttribute(ATTR_ID,uuid);
-	}
+	checkIdAttr(cnode);
 
 	if (cnode.hasChildNodes())
 	{
@@ -461,12 +459,8 @@ BaseDevice* SvgParser::parserTemplate(const QDomNode& cnode)
 BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 {
 	Transformer* ptrans = new Transformer;
-	QString id = getAttribute(node,ATTR_ID);
-	if (id == "0" || id.length() == 0)
-	{
-		QString uuid = QUuid::createUuid().toString();
-		node.toElement().setAttribute(ATTR_ID,uuid);
-	}
+
+	checkIdAttr(node);
 
 	ptrans->setSvgId(getAttribute(node,ATTR_ID));
 
@@ -483,4 +477,14 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 	}
 
 	return ptrans;
+}
+
+void SvgParser::checkIdAttr(const QDomNode& node)
+{
+	QString id = getAttribute(node,ATTR_ID);
+	if (id == "0" || id.length() == 0)
+	{
+		QString uuid = QUuid::createUuid().toString();
+		node.toElement().setAttribute(ATTR_ID,uuid);
+	}
 }

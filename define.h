@@ -38,6 +38,7 @@ enum	eBreakerState{eOFF=0,eON};
 // 层定义
 const	QString		HEAD_LAYER				= "Head_Layer";
 const	QString		BUS_LAYER				= "Bus_Layer";
+const	QString		BUS_LAYER_JC			= "Busbarsection_Layer";	// 集成电子母线层
 const	QString		BREAKER_LAYER			= "Breaker_Layer";
 const	QString		DISCONN_LAYER			= "Disconnector_Layer";
 const	QString		GROUNDDISCONN_LAYER		= "GroundDisconnector_Layer";
@@ -52,6 +53,7 @@ const	QString		TERM_LAYER				= "Term_Layer";
 const	QString		ARRESTER_LAYER			= "Arrester_Layer";
 const	QString		MEASURE_LAYER			= "MeasurementValue_Layer";
 const	QString		MEASURE2_LAYER			= "MeasureValue_Layer";			// kedong图形的量测层
+const	QString		MEASURE3_LAYER			= "Measurement_Layer";				// 积成电子
 const	QString		PT_LAYER				= "PT_Layer";
 const	QString		GZP_LAYER				= "GZP_Layer";
 const	QString		GENERATER_LAYER			= "Generator_Layer";

@@ -68,6 +68,9 @@ private:
 
 	// 解析变压器
 	BaseDevice*		parserTransformer(const QDomNode& node);
+
+	// 检查是否有ID属性，如果没有则自动生成一个默认的ID
+	void						checkIdAttr(const QDomNode& node);
 };
 
 #endif

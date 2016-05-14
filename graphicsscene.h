@@ -57,9 +57,6 @@ private:
 	// 当前打开的图形序号
 	int					m_curIndex;
 
-	// 默认背景层
-	QGraphicsPixmapItem*	m_bkItem;
-
 	// 当前选中的item
 	SvgItem*			m_curItem;
 	QMenu*				m_cntMenu;

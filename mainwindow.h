@@ -37,7 +37,7 @@ public slots:
 	void		goHome();
     void		openFile();
 	void		setViewModel();
-	void		openFile(QString fname);
+	void		openFile(QString fname,bool needRoot=true);
 	void		showDownSvg();
 	void		onToolButton();
 

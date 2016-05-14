@@ -73,6 +73,12 @@ void MainWindow::initWidget()
 	m_navview->hide();
 	connect(m_drawerBtn,SIGNAL(pressed()),this,SLOT(onToolButton()));
 	m_spliter->setHandleWidth(1);
+	
+	QList<int> sizes;
+	sizes.append(200);
+	sizes.append(20);
+	m_spliter->setSizes(sizes);
+	m_spliter->setStretchFactor(1,1);
 
 	setCentralWidget(m_spliter);
 	this->showMaximized();
@@ -257,12 +263,12 @@ void MainWindow::goHome()
 void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
-	openFile(fileName);
+	openFile(fileName,false);
 
 
 }
 
-void MainWindow::openFile(QString fileName)
+void MainWindow::openFile(QString fileName,bool needRoot)
 {
 
 	if (fileName.length()== 0)
@@ -270,15 +276,19 @@ void MainWindow::openFile(QString fileName)
 		QMessageBox::warning(this,"系统提示","文件名称为空");
 		return;
 	}
-
-	QString svgRoot = ComUtil::instance()->getSvgRoot();
-	if (svgRoot.length() == 0)
+	// 标志是否打开默认目录下的文件
+	if (needRoot)
 	{
-		QMessageBox::warning(this,"系统提示","Svg路径为空");
-		return;
-	}
+		QString svgRoot = ComUtil::instance()->getSvgRoot();
+		if (svgRoot.length() == 0)
+		{
+			QMessageBox::warning(this,"系统提示","Svg路径为空");
+			return;
+		}
 
-	fileName = svgRoot+"/"+fileName;
+		fileName = svgRoot+"/"+fileName;
+	}
+	
 
 	m_sence->openSvgFile(fileName);
 	int idx = fileName.lastIndexOf("/");
