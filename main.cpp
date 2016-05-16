@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+	QApplication::addLibraryPath("./plugins");
+
 	// 设置编码
 	QTextCodec::setCodecForTr(QTextCodec::codecForName("system"));
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("system"));
@@ -20,7 +22,7 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(qss.readAll());
 	qss.close();
 
-	// 初始化网络连接
+	//初始化网络连接
 	if(!NetClient::instance()->init())
 	{
 		QMessageBox::warning(NULL,"系统提示","连接服务器失败");
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
 	HomeWindow::instance()->setUserName("超级管理员");
 	HomeWindow::instance()->show();
 	
+
 	a.setStyle(new QPlastiqueStyle);
 
     return a.exec();

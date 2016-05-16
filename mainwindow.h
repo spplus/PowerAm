@@ -19,7 +19,8 @@
 #include "navview.h"
 #include "navmodel.h"
 #include "ftputil.h"
-
+#include "openthread.h"
+#include "waitwidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -40,7 +41,7 @@ public slots:
 	void		openFile(QString fname,bool needRoot=true);
 	void		showDownSvg();
 	void		onToolButton();
-
+	void		openOk();
 	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
 
@@ -120,7 +121,8 @@ private:
     QSplitter*				m_spliter;
 	GraphicsScene*			m_sence;
     GraphicsView*			m_view;
-
+	WaitWidget				m_waitDlg;
+	OpenThread*				m_openThread;
 	static		MainWindow*		m_inst;
 };
 

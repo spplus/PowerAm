@@ -62,6 +62,8 @@ void MainWindow::initWidget()
 	m_contextMenu = new QMenu(this);
 	m_sence = new GraphicsScene(widget,m_contextMenu);
 	m_sence->setBackgroundBrush(QBrush(Qt::white));
+	m_openThread = new OpenThread(m_sence);
+	connect(m_openThread,SIGNAL(finished()),this,SLOT(openOk()));
 	m_view = new GraphicsView(m_sence);
 	m_view->setFrameShape(QGraphicsView::NoFrame);
 	hbox->addWidget(m_view);
@@ -82,6 +84,14 @@ void MainWindow::initWidget()
 
 	setCentralWidget(m_spliter);
 	this->showMaximized();
+}
+
+void MainWindow::openOk()
+{
+	m_waitDlg.hide();
+
+	// 打开完成后需要做的事情
+	// ...
 }
 
 void MainWindow::onToolButton()
@@ -288,14 +298,19 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 
 		fileName = svgRoot+"/"+fileName;
 	}
-	
 
-	m_sence->openSvgFile(fileName);
+	// 显示等待窗口
+	m_waitDlg.show();
+
+	// 启动解析图形文件线程
+	m_openThread->open(fileName);
+	
+	//m_sence->openSvgFile(fileName);
+	
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
 	this->setWindowTitle(fileName);
-
 
 	// 加载设备状态数据
 	PBNS::DevStateMsg_Request req;

@@ -59,6 +59,8 @@ SOURCES += main.cpp\
 	righttopwidget.cpp \
 	msgrouter.cpp \
 	comutil.cpp \
+	waitwidget.cpp \
+	openthread.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -91,6 +93,8 @@ HEADERS  += mainwindow.h \
 	righttopwidget.h \
 	msgrouter.h \
 	comutil.h \
+	waitwidget.h \
+	openthread.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

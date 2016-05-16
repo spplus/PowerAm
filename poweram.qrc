@@ -24,7 +24,6 @@
         <file>images/expand_selected.png</file>
         <file>images/unexpand_normal.png</file>
         <file>images/unexpand_selected.png</file>
-        <file>images/bk.jpg</file>
         <file>images/logo.png</file>
         <file>images/title.png</file>
         <file>images/home.png</file>
@@ -39,5 +38,6 @@
         <file>images/stationmgr.png</file>
         <file>images/rolemgr.png</file>
         <file>images/typemgr.png</file>
+        <file>images/loading.gif</file>
     </qresource>
 </RCC>

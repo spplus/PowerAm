@@ -85,6 +85,9 @@
     <ClCompile Include="netclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="openthread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="righttopwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -104,6 +107,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="titlewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="waitwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -165,6 +171,9 @@
     <CustomBuild Include="netclient.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="openthread.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="righttopwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -198,6 +207,9 @@
     <ClInclude Include="transformer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="waitwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_contentwidget.cpp">
@@ -272,10 +284,22 @@
     <ClCompile Include="release\moc_netclient.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_openthread.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_openthread.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_titlewidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_titlewidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_waitwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_waitwidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\qrc_poweram.cpp">
@@ -286,9 +310,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="images\bk.jpg">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="images\bottom.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -322,7 +343,13 @@
     <None Include="images\leftbk.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\loading.gif">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\logout.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\model.png">
@@ -358,6 +385,12 @@
     <None Include="images\righttop.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\rolemgr.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\set_system.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\signoff.png">
       <Filter>Resource Files</Filter>
     </None>
@@ -374,6 +407,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\typemgr.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\unexpand_normal.png">
