@@ -24,6 +24,9 @@ public:
 	GraphicsScene(QObject* parant,QMenu* cntmenu);
 	~GraphicsScene();
 
+	// 解析SVG文件
+	SvgGraph* parserSvg(QString filename);
+
 	// 打开图形文件
 	void			openSvgFile(QString filename);
 
@@ -46,6 +49,9 @@ public slots:
 	
 	// 测试动画
 	void			startAnimation();
+
+	// 把解析后的对象生成SVG图元
+	void			drawSvgGraph(SvgGraph* graph);
 protected:
 	void			switchChange(int state);
 

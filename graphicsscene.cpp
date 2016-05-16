@@ -35,6 +35,22 @@ GraphicsScene::~GraphicsScene()
 	}
 }
 
+SvgGraph* GraphicsScene::parserSvg(QString filename)
+{
+	return  m_svgParser.parserSvg(filename);
+}
+
+void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
+{
+	if (pgrahp != NULL)
+	{
+
+		this->clear();
+		m_svgRender->drawGraph(pgrahp);
+		m_graphList.insert(++m_curIndex,pgrahp); 
+	}
+}
+
 void GraphicsScene::openSvgFile(QString filename)
 {
 

@@ -13,5 +13,6 @@ void OpenThread::open(QString fname)
 
 void  OpenThread::run()
 {
-	m_pscene->openSvgFile(m_fname);
+	SvgGraph* pgraph = m_pscene->parserSvg(m_fname);
+	emit drawSvgGraph(pgraph);
 }

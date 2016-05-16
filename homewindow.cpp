@@ -123,7 +123,6 @@ void HomeWindow::openFile(QString fname,QString sname)
 
 	MainWindow::instance()->show();
 	MainWindow::instance()->openFile(fname);
-
 }
 
 void HomeWindow::logout()

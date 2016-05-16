@@ -23,7 +23,8 @@ public:
 
 private:
 	void	run();
-		
+signals:
+	void		drawSvgGraph(SvgGraph* graph);
 private:
 	QString			m_fname;
 	GraphicsScene*	m_pscene;

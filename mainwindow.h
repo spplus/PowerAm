@@ -54,7 +54,11 @@ private:
 	void		initMenu();
 	void		initStatusBar();
 	void		initNavView();
+	void		initOpenThread();
 	void		updateModel();
+	void		cleanScene();
+
+
 
 	//关闭响应事件
 	void	closeEvent(QCloseEvent *event);

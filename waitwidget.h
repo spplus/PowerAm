@@ -13,7 +13,7 @@
 #include<QMovie>
 #include <QtGui>
 
-class WaitWidget	:public QWidget
+class WaitWidget	:public QDialog  
 {
 	Q_OBJECT
 public:

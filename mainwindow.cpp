@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	
 	m_title = ComUtil::instance()->getSysName();
 	initWidget();
+	initOpenThread();
 	initToolBar();
 	initMenu();
 	initStatusBar();
@@ -62,8 +63,6 @@ void MainWindow::initWidget()
 	m_contextMenu = new QMenu(this);
 	m_sence = new GraphicsScene(widget,m_contextMenu);
 	m_sence->setBackgroundBrush(QBrush(Qt::white));
-	m_openThread = new OpenThread(m_sence);
-	connect(m_openThread,SIGNAL(finished()),this,SLOT(openOk()));
 	m_view = new GraphicsView(m_sence);
 	m_view->setFrameShape(QGraphicsView::NoFrame);
 	hbox->addWidget(m_view);
@@ -122,6 +121,14 @@ void MainWindow::initNavView()
 
 }
 
+void MainWindow::initOpenThread()
+{
+	m_openThread = new OpenThread(m_sence);
+
+	connect(m_openThread,SIGNAL(drawSvgGraph(SvgGraph*)),m_sence,SLOT(drawSvgGraph(SvgGraph*)));
+	connect(m_openThread,SIGNAL(finished()),this,SLOT(openOk()));
+
+}
 
 void MainWindow::initToolBar()
 {
@@ -259,6 +266,7 @@ void MainWindow::initActions()
 	connect(m_downSvg,SIGNAL(triggered()),this,SLOT(showDownSvg()));
 }
 
+
 MainWindow::~MainWindow()
 {
 	
@@ -267,9 +275,15 @@ MainWindow::~MainWindow()
 void MainWindow::goHome()
 {
 	this->hide();
+	cleanScene();
 	HomeWindow::instance()->show();
 }
 
+void MainWindow::cleanScene()
+{
+	m_sence->clear();
+	m_sence->setBackgroundBrush(QBrush(Qt::white));
+}
 void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
@@ -286,6 +300,9 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 		QMessageBox::warning(this,"系统提示","文件名称为空");
 		return;
 	}
+
+	cleanScene();
+
 	// 标志是否打开默认目录下的文件
 	if (needRoot)
 	{
@@ -304,9 +321,11 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 
 	// 启动解析图形文件线程
 	m_openThread->open(fileName);
-	
+
 	//m_sence->openSvgFile(fileName);
-	
+
+	//m_waitDlg.hide();
+
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
@@ -319,6 +338,7 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 	string reqstr;
 	req.SerializeToString(&reqstr);
 	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
+	
 }
 
 void MainWindow::setViewModel()

@@ -1,12 +1,12 @@
 #include "waitwidget.h"
 WaitWidget::WaitWidget(QWidget*parent /* = NULL */)
-	:QWidget(parent)
+	:QDialog  (parent)
 {
 	QHBoxLayout* hbox = new QHBoxLayout;
 	QLabel* giflabel = new QLabel;
 	
 	setWindowFlags(Qt::Dialog|Qt::FramelessWindowHint);
-
+	
 	this->setAutoFillBackground(true);
 	this->setContentsMargins(0,0,0,0);
 	giflabel->setContentsMargins(0,0,0,0);
@@ -17,7 +17,7 @@ WaitWidget::WaitWidget(QWidget*parent /* = NULL */)
 	hbox->addWidget(giflabel);
 	hbox->setMargin(0);
 	
-	setFixedSize(48,48);
+	setFixedSize(238,160);
 	setLayout(hbox);
 
 	QDesktopWidget *deskdop = QApplication::desktop();
