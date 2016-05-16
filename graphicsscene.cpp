@@ -66,6 +66,7 @@ void GraphicsScene::openSvgFile(QString filename)
 
 void GraphicsScene::goNext()
 {
+	clear();
 	if (++m_curIndex < m_graphList.size() )
 	{
 		SvgGraph* pgraph = m_graphList.at(m_curIndex);
@@ -80,6 +81,7 @@ void GraphicsScene::goNext()
 
 void GraphicsScene::goPrev()
 {
+	clear();
 	if (--m_curIndex >= 0 )
 	{
 		SvgGraph* pgraph = m_graphList.at(m_curIndex);
