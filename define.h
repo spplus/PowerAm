@@ -98,6 +98,13 @@ const	QString		TAG_TEXT				= "text";
 // 配置文件名称
 const	QString		CONFIG		=		"client.conf";
 
+// 颜色规则配置文件名称
+const	QString		COLOR		=		"color.xml";
+
+// 样式定义
+const	QString		STYLE		=		"style.qss";
+
+
 // SVG文件保存的目录
 const	QString		SVG_ROOT				= QString::fromLocal8Bit("F:\\Work\\SVG\\nanrui\\吉安SVG和CIM文件\\svg_output\\");
 

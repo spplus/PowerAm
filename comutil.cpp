@@ -1,5 +1,8 @@
 #include <QTextCodec>
 #include <QCoreApplication>
+#include <QFile>
+#include <QMessageBox>
+#include <QDomDocument>
 
 #include "comutil.h"
 
@@ -7,7 +10,8 @@ ComUtil* ComUtil::m_inst = NULL;
 
 ComUtil::ComUtil()
 {
-	m_config = new QSettings(QCoreApplication::applicationDirPath()+"/"+CONFIG,QSettings::IniFormat);
+	m_appPath = QCoreApplication::applicationDirPath();
+	m_config = new QSettings(m_appPath+"/"+CONFIG,QSettings::IniFormat);
 	m_config->setIniCodec(QTextCodec::codecForName("GB2312")); 
 }
 
@@ -75,4 +79,55 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 
 		m_stationList.push_back(pnode);
 	}
+}
+
+bool ComUtil::loadColorRule()
+{
+	QFile *xmlFile;
+	xmlFile = new QFile(m_appPath+"/"+COLOR);
+	QDomDocument doc;
+	if (!xmlFile->open(QIODevice::ReadOnly)){
+
+		QString title = QString("打开%1文件").arg(COLOR);
+		QString text  = QString("打开%1文件,可能不存在该文件!").arg(COLOR);
+		QMessageBox::warning(NULL,title,text);
+		return false;
+	}
+
+	if (!doc.setContent(xmlFile)) {
+
+		QString title = QString("装载%1文件").arg(COLOR);
+		QString text  = QString("装载%1文件,可能该文件有错误!").arg(COLOR);
+		QMessageBox::warning(NULL,title,text);
+
+		xmlFile->close();
+		return false;
+	}
+	xmlFile->close();
+
+	// 解析颜色规则
+	QDomNodeList rootNodes = doc.elementsByTagName("voltagedefine");
+	if (rootNodes.count()>0)
+	{
+		QDomNode rootNode = rootNodes.at(0);
+		QDomNodeList childNodes = rootNode.childNodes();
+		for (int i = 0;i<childNodes.count();i++)
+		{
+			QDomNode cnode = childNodes.at(i);
+			QString key = cnode.toElement().attribute("voltagename");
+			QString val = cnode.toElement().attribute("color");
+			m_styleMap.insert(key,val);
+		}
+	}
+	return true;
+}
+
+QMap<QString,QString>& ComUtil::getStyleMap()
+{
+	return m_styleMap;
+}
+
+QString ComUtil::getAppPath()
+{
+	return m_appPath;
 }

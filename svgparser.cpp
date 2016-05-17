@@ -33,7 +33,7 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 	if (!doc->setContent(xmlFile)) {
 
 		QString title = QString("装载%1文件").arg(fileName);
-		QString text  = QString("装载%1文件,可能该XML文件有错误!").arg(fileName);
+		QString text  = QString("装载%1文件,可能该SVG文件有错误!").arg(fileName);
 		QMessageBox::warning(NULL,title,text);
 
 		xmlFile->close();
@@ -131,7 +131,8 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 					// 解析CSS
 					if (nodename == TAG_STYLE)
 					{
-						parserStyle(fnode,pgraph->getStyleMap());
+						// 规则统一在初始化地方加载自定义颜色
+						//parserStyle(fnode,pgraph->getStyleMap());
 					}
 				}
 			}

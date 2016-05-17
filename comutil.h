@@ -24,8 +24,11 @@ class ComUtil
 
 public:
 	
-	// 
+	// 获取当前实例对象
 	static ComUtil*		instance();
+	
+	// 获取当前运行目录
+	QString				getAppPath();
 
 	//  获取系统名称
 	QString				getSysName();
@@ -40,14 +43,32 @@ public:
 	void						saveStationList(PBNS::StationTypeMsg_Response& res);
 
 	// 获取站点列表
-	std::vector<TreeNode*>	getStationList();
+	vector<TreeNode*>		getStationList();
+
+	// 加载颜色规则
+	bool					loadColorRule();
+
+	// 获取颜色规则
+	QMap<QString,QString>&	getStyleMap();
+
 private:
 	ComUtil();
 
 private:
+	// 当前运行目录
+	QString						m_appPath;
+
+	// 当前对象实例
 	static	ComUtil*			m_inst;
+
+	// 配置文件读取对象
 	QSettings*					m_config;
-	vector<TreeNode*>	m_stationList;
+
+	// 颜色规则隐射
+	QMap<QString,QString>		m_styleMap;
+
+	// 站点列表
+	vector<TreeNode*>			m_stationList;
 };
 
 #endif

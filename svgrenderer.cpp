@@ -3,7 +3,7 @@
 #include "svgrenderer.h"
 #include "define.h"
 #include "textitem.h"
-
+#include "comutil.h"
 
 SvgRenderer::SvgRenderer(QGraphicsScene* scene)
 {
@@ -28,8 +28,8 @@ QString SvgRenderer::initSvgRenderer()
 		// ÃÊªªclass Ù–‘Œ™style Ù–‘
 		sxml = sxml.replace("class","style");
 
-		QMap<QString, QString>::const_iterator iter = m_graph->getStyleMap().constBegin();
-		while (iter != m_graph->getStyleMap().constEnd()) 
+		QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
+		while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
 		{
 			QString key = iter.key();
 			QString value = iter.value();
