@@ -28,12 +28,31 @@ QString SvgRenderer::initSvgRenderer()
 		// 替换class属性为style属性
 		sxml = sxml.replace("class","style");
 
+	
+		// 根据自定义颜色进行着色
 		QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
 		while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
 		{
 			QString key = iter.key();
 			QString value = iter.value();
 
+			sxml = sxml.replace(key,value);		
+			iter ++;
+		}
+		
+		// 对于没有定义的电压等级，按SVG中定义的颜色进行着色
+		QMap<QString, QString>::const_iterator fiter;
+		iter = m_graph->getStyleMap().constBegin();
+		while (iter != m_graph->getStyleMap().constEnd()) 
+		{
+			QString key = iter.key();
+			fiter = ComUtil::instance()->getStyleMap().find(key);
+			if (fiter !=  ComUtil::instance()->getStyleMap().end())
+			{
+				iter ++;
+				continue;
+			}
+			QString value = iter.value();
 			sxml = sxml.replace(key,value);		
 			iter ++;
 		}

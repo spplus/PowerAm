@@ -132,7 +132,7 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 					if (nodename == TAG_STYLE)
 					{
 						// 规则统一在初始化地方加载自定义颜色
-						//parserStyle(fnode,pgraph->getStyleMap());
+						parserStyle(fnode,pgraph->getStyleMap());
 					}
 				}
 			}
