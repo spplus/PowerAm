@@ -11,8 +11,6 @@ ComUtil* ComUtil::m_inst = NULL;
 ComUtil::ComUtil()
 {
 	m_appPath = QCoreApplication::applicationDirPath();
-	m_config = new QSettings(m_appPath+"/"+CONFIG,QSettings::IniFormat);
-	m_config->setIniCodec(QTextCodec::codecForName("GB2312")); 
 }
 
 ComUtil* ComUtil::instance()
@@ -24,15 +22,35 @@ ComUtil* ComUtil::instance()
 
 	return m_inst;
 }
+QString ComUtil::getFtpAddr()
+{
+	return m_ftpAddr;
+}
+
+QString ComUtil::getFtpPort()
+{
+	return m_ftpPort;
+}
 
 QString ComUtil::getSysName()
 {
-	return m_config->value("AM/SysName").toString();
+	return m_sysName;
 }
+
+QString ComUtil::getSvrAddr()
+{
+	return m_svrAddr;
+}
+
+QString ComUtil::getSvrPort()
+{
+	return m_svrPort;
+}
+
 
 QString ComUtil::getSvgRoot()
 {
-	return m_config->value("AM/SvgRoot").toString();
+	return m_svgRoot;
 }
 
 void ComUtil::getStationType()
@@ -81,29 +99,39 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 	}
 }
 
-bool ComUtil::loadColorRule()
+bool ComUtil::openFile(QString fname,QDomDocument &doc)
 {
 	QFile *xmlFile;
-	xmlFile = new QFile(m_appPath+"/"+COLOR);
-	QDomDocument doc;
+	xmlFile = new QFile(m_appPath+"/"+fname);
+
 	if (!xmlFile->open(QIODevice::ReadOnly)){
 
-		QString title = QString("打开%1文件").arg(COLOR);
-		QString text  = QString("打开%1文件,可能不存在该文件!").arg(COLOR);
+		QString title = QString("打开%1文件").arg(fname);
+		QString text  = QString("打开%1文件,可能不存在该文件!").arg(xmlFile->fileName());
 		QMessageBox::warning(NULL,title,text);
 		return false;
 	}
 
 	if (!doc.setContent(xmlFile)) {
 
-		QString title = QString("装载%1文件").arg(COLOR);
-		QString text  = QString("装载%1文件,可能该文件有错误!").arg(COLOR);
+		QString title = QString("装载%1文件").arg(fname);
+		QString text  = QString("装载%1文件,可能该文件有错误!").arg(xmlFile->fileName());
 		QMessageBox::warning(NULL,title,text);
 
 		xmlFile->close();
 		return false;
 	}
 	xmlFile->close();
+	return true;
+}
+
+bool ComUtil::loadColorRule()
+{
+	QDomDocument doc;
+	if (!openFile(COLOR,doc))
+	{
+		return false;
+	}
 
 	// 解析颜色规则
 	QDomNodeList rootNodes = doc.elementsByTagName("voltagedefine");
@@ -118,6 +146,67 @@ bool ComUtil::loadColorRule()
 			QString val = cnode.toElement().attribute("color");
 			m_styleMap.insert(key,val);
 		}
+	}
+	return true;
+}
+
+bool ComUtil::initConfig()
+{
+	QDomDocument doc;
+	if (!openFile(CLIENT,doc))
+	{
+		return false;
+	}
+
+	// 服务器配置
+	QDomNodeList svrNodes = doc.elementsByTagName("server");
+	if (svrNodes.count()>0)
+	{
+		QDomNode svrNode = svrNodes.at(0);
+		m_svrAddr = svrNode.toElement().attribute("addr");
+		m_svrPort = svrNode.toElement().attribute("port");
+
+	}
+	else
+	{
+		return false;
+	}
+	
+	// FTP 配置
+	QDomNodeList ftpNodes = doc.elementsByTagName("ftp");
+	if (ftpNodes.count()>0)
+	{
+		QDomNode ftpNode = ftpNodes.at(0);
+		m_ftpAddr = ftpNode.toElement().attribute("addr");
+		m_ftpPort = ftpNode.toElement().attribute("port");
+	}
+	else
+	{
+		return false;
+	}
+
+	// 系统名称
+	QDomNodeList titleNodes = doc.elementsByTagName("title");
+	if (titleNodes.count()>0)
+	{
+		QDomNode titleNode = titleNodes.at(0);
+		m_sysName = titleNode.toElement().attribute("name");
+	}
+	else
+	{
+		return false;
+	}
+
+	// svg文件目录
+	QDomNodeList svgNodes = doc.elementsByTagName("svgroot");
+	if (svgNodes.count()>0)
+	{
+		QDomNode svgNode = svgNodes.at(0);
+		m_svgRoot = svgNode.toElement().attribute("path");
+	}
+	else
+	{
+		return false;
 	}
 	return true;
 }

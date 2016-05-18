@@ -26,6 +26,9 @@ public:
 	
 	// 获取当前实例对象
 	static ComUtil*		instance();
+
+	// 加载配置文件
+	bool							initConfig();
 	
 	// 获取当前运行目录
 	QString				getAppPath();
@@ -33,8 +36,17 @@ public:
 	//  获取系统名称
 	QString				getSysName();
 
+	// 获取服务器IP
+	QString				getSvrAddr();
+
+	// 获取服务器端口
+	QString				getSvrPort();
+
 	// 获取SVG文件保存目录
 	QString				getSvgRoot();
+
+	QString				getFtpAddr();
+	QString				getFtpPort();
 
 	// 加载分类列表
 	void						getStationType();
@@ -53,7 +65,8 @@ public:
 
 private:
 	ComUtil();
-
+	
+	bool		openFile(QString fname,QDomDocument &doc);
 private:
 	// 当前运行目录
 	QString						m_appPath;
@@ -61,8 +74,13 @@ private:
 	// 当前对象实例
 	static	ComUtil*			m_inst;
 
-	// 配置文件读取对象
-	QSettings*					m_config;
+	// 服务器地址
+	QString						m_svrAddr;
+	QString						m_svrPort;
+	QString						m_sysName;
+	QString						m_svgRoot;
+	QString						m_ftpAddr;
+	QString						m_ftpPort;
 
 	// 颜色规则隐射
 	QMap<QString,QString>		m_styleMap;

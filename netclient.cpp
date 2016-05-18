@@ -36,10 +36,9 @@ NetClient* NetClient::instance()
 
 bool NetClient::init()
 {
-	QSettings syncini(QCoreApplication::applicationDirPath()+"/client.conf",QSettings::IniFormat);
-	syncini.setIniCodec("UTF8");
-	QString strIP = syncini.value("NETCLIENT/IP").toString();
-	QString strPort = syncini.value("NETCLIENT/PORT").toString();
+	
+	QString strIP = ComUtil::instance()->getSvrAddr();
+	QString strPort = ComUtil::instance()->getSvrPort();
 
 	//¸³Öµ
 	m_IP = strIP;

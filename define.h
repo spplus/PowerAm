@@ -97,6 +97,7 @@ const	QString		TAG_TEXT				= "text";
 
 // 配置文件名称
 const	QString		CONFIG		=		"client.conf";
+const	QString		CLIENT			=		"client.xml";
 
 // 颜色规则配置文件名称
 const	QString		COLOR		=		"color.xml";
