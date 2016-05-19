@@ -36,22 +36,22 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
-	////初始化网络连接
-	//if(!NetClient::instance()->init())
-	//{
-	//	QMessageBox::warning(NULL,"系统提示","连接服务器失败");
-	//	return -1;
-	//}
+	//初始化网络连接
+	if(!NetClient::instance()->init())
+	{
+		QMessageBox::warning(NULL,"系统提示","连接服务器失败");
+		return -1;
+	}
 
 
-	//// 加载分类列表
-	//ComUtil::instance()->getStationType();
-	//
-	//
-	//HomeWindow::instance()->setUserName("超级管理员");
-	//HomeWindow::instance()->show();
+	// 加载分类列表
+	ComUtil::instance()->getStationType();
 	
-	MainWindow::instance()->show();
+	
+	HomeWindow::instance()->setUserName("超级管理员");
+	HomeWindow::instance()->show();
+	
+	//MainWindow::instance()->show();
 
 	a.setStyle(new QPlastiqueStyle);
 

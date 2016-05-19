@@ -110,7 +110,7 @@ void HomeWindow::initConnections()
 {
 	connect(m_leftWidget,SIGNAL(loadStations(int,QString)),this,SLOT(loadStationsById(int,QString)));
 	connect(m_titleWidget,SIGNAL(logout()),this,SLOT(logout()));
-	connect(m_contentWidget,SIGNAL(openfile(PBNS::StationBean&)),this,SLOT(openFile(QString,QString)));
+	connect(m_contentWidget,SIGNAL(openfile(PBNS::StationBean&)),this,SLOT(openFile(PBNS::StationBean&)));
 }
 
 

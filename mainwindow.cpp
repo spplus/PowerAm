@@ -130,7 +130,7 @@ void MainWindow::initNavView()
 	m_navview->setModel(m_model);
 	m_navview->setItemDelegate(delegate);
 	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), m_model, SLOT(Collapse(const QModelIndex&)));
-	connect(m_model,SIGNAL(openFile(QString)),this,SLOT(openFile(QString)));
+	connect(m_model,SIGNAL(openFile(QString,int,bool)),this,SLOT(openFile(QString,int,bool)));
 
 }
 
@@ -300,9 +300,7 @@ void MainWindow::cleanScene()
 void MainWindow::openFile()
 {
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"),"/", tr("*.svg"));
-	openFile(fileName,false);
-
-
+	openFile(fileName,m_curStationId,false);
 }
 
 void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot/* =true */)
