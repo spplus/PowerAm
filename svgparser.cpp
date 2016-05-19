@@ -6,6 +6,7 @@
 #include "svgparser.h"
 #include "define.h"
 #include "transformer.h"
+#include "comutil.h"
 
 SvgParser::SvgParser()
 {
@@ -29,7 +30,7 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 		QMessageBox::warning(NULL,title,text);
 		return false;
 	}
-
+	
 	if (!doc->setContent(xmlFile)) {
 
 		QString title = QString("装载%1文件").arg(fileName);
@@ -39,9 +40,56 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 		xmlFile->close();
 		return false;
 	}
+
 	xmlFile->close();
 
 	return true;
+}
+
+void SvgParser::convertSvg(SvgGraph* pgraph)
+{
+	// 把symbol标签转成g标签
+	QString sxml = pgraph->getDom()->toString();
+
+	// 替换class属性为style属性
+	sxml = sxml.replace("class","style");
+
+	// 替换Open 为 0
+	sxml = sxml.replace("Open","0");
+
+	// 替换Close 为 1
+	sxml = sxml.replace("Close","1");
+
+	// 根据自定义颜色进行着色
+	QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
+	while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
+	{
+		QString key = iter.key();
+		QString value = iter.value();
+
+		sxml = sxml.replace(key,value);		
+		iter ++;
+	}
+
+	// 对于没有定义的电压等级，按SVG中定义的颜色进行着色
+	QMap<QString, QString>::const_iterator fiter;
+	iter = pgraph->getStyleMap().constBegin();
+	while (iter != pgraph->getStyleMap().constEnd()) 
+	{
+		QString key = iter.key();
+		fiter = ComUtil::instance()->getStyleMap().find(key);
+		if (fiter !=  ComUtil::instance()->getStyleMap().end())
+		{
+			iter ++;
+			continue;
+		}
+		QString value = iter.value();
+		sxml = sxml.replace(key,value);		
+		iter ++;
+	}
+
+	// 把转换后的重新赋值给dom对象
+	pgraph->getDom()->setContent(sxml);
 }
 
 SvgGraph* SvgParser::parserSvg(QString filename)
@@ -139,6 +187,10 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 			
 		}
 	}
+	
+	// 转化svg中的css,图元模板
+	convertSvg(pgraph);
+
 	return pgraph;
 }
 

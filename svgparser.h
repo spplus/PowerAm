@@ -70,7 +70,10 @@ private:
 	BaseDevice*		parserTransformer(const QDomNode& node);
 
 	// 检查是否有ID属性，如果没有则自动生成一个默认的ID
-	void						checkIdAttr(const QDomNode& node);
+	void			checkIdAttr(const QDomNode& node);
+
+	// 转化svg格式
+	void			convertSvg(SvgGraph* pgraph);
 };
 
 #endif

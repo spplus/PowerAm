@@ -24,11 +24,16 @@ QString SvgRenderer::initSvgRenderer()
 	{
 		// 把symbol标签转成g标签
 		QString sxml = m_graph->getDom()->toString();
-
+		/*
 		// 替换class属性为style属性
 		sxml = sxml.replace("class","style");
-
 	
+		// 替换Open 为 0
+		sxml = sxml.replace("Open","0");
+
+		// 替换Close 为 1
+		sxml = sxml.replace("Close","1");
+
 		// 根据自定义颜色进行着色
 		QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
 		while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
@@ -56,7 +61,9 @@ QString SvgRenderer::initSvgRenderer()
 			sxml = sxml.replace(key,value);		
 			iter ++;
 		}
-		
+
+		m_graph->getDom()->setContent(sxml);
+		*/
 		return sxml;
 	}
 	else
@@ -111,6 +118,11 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 			{
 				item->setLayerId(layer->getId());
 			}
+			// 非设备层，置底
+			if (pdev->getDevType() == eDEFAULT)
+			{
+				item->setZValue(-1);
+			}
 		}
 	}
 
@@ -146,7 +158,7 @@ void SvgRenderer::drawTextLayer()
 					TextSvg* ptext = player->getTextList().at(i);
 					TextItem* item = new TextItem(*ptext);
 					item->setPos(ptext->m_x,ptext->m_y);
-					//item->setFlag(QGraphicsItem::ItemIsSelectable,false);
+					item->setFlag(QGraphicsItem::ItemIsSelectable,false);
 					m_scene->addItem(item);
 				}
 		}
@@ -193,9 +205,18 @@ void SvgRenderer::setItemPos(SvgItem* item,BaseDevice* pdev)
 	m_renderer->getViewBoxOnElement(symbolid,vx,vy);
 
 	// 判断是否需要坐标反转
-	if (isReverseCoordination(pdev))
+	int rt =isReverseCoordination(pdev); 
+	
+	// 旋转-180
+	if (rt == 1)
 	{
 		xp = rect.x()+vx;
+		yp = rect.y()+vy;
+	}
+	// 旋转-90
+	else if (rt == 2)
+	{
+		xp = rect.x()-vx;
 		yp = rect.y()+vy;
 	}
 	else
@@ -254,12 +275,12 @@ SvgItem* SvgRenderer::makeSvgItem(QString id)
 	return item;
 }
 
-bool SvgRenderer::isReverseCoordination(BaseDevice* pdev)
+int SvgRenderer::isReverseCoordination(BaseDevice* pdev)
 {
 	QString trans = pdev->getTransform();
 	if (trans.length()<=0)
 	{
-		return false;
+		return 0;
 	}
 	else
 	{
@@ -267,12 +288,30 @@ bool SvgRenderer::isReverseCoordination(BaseDevice* pdev)
 		int idx = trans.indexOf("rotate");
 		if (idx>=0)
 		{
-			QString angle = trans.mid(idx+6+1,4);
-			if (angle.toInt() == -180)
+			int idx1 = trans.indexOf("(");
+			int idx2 = trans.lastIndexOf(")");
+
+			QString angle = trans.mid(idx1+1,idx2-idx1-1);
+			QStringList plist = angle.split(" ");
+			if (plist.count()>0)
 			{
-				return true;
+				angle = plist.at(0);
 			}
+			else
+			{
+				return 0;
+			}
+			float ag = angle.toFloat();
+			if (ag == -180)
+			{
+				return 1;
+			}
+			else if (ag == -90)
+			{
+				return 2;
+			}
+
 		}
-		return false;
+		return 0;
 	}
 }

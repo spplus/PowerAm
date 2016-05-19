@@ -41,14 +41,15 @@ private:
 
 	SvgLayer*			findLayer(QString lid);
 
-	SvgItem*			addItem(QString id,eDeviceType tp = eDEFAULT);
+	SvgItem*			addItem(QString id,eDeviceType tp = eWINDING);
 	SvgItem*			addItem(BaseDevice* pdev);
 
 	// 初始化svg
 	QString				initSvgRenderer();
 	
-	// 判断是否需要坐标反转
-	bool				isReverseCoordination(BaseDevice* pdev);
+	// 判断是否需要坐标反转 ，如果有旋转-180，则X,Y需要反向补偿
+	// 如果旋转-90，则仅Y需要补偿
+	int					isReverseCoordination(BaseDevice* pdev);
 
 private:
 	SvgGraph*		m_graph;
