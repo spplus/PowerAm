@@ -1,5 +1,7 @@
 #include "contentwidget.h"
 
+// 定义保存按钮属性的键值
+#define KEY_STATION		"STATION"
 
 ContentWidget::ContentWidget(QWidget* parent/* = NULL */)
 	:QScrollArea(parent)
@@ -71,40 +73,31 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 			QPushButton* btn = new QPushButton(bean.currentname().c_str());
 			btn->setObjectName("station");
 
-			// 设置文件名称
-			btn->setProperty("fname",bean.path().c_str());
-			btn->setProperty("sname",btn->text());
+			QVariant val;
+			val.setValue(bean);
+
+			// 保存站点bean
+			btn->setProperty(KEY_STATION,val);
+			//btn->setProperty("sname",btn->text());
+			
 			m_gbox->addWidget(btn,i,j,1,1);
 			connect(btn,SIGNAL(pressed()),this,SLOT(btnPressed()));
 
 			idx++;
 
-			// 保持node
-			//ComUtil::instance()->saveStationList(makeNode(bean,idx==count?true:false),bean.categoryid());
 		}
 	}
 
 	setWidget(m_widget);
 }
 
-TreeNode* ContentWidget::makeNode(PBNS::StationBean & bean,bool islast)
-{
-	TreeNode * node = new TreeNode;
-	node->theLast = islast;
-	node->filePath = bean.path().c_str();
-	node->label = bean.currentname().c_str();
-	node->level = 2;
-	node->nodeId = bean.id();
-	return node;
-}
 
 void ContentWidget::btnPressed()
 {
 	QObject *sd =  QObject::sender ();
-	QString fname  = sd->property("fname").toString();
-
-	QString sname = sd->property("sname").toString();
+	QVariant val = sd->property(KEY_STATION);
+	PBNS::StationBean bean = val.value<PBNS::StationBean>();
 
 	// 发送打开文件信号
-	emit openfile(fname,sname);
+	emit openfile(bean);
 }

@@ -83,6 +83,7 @@ SvgItem* SvgRenderer::renderById(SvgGraph* graph,BaseDevice* pdev)
 		if( m_renderer->load(sxml.toUtf8()))
 		{
 			item = makeSvgItem(pdev->getSvgId());
+			item->setCimId(pdev->getMetaId());
 			setItemPos(item,pdev);
 		}
 	}
@@ -184,6 +185,9 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 
 		// 设置item 类型
 		item->setType(pdev->getDevType());
+
+		// 设置cimid
+		item->setCimId(pdev->getMetaId());
 
 		m_scene->addItem(item);
 	}

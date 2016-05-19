@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(qss.readAll());
 	qss.close();
 
-
 	// ¼ÓÔØÑÕÉ«ÅäÖÃ
 	if(!ComUtil::instance()->loadColorRule())
 	{

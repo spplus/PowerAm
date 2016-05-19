@@ -35,7 +35,7 @@ MainWindow* MainWindow::instance()
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-	
+	m_curStationId = 0;
 	m_title = ComUtil::instance()->getSysName();
 	initWidget();
 	initOpenThread();
@@ -81,6 +81,9 @@ void MainWindow::initWidget()
 	m_spliter->setSizes(sizes);
 	m_spliter->setStretchFactor(1,1);
 
+	m_waitDlg.setParent(this);
+	m_waitDlg.hide();
+
 	setCentralWidget(m_spliter);
 	this->showMaximized();
 }
@@ -90,7 +93,17 @@ void MainWindow::openOk()
 	m_waitDlg.hide();
 
 	// 打开完成后需要做的事情
-	// ...
+	
+	// 加载设备状态数据
+	PBNS::DevStateMsg_Request req;
+
+	// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
+	req.set_saveid(1);
+	req.set_stationid(m_curStationId);
+	string reqstr;
+	req.SerializeToString(&reqstr);
+	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
+
 }
 
 void MainWindow::onToolButton()
@@ -292,7 +305,7 @@ void MainWindow::openFile()
 
 }
 
-void MainWindow::openFile(QString fileName,bool needRoot)
+void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot/* =true */)
 {
 
 	if (fileName.length()== 0)
@@ -300,7 +313,10 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 		QMessageBox::warning(this,"系统提示","文件名称为空");
 		return;
 	}
+	// 保存当前站点ID
+	m_curStationId = stationId;
 
+	// 清空场景
 	cleanScene();
 
 	// 标志是否打开默认目录下的文件
@@ -324,21 +340,11 @@ void MainWindow::openFile(QString fileName,bool needRoot)
 
 	//m_sence->openSvgFile(fileName);
 
-	//m_waitDlg.hide();
-
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
 	this->setWindowTitle(fileName);
 
-	// 加载设备状态数据
-	PBNS::DevStateMsg_Request req;
-	req.set_saveid(1);
-	req.set_stationid(1);
-	string reqstr;
-	req.SerializeToString(&reqstr);
-	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
-	
 }
 
 void MainWindow::setViewModel()

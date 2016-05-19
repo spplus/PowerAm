@@ -22,7 +22,7 @@ public:
 signals:
 	
 	// 打开图形
-	void	openfile(QString fname,QString sname);
+	void	openfile(PBNS::StationBean& bean);
 
 public slots:
 	
@@ -33,13 +33,14 @@ public slots:
 	void	btnPressed();
 	
 private:
-	TreeNode* makeNode(PBNS::StationBean & bean,bool islast=false);
-private:
 	
 	QGridLayout*	m_gbox;
 	QWidget*		m_widget;
 
 	PBNS::StationTypeMsg_Response m_stationList;
 };
+
+// 声明模板类型，可以用于信号槽
+Q_DECLARE_METATYPE(PBNS::StationBean);
 
 #endif

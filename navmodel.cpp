@@ -147,7 +147,7 @@ void NavModel::Collapse( const QModelIndex& index )
 		QString fileName = node->filePath;
 
 		// 打开SVG文件
-		emit openFile(fileName);
+		emit openFile(fileName,node->nodeId);
 		return;
 	}
 	else if (node->children.size() == 0)

@@ -59,7 +59,7 @@ void SvgParser::convertSvg(SvgGraph* pgraph)
 
 	// 替换Close 为 1
 	sxml = sxml.replace("Close","1");
-
+	
 	// 根据自定义颜色进行着色
 	QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
 	while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
@@ -70,7 +70,7 @@ void SvgParser::convertSvg(SvgGraph* pgraph)
 		sxml = sxml.replace(key,value);		
 		iter ++;
 	}
-
+	
 	// 对于没有定义的电压等级，按SVG中定义的颜色进行着色
 	QMap<QString, QString>::const_iterator fiter;
 	iter = pgraph->getStyleMap().constBegin();
@@ -275,9 +275,6 @@ void SvgParser::parserTransformer(SvgGraph*grahp,QDomNode &node)
 void SvgParser::parserMeasure(SvgGraph* graph,QDomNode& node)
 {
 	SvgLayer *player = new SvgLayer;
-
-	checkIdAttr(node);
-
 	player->setId(getAttribute(node,ATTR_ID));
 	QDomNodeList cnodelist = node.childNodes();
 	for (int i=0;i<cnodelist.size();i++)
@@ -421,8 +418,6 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 	for (int i = 0;i<cnodes.count();i++)
 	{
 		QDomNode cnode = cnodes.at(i);
-		QString id = getAttribute(cnode,ATTR_ID);
-		QString nodename = cnode.nodeName();
 
 		switch (type)
 		{
@@ -432,7 +427,6 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 		case eLOAD:
 		case eTEXT:
 			pdev = parserOriginal(cnode);
-			
 			
 			break;
 		case eSWITCH:
@@ -534,10 +528,10 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 
 void SvgParser::checkIdAttr(const QDomNode& node)
 {
-	QString id = getAttribute(node,ATTR_ID);
-	if (id == "0" || id.length() == 0)
-	{
-		QString uuid = QUuid::createUuid().toString();
-		node.toElement().setAttribute(ATTR_ID,uuid);
-	}
+	// 由于不同的厂家图形中的ID比较混乱，现在统一重新生成
+	//QString id = getAttribute(node,ATTR_ID);
+	//if (id == "0" || id.length() == 0)
+	
+	QString uuid = QUuid::createUuid().toString();
+	node.toElement().setAttribute(ATTR_ID,uuid);
 }

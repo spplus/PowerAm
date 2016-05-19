@@ -23,3 +23,12 @@ void SvgItem::setLayerId(QString lid)
 	m_layerId = lid;
 }
 
+void SvgItem::setCimId(QString cimId)
+{
+	m_cimId = cimId;
+}
+
+QString SvgItem::getCimId()
+{
+	return m_cimId;
+}

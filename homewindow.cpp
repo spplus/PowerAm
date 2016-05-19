@@ -110,19 +110,19 @@ void HomeWindow::initConnections()
 {
 	connect(m_leftWidget,SIGNAL(loadStations(int,QString)),this,SLOT(loadStationsById(int,QString)));
 	connect(m_titleWidget,SIGNAL(logout()),this,SLOT(logout()));
-	connect(m_contentWidget,SIGNAL(openfile(QString,QString)),this,SLOT(openFile(QString,QString)));
+	connect(m_contentWidget,SIGNAL(openfile(PBNS::StationBean&)),this,SLOT(openFile(QString,QString)));
 }
 
 
-void HomeWindow::openFile(QString fname,QString sname)
+void HomeWindow::openFile(PBNS::StationBean& bean)
 {
-	m_rightTopWidget->setStationName(sname);
+	m_rightTopWidget->setStationName(bean.currentname().c_str());
 
 	// 显示电路图窗口，隐藏当前窗口
 	this->hide();
 
 	MainWindow::instance()->show();
-	MainWindow::instance()->openFile(fname);
+	MainWindow::instance()->openFile(bean.path().c_str(),bean.id());
 }
 
 void HomeWindow::logout()

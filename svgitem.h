@@ -19,8 +19,11 @@ public:
 	eDeviceType	getType();
 	QString		getLayerId();
 	void		setLayerId(QString lid);
+	void		setCimId(QString cimId);
+	QString		getCimId();
 
 private:
+	QString			m_cimId;
 	QString			m_layerId;
 	eDeviceType		m_type;
 };

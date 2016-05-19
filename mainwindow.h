@@ -38,7 +38,7 @@ public slots:
 	void		goHome();
     void		openFile();
 	void		setViewModel();
-	void		openFile(QString fname,bool needRoot=true);
+	void		openFile(QString fname,int stationId = 0,bool needRoot=true);
 	void		showDownSvg();
 	void		onToolButton();
 	void		openOk();
@@ -117,8 +117,10 @@ private:
 	//状态栏标签
 	QLabel*						m_pConnLabel;
 
+	// 当前打开站点的ID
+	int						m_curStationId;
 
-	FtpUtil						m_ftpUtil;
+	FtpUtil					m_ftpUtil;
 	NavView*				m_navview;
 	NavModel*				m_model;
 	QString					m_title;

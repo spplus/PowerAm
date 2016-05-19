@@ -18,11 +18,11 @@
 struct TreeNode
 {
 	QString			label;
-	int					level;
-	bool					collapse;
-	bool					theLast;
-	int					count;
-	int					nodeId;
+	int				level;
+	bool			collapse;
+	bool			theLast;
+	int				count;
+	int				nodeId;
 	QString			filePath;
 	std::list<TreeNode*> children;
 	TreeNode()

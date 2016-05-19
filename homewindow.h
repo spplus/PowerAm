@@ -35,7 +35,7 @@ public slots:
 	void	loadStationsById(int id,QString tname);
 
 	// 打开图形文件
-	void	openFile(QString fname,QString sname);
+	void	openFile(PBNS::StationBean& bean);
 
 	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
