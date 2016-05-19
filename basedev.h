@@ -35,7 +35,7 @@ public:
 	void		setDevType(eDeviceType dtype){m_devType = dtype;}
 	eDeviceType	getDevType(){return m_devType;}
 
-	void		setMeasId(QString mid){m_metaId = mid;}
+	void		setMeasId(QString mid){m_measId= mid;}
 	QString		getMeasId(){return m_measId;}
 
 	void				setSymbolId(QString symbolId){m_symbolId = symbolId;}

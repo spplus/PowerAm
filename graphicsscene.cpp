@@ -205,17 +205,64 @@ void GraphicsScene::showDevState(const char* msg,int length)
 
 	// 设置图形中的设备状态
 	int size = res.devstate_size();
-	if (size>0)
+	if (size <= 0)
 	{
-		PBNS::StateBean bean = res.devstate(0);
+		return;
 	}
 	
-	
+	// 获取当前的图形
+	if (m_graphList.size()<=m_curIndex)
+	{
+		return;
+	}
+	SvgGraph* pgraph = m_graphList.at(m_curIndex);
+
 	// 根据cimid在图形中找到对应的设备对象
-
-	// 根据svgid 修改dom中的图元模板,改变状态。
-
+	for (int i = 0;i<pgraph->getLayerList().count();i++)
+	{
+		SvgLayer *player = pgraph->getLayerList().at(i);
+		if (player->getId() == BREAKER_LAYER
+			|| player->getId() == DISCONN_LAYER
+			|| player->getId() == GROUNDDISCONN_LAYER
+			)
+		{
+			QList<BaseDevice*> devList = player->getDevList();
+			for (int j = 0;j<devList.count();j++)
+			{
+				// 根据svgid 修改dom中的图元模板,改变状态。
+				BaseDevice* pdev = devList.at(j);
+				setDevState(res,pgraph,pdev);
+			}
+		}
+	}
 	// 重新加载图形
+	this->clear();
+	m_svgRender->drawGraph(pgraph);
+}
 
+void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
+{
+	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
+	QString oldid = graph->getAttribute(pdev->getSvgId(),ATTR_XLINK);
 
+	// 2.组建新状态下的模板ID
+	QString symbolid = getNewSymbolId(oldid,state);
+
+	// 3.修改dom中该节点的href属性
+	if (graph != NULL)
+	{
+		graph->setAttribute(pdev->getSvgId(),ATTR_XLINK,symbolid);
+	}
+}
+
+void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev)
+{
+	for (int i = 0;i<res.devstate_size();i++)
+	{
+		PBNS::StateBean bean = res.devstate(i);
+		if (bean.cimid().c_str() == pdev->getMetaId())
+		{
+			setBreakState(graph,pdev,(eBreakerState)bean.state());
+		}
+	}
 }

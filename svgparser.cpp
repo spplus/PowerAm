@@ -1,7 +1,6 @@
 
 #include <QFile>
 #include <QUuid>
-#include <QDomCDATASection>
 #include <QMessageBox>
 #include "svgparser.h"
 #include "define.h"

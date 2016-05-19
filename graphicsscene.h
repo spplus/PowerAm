@@ -12,7 +12,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QPropertyAnimation>
-
+#include "buff/msgbody.pb.h"
 #include "textitem.h"
 #include "svgparser.h"
 #include "svgrenderer.h"
@@ -52,11 +52,19 @@ public slots:
 
 	// 把解析后的对象生成SVG图元
 	void			drawSvgGraph(SvgGraph* graph);
-protected:
-	void			switchChange(int state);
 
-	QString				getNewSymbolId(QString oldid,int state);
-	void				mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
+protected:
+
+	// 修改dom中开关状态
+	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
+
+	// 修改设备状态列表中的设备状态
+	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
+
+	// 开关变位
+	void					switchChange(int state);
+	QString			getNewSymbolId(QString oldid,int state);
+	void					mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
 	virtual void		contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
