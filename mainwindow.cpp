@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	initMenu();
 	initStatusBar();
 	setWindowTitle(m_title);
+
+	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,int,bool)),this,SLOT(openFile(QString,int,bool)));
 }
 
 void MainWindow::initWidget()
@@ -305,7 +307,7 @@ void MainWindow::openFile()
 
 void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot/* =true */)
 {
-
+	QString tempName = fileName;
 	if (fileName.length()== 0)
 	{
 		QMessageBox::warning(this,"系统提示","文件名称为空");
@@ -313,9 +315,6 @@ void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot
 	}
 	// 保存当前站点ID
 	m_curStationId = stationId;
-
-	// 清空场景
-	cleanScene();
 
 	// 标志是否打开默认目录下的文件
 	if (needRoot)
@@ -329,6 +328,20 @@ void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot
 
 		fileName = svgRoot+"/"+fileName;
 	}
+
+	// 判断该文件是否存在本地目录，如果不存在，则通过FTP下载该文件
+	QFile file(fileName);
+	if (!file.exists())
+	{
+		file.close();
+		m_ftpUtil.show();
+		m_ftpUtil.getFile(tempName);
+		return;
+	}
+	file.close();
+
+	// 清空场景
+	cleanScene();
 
 	// 显示等待窗口
 	m_waitDlg.show();

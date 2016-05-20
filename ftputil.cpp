@@ -5,12 +5,13 @@
 #include <QVBoxLayout>
 #include "ftputil.h"
 #include "define.h"
+#include "comutil.h"
 
-FtpUtil::FtpUtil(QWidget *parent,QString host)
+FtpUtil::FtpUtil(QWidget *parent)
 	:QDialog(parent)
 {
 	m_downCount = 0;
-	m_host = host;
+
 	initUi();
 	connectToFtp();
 }
@@ -30,6 +31,24 @@ QSize FtpUtil::sizeHint() const
 	return QSize(300, 100);
 }
 
+QList<QString> FtpUtil::getFileList()
+{
+	m_flist.clear();
+
+	QHash<QString,bool>::iterator iter = m_isDirectory.begin();
+	for (;iter!=m_isDirectory.end();iter++)
+	{
+		// 跳过目录
+		if (iter.value())
+		{
+			continue;
+		}
+
+		m_flist.push_back(_FromSpecialEncoding(iter.key()));
+	}
+
+	return m_flist;
+}
 
 void FtpUtil::getAll()
 {
@@ -44,14 +63,18 @@ void FtpUtil::getAll()
 			continue;
 		}
 		
-		getFile(iter.key());
+		getFile(_FromSpecialEncoding(iter.key()));
 	}
 }
 
 void FtpUtil::getFile(QString fname)
 {
-	QString fpath = SVG_PATH+fname;
+	
+	QString fpath = ComUtil::instance()->getSvgRoot()+"/"+fname;
 	QFile *file = new QFile(fpath);
+	
+	// 保存文件名称，不包含路径
+	file->setProperty("fname",fname);
 
 	if (!file->open(QIODevice::WriteOnly)) 
 	{
@@ -62,7 +85,9 @@ void FtpUtil::getFile(QString fname)
 	}
 
 	// 通过FTP下载
-	m_ftp->get(fname, file);
+	m_ftp->get(_ToSpecialEncoding(fname), file);
+
+	m_msgLabel->setText(tr("正在下载%1...").arg(fname));
 }
 
 void FtpUtil::initUi()
@@ -78,14 +103,14 @@ void FtpUtil::initUi()
 	hbox3->addWidget(m_statusLabel);
 	
 
-	QPushButton* downBtn = new QPushButton(tr("下载"));
-	connect(downBtn,SIGNAL(pressed()),this,SLOT(getAll()));
+	//QPushButton* downBtn = new QPushButton(tr("下载"));
+	//connect(downBtn,SIGNAL(pressed()),this,SLOT(getAll()));
 
 	QHBoxLayout* hbox = new QHBoxLayout;
 	
 	hbox->addWidget(m_msgLabel);
-	hbox->addStretch();
-	hbox->addWidget(downBtn);
+	//hbox->addStretch();
+	//hbox->addWidget(downBtn);
 
 	QVBoxLayout* vbox = new QVBoxLayout(this);
 
@@ -96,12 +121,13 @@ void FtpUtil::initUi()
 	vbox->addStretch();
 
 	setLayout(vbox);
-	
+	this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 void FtpUtil::connectToFtp()
 {
 	m_ftp = new QFtp(this);
+	
 	connect(m_ftp, SIGNAL(commandFinished(int,bool)),
 		this, SLOT(ftpCommandFinished(int,bool)));
 	connect(m_ftp, SIGNAL(listInfo(QUrlInfo)),
@@ -113,12 +139,21 @@ void FtpUtil::connectToFtp()
 	m_currentPath.clear();
 	m_isDirectory.clear();
 
+	FtpConfig ftpconf = ComUtil::instance()->getFtpConfig();
+	m_host = ftpconf.m_ftpAddr;
 	QUrl url(m_host);
-	if (!url.isValid() || url.scheme().toLower() != QLatin1String("ftp")) {
-		m_ftp->connectToHost(m_host, 21);
+	url.setUserName(ftpconf.m_ftpUser);
+	url.setPort(ftpconf.m_ftpPort);
+	url.setPassword(ftpconf.m_ftpPwd);
+
+	if (!url.isValid() || url.scheme().toLower() != QLatin1String("ftp")) 
+	{
+		m_ftp->connectToHost(m_host, ftpconf.m_ftpPort);
 		m_ftp->login();
-	} else {
-		m_ftp->connectToHost(url.host(), url.port(21));
+	} 
+	else 
+	{
+		m_ftp->connectToHost(url.host(), url.port());
 
 		if (!url.userName().isEmpty())
 			m_ftp->login(QUrl::fromPercentEncoding(url.userName().toLatin1()), url.password());
@@ -169,13 +204,14 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 				.arg(m_host);
 
 			m_statusLabel->setText(msg);
-
+			
 			if (m_ftp) 
 			{
 				m_ftp->abort();
 				m_ftp->deleteLater();
 				m_ftp = NULL;
 			}
+			
 			return;
 		}
 		else
@@ -187,7 +223,13 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 	
 	if (m_ftp->currentCommand() == QFtp::Login)
 	{
-		m_ftp->cd("pub");
+		QString ftpdir = ComUtil::instance()->getFtpConfig().m_ftpDir;
+		if (ftpdir.length()<=0)
+		{
+			QMessageBox::warning(this,"系统提示","未设置文件在FTP服务器上的目录");
+			accept();
+		}
+		m_ftp->cd(ftpdir);
 		m_ftp->list();
 	}
 	if (m_ftp->currentCommand() == QFtp::Get) 
@@ -195,24 +237,30 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 		QFile* file = (QFile*)m_ftp->currentDevice();
 		if (error) 
 		{
-			QString msg = QString("Canceled download of %1.").arg(file->fileName());
+			QString msg = QString("下载文件失败 %1,%2.").arg(file->fileName()).arg(m_ftp->errorString());
 			m_statusLabel->setText(msg);
 			file->close();
 			file->remove();
+			QMessageBox::warning(this,"系统提示",msg);
+			accept();
 		} 
 		else 
 		{
 			m_downCount++;
 
 			QString fname = file->fileName();
-			QString msg = QString("Downloaded %1 to current directory.").arg(fname);
+			
+			QString msg = QString("下载 %1 完成.").arg(fname);
 			m_statusLabel->setText(msg);
 			file->close();
 
-			msg = QString("共%1个，已下载%2个").arg(m_isDirectory.count()).arg(m_downCount);
-			m_msgLabel->setText(msg);
+			// 获取文件名称
+			fname = file->property("fname").toString();
 
 			emit downloaded(fname);
+
+			// 关闭窗口
+			this->accept();
 		}
 		
 		delete file;
@@ -234,4 +282,39 @@ void FtpUtil::addToList(const QUrlInfo &urlInfo)
 void FtpUtil::showListInfo()
 {
 	m_msgLabel->setText(tr("共有发现文件%1个").arg(m_isDirectory.count()));
+}
+
+QString FtpUtil::_FromSpecialEncoding(const QString &InputStr)
+{
+#ifdef Q_OS_WIN
+	return  QString::fromLocal8Bit(InputStr.toLatin1());
+#else
+	QTextCodec *codec = QTextCodec::codecForName("gbk");
+	if (codec)
+	{
+		return codec->toUnicode(InputStr.toLatin1());
+	}
+	else
+	{
+		return QString("");
+	}
+#endif
+}
+
+
+QString FtpUtil::_ToSpecialEncoding(const QString &InputStr)
+{
+#ifdef Q_OS_WIN
+	return QString::fromLatin1(InputStr.toLocal8Bit());
+#else
+	QTextCodec *codec= QTextCodec::codecForName("gbk");
+	if (codec)
+	{
+		return QString::fromLatin1(codec->fromUnicode(InputStr));
+	}
+	else
+	{
+		return QString("");
+	}
+#endif
 }

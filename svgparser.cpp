@@ -26,7 +26,7 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 
 		QString title = QString("打开%1文件").arg(fileName);
 		QString text  = QString("打开%1文件,可能不存在该文件!").arg(fileName);
-		QMessageBox::warning(NULL,title,text);
+		//QMessageBox::warning(NULL,title,text);
 		return false;
 	}
 	
@@ -34,7 +34,7 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 
 		QString title = QString("装载%1文件").arg(fileName);
 		QString text  = QString("装载%1文件,可能该SVG文件有错误!").arg(fileName);
-		QMessageBox::warning(NULL,title,text);
+		//QMessageBox::warning(NULL,title,text);
 
 		xmlFile->close();
 		return false;

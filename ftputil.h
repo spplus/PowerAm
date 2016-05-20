@@ -21,11 +21,12 @@ class FtpUtil	:public QDialog
 {
 	Q_OBJECT
 public:
-	FtpUtil(QWidget *parent = 0,QString host = "192.168.0.3");
+	FtpUtil(QWidget *parent = 0);
 	~FtpUtil();
 	QSize sizeHint() const;
+
 signals:
-	void		downloaded(QString fname);
+	void		downloaded(QString fname,int stationId = 0,bool needRoot=true);
 
 public slots:
 	// 下载全部文件
@@ -34,9 +35,15 @@ public slots:
 	// 下载指定文件
 	void		getFile(QString fname);
 
+	// 获取文件列表
+	QList<QString>	getFileList();
+
 private:
 	void		initUi();
 	void		showListInfo();
+	QString		_FromSpecialEncoding(const QString &InputStr);
+	QString		_ToSpecialEncoding(const QString &InputStr);
+
 private slots:
 	void	connectToFtp();
 	void	ftpCommandFinished(int commandId, bool error);
@@ -57,8 +64,12 @@ private:
 	QLabel*		m_statusLabel;
 	QLabel*		m_msgLabel;
 	QProgressBar*	m_progressBar;
+	
 	// 当前路径
 	QString		m_currentPath;
+
+	// 文件列表
+	QList<QString>		m_flist;
 
 	// 文件列表
 	QHash<QString, bool> m_isDirectory;

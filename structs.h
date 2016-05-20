@@ -43,4 +43,15 @@ struct ListNode
 	TreeNode* treeNode;
 };
 
+// FTP服务器信息
+
+struct FtpConfig
+{
+	QString				m_ftpAddr;
+	int					m_ftpPort;
+	QString				m_ftpUser;
+	QString				m_ftpPwd;
+	QString				m_ftpDir;
+};
+
 #endif

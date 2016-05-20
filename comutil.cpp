@@ -22,14 +22,9 @@ ComUtil* ComUtil::instance()
 
 	return m_inst;
 }
-QString ComUtil::getFtpAddr()
+FtpConfig ComUtil::getFtpConfig()
 {
-	return m_ftpAddr;
-}
-
-QString ComUtil::getFtpPort()
-{
-	return m_ftpPort;
+	return m_ftpConfig;
 }
 
 QString ComUtil::getSysName()
@@ -177,8 +172,12 @@ bool ComUtil::initConfig()
 	if (ftpNodes.count()>0)
 	{
 		QDomNode ftpNode = ftpNodes.at(0);
-		m_ftpAddr = ftpNode.toElement().attribute("addr");
-		m_ftpPort = ftpNode.toElement().attribute("port");
+		m_ftpConfig.m_ftpAddr = ftpNode.toElement().attribute("addr");
+		m_ftpConfig.m_ftpPort = ftpNode.toElement().attribute("port").toInt();
+		m_ftpConfig.m_ftpUser = ftpNode.toElement().attribute("username");
+		m_ftpConfig.m_ftpPwd = ftpNode.toElement().attribute("pwd");
+		m_ftpConfig.m_ftpDir = ftpNode.toElement().attribute("dir");
+
 	}
 	else
 	{

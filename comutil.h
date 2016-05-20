@@ -45,20 +45,19 @@ public:
 	// 获取SVG文件保存目录
 	QString				getSvgRoot();
 
-	QString				getFtpAddr();
-	QString				getFtpPort();
-
+	FtpConfig			getFtpConfig();
+	
 	// 加载分类列表
-	void						getStationType();
+	void				getStationType();
 
 	// 保存站点列表
-	void						saveStationList(PBNS::StationTypeMsg_Response& res);
+	void				saveStationList(PBNS::StationTypeMsg_Response& res);
 
 	// 获取站点列表
-	vector<TreeNode*>		getStationList();
+	vector<TreeNode*>	getStationList();
 
 	// 加载颜色规则
-	bool					loadColorRule();
+	bool				loadColorRule();
 
 	// 获取颜色规则
 	QMap<QString,QString>&	getStyleMap();
@@ -69,18 +68,17 @@ private:
 	bool		openFile(QString fname,QDomDocument &doc);
 private:
 	// 当前运行目录
-	QString						m_appPath;
+	QString				m_appPath;
 
 	// 当前对象实例
-	static	ComUtil*			m_inst;
+	static	ComUtil*	m_inst;
 
 	// 服务器地址
-	QString						m_svrAddr;
-	QString						m_svrPort;
-	QString						m_sysName;
-	QString						m_svgRoot;
-	QString						m_ftpAddr;
-	QString						m_ftpPort;
+	QString				m_svrAddr;
+	QString				m_svrPort;
+	QString				m_sysName;
+	QString				m_svgRoot;
+	FtpConfig			m_ftpConfig;
 
 	// 颜色规则隐射
 	QMap<QString,QString>		m_styleMap;
