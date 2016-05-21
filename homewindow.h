@@ -52,6 +52,8 @@ private:
 	// 初始化信号槽
 	void		initConnections();
 
+	//用户登录管理返回
+	void		retUserMgr(int msgtype,const char* msg,int msglength);
 private:
 
 	static HomeWindow*	m_inst;
@@ -61,6 +63,8 @@ private:
 	RightTopWidget*	m_rightTopWidget;
 
 	PBNS::StationTypeMsg_Response	m_stationList;
+
+
 };
 
 #endif

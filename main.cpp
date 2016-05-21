@@ -5,6 +5,7 @@
 #include "netclient.h"
 #include "homewindow.h"
 #include "comutil.h"
+#include "userlogindlg.h"
 
 int main(int argc, char *argv[])
 {
@@ -43,12 +44,20 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	//加载登录界面
+	UserLogindlg::instance()->exec();
+
+	//登录用户是否关闭
+	if (UserLogindlg::instance()->getCloselgn())
+	{
+		return -1;
+	}
 
 	// 加载分类列表
 	ComUtil::instance()->getStationType();
-	
-	
-	HomeWindow::instance()->setUserName("超级管理员");
+
+	//设置登录用户名
+	HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
 	HomeWindow::instance()->show();
 	
 	//MainWindow::instance()->show();

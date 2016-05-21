@@ -166,120 +166,25 @@ QByteArray NetClient::pack(const char* msg,const int msgtype,const int msglength
 {
 
 	QByteArray bpack;
-	QByteArray bbpack;
-	
+
 	//消息长度		 消息头		 消息类型		 数据区内容		 消息结尾
 	// 4个字节	  2字节(0x11)	  4个字节						2字节(0x88)
-	//计算消息长度
-	quint32 len =  2 + 4 + strlen(msg) + 2;
+	//计算消息区长度
+	quint32 len = 2 + 4 + strlen(msg) + 2;
 
 	//写入消息长度
 	bpack.append(reinterpret_cast<const char*>(&len),4);
 	//消息头
 	quint32 nhead = 0x11;
-	bpack.append(reinterpret_cast<const char*>(&nhead),2);
+	bpack.append(reinterpret_cast<const char*>(&FRAM_HEAD),2);
 	//消息类型
 	bpack.append(reinterpret_cast<const char*>(&msgtype),4);
 	//数据体
 	bpack.append(msg,strlen(msg));
 	//消息尾
 	quint32 ntail = 0x88;
-	bpack.append(reinterpret_cast<const char*>(&ntail),2);
+	bpack.append(reinterpret_cast<const char*>(&FRAM_TAIL),2);
 
-/**/
-
-	//int i = 200;
-	QByteArray bytes;
-	bytes.resize(4);
-	bytes[0] = (unsigned char)(0x000000ff & len);
-	bytes[1] = (unsigned char)((0x0000ff00 & len) >> 8);
-	bytes[2] = (unsigned char)((0x00ff0000 & len) >> 16);
-	bytes[3] = (unsigned char)((0xff000000 & len) >> 24);
-
-/*
-	QString strLen = tr("%1").arg(len);
-	//写入消息长度
-	//计算出的缓存区长度初始值
-	bpack.resize(len);
-	memcpy(bpack.data(),strLen.toLatin1().data(),4);
-	
-	//消息头
-	quint32 nhead = 255;
-	QString strHead = tr("%1").arg(nhead);
-	memcpy(bpack.data()+4,strHead.toLatin1().data(),2);
-	
-	//消息类型
-	QString strType = tr("%1").arg(msgtype);
-	memcpy(bpack.data()+6,strType.toLatin1().data(),4);
-	
-	//数据体
-	memcpy(bpack.data()+10,msg,strlen(msg));
-	
-	//消息尾
-	quint32 ntail = 136;
-	QString strTail = tr("%1").arg(ntail);
-	memcpy(bpack.data()+10+strlen(msg),strTail.toLatin1().data(),2);
-*/
-
-/*
-	// 分配打包后的消息缓冲区
-	char * buff = new char[len];
-	int pos = 0;
-
-	//写入消息长度
-	size_t lens = 4;
-	memcpy(buff+pos,&len,4);
-	//memcpy(buff+pos,strLen.toLatin1().data(),4);
-	pos += 4;
-
-	// 消息头
-	memcpy(buff+pos,&nhead,2);
-	//memcpy(buff+pos,strHead.toLatin1().data(),2);
-	pos += 2;
-
-	//消息类型
-	memcpy(buff+pos,&msgtype,4);
-	pos += 4;
-
-	//消息内容
-	memcpy(buff+pos,msg,strlen(msg));
-	pos += strlen(msg);
-
-	//消息尾
-	memcpy(buff+pos,&ntail,2);
-	pos += 2;
-*/
-
-	/*
-	//用于暂存要发送的数据  
-	QByteArray block;  
-	//使用数据流写入数据  
-	QDataStream out(&block,QIODevice::ReadWrite);  
-	//设置数据流的版本，客户端和服务器端使用的版本要相同  
-	out.setVersion(QDataStream::Qt_4_8);
-	//设置发送长度初始值为0 
-	out << quint32(0);
-	//out << len;
-	//消息头
-	//out << (quint32)255;
-	//消息类型
-	//out << (quint32)msgtype;
-	//消息体
-	out << msg;
-	//消息尾
-	//out << (quint32)136;
-	
-	//回到字节流起始位置  
-	out.device()->seek(0);  
-	//重置字节流长度  
-	out << len <<(quint32) (block.size()-sizeof(quint32));
-
-	QString stt = tr("testststts");
-	QString strbf = tr("%1").arg(block.data());
-	*/
-
-	//;return block.data();
-	//return bpack;
 	return bpack;
 
 }
@@ -301,10 +206,10 @@ QByteArray NetClient::unpack(QByteArray qByte,int &msgtype,int recvlen)
 	msgLen |= ((qByte[1] << 8) & 0x0000FF00);    
 	msgLen |= ((qByte[2] << 16) & 0x00FF0000);    
 	msgLen |= ((qByte[3] << 24) & 0xFF000000);
-	
+
 	//消息头
 	qint16 msgHead = *reinterpret_cast<qint16*>(qByte.mid(4, 2).data());
-	if (msgHead != 0x11)
+	if (msgHead != FRAM_HEAD)
 	{
 		qDebug("接收数据帧中消息头关键字未找到");
 		return 0;
@@ -312,7 +217,7 @@ QByteArray NetClient::unpack(QByteArray qByte,int &msgtype,int recvlen)
 
 	//消息尾
 	qint16 msgTail = *reinterpret_cast<qint16*>(qByte.mid(recvlen-2, 2).data());
-	if (msgTail != 0x88)
+	if (msgTail != FRAM_TAIL)
 	{
 		qDebug("接收数据帧中消息尾关键字未找到");
 		return 0;
@@ -325,17 +230,7 @@ QByteArray NetClient::unpack(QByteArray qByte,int &msgtype,int recvlen)
 	//消息体
 	QByteArray qData = qByte.mid(4+2+4,recvlen-12);
 
-	//消息体转换为char
-	char *rdata = qData.data();
-
 	return qData;
 
 }
 
-/*
-char* NetClient::unpack(const char* msg,const int msglength,int &msgtype)
-{
-	
-	return NULL;
-}
-*/

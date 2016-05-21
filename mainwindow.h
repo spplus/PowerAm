@@ -130,6 +130,8 @@ private:
 	WaitWidget				m_waitDlg;
 	OpenThread*				m_openThread;
 	static		MainWindow*		m_inst;
+
+
 };
 
 #endif // MAINWINDOW_H

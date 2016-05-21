@@ -39,5 +39,19 @@
         <file>images/rolemgr.png</file>
         <file>images/typemgr.png</file>
         <file>images/loading.gif</file>
+        <file alias="close">images/titel/close.png</file>
+        <file alias="close_hover">images/titel/close_hover.png</file>
+        <file alias="close_pressed">images/titel/close_pressed.png</file>
+        <file alias="menu">images/titel/menu.png</file>
+        <file alias="menu_hover">images/titel/menu_hover.png</file>
+        <file alias="menu_pressed">images/titel/menu_pressed.png</file>
+        <file alias="min">images/titel/min.png</file>
+        <file alias="min_hover">images/titel/min_hover.png</file>
+        <file alias="min_pressed">images/titel/min_pressed.png</file>
+        <file alias="usermgrbk">images/usermgrbk.png</file>
+        <file alias="login">images/login.png</file>
+        <file alias="loginmainbk">images/loginmainbk.png</file>
+        <file alias="stgirdicon">images/stategridicon.png</file>
+        <file alias="usermgrmainbk">images/usermgrmainbk.png</file>
     </qresource>
 </RCC>

@@ -147,7 +147,25 @@ QString TitleWidget::getDate()
 
 void TitleWidget::userMgr()
 {
+	m_pUserMgrdlg = new UserMgrdlg(this);
 
+	//请求用户列表
+	m_pUserMgrdlg->reqUserList();
+
+	m_pUserMgrdlg->setWindowIcon(QIcon(":images/usermgr.png"));
+	m_pUserMgrdlg->setWindowTitle("用户管理");
+
+	m_pUserMgrdlg->exec();
+
+	delete m_pUserMgrdlg;
+
+	return;
+}
+
+void TitleWidget::retUserMgr(int msgtype,const char* msg,int msglength)
+{
+	m_pUserMgrdlg->retUserManager(msgtype,msg);
+	return;
 }
 
 void TitleWidget::typeMgr()

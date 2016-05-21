@@ -19,6 +19,12 @@
 #define MSGHEAD "0xff"
 #define MSGTAIL "0x88"
 
+//定义数据包包头
+const qint32 FRAM_HEAD = 0x11;
+
+//定义数据包包未
+const qint32 FRAM_TAIL = 0x88;
+
 class NetClient :public QObject
 {
 	Q_OBJECT

@@ -29,14 +29,17 @@ void HomeWindow::setUserName(QString username)
 {
 	m_titleWidget->setUserName(username);
 }
+
 HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
 {
+
 	// 初始化界面
 	initUi();
 
 	// 初始化信号槽
 	initConnections();
+
 }
 
 HomeWindow::~HomeWindow()
@@ -68,12 +71,7 @@ void HomeWindow::initUi()
 	
 	QHBoxLayout* bottomHbox = new QHBoxLayout;
 	bottomHbox->addWidget(initBottomWidget());
-	//mainHbox->setMargin(0);
-	//leftVbox->setMargin(0);
-	//rightVbox->setMargin(0);
-	//midVbox->setMargin(0);
 	vmain->setMargin(0);
-	//titleHbox->setMargin(0);
 
 	vmain->addLayout(titleHbox);
 	vmain->addLayout(mainHbox,1);
@@ -100,10 +98,21 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			m_leftWidget->loadData(res);
 		}
 		break;
-
+	case CMD_USER_MANAGER:
+	case CMD_USER_ROLE:
+	case CMD_USER_ADD:
+	case CMD_USER_DEL:
+	case CMD_USER_MODIFY:
+		retUserMgr(msgtype,msg,msglength);
+		break;
 	default:
 		break;
 	}
+}
+
+void HomeWindow::retUserMgr(int msgtype,const char* msg,int msglength)
+{
+	m_titleWidget->retUserMgr(msgtype,msg,msglength);
 }
 
 void HomeWindow::initConnections()

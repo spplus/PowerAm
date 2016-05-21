@@ -115,6 +115,6 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define		PBNS	com::spplus::buff
 
 // 首页站点每行显示列数
-#define		COL		4
+#define		COL		5
 
 #endif

@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	initToolBar();
 	initMenu();
 	initStatusBar();
-	setWindowTitle(m_title);
+	setWindowTitle(m_title); 
 
 	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,int,bool)),this,SLOT(openFile(QString,int,bool)));
 }
