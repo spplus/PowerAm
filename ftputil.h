@@ -26,7 +26,7 @@ public:
 	QSize sizeHint() const;
 
 signals:
-	void		downloaded(QString fname,int stationId = 0,bool needRoot=true);
+	void		downloaded(QString fname,QString stationId = "",bool needRoot=true);
 
 public slots:
 	// 下载全部文件

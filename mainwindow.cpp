@@ -35,7 +35,7 @@ MainWindow* MainWindow::instance()
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-	m_curStationId = 0;
+	m_curStationId = "1";
 	m_title = ComUtil::instance()->getSysName();
 	initWidget();
 	initOpenThread();
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	initStatusBar();
 	setWindowTitle(m_title); 
 
-	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,int,bool)),this,SLOT(openFile(QString,int,bool)));
+	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
 }
 
 void MainWindow::initWidget()
@@ -101,7 +101,7 @@ void MainWindow::openOk()
 
 	// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
 	req.set_saveid(1);
-	req.set_stationid(m_curStationId);
+	req.set_stationcim(m_curStationId.toStdString());
 	string reqstr;
 	req.SerializeToString(&reqstr);
 	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
@@ -132,7 +132,7 @@ void MainWindow::initNavView()
 	m_navview->setModel(m_model);
 	m_navview->setItemDelegate(delegate);
 	connect(m_navview, SIGNAL(doubleClicked(const QModelIndex &)), m_model, SLOT(Collapse(const QModelIndex&)));
-	connect(m_model,SIGNAL(openFile(QString,int,bool)),this,SLOT(openFile(QString,int,bool)));
+	connect(m_model,SIGNAL(openFile(QString,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
 
 }
 
@@ -305,7 +305,7 @@ void MainWindow::openFile()
 	openFile(fileName,m_curStationId,false);
 }
 
-void MainWindow::openFile(QString fileName,int stationId /* = 0 */,bool needRoot/* =true */)
+void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool needRoot/* =true */)
 {
 	QString tempName = fileName;
 	if (fileName.length()== 0)

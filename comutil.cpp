@@ -71,7 +71,7 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 		pnode->label = bean.name().c_str();
 		pnode->count = bean.stationlist_size();
 		pnode->level = 1;
-		pnode->nodeId = bean.id();
+		//pnode->nodeId = bean.id();
 		pnode->theLast = (i==res.typelist_size()-1?true:false);
 		if (i == 0)
 		{
@@ -84,7 +84,7 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 			cnode->label = sbean.currentname().c_str();
 			cnode->filePath = sbean.path().c_str();
 			cnode->level = 2;
-			cnode->nodeId = sbean.id();
+			cnode->nodeId = sbean.cimid().c_str();
 			cnode->theLast = (j==bean.stationlist_size()-1?true:false);
 
 			pnode->children.push_back(cnode);

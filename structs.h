@@ -22,8 +22,8 @@ struct TreeNode
 	bool			collapse;
 	bool			theLast;
 	int				count;
-	int				nodeId;
-	QString			filePath;
+	QString		nodeId;
+	QString		filePath;
 	std::list<TreeNode*> children;
 	TreeNode()
 	{
@@ -32,7 +32,7 @@ struct TreeNode
 		collapse = true;
 		theLast = false;
 		count = 0;
-		nodeId = 0;
+		nodeId ="";
 		filePath = "";
 	}
 };

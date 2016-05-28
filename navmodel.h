@@ -25,7 +25,7 @@ public:
 	void	setData(std::vector<TreeNode*>& datalist);
 
 signals:
-	void	openFile(QString fname,int stationId,bool svgroot);
+	void	openFile(QString fname,QString stationId,bool svgroot);
 
 public:
 	int rowCount(const QModelIndex &parent /* = QModelIndex */) const;

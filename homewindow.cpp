@@ -131,7 +131,7 @@ void HomeWindow::openFile(PBNS::StationBean& bean)
 	this->hide();
 
 	MainWindow::instance()->show();
-	MainWindow::instance()->openFile(bean.path().c_str(),bean.id());
+	MainWindow::instance()->openFile(bean.path().c_str(),bean.cimid().c_str());
 }
 
 void HomeWindow::logout()
