@@ -10,7 +10,10 @@
 #define __TITLEWIDGET_H__
 
 #include <QtGui>
+#include "userlogindlg.h"
+#include "userpasswdreset.h"
 #include "usermgrdlg.h"
+#include "stationmgr.h"
 
 class TitleWidget	:public QMainWindow
 {
@@ -24,6 +27,12 @@ public:
 
 	//用户登录管理返回
 	void		retUserMgr(int msgtype,const char* msg,int msglength);
+
+	//厂站管理返回
+	void		retStationMgr(int msgtype,const char* msg);
+
+	//密码修改返回
+	void		retpasswdMgr(int msgtype,const char* msg);
 
 signals:
 	void	logout();
@@ -42,6 +51,10 @@ private slots:
 	// 规则库编辑
 	void	roleMgr();
 
+	//用户密码重置管理
+	void	passwdMgr();
+
+
 private:
 	void		initUi();
 	void		createMenu();
@@ -57,10 +70,16 @@ private:
 
 	QToolButton*	m_logout;
 	QToolButton*	m_setting;
+	QToolButton*	m_userpwd;
 
 	//用户管理
 	UserMgrdlg		*m_pUserMgrdlg;
+	//登录用户密码管理
+	UserPasswdReset *m_pUserPwddlg;
+	//厂站管理
+	StationMgr		*m_pStationMgrdlg;
 
+	PBNS::StationTypeMsg_Response	m_stationList;
 };
 
 #endif

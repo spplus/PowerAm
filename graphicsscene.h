@@ -58,6 +58,9 @@ protected:
 	// 修改dom中开关状态
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
 
+	// 修改dom中的style属性
+	void			setSvgStyle(SvgGraph* graph,BaseDevice* pdev,QString style);
+
 	// 修改设备状态列表中的设备状态
 	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
 

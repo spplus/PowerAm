@@ -62,8 +62,27 @@ vector<TreeNode*> ComUtil::getStationList()
 	return m_stationList;
 }
 
+
+vector<StationType_S> ComUtil::getStationTypeMgrList()
+{
+	return m_stationtypelis;
+}
+
+
+vector<Station_S> ComUtil::getStationMgrList()
+{
+	return m_staList;
+}
+
+QList<QString> ComUtil::getSvgPathName()
+{
+	return m_svgflist;
+}
+
 void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 {
+	m_stationList.clear();
+
 	for (int i = 0;i<res.typelist_size();i++)
 	{
 		PBNS::StationTypeBean bean = res.typelist(i);
@@ -92,6 +111,46 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 
 		m_stationList.push_back(pnode);
 	}
+}
+
+void ComUtil::saveStationAndTypeList(PBNS::StationTypeMsg_Response& res)
+{
+	m_staList.clear();
+	m_stationtypelis.clear();
+
+	for (int i=0;i<res.typelist_size();i++)
+	{
+		PBNS::StationTypeBean statypebean = res.typelist(i);
+		StationType_S statype;
+		statype.id = statypebean.id();
+		statype.name = statypebean.name().c_str();
+		statype.odernum = statypebean.ordernum();
+
+		for(int j=0;j<statypebean.stationlist_size();j++)
+		{
+			PBNS::StationBean stabean = statypebean.stationlist(j);
+			Station_S station;
+			station.id = stabean.id();
+			station.stypeid = stabean.categoryid();
+			station.stypename = statypebean.name().c_str();
+			station.cimid = stabean.cimid().c_str();
+			station.name = stabean.name().c_str();
+			station.curname = stabean.currentname().c_str();
+			station.path = stabean.path().c_str();
+
+			m_staList.push_back(station);
+		}
+
+		m_stationtypelis.push_back(statype);
+	}
+
+}
+
+void ComUtil::saveSvgPathName()
+{
+	FtpUtil ftputil;
+	m_svgflist = ftputil.getFileList();
+
 }
 
 bool ComUtil::openFile(QString fname,QDomDocument &doc)

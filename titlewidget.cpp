@@ -38,6 +38,14 @@ void TitleWidget::initUi()
 	m_logout->setText(tr("注销"));
 	m_logout->setIcon(QIcon(":images/logout.png"));
 	m_logout->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+	m_userpwd = new QToolButton;
+	m_userpwd->setAutoRaise(true);
+	m_userpwd->setObjectName("logout");
+	m_userpwd->setText(tr("密码重置"));
+	m_userpwd->setIcon(QIcon(":images/typemgr.png"));
+	m_userpwd->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
 	m_setting = new QToolButton();
 
 	m_setting->setText(tr("设置"));
@@ -55,7 +63,17 @@ void TitleWidget::initUi()
 	hbox->addStretch(3);
 	hbox->addWidget(pwelcome);
 	hbox->addWidget(m_userName);
-	hbox->addWidget(m_setting);
+
+	//只有超管角色显示设置项
+	if (UserLogindlg::instance()->getLoginRoleId() == 1)
+	{
+		hbox->addWidget(m_setting);
+	}
+	else
+	{
+		hbox->addWidget(m_userpwd);
+	}
+	
 	hbox->addWidget(m_logout);
 
 	QHBoxLayout* hbox1 = new QHBoxLayout;
@@ -82,6 +100,7 @@ void TitleWidget::initUi()
 	setCentralWidget(titleWidget);
 
 	connect(m_logout,SIGNAL(pressed()),this,SIGNAL(logout()));
+	connect(m_userpwd,SIGNAL(pressed()),this,SLOT(passwdMgr()));
 }
 
 void TitleWidget::createMenu()
@@ -89,12 +108,12 @@ void TitleWidget::createMenu()
 	m_menu = new QMenu;
 	m_userAction = new QAction(QIcon(":images/usermgr.png"),tr("用户管理"),this);
 	m_typeAction= new QAction(QIcon(":images/typemgr.png"),tr("类别管理"),this);
-	m_stationAction= new QAction(QIcon(":images/stationmgr.png"),tr("站点编辑"),this);
+	m_stationAction= new QAction(QIcon(":images/stationmgr.png"),tr("站点管理"),this);
 	m_roleAction= new QAction(QIcon(":images/rolemgr.png"),tr("规则编辑"),this);
 	m_menu->addAction(m_userAction);
-	m_menu->addAction(m_typeAction);
-	m_menu->addAction(m_roleAction);
+	//m_menu->addAction(m_typeAction);
 	m_menu->addAction(m_stationAction);
+	m_menu->addAction(m_roleAction);
 
 	connect(m_userAction,SIGNAL(triggered()),this,SLOT(userMgr()));
 	connect(m_typeAction,SIGNAL(triggered()),this,SLOT(typeMgr()));
@@ -175,7 +194,48 @@ void TitleWidget::typeMgr()
 
 void TitleWidget::stationMgr()
 {
+	m_pStationMgrdlg = new StationMgr(this);
 
+	m_pStationMgrdlg->setWindowIcon(QIcon(":images/stationmgr.png"));
+	m_pStationMgrdlg->setWindowTitle("厂站管理");
+
+	m_pStationMgrdlg->exec();
+
+	delete m_pStationMgrdlg;
+
+	return;
+}
+
+void TitleWidget::retStationMgr(int msgtype,const char* msg)
+{
+	switch (msgtype)
+	{
+	case CMD_STATION_MANAGER:
+		m_pStationMgrdlg->retStationMgr(msgtype,msg);
+		break;
+	case CMD_STATION_LIST:
+
+		break;
+
+	}
+}
+
+void TitleWidget::passwdMgr()
+{
+	m_pUserPwddlg = new UserPasswdReset(this);
+	m_pUserPwddlg->setWindowIcon(QIcon(":images/typemgr.png"));
+	m_pUserPwddlg->setWindowTitle("密码重置");
+
+	m_pUserPwddlg->exec();
+
+	delete m_pUserPwddlg;
+
+	return;
+}
+
+void TitleWidget::retpasswdMgr(int msgtype,const char* msg)
+{
+	m_pUserPwddlg->retpasswdMgr(msgtype,msg);
 }
 
 void TitleWidget::roleMgr()

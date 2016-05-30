@@ -224,6 +224,8 @@ void GraphicsScene::showDevState(const char* msg,int length)
 		if (player->getId() == BREAKER_LAYER
 			|| player->getId() == DISCONN_LAYER
 			|| player->getId() == GROUNDDISCONN_LAYER
+			|| player->getId() == BUS_LAYER
+			|| player->getId() == BUS_LAYER_JC
 			)
 		{
 			QList<BaseDevice*> devList = player->getDevList();
@@ -240,6 +242,15 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	m_svgRender->drawGraph(pgraph);
 }
 
+void GraphicsScene::setSvgStyle(SvgGraph* graph,BaseDevice* pdev,QString style)
+{
+	if (graph != NULL)
+	{
+		QString old = graph->getAttribute(pdev->getSvgId(),ATTR_STYLE);
+
+		graph->setAttribute(pdev->getSvgId(),ATTR_STYLE,style);
+	}
+}
 void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
 {
 	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
@@ -262,7 +273,12 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 		PBNS::StateBean bean = res.devstate(i);
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
+			// 开关变位
 			setBreakState(graph,pdev,(eBreakerState)bean.state());
+
+			// 着色
+			QString style = tr("stroke:%1").arg(bean.volvalue().c_str());
+			setSvgStyle(graph,pdev,style);
 		}
 	}
 }

@@ -96,7 +96,21 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			m_stationList = res;
 			ComUtil::instance()->saveStationList(res);
 			m_leftWidget->loadData(res);
+
+			//厂站管理返回
+			ComUtil::instance()->saveStationAndTypeList(res);
+			//获取ftp路径中svg文件名称
+			ComUtil::instance()->saveSvgPathName();
+			//设置刷新标志
+			ComUtil::instance()->setStationTypeRushflag(true);
+
 		}
+		break;
+	case CMD_STATION_MANAGER:
+		m_titleWidget->retStationMgr(msgtype,msg);
+		break;
+	case CMD_PWD_MODIFY:
+		m_titleWidget->retpasswdMgr(msgtype,msg);
 		break;
 	case CMD_USER_MANAGER:
 	case CMD_USER_ROLE:

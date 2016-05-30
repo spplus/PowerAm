@@ -54,4 +54,22 @@ struct FtpConfig
 	QString				m_ftpDir;
 };
 
+struct StationType_S
+{
+	int id;
+	int odernum;
+	QString name;
+};
+
+struct Station_S
+{
+	int id;
+	int stypeid;
+	QString stypename;
+	QString name;
+	QString cimid;
+	QString curname;
+	QString path;
+};
+
 #endif

@@ -6,7 +6,7 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	this->resize(500,500);
+	this->resize(520,650);
 
 	QGridLayout *pglyt = new QGridLayout;
 

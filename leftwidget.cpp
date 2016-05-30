@@ -27,6 +27,8 @@ void LeftWidget::initUi()
 
 void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 {
+	m_list->clear();
+
 	m_typeList = res;
 	for (int i = 0;i<res.typelist_size();i++)
 	{

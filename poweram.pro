@@ -61,6 +61,11 @@ SOURCES += main.cpp\
 	comutil.cpp \
 	waitwidget.cpp \
 	openthread.cpp \
+	userpasswdreset.cpp \
+	stationmgr.cpp \
+	userlogindlg.cpp \
+	usermgrdlg.cpp \
+	push_button.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -95,6 +100,11 @@ HEADERS  += mainwindow.h \
 	comutil.h \
 	waitwidget.h \
 	openthread.h \
+	userpasswdreset.h \
+	stationmgr.h \
+	userlogindlg.h \
+	usermgrdlg.h \
+	push_button.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

@@ -17,6 +17,7 @@
 #include <QSettings>
 #include <vector>
 #include "structs.h"
+#include "ftputil.h"
 
 using namespace std;
 class ComUtil
@@ -53,6 +54,25 @@ public:
 	// 保存站点列表
 	void				saveStationList(PBNS::StationTypeMsg_Response& res);
 
+
+	//设置获取ftp路径下的svg文件列表
+	void				saveSvgPathName();
+
+	//获取ftp路径下的svg文件列表
+	QList<QString>		getSvgPathName();
+
+	//保存厂站类型列表和厂站列表
+	void				saveStationAndTypeList(PBNS::StationTypeMsg_Response& res);
+
+	//获取厂站类型列表
+	vector<StationType_S> getStationTypeMgrList();
+
+	//获取厂站列表
+	vector<Station_S>	getStationMgrList();
+
+	void				setStationTypeRushflag(bool brush){m_bStatype = brush;};
+	bool				getStationTypeRushflag(){return m_bStatype;};
+
 	// 获取站点列表
 	vector<TreeNode*>	getStationList();
 
@@ -85,6 +105,20 @@ private:
 
 	// 站点列表
 	vector<TreeNode*>			m_stationList;
+
+
+	//厂站类型列表
+	vector<StationType_S>		m_stationtypelis;
+
+	//厂站列表
+	vector<Station_S>			m_staList;
+
+	// 文件列表
+	QList<QString>				m_svgflist;
+
+	//保存厂站刷新标志
+	bool						m_bStatype;
+
 };
 
 #endif

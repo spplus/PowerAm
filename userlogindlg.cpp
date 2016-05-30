@@ -53,10 +53,15 @@ UserLogindlg::UserLogindlg()
 
 
 	//登录框用户名
-	pusercobx = new QComboBox;
-	pusercobx->setEditable(true);
-	pusercobx->lineEdit()->setPlaceholderText("用户名");
-	pusercobx->setFixedSize(180,32);
+	//pusercobx = new QComboBox;
+	//pusercobx->setEditable(true);
+	//pusercobx->lineEdit()->setPlaceholderText("用户名");
+	//pusercobx->setFixedSize(180,32);
+
+	//登录框用户名
+	puserlined = new QLineEdit;
+	puserlined->setPlaceholderText("用户名");
+	puserlined->setFixedSize(180,32);
 
 	//登录框密码
 	ppwdlined = new QLineEdit;
@@ -70,7 +75,7 @@ UserLogindlg::UserLogindlg()
 	ploginbtn->setFixedSize(180,32);
 
 	//布局登录用户名和密码框
-	plgnvlyt->addWidget(pusercobx);
+	plgnvlyt->addWidget(puserlined);
 	plgnvlyt->addWidget(ppwdlined);
 	plgnvlyt->setSpacing(0);
 
@@ -115,7 +120,7 @@ void UserLogindlg::closedlg()
 
 void UserLogindlg::login()
 {
-	QString strusername = pusercobx->lineEdit()->text();
+	QString strusername = puserlined->text();
 	QString strpwd		= ppwdlined->text();
 
 	if (strusername == "")
@@ -151,15 +156,56 @@ void UserLogindlg::login()
 
 void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 {
-	PBNS::UserLoginMsg_Response userep;
-	int loginsuccess;
-	userep.ParseFromString(msg);
-
-	//登录验证成功隐藏登录界面
-	loginsuccess = userep.rescode();
-	if (loginsuccess)
+	switch (msgtype)
 	{
-		this->hide();
+	case CMD_USER_LONGIN:
+		{
+			PBNS::UserLoginMsg_Response userep;
+			userep.ParseFromString(msg);
+			PBNS::UserBean ubean;
+
+			//得到对应用户名密码的用户信息,登陆成功，关闭登陆界面
+			if (userep.userlist_size() > 0)
+			{
+				for (int i=0;i<userep.userlist_size();i++)
+				{
+					ubean = userep.userlist(i);
+				}
+
+				//设置用户相关信息
+				userid  = atoi(ubean.userid().c_str());
+				uname   = QString::fromStdString(ubean.username());
+				passwd	= QString::fromStdString(ubean.userpwd());
+				roleid  = atoi(ubean.userrole().c_str());
+				realname = QString::fromStdString(ubean.realname());
+				switch (roleid)
+				{
+				case 1:
+					rolename = tr("管理员");
+					break;
+				case 2:
+					rolename = tr("调度");
+					break;
+				case 3:
+					rolename = tr("自动化");
+					break;
+				case 4:
+					rolename = tr("运维");
+					break;
+				default:
+					rolename = tr("未知");
+					break;
+				}
+
+				this->close();
+			}
+			else
+			{
+				QMessageBox::information(this,tr("用户登录提示:"),tr("用户名或密码输入错误!"));
+				return;
+			}
+		}
+		break;
 	}
 
 	return;
@@ -168,7 +214,32 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 
 QString UserLogindlg::getLoginUser()
 {
-	return pusercobx->lineEdit()->text();
+	return puserlined->text();
+}
+
+int UserLogindlg::getLoginUserId()
+{
+	return userid;
+}
+
+int UserLogindlg::getLoginRoleId()
+{
+	return roleid;
+}
+
+QString UserLogindlg::getLoginRoleName()
+{
+	return rolename;
+}
+
+QString UserLogindlg::getLoginPasswd()
+{
+	return passwd;
+}
+
+QString UserLogindlg::getLoginRealName()
+{
+	return realname;
 }
 
 void UserLogindlg::mousePressEvent(QMouseEvent *event)

@@ -66,6 +66,7 @@ const	QString		ATTR_OBJECT_ID			= "ObjectID";
 const	QString		ATTR_OBJECT_NAME		= "ObjectName";
 const	QString		ATTR_XLINK				= "xlink:href";
 const	QString		ATTR_CLASS				= "class";
+const	QString		ATTR_STYLE					= "style";
 const	QString		ATTR_ID					= "id";
 const	QString		ATTR_X					= "x";
 const	QString		ATTR_Y					= "y";
