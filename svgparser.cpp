@@ -189,7 +189,7 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 	
 	// 转化svg中的css,图元模板
 	convertSvg(pgraph);
-
+	
 	return pgraph;
 }
 

@@ -226,6 +226,8 @@ void GraphicsScene::showDevState(const char* msg,int length)
 			|| player->getId() == GROUNDDISCONN_LAYER
 			|| player->getId() == BUS_LAYER
 			|| player->getId() == BUS_LAYER_JC
+			|| player->getId() == LINK_LAYER
+			|| player->getId() == ACLINE_LAYER
 			)
 		{
 			QList<BaseDevice*> devList = player->getDevList();
@@ -246,8 +248,6 @@ void GraphicsScene::setSvgStyle(SvgGraph* graph,BaseDevice* pdev,QString style)
 {
 	if (graph != NULL)
 	{
-		QString old = graph->getAttribute(pdev->getSvgId(),ATTR_STYLE);
-
 		graph->setAttribute(pdev->getSvgId(),ATTR_STYLE,style);
 	}
 }
@@ -276,9 +276,23 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 			// 开关变位
 			setBreakState(graph,pdev,(eBreakerState)bean.state());
 
-			// 着色
-			QString style = tr("stroke:%1").arg(bean.volvalue().c_str());
-			setSvgStyle(graph,pdev,style);
+			// 如果带电，则按配置的电压等级颜色进行着色
+			if (bean.iselectric() == 1)
+			{
+				// 本设备着色
+				QString style = tr("stroke:%1").arg(bean.volvalue().c_str());
+				setSvgStyle(graph,pdev,style);
+
+				// 查找关联设备进行着色
+
+			}
+		
 		}
 	}
+}
+
+QList<SvgItem*> GraphicsScene::getCollidingItems(BaseDevice* pdev)
+{
+	QList<SvgItem*> colist;
+	return colist;
 }

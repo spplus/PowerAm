@@ -67,7 +67,12 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 		QString layerid = node.toElement().attribute(ATTR_ID);
 		if (layerid == BREAKER_LAYER
 			|| layerid == DISCONN_LAYER
-			|| layerid == GROUNDDISCONN_LAYER)
+			|| layerid == GROUNDDISCONN_LAYER
+			|| layerid == BUS_LAYER
+			|| layerid == BUS_LAYER_JC
+			|| layerid== LINK_LAYER
+			|| layerid == ACLINE_LAYER
+			)
 		{
 			QDomNodeList cnodelist = node.childNodes();
 			for (int j = 0;j<cnodelist.size();j++)
@@ -116,8 +121,9 @@ bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 	{
 		return false;
 	}
+	// 图元节点的第一个子节点，比如设备图元的use节点，母线图元的path节点等
 	QDomNode cn = cnode.firstChild();
-	if (cn.nodeName() == TAG_USE)
+	//if (cn.nodeName() == TAG_USE)
 	{
 		cn.toElement().setAttribute(attr,val);
 		return true;
@@ -134,7 +140,7 @@ QString SvgGraph::getAttribute(QString nodeid,QString attr)
 	}
 
 	QDomNode cn = cnode.firstChild();
-	if (cn.nodeName() == TAG_USE)
+	//if (cn.nodeName() == TAG_USE)
 	{
 		return cn.toElement().attribute(attr);
 	}

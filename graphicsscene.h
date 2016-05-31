@@ -64,6 +64,10 @@ protected:
 	// 修改设备状态列表中的设备状态
 	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
 
+
+	// 查找图形中有连接关系的图元对象
+	QList<SvgItem*>	getCollidingItems(BaseDevice* pdev);
+
 	// 开关变位
 	void					switchChange(int state);
 	QString			getNewSymbolId(QString oldid,int state);
