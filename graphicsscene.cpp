@@ -244,11 +244,12 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	m_svgRender->drawGraph(pgraph);
 }
 
-void GraphicsScene::setSvgStyle(SvgGraph* graph,BaseDevice* pdev,QString style)
+void GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 {
+	QString color= tr("stroke:%1").arg(style);
 	if (graph != NULL)
 	{
-		graph->setAttribute(pdev->getSvgId(),ATTR_STYLE,style);
+		graph->setAttribute(svgId,ATTR_STYLE,color);
 	}
 }
 void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
@@ -280,19 +281,62 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 			if (bean.iselectric() == 1)
 			{
 				// 本设备着色
-				QString style = tr("stroke:%1").arg(bean.volvalue().c_str());
-				setSvgStyle(graph,pdev,style);
+				QString style = tr("%1").arg(bean.volvalue().c_str());
+				setSvgStyle(graph,pdev->getSvgId(),style);
 
 				// 查找关联设备进行着色
-
+				// 查找item
+				SvgItem* item = findSvgItemById(pdev->getSvgId());
+				if (item != NULL)
+				{
+					item->setIsColor(true);
+				}
+				setConnectedDevColor(graph,item);
 			}
 		
 		}
 	}
 }
 
-QList<SvgItem*> GraphicsScene::getCollidingItems(BaseDevice* pdev)
+void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 {
-	QList<SvgItem*> colist;
-	return colist;
+	
+	if (item != NULL)
+	{
+		// 查找与该图元关联的图元
+		QList<QGraphicsItem*> colist = item->collidingItems();
+		for (int i = 0;i<colist.count();i++)
+		{
+			SvgItem* coitem = (SvgItem*)colist.at(i);
+			if (coitem->getType() == eSWITCH )
+			{
+				continue;
+			}
+			if (!coitem->getIsColor())
+			{
+				setSvgStyle(pgraph,item->getSvgId(),POWERON_COLOR);
+				coitem->setIsColor(true);
+
+				// 递归设置其关联的设备颜色
+				setConnectedDevColor(pgraph,coitem);
+			}
+		}
+
+	}
+}
+
+SvgItem* GraphicsScene::findSvgItemById(QString id)
+{
+	// 获取当前场景中的全部item
+	QList<QGraphicsItem*>	sceneItems = this->items();
+	for(int i = 0;i<sceneItems.count();i++)
+	{
+		SvgItem* sitem = (SvgItem*)sceneItems.at(i);
+		if (sitem->getSvgId() == id)
+		{
+			return sitem;
+		}
+	}
+
+	return NULL;
 }

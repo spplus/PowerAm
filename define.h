@@ -10,7 +10,13 @@
 #define __DEFINE_H__
 #include <QString>
 
-enum eDevType{eBREAKER,eLINE,eTRANS};
+// 带电颜色
+#define					POWERON_COLOR		"#FF0000"
+
+// 不带电颜色
+#define					POWEROFF_COLOR	"#00FF00"
+
+//enum eDevType{eBREAKER,eLINE,eTRANS};
 
 // 设备类型
 enum eDeviceType

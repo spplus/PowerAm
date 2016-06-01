@@ -59,14 +59,16 @@ protected:
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
 
 	// 修改dom中的style属性
-	void			setSvgStyle(SvgGraph* graph,BaseDevice* pdev,QString style);
+	void			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
 
 	// 修改设备状态列表中的设备状态
 	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
 
+	// 设置关联设备的颜色，开关设备除外，因为开关设备有着色过程
+	void				setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
 
-	// 查找图形中有连接关系的图元对象
-	QList<SvgItem*>	getCollidingItems(BaseDevice* pdev);
+	// 根据svgid查找svgItem
+	SvgItem*		findSvgItemById(QString id);
 
 	// 开关变位
 	void					switchChange(int state);

@@ -84,6 +84,7 @@ SvgItem* SvgRenderer::renderById(SvgGraph* graph,BaseDevice* pdev)
 		{
 			item = makeSvgItem(pdev->getSvgId());
 			item->setCimId(pdev->getMetaId());
+			item->setSvgId(pdev->getSvgId());
 			setItemPos(item,pdev);
 		}
 	}
@@ -188,6 +189,9 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 
 		// ÉèÖÃcimid
 		item->setCimId(pdev->getMetaId());
+
+		// ÉèÖÃsvgid
+		item->setSvgId(id);
 
 		m_scene->addItem(item);
 	}

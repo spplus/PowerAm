@@ -2,7 +2,10 @@
 
 #include "svgitem.h"
 
-
+SvgItem::SvgItem()
+{
+	m_isColor = false;
+}
 void SvgItem::setType(eDeviceType tp)
 {
 	m_type = tp;
@@ -31,4 +34,24 @@ void SvgItem::setCimId(QString cimId)
 QString SvgItem::getCimId()
 {
 	return m_cimId;
+}
+
+QString SvgItem::getSvgId()
+{
+	return m_svgId;
+}
+
+void SvgItem::setSvgId(QString svgid)
+{
+	m_svgId = svgid;
+}
+
+void SvgItem::setIsColor(bool iscolor)
+{
+	m_isColor = iscolor;
+}
+
+bool SvgItem::getIsColor()
+{
+	return m_isColor;
 }

@@ -15,14 +15,20 @@
 class SvgItem	:public QGraphicsSvgItem
 {
 public:
+	SvgItem();
 	void		setType(eDeviceType tp);
 	eDeviceType	getType();
 	QString		getLayerId();
 	void		setLayerId(QString lid);
 	void		setCimId(QString cimId);
 	QString		getCimId();
-
+	QString		getSvgId();
+	void				setSvgId(QString svgid);
+	void				setIsColor(bool iscolor);
+	bool				getIsColor();
 private:
+	bool					m_isColor;
+	QString			m_svgId;
 	QString			m_cimId;
 	QString			m_layerId;
 	eDeviceType		m_type;
