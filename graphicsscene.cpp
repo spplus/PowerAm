@@ -216,6 +216,7 @@ void GraphicsScene::showDevState(const char* msg,int length)
 		return;
 	}
 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
+	QString test1 = pgraph->getDom()->toString();
 
 	// 根据cimid在图形中找到对应的设备对象
 	for (int i = 0;i<pgraph->getLayerList().count();i++)
@@ -241,6 +242,8 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	}
 	// 重新加载图形
 	this->clear();
+	QString test2 = pgraph->getDom()->toString();
+
 	m_svgRender->drawGraph(pgraph);
 }
 
@@ -285,6 +288,7 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 				setSvgStyle(graph,pdev->getSvgId(),style);
 
 				// 查找关联设备进行着色
+				QString test = graph->getDom()->toString();
 				// 查找item
 				SvgItem* item = findSvgItemById(pdev->getSvgId());
 				if (item != NULL)
@@ -308,13 +312,15 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		for (int i = 0;i<colist.count();i++)
 		{
 			SvgItem* coitem = (SvgItem*)colist.at(i);
-			if (coitem->getType() == eSWITCH )
+			if (coitem->getType() == eSWITCH  
+				|| coitem->getType() == eDEFAULT
+				|| coitem->getSvgId().length()==0)
 			{
 				continue;
 			}
 			if (!coitem->getIsColor())
 			{
-				setSvgStyle(pgraph,item->getSvgId(),POWERON_COLOR);
+				setSvgStyle(pgraph,coitem->getSvgId(),POWERON_COLOR);
 				coitem->setIsColor(true);
 
 				// 递归设置其关联的设备颜色
