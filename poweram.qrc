@@ -39,6 +39,8 @@
         <file>images/rolemgr.png</file>
         <file>images/typemgr.png</file>
         <file>images/loading.gif</file>
+        <file>images/top_home.png</file>
+        <file>images/top_bk.png</file>
         <file alias="close">images/titel/close.png</file>
         <file alias="close_hover">images/titel/close_hover.png</file>
         <file alias="close_pressed">images/titel/close_pressed.png</file>

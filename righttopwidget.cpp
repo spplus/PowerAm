@@ -28,12 +28,15 @@ void RightTopWidget::initUi()
 {
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 	
+	QLabel* homeLabel = new QLabel;
+	homeLabel->setPixmap(QPixmap(":/images/top_home.png"));
+
 	m_label = new QLabel;
 	m_label->setText(m_oppath);
-	hbox1->addSpacing(40);
+	hbox1->addWidget(homeLabel);
 	hbox1->addWidget(m_label);
 	hbox1->addStretch();
-
-	setStyleSheet("background:url(:images/righttop.png);");
+	m_label->setStyleSheet("font-size:15px;color:#006A6A;font-family:Î¢ÈíÑÅºÚ,ËÎÌå;font-weight:bold;");
+	setStyleSheet("border-image:url(:images/top_bk.png);");
 	setLayout(hbox1);
 }

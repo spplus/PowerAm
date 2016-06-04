@@ -33,6 +33,7 @@ void HomeWindow::setUserName(QString username)
 HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 	:QMainWindow(parent)
 {
+	setGeometry(QRect(100,100,1024,600));
 
 	// 初始化界面
 	initUi();
@@ -80,7 +81,8 @@ void HomeWindow::initUi()
 	QWidget *centralWidget = new QWidget;
 	centralWidget->setLayout(vmain);
 	setCentralWidget(centralWidget);
-	this->showMaximized();
+
+	showMaximized();
 }
 
 void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
@@ -213,7 +215,7 @@ QWidget* HomeWindow::initBottomWidget()
 	hbox->addStretch();
 	hbox->setContentsMargins(0,5,0,5);
 	//bottomWidget->setStyleSheet("#bottom {background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #F0F0F0, stop: 1 #8588B2)}");
-	bottomWidget->setStyleSheet("#bottom {background:url(:images/bottom.png);}");
+	bottomWidget->setStyleSheet("#bottom {border-image:url(:images/bottom.png);}");
 	bottomWidget->setLayout(hbox);
 	return bottomWidget;
 }
