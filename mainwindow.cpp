@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	setWindowTitle(m_title); 
 
 	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
+	hide();
 }
 
 void MainWindow::initWidget()
@@ -223,24 +224,24 @@ void MainWindow::initActions()
 {
 	m_homeAction = new QAction(QIcon(":images/home.png"),tr("主页"),this);
 	m_openAction = new QAction(QIcon(":images/open.png"),tr("打开"),this);
-	m_zoutAction	 = new QAction(QIcon(":images/zoomout.png"),tr("放大"),this);
-	m_zinAction = new QAction(QIcon(":images/zoomin.png"),tr("缩小"),this);
+	m_zoutAction	 = new QAction(QIcon(":images/zoom_out.png"),tr("放大"),this);
+	m_zinAction = new QAction(QIcon(":images/zoom_in.png"),tr("缩小"),this);
 	m_nextAction = new QAction(QIcon(":images/next.png"),tr("前进"),this);
 	m_prevAction = new QAction(QIcon(":images/prev.png"),tr("后退"),this);
 	m_refreshAction = new QAction(QIcon(":images/refresh.png"),tr("刷新"),this);
-	m_saveAction = new QAction(QIcon(":images/signquery.png"),tr("保存"),this);
-	m_readAction = new QAction(QIcon(":images/signquery.png"),tr("读取"),this);
-	m_controlAction = new QAction(QIcon(":images/signquery.png"),tr("控制"),this);
-	m_chekAction = new QAction(QIcon(":images/signquery.png"),tr("校验"),this);
-	m_netAction = new QAction(QIcon(":images/prev.png"),tr("网络"),this);
-	m_soundAction = new QAction(QIcon(":images/prev.png"),tr("声音告警"),this);
-	m_roleAction = new QAction(QIcon(":images/prev.png"),tr("规则设置"),this);
-	m_circleQueryAction = new QAction(QIcon(":images/circlequery.png"),tr("环路查询"),this);
-	m_signQueryAction = new QAction(QIcon(":images/signquery.png"),tr("挂牌查询"),this);
-	m_gswitchQueryAction = new QAction(QIcon(":images/gswitchquery.png"),tr("接地查询"),this);
-	m_opQueryAction = new QAction(QIcon(":images/gswitchquery.png"),tr("操作查询"),this);
-	m_eventQueryAction	= new QAction(QIcon(":images/download.png"),tr("事件查询"),this);
-	m_modelAction = new QAction(QIcon(":images/model.png"),tr("运行模式"),this);
+	m_saveAction = new QAction(QIcon(":images/save.png"),tr("保存"),this);
+	m_readAction = new QAction(QIcon(":images/read.png"),tr("读取"),this);
+	m_controlAction = new QAction(QIcon(":images/control_on.png"),tr("控制"),this);
+	m_chekAction = new QAction(QIcon(":images/check_on.png"),tr("校验"),this);
+	m_netAction = new QAction(QIcon(":images/network_on.png"),tr("网络"),this);
+	m_soundAction = new QAction(QIcon(":images/alarm_on.png"),tr("声音告警"),this);
+	m_roleAction = new QAction(QIcon(":images/role.png"),tr("规则设置"),this);
+	m_circleQueryAction = new QAction(QIcon(":images/circle.png"),tr("环路查询"),this);
+	m_signQueryAction = new QAction(QIcon(":images/tag_on.png"),tr("挂牌查询"),this);
+	m_gswitchQueryAction = new QAction(QIcon(":images/ground.png"),tr("接地查询"),this);
+	m_opQueryAction = new QAction(QIcon(":images/opration.png"),tr("操作查询"),this);
+	m_eventQueryAction	= new QAction(QIcon(":images/envent.png"),tr("事件查询"),this);
+	m_modelAction = new QAction(QIcon(":images/run.png"),tr("运行模式"),this);
 
 	m_userMgrAction = new QAction(QIcon(":images/usermgr.png"),tr("用户设置"),this);
 	m_stationTypeAction = new QAction(QIcon(":images/stationmgr.png"),tr("电站类别设置"),this);
@@ -250,17 +251,17 @@ void MainWindow::initActions()
 	m_cutQueryAction = new QAction(QIcon(":images/cutquery.png"),tr("电路截面查询"),this);
 	m_onAction = new QAction(QIcon(":images/on.png"),tr("置合"),this);
 	m_offAction = new QAction(QIcon(":images/off.png"),tr("置分"),this);
-	m_signOnAction = new QAction(QIcon(":images/signon.png"),tr("挂牌"),this);
-	m_signOffAction = new QAction(QIcon(":images/signoff.png"),tr("摘牌"),this);
+	m_signOnAction = new QAction(QIcon(":images/tag_on.png"),tr("挂牌"),this);
+	m_signOffAction = new QAction(QIcon(":images/tag_off.png"),tr("摘牌"),this);
 	m_viewModelAction = new QAction(QIcon(":images/pointer.png"),tr("指针"),this);
 	m_originalAction = new QAction(QIcon(":images/zoom_original.png"),tr("原始尺寸"),this);
 	m_downSvg = new QAction(QIcon(":images/download.png"),tr("下载Svg"),this);
 
 
-	m_roleQueryAction = new QAction(QIcon(":images/download.png"),tr("校验规则"),this);
-	m_topoQueryAction = new QAction(QIcon(":images/download.png"),tr("拓扑查询"),this);
-	m_intervalQueryAction = new QAction(QIcon(":images/download.png"),tr("间隔查询"),this);
-	m_scadaLogQueryAction = new QAction(QIcon(":images/download.png"),tr("scada日志查询"),this);
+	m_roleQueryAction = new QAction(QIcon(":images/rule.png"),tr("校验规则"),this);
+	m_topoQueryAction = new QAction(QIcon(":images/topo.png"),tr("拓扑查询"),this);
+	m_intervalQueryAction = new QAction(QIcon(":images/bay.png"),tr("间隔查询"),this);
+	m_scadaLogQueryAction = new QAction(QIcon(":images/log.png"),tr("scada日志查询"),this);
 	
 
 
@@ -392,14 +393,21 @@ void MainWindow::initStatusBar()
 
 void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 {
-	qDebug()<<msgtype;
-	qDebug()<<msg;
-	qDebug()<<msglength;
-	
+
 	switch (msgtype)
 	{
 	case CMD_DEV_STATE:
 		m_sence->showDevState(msg,msglength);
+		break;
+	case CMD_CONNECTED:
+		m_netAction->setIcon(QIcon(":images/network_on.png"));
+		m_netAction->setToolTip("网络已连接");
+		break;
+	case CMD_DISCONNECTED:
+		m_netAction->setIcon(QIcon(":images/network_off.png"));
+		m_netAction->setToolTip("网络已断开");
+		break;
+	default:
 		break;
 	}
 

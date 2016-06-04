@@ -11,6 +11,8 @@ NetClient* NetClient::m_inst = NULL;
 
 NetClient::NetClient()
 {
+	m_netflag = false;
+
 	m_pTcpScoket = new QTcpSocket(this);
 
 	//客户端连接信号
@@ -56,10 +58,13 @@ bool NetClient::init()
 
 	//定时器
 	m_pTimer = new QTimer(this);
+	m_pTimer->setInterval(1);
+
 	connect(m_pTimer,SIGNAL(timeout()),this,SLOT(checkConnect()));
 
 	//连接指定IP和端口的服务器
-	m_netflag = connectToServer(m_IP,m_Port.toUInt());
+	connectToServer(m_IP,m_Port.toUInt());
+	m_pTcpScoket->waitForConnected();
 
 	if (!m_netflag)
 	{
@@ -74,7 +79,7 @@ void NetClient::checkConnect()
 	if(!m_netflag)
 	{
 		//重新连接指定IP和端口的服务器
-		m_netflag =connectToServer(m_IP,m_Port.toUInt());
+		connectToServer(m_IP,m_Port.toUInt());
 	}
 }
 
@@ -103,11 +108,11 @@ bool NetClient::connectToServer(const QString srvName,quint16 port)
 	m_pTcpScoket->connectToHost(srvName,port);
 
 	//等待客户端是否真正连上服务端
-	if(!m_pTcpScoket->waitForConnected(1000))
+	/*if(!m_pTcpScoket->waitForConnected(1000))
 	{
 		qDebug("客户端连接服务器失败");
 		return false;
-	}
+	}*/
 
 	return true;
 

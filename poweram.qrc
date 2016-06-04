@@ -1,22 +1,21 @@
 <RCC>
     <qresource prefix="/">
         <file>images/open.png</file>
-        <file>images/circlequery.png</file>
+        <file>images/circle.png</file>
         <file>images/cutquery.png</file>
-        <file>images/gswitchquery.png</file>
-        <file>images/model.png</file>
-        <file>images/msetquery.png</file>
+        <file>images/ground.png</file>
+        <file>images/run.png</file>
+        <file>images/opration.png</file>
         <file>images/next.png</file>
         <file>images/off.png</file>
         <file>images/on.png</file>
         <file>images/prev.png</file>
         <file>images/refresh.png</file>
-        <file>images/signoff.png</file>
-        <file>images/signon.png</file>
-        <file>images/signquery.png</file>
+        <file>images/tag_off.png</file>
+        <file>images/tag_on.png</file>
         <file>images/stationrela.png</file>
-        <file>images/zoomin.png</file>
-        <file>images/zoomout.png</file>
+        <file>images/zoom_in.png</file>
+        <file>images/zoom_out.png</file>
         <file>images/hand.png</file>
         <file>images/pointer.png</file>
         <file>images/zoom_original.png</file>
@@ -41,6 +40,22 @@
         <file>images/loading.gif</file>
         <file>images/top_home.png</file>
         <file>images/top_bk.png</file>
+        <file>images/bay.png</file>
+        <file>images/check_off.png</file>
+        <file>images/check_on.png</file>
+        <file>images/control_off.png</file>
+        <file>images/control_on.png</file>
+        <file>images/envent.png</file>
+        <file>images/log.png</file>
+        <file>images/network_off.png</file>
+        <file>images/network_on.png</file>
+        <file>images/alarm_on.png</file>
+        <file>images/alarm_off.png</file>
+        <file>images/topo.png</file>
+        <file>images/read.png</file>
+        <file>images/save.png</file>
+        <file>images/role.png</file>
+      
         <file alias="close">images/titel/close.png</file>
         <file alias="close_hover">images/titel/close_hover.png</file>
         <file alias="close_pressed">images/titel/close_pressed.png</file>
