@@ -26,6 +26,7 @@ public:
 
 	~HomeWindow();
 	void	setUserName(QString username);
+	void	show();
 
 public slots:
 	// ×¢ÏúµÇÂ¼

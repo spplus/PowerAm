@@ -48,6 +48,12 @@ HomeWindow::~HomeWindow()
 
 }
 
+void HomeWindow::show()
+{
+	QMainWindow::show();
+	activateWindow();
+}
+
 void HomeWindow::initUi()
 {
 	QVBoxLayout* vmain = new QVBoxLayout;

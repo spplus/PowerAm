@@ -32,6 +32,7 @@ public:
     ~MainWindow();
 
 public:
+	void		show();
 	void		addContextMenuAction(eDeviceType type);
 
 public slots:
@@ -45,12 +46,21 @@ public slots:
 	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
 
+	// 设置控制开关
+	void		setControlEnable();
+
+	// 设置声音报警
+	void		setAlarmEnable();
+
+	// 设置校验
+	void		setCheckEnable();
 private:
 
 	 MainWindow(QWidget *parent = 0);
 	void		initWidget();
 	void		initToolBar();
 	void		initActions();
+	void		initConnections();
 	void		initMenu();
 	void		initStatusBar();
 	void		initNavView();
@@ -58,12 +68,23 @@ private:
 	void		updateModel();
 	void		cleanScene();
 
-
+	// 设置网络状态显示
+	void		setNetWorkStatus(int type);
 
 	//关闭响应事件
 	void	closeEvent(QCloseEvent *event);
 
 private:
+
+	// 是否允许控制
+	bool						m_isControl;
+
+	// 是否允许声音告警
+	bool						m_isAlarm;
+
+	// 是否允许校验
+	bool						m_isCheck;
+
 	QMenu*						m_sysMenu;
 	QMenu*						m_editMenu;
 	QMenu*						m_queryMenu;
@@ -91,10 +112,6 @@ private:
 	QAction*						m_zoutAction;				// 放大
 	QAction*						m_zinAction;				// 缩小
 	QAction*						m_originalAction;		// 原始大小
-
-	QAction*						m_userMgrAction;		// 用户管理
-	QAction*						m_stationTypeAction;	// 电站分类设置
-	QAction*						m_stationRelaAction;	// 电站类别、图形绑定
 	QAction*						m_modelAction;			// 状态，实时态，模拟态
 	
 	QAction*						m_msetQueryAction;			// 人工设置查询
@@ -112,7 +129,7 @@ private:
 	QAction*						m_powerSetAction;				// 设置电源点
 	QAction*						m_inLineSetAction;				// 设置进出线
 	QAction*						m_viewModelAction;				// 设置视图选择类型
-	QAction*						m_downSvg;						// 下载svg文件
+
 
 	//状态栏标签
 	QLabel*						m_pConnLabel;

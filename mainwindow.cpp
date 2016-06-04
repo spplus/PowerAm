@@ -35,6 +35,10 @@ MainWindow* MainWindow::instance()
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
+	m_isCheck = true;
+	m_isControl = true;
+	m_isAlarm = true;
+
 	m_curStationId = "1";
 	m_title = ComUtil::instance()->getSysName();
 	initWidget();
@@ -42,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	initToolBar();
 	initMenu();
 	initStatusBar();
+	initConnections();
 	setWindowTitle(m_title); 
 
 	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
@@ -89,6 +94,14 @@ void MainWindow::initWidget()
 
 	setCentralWidget(m_spliter);
 	this->showMaximized();
+}
+
+void MainWindow::show()
+{
+	m_model->setData(ComUtil::instance()->getStationList());
+
+	QMainWindow::show();
+	this->activateWindow();
 }
 
 void MainWindow::openOk()
@@ -180,12 +193,12 @@ void MainWindow::initToolBar()
 void MainWindow::initMenu()
 {
 	m_sysMenu = this->menuBar()->addMenu(tr("系统&"));
-	m_sysMenu->addAction(m_downSvg);
+	//m_sysMenu->addAction(m_downSvg);
 
-	m_editMenu = this->menuBar()->addMenu(tr("设置&"));
-	m_editMenu->addAction(m_userMgrAction);
-	m_editMenu->addAction(m_stationTypeAction);
-	m_editMenu->addAction(m_stationRelaAction);
+	//m_editMenu = this->menuBar()->addMenu(tr("设置&"));
+	//m_editMenu->addAction(m_userMgrAction);
+	//m_editMenu->addAction(m_stationTypeAction);
+	//m_editMenu->addAction(m_stationRelaAction);
 	
 	m_queryMenu = this->menuBar()->addMenu(tr("查询&"));
 	m_queryMenu->addAction(m_circleQueryAction);
@@ -222,52 +235,50 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 
 void MainWindow::initActions()
 {
-	m_homeAction = new QAction(QIcon(":images/home.png"),tr("主页"),this);
-	m_openAction = new QAction(QIcon(":images/open.png"),tr("打开"),this);
-	m_zoutAction	 = new QAction(QIcon(":images/zoom_out.png"),tr("放大"),this);
-	m_zinAction = new QAction(QIcon(":images/zoom_in.png"),tr("缩小"),this);
-	m_nextAction = new QAction(QIcon(":images/next.png"),tr("前进"),this);
-	m_prevAction = new QAction(QIcon(":images/prev.png"),tr("后退"),this);
-	m_refreshAction = new QAction(QIcon(":images/refresh.png"),tr("刷新"),this);
-	m_saveAction = new QAction(QIcon(":images/save.png"),tr("保存"),this);
-	m_readAction = new QAction(QIcon(":images/read.png"),tr("读取"),this);
-	m_controlAction = new QAction(QIcon(":images/control_on.png"),tr("控制"),this);
-	m_chekAction = new QAction(QIcon(":images/check_on.png"),tr("校验"),this);
-	m_netAction = new QAction(QIcon(":images/network_on.png"),tr("网络"),this);
-	m_soundAction = new QAction(QIcon(":images/alarm_on.png"),tr("声音告警"),this);
-	m_roleAction = new QAction(QIcon(":images/role.png"),tr("规则设置"),this);
-	m_circleQueryAction = new QAction(QIcon(":images/circle.png"),tr("环路查询"),this);
-	m_signQueryAction = new QAction(QIcon(":images/tag_on.png"),tr("挂牌查询"),this);
-	m_gswitchQueryAction = new QAction(QIcon(":images/ground.png"),tr("接地查询"),this);
-	m_opQueryAction = new QAction(QIcon(":images/opration.png"),tr("操作查询"),this);
-	m_eventQueryAction	= new QAction(QIcon(":images/envent.png"),tr("事件查询"),this);
-	m_modelAction = new QAction(QIcon(":images/run.png"),tr("运行模式"),this);
+	m_homeAction = new QAction(QIcon(ICON_HOME),tr(MSG_TIP_HOME),this);
+	m_openAction = new QAction(QIcon(ICON_OPEN),tr(MSG_TIP_OPEN),this);
+	m_zoutAction	 = new QAction(QIcon(ICON_ZOOM_OUT),tr(MSG_TIP_ZOOMOUT),this);
+	m_zinAction = new QAction(QIcon(ICON_ZOOM_IN),tr(MSG_TIP_ZOOMIN),this);
+	m_nextAction = new QAction(QIcon(ICON_NEXT),tr(MSG_TIP_NEXT),this);
+	m_prevAction = new QAction(QIcon(ICON_PREV),tr(MSG_TIP_PREV),this);
+	m_refreshAction = new QAction(QIcon(ICON_REFRESH),tr(MSG_TIP_REFRESH),this);
+	m_saveAction = new QAction(QIcon(ICON_SAVE),tr(MSG_TIP_SAVE),this);
+	m_readAction = new QAction(QIcon(ICON_READ),tr(MSG_TIP_READ),this);
+	m_controlAction = new QAction(QIcon(ICON_CONTROL_ON),tr(MSG_TIP_CONTROL_ON),this);
+	m_chekAction = new QAction(QIcon(ICON_CHECK_ON),tr(MSG_TIP_CHECK_ON),this);
+	m_netAction = new QAction(QIcon(ICON_NETWORK_ON),tr(MSG_TIP_NETWORK_ON),this);
+	m_soundAction = new QAction(QIcon(ICON_ALARM_ON),tr(MSG_TIP_ALARM_ON),this);
+	m_roleAction = new QAction(QIcon(ICON_ROLE),tr(MSG_TIP_RULE),this);
+	m_circleQueryAction = new QAction(QIcon(ICON_CIRLCE),tr(MSG_TIP_CIRCLE),this);
+	m_signQueryAction = new QAction(QIcon(ICON_TAG_ON),tr(MSG_TIP_TAG),this);
+	m_gswitchQueryAction = new QAction(QIcon(ICON_GROUND),tr(MSG_TIP_GROUND),this);
+	m_opQueryAction = new QAction(QIcon(ICON_OPRATION),tr(MSG_TIP_OPRATION),this);
+	m_eventQueryAction	= new QAction(QIcon(ICON_EVENT),tr(MSG_TIP_EVENT),this);
+	m_modelAction = new QAction(QIcon(ICON_RUN),tr(MSG_TIP_RUN_ANALOG),this);
 
-	m_userMgrAction = new QAction(QIcon(":images/usermgr.png"),tr("用户设置"),this);
-	m_stationTypeAction = new QAction(QIcon(":images/stationmgr.png"),tr("电站类别设置"),this);
-	m_stationRelaAction = new QAction(QIcon(":images/stationrela.png"),tr("电站设置"),this);
+	m_msetQueryAction = new QAction(QIcon(ICON_SETQUERY),tr(MSG_TIP_SETTING),this);
+	m_cutQueryAction = new QAction(QIcon(ICON_CUTTING),tr(MSG_TIP_SAVING),this);
 
-	m_msetQueryAction = new QAction(QIcon(":images/msetquery.png"),tr("人工设置查询"),this);
-	m_cutQueryAction = new QAction(QIcon(":images/cutquery.png"),tr("电路截面查询"),this);
-	m_onAction = new QAction(QIcon(":images/on.png"),tr("置合"),this);
-	m_offAction = new QAction(QIcon(":images/off.png"),tr("置分"),this);
-	m_signOnAction = new QAction(QIcon(":images/tag_on.png"),tr("挂牌"),this);
-	m_signOffAction = new QAction(QIcon(":images/tag_off.png"),tr("摘牌"),this);
-	m_viewModelAction = new QAction(QIcon(":images/pointer.png"),tr("指针"),this);
-	m_originalAction = new QAction(QIcon(":images/zoom_original.png"),tr("原始尺寸"),this);
-	m_downSvg = new QAction(QIcon(":images/download.png"),tr("下载Svg"),this);
+	m_onAction = new QAction(QIcon(ICON_SWITCH_ON),tr(MSG_TIP_SWITCH_ON),this);
+	m_offAction = new QAction(QIcon(ICON_SWITCH_OFF),tr(MSG_TIP_SWITCH_OFF),this);
+	m_signOnAction = new QAction(QIcon(ICON_TAG_ON),tr(MSG_TIP_TAG_ON),this);
+	m_signOffAction = new QAction(QIcon(ICON_TAG_OFF),tr(MSG_TIP_TAG_OFF),this);
+	m_viewModelAction = new QAction(QIcon(ICON_POINTER),tr(MSG_TIP_POINTER),this);
+	m_originalAction = new QAction(QIcon(ICON_ZOOM_ORG),tr(MSG_TIP_ZOOM_ORG),this);
 
-
-	m_roleQueryAction = new QAction(QIcon(":images/rule.png"),tr("校验规则"),this);
-	m_topoQueryAction = new QAction(QIcon(":images/topo.png"),tr("拓扑查询"),this);
-	m_intervalQueryAction = new QAction(QIcon(":images/bay.png"),tr("间隔查询"),this);
-	m_scadaLogQueryAction = new QAction(QIcon(":images/log.png"),tr("scada日志查询"),this);
+	m_roleQueryAction = new QAction(QIcon(ICON_ROLE),tr(MSG_TIP_RUN_ANALOG),this);
+	m_topoQueryAction = new QAction(QIcon(ICON_TOPO),tr(MSG_TIP_TOPO),this);
+	m_intervalQueryAction = new QAction(QIcon(ICON_BAY),tr(MSG_TIP_BAY),this);
+	m_scadaLogQueryAction = new QAction(QIcon(ICON_LOG),tr(MSG_TIP_LOG),this);
 	
-
 
 	// 1 指针 2 手掌
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
 
+}
+
+void MainWindow::initConnections()
+{
 	connect(m_homeAction,SIGNAL(triggered()),this,SLOT(goHome()));
 	connect(m_openAction,SIGNAL(triggered()),this,SLOT(openFile()));
 	connect(m_zinAction,SIGNAL(triggered()),m_view,SLOT(zoomIn()));
@@ -279,9 +290,10 @@ void MainWindow::initActions()
 	connect(m_offAction,SIGNAL(triggered()),m_sence,SLOT(setOpen()));
 	connect(m_onAction,SIGNAL(triggered()),m_sence,SLOT(setClose()));
 	connect(m_refreshAction,SIGNAL(triggered()),m_sence,SLOT(startAnimation()));
-	connect(m_downSvg,SIGNAL(triggered()),this,SLOT(showDownSvg()));
+	connect(m_controlAction,SIGNAL(triggered()),this,SLOT(setControlEnable()));
+	connect(m_soundAction,SIGNAL(triggered()),this,SLOT(setAlarmEnable()));
+	connect(m_chekAction,SIGNAL(triggered()),this,SLOT(setCheckEnable()));
 }
-
 
 MainWindow::~MainWindow()
 {
@@ -311,7 +323,7 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	QString tempName = fileName;
 	if (fileName.length()== 0)
 	{
-		QMessageBox::warning(this,"系统提示","文件名称为空");
+		QMessageBox::warning(this,MSG_TITLE,"文件名称为空");
 		return;
 	}
 	// 保存当前站点ID
@@ -323,7 +335,7 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 		QString svgRoot = ComUtil::instance()->getSvgRoot();
 		if (svgRoot.length() == 0)
 		{
-			QMessageBox::warning(this,"系统提示","Svg路径为空");
+			QMessageBox::warning(this,MSG_TITLE,"Svg路径为空");
 			return;
 		}
 
@@ -366,12 +378,12 @@ void MainWindow::setViewModel()
 	if (m_viewModelAction->data().toInt() == QGraphicsView::NoDrag)
 	{
 		md = QGraphicsView::ScrollHandDrag;
-		m_viewModelAction->setIcon(QIcon(":images/hand.png"));
+		m_viewModelAction->setIcon(QIcon(ICON_HAND));
 	}
 	else
 	{
 		md = QGraphicsView::NoDrag;
-		m_viewModelAction->setIcon(QIcon(":images/pointer.png"));
+		m_viewModelAction->setIcon(QIcon(ICON_POINTER));
 	}
 	m_viewModelAction->setData(md);
 	m_view->setDragMode(md);
@@ -400,13 +412,10 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		m_sence->showDevState(msg,msglength);
 		break;
 	case CMD_CONNECTED:
-		m_netAction->setIcon(QIcon(":images/network_on.png"));
-		m_netAction->setToolTip("网络已连接");
-		break;
 	case CMD_DISCONNECTED:
-		m_netAction->setIcon(QIcon(":images/network_off.png"));
-		m_netAction->setToolTip("网络已断开");
+		setNetWorkStatus(msgtype);
 		break;
+
 	default:
 		break;
 	}
@@ -418,4 +427,76 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 	//pStaTypeDockWidget->close();
 	return;
+}
+
+void MainWindow::setNetWorkStatus(int type)
+{
+	if (type == CMD_CONNECTED)
+	{
+		m_netAction->setIcon(QIcon(ICON_NETWORK_ON));
+		m_netAction->setToolTip(MSG_TIP_NETWORK_ON);
+	}
+	else
+	{
+		m_netAction->setIcon(QIcon(ICON_NETWORK_OFF));
+		m_netAction->setToolTip(MSG_TIP_NETWORK_OFF);
+	}
+}
+
+void MainWindow::setControlEnable()
+{
+	QString icon,msg;
+	if (m_isControl)
+	{
+		icon = ICON_CONTROL_OFF;
+		msg = MSG_TIP_CONTROL_OFF;
+	}
+	else
+	{
+		icon = ICON_CONTROL_ON;
+		msg = MSG_TIP_CONTROL_ON;
+	}
+	m_isControl = !m_isControl;
+
+	m_controlAction->setIcon(QIcon(icon));
+	m_controlAction->setToolTip(msg);
+
+}
+
+void MainWindow::setAlarmEnable()
+{
+	QString icon,msg;
+	if (m_isAlarm)
+	{
+		icon = ICON_ALARM_OFF;
+		msg = MSG_TIP_ALARM_OFF;
+	}
+	else
+	{
+		icon = ICON_ALARM_ON;
+		msg = MSG_TIP_ALARM_ON;
+	}
+	m_isAlarm = !m_isAlarm;
+
+	m_soundAction->setIcon(QIcon(icon));
+	m_soundAction->setToolTip(msg);
+}
+
+void MainWindow::setCheckEnable()
+{
+	QString icon,msg;
+	if (m_isCheck)
+	{
+		icon = ICON_CHECK_OFF;
+		msg = MSG_TIP_CHECK_OFF;
+	}
+	else
+	{
+		icon = ICON_CHECK_ON;
+		msg = MSG_TIP_CHECK_ON;
+	}
+	m_isCheck = !m_isCheck;
+
+	m_chekAction->setIcon(QIcon(icon));
+	m_chekAction->setToolTip(msg);
 }

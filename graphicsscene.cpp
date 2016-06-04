@@ -75,7 +75,7 @@ void GraphicsScene::goNext()
 	else
 	{
 		m_curIndex--;
-		QMessageBox::information(views().at(0),"系统提示","当前已经处于最后一幅位置");
+		QMessageBox::information(views().at(0),MSG_TITLE,"当前已经处于最后一幅位置");
 	}
 }
 
@@ -90,7 +90,7 @@ void GraphicsScene::goPrev()
 	else
 	{
 		m_curIndex++;
-		QMessageBox::information(views().at(0),"系统提示","当前已经处于第一幅位置");
+		QMessageBox::information(views().at(0),MSG_TITLE,"当前已经处于第一幅位置");
 	}
 }
 
