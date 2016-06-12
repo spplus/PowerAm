@@ -221,12 +221,19 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 	{
 	
 	case eSWITCH:
-
-		m_contextMenu->addAction(m_onAction);
-		m_contextMenu->addAction(m_offAction);
+		if (m_isControl)
+		{
+			m_contextMenu->addAction(m_onAction);
+			m_contextMenu->addAction(m_offAction);
+		}
+		
 		m_contextMenu->addAction(m_signOnAction);
 		m_contextMenu->addAction(m_signOffAction);
 
+		break;
+	case eLINE:
+		m_contextMenu->addAction(m_powerSetAction);
+		m_contextMenu->addAction(m_inLineSetAction);
 		break;
 	default:
 		break;

@@ -22,6 +22,7 @@
 enum eDeviceType
 {
 	eSWITCH,			// 开关大类，包括负荷开关，刀闸，接地刀闸
+	eLINE,					// 进出线
 	eTRANSFORMER,		// 变压器
 	eWINDING,			// 变压器绕组
 	eBUS,				// 母线
