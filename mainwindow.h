@@ -54,6 +54,9 @@ public slots:
 
 	// 设置校验
 	void		setCheckEnable();
+
+	
+
 private:
 
 	 MainWindow(QWidget *parent = 0);

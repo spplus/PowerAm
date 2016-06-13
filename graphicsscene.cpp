@@ -15,7 +15,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_cntMenu = cntmenu;
 	m_curItem = NULL;
 	m_curIndex = -1;
-
+	m_saveId = 0;
 }
 
 GraphicsScene::~GraphicsScene()
@@ -207,6 +207,9 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	PBNS::DevStateMsg_Response res;
 	res.ParseFromArray(msg,length);
 
+	// 保存当前站点设备列表
+	m_devList = res;
+
 	// 设置图形中的设备状态
 	int size = res.devstate_size();
 	if (size <= 0)
@@ -220,7 +223,6 @@ void GraphicsScene::showDevState(const char* msg,int length)
 		return;
 	}
 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
-	QString test1 = pgraph->getDom()->toString();
 
 	// 根据cimid在图形中找到对应的设备对象
 	for (int i = 0;i<pgraph->getLayerList().count();i++)
@@ -246,8 +248,7 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	}
 	// 重新加载图形
 	this->clear();
-	QString test2 = pgraph->getDom()->toString();
-
+	
 	m_svgRender->drawGraph(pgraph);
 }
 
@@ -279,8 +280,15 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 	for (int i = 0;i<res.devstate_size();i++)
 	{
 		PBNS::StateBean bean = res.devstate(i);
+
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
+			// 进出线在SVG中没有类型，通过unit表中的类型更新图元类型
+			if (bean.unittype() == eLINE)
+			{
+				pdev->setDevType(eLINE);
+			}
+
 			// 开关变位
 			setBreakState(graph,pdev,(eBreakerState)bean.state());
 
@@ -349,4 +357,77 @@ SvgItem* GraphicsScene::findSvgItemById(QString id)
 	}
 
 	return NULL;
+}
+
+
+bool GraphicsScene::findUnitBeanByCimId(QString cimid,PBNS::StateBean & bean)
+{
+	for(int i = 0;i<m_devList.devstate_size();i++)
+	{
+		bean = m_devList.devstate(i);
+		if (bean.cimid().c_str() == cimid)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void GraphicsScene::setPower()
+{
+	if (m_curItem == NULL)
+	{
+		return;
+	}
+	
+	PBNS::StateBean bean;
+	if (findUnitBeanByCimId(m_curItem->getCimId(),bean))
+	{
+		PBNS::PowerSetMsg_Request req;
+		req.set_unitcim(bean.cimid());
+		req.set_stationcim(bean.stationcim());
+		string data;
+		req.SerializeToString(&data);
+		NetClient::instance()->sendData(CMD_POWER_SET,data.c_str(),data.length());
+	}
+	else
+	{
+		QMessageBox::warning(views().at(0),MSG_TITLE,tr("未查找到对应的设备对象:%1").arg(m_curItem->getCimId()));
+	}
+}
+
+void GraphicsScene::setLine()
+{
+
+}
+
+void GraphicsScene::tagOff()
+{
+	if (m_curItem == NULL)
+	{
+		return;
+	}
+
+	sendTagReq(eTagOff);
+}
+
+void GraphicsScene::tagOn()
+{
+	if (m_curItem == NULL)
+	{
+		return;
+	}
+
+	sendTagReq(eTagOn);
+}
+
+void GraphicsScene::sendTagReq(eTagState type)
+{
+	PBNS::TagMsg_Request req;
+	req.set_saveid(m_saveId);
+	req.set_type(type);
+	req.set_unitcim(m_curItem->getCimId().toStdString());
+	string data;
+	req.SerializeToString(&data);
+	NetClient::instance()->sendData(CMD_TAG_OP,data.c_str(),data.length());
 }

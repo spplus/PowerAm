@@ -56,7 +56,8 @@
         <file>images/read.png</file>
         <file>images/save.png</file>
         <file>images/role.png</file>
-      
+        <file>images/powerset.png</file>
+        <file>images/lineset.png</file>
         <file alias="close">images/titel/close.png</file>
         <file alias="close_hover">images/titel/close_hover.png</file>
         <file alias="close_pressed">images/titel/close_pressed.png</file>

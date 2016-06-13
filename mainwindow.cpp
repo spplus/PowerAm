@@ -212,6 +212,7 @@ void MainWindow::initMenu()
 	m_queryMenu->addAction(m_eventQueryAction);
 	m_queryMenu->addAction(m_intervalQueryAction);
 
+
 }
 
 void MainWindow::addContextMenuAction(eDeviceType type)
@@ -277,7 +278,8 @@ void MainWindow::initActions()
 	m_topoQueryAction = new QAction(QIcon(ICON_TOPO),tr(MSG_TIP_TOPO),this);
 	m_intervalQueryAction = new QAction(QIcon(ICON_BAY),tr(MSG_TIP_BAY),this);
 	m_scadaLogQueryAction = new QAction(QIcon(ICON_LOG),tr(MSG_TIP_LOG),this);
-	
+	m_powerSetAction = new QAction(QIcon(ICON_POWERSET),tr(MSG_TIP_POWERSET),this);
+	m_inLineSetAction = new QAction(QIcon(ICON_LINESET),tr(MSG_TIP_LINESET),this);
 
 	// 1 Ö¸Õë 2 ÊÖÕÆ
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
@@ -300,6 +302,10 @@ void MainWindow::initConnections()
 	connect(m_controlAction,SIGNAL(triggered()),this,SLOT(setControlEnable()));
 	connect(m_soundAction,SIGNAL(triggered()),this,SLOT(setAlarmEnable()));
 	connect(m_chekAction,SIGNAL(triggered()),this,SLOT(setCheckEnable()));
+	connect(m_powerSetAction,SIGNAL(triggered()),m_sence,SLOT(setPower()));
+	connect(m_inLineSetAction,SIGNAL(triggered()),m_sence,SLOT(setLine()));
+	connect(m_signOnAction,SIGNAL(triggered()),m_sence,SLOT(tagOn()));
+	connect(m_signOffAction,SIGNAL(triggered()),m_sence,SLOT(tagOff()));
 }
 
 MainWindow::~MainWindow()
@@ -507,3 +513,4 @@ void MainWindow::setCheckEnable()
 	m_chekAction->setIcon(QIcon(icon));
 	m_chekAction->setToolTip(msg);
 }
+

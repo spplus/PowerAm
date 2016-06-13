@@ -46,6 +46,18 @@ public slots:
 
 	// 置合
 	void			setClose();
+
+	// 设置电源点
+	void			setPower();
+
+	// 设置进出线
+	void			setLine();
+
+	// 挂牌
+	void			tagOn();
+
+	// 摘牌
+	void			tagOff();
 	
 	// 测试动画
 	void			startAnimation();
@@ -70,6 +82,12 @@ protected:
 	// 根据svgid查找svgItem
 	SvgItem*		findSvgItemById(QString id);
 
+	// 根据cimid查找设备对象
+	bool				findUnitBeanByCimId(QString cimid,PBNS::StateBean & bean);
+
+	// 发送挂牌操作请求
+	void				sendTagReq(eTagState type);
+
 	// 开关变位
 	void					switchChange(int state);
 	QString			getNewSymbolId(QString oldid,int state);
@@ -77,6 +95,9 @@ protected:
 	virtual void		contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
+	// 当前打开的存档ID
+	int					m_saveId;
+
 	// 当前打开的图形序号
 	int					m_curIndex;
 
@@ -87,6 +108,8 @@ private:
 	SvgRenderer*		m_svgRender;
 	QList<SvgGraph*>	m_graphList;
 	QPropertyAnimation	m_animation;
+
+	PBNS::DevStateMsg_Response m_devList;
 };
 
 #endif

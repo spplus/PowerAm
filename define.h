@@ -22,7 +22,6 @@
 enum eDeviceType
 {
 	eSWITCH,			// 开关大类，包括负荷开关，刀闸，接地刀闸
-	eLINE,					// 进出线
 	eTRANSFORMER,		// 变压器
 	eWINDING,			// 变压器绕组
 	eBUS,				// 母线
@@ -31,6 +30,7 @@ enum eDeviceType
 	eLOAD,				// 进线
 	eARRESTER,			// 避雷针
 	eTEXT,				// 文字
+	eLINE,					// 进出线
 	eDEFAULT			// 缺省类型
 };
 
@@ -39,6 +39,9 @@ enum eTransType
 	eTWO,				// 两卷 变
 	eTHREE				// 三卷 变
 };
+
+// 挂牌状态
+enum	eTagState{eTagOff,eTagOn};
 // 开关状态
 enum	eBreakerState{eOFF=0,eON};
 
@@ -163,6 +166,8 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			ICON_SETQUERY		":images/msetquery.png"
 #define			ICON_CUTTING		":images/cutquery.png"
 #define			ICON_HAND			":images/hand.png"
+#define			ICON_POWERSET	":images/powerset.png"
+#define			ICON_LINESET			":images/lineset.png"
 
 // 定义提示信息
 #define			MSG_TITLE				"系统提示"
@@ -203,5 +208,7 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			MSG_TIP_TOPO			"拓扑查询"
 #define			MSG_TIP_BAY				"间隔查询"
 #define			MSG_TIP_LOG				"日志查询"
+#define			MSG_TIP_POWERSET	"设置电源点"
+#define			MSG_TIP_LINESET		"设置进出线"
 
 #endif
