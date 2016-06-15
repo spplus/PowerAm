@@ -66,6 +66,7 @@ SOURCES += main.cpp\
 	userlogindlg.cpp \
 	usermgrdlg.cpp \
 	push_button.cpp \
+	linesetwidget.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -105,6 +106,7 @@ HEADERS  += mainwindow.h \
 	userlogindlg.h \
 	usermgrdlg.h \
 	push_button.h \
+	linesetwidget.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

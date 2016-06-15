@@ -27,7 +27,9 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_CONNECTED:
 	case CMD_DISCONNECTED:
 	case CMD_DEV_STATE:
-
+	case CMD_LINE_SET:
+	case CMD_POWER_SET:
+	case CMD_TAG_OP:
 		MainWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_USER_MANAGER:

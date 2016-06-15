@@ -7,6 +7,7 @@
 #include "graphicsscene.h"
 #include "mainwindow.h"
 #include "buff/msgbody.pb.h"
+#include "linesetwidget.h"
 
 GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	:QGraphicsScene(parant)
@@ -398,7 +399,24 @@ void GraphicsScene::setPower()
 
 void GraphicsScene::setLine()
 {
+	if (m_curItem == NULL)
+	{
+		return;
+	}
+	LineSetWidget dlg;
+	if(dlg.exec() == QDialog::Accepted)
+	{
+		QString oneCim = dlg.getOneCim();
+		QString ohrCim = dlg.getOhrCim();
+		PBNS::LineSetMsg_Request req;
+		req.set_unitcim(m_curItem->getCimId().toStdString());
+		req.set_stationonecim(oneCim.toStdString());
+		req.set_stationothercim(ohrCim.toStdString());
 
+		string data;
+		req.SerializeToString(&data);
+		NetClient::instance()->sendData(CMD_LINE_SET,data.c_str(),data.length());
+	}
 }
 
 void GraphicsScene::tagOff()

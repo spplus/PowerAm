@@ -34,6 +34,11 @@ enum eDeviceType
 	eDEFAULT			// 缺省类型
 };
 
+enum eResult
+{
+	eSUCCESS=0,eERROR
+};
+
 enum eTransType
 {
 	eTWO,				// 两卷 变

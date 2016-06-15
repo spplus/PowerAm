@@ -82,6 +82,7 @@ public:
 	// 获取颜色规则
 	QMap<QString,QString>&	getStyleMap();
 
+
 private:
 	ComUtil();
 	

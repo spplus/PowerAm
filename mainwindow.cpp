@@ -230,7 +230,7 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 		
 		m_contextMenu->addAction(m_signOnAction);
 		m_contextMenu->addAction(m_signOffAction);
-
+		m_contextMenu->addAction(m_inLineSetAction);
 		break;
 	case eLINE:
 		m_contextMenu->addAction(m_powerSetAction);
@@ -424,6 +424,15 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_DEV_STATE:
 		m_sence->showDevState(msg,msglength);
 		break;
+	case CMD_LINE_SET:
+		showLineSetResult(msg,msglength);
+		break;
+	case CMD_POWER_SET:
+		showPowerSetResult(msg,msglength);
+		break;
+	case CMD_TAG_OP:
+		showTagOpResult(msg,msglength);
+		break;
 	case CMD_CONNECTED:
 	case CMD_DISCONNECTED:
 		setNetWorkStatus(msgtype);
@@ -433,6 +442,55 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		break;
 	}
 
+}
+
+void MainWindow::showMsg(QString msg)
+{
+	QMessageBox box;
+	box.setMinimumWidth(300);
+	box.information(this,MSG_TITLE,msg);
+}
+
+void MainWindow::showPowerSetResult(const char* msg,int msglength)
+{
+	PBNS::PowerSetMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+	if (res.rescode() == eSUCCESS)
+	{
+		showMsg("操作成功");
+	}
+	else
+	{
+		showMsg("操作失败");
+	}
+}
+
+void MainWindow::showTagOpResult(const char* msg,int msglength)
+{
+	PBNS::TagMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+	if (res.rescode() == eSUCCESS)
+	{
+		showMsg("操作成功");
+	}
+	else
+	{
+		showMsg("操作失败");
+	}
+}
+
+void MainWindow::showLineSetResult(const char* msg,int msglength)
+{
+	PBNS::LineSetMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+	if (res.rescode() == eSUCCESS)
+	{
+		showMsg("操作成功");
+	}
+	else
+	{
+		showMsg("操作失败");
+	}
 }
 
 //关闭响应事件

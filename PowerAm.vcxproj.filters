@@ -58,6 +58,9 @@
     <ClCompile Include="leftwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="linesetwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -160,6 +163,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="leftwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="linesetwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.h">
@@ -278,6 +284,12 @@
     <ClCompile Include="release\moc_leftwidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_linesetwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_linesetwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -370,10 +382,25 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="images\alarm_off.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\alarm_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\bay.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\bottom.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\circlequery.png">
+    <None Include="images\check_off.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\check_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\circle.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\titel\close.png">
@@ -385,7 +412,16 @@
     <None Include="images\titel\close_pressed.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\control_off.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\control_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\cutquery.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\envent.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\expand_normal.png">
@@ -394,7 +430,7 @@
     <None Include="images\expand_selected.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\gswitchquery.png">
+    <None Include="images\ground.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\hand.png">
@@ -412,7 +448,13 @@
     <None Include="images\leftbk.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\lineset.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\loading.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\log.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\login.png">
@@ -445,10 +487,13 @@
     <None Include="images\titel\min_pressed.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\model.png">
+    <None Include="images\msetquery.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\msetquery.png">
+    <None Include="images\network_off.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\network_on.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\next.png">
@@ -463,13 +508,22 @@
     <None Include="images\open.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\opration.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\pointer.png">
       <Filter>Resource Files</Filter>
     </None>
     <CustomBuild Include="poweram.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <None Include="images\powerset.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\prev.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\read.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\refresh.png">
@@ -478,19 +532,19 @@
     <None Include="images\righttop.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\role.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\rolemgr.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\run.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\save.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\set_system.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="images\signoff.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="images\signon.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="images\signquery.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\stategridicon.png">
@@ -502,7 +556,22 @@
     <None Include="images\stationrela.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\tag_off.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\tag_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\top_bk.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\top_home.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\topo.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\typemgr.png">
@@ -523,13 +592,13 @@
     <None Include="images\usermgrmainbk.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\zoom_in.png">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="images\zoom_original.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\zoomin.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="images\zoomout.png">
+    <None Include="images\zoom_out.png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

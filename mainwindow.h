@@ -71,12 +71,19 @@ private:
 	void		updateModel();
 	void		cleanScene();
 
+	// 显示操作结果
+	void		showLineSetResult(const char* msg,int msglength);
+	void		showPowerSetResult(const char* msg,int msglength);
+	void		showTagOpResult(const char* msg,int msglength);
+
 	// 设置网络状态显示
 	void		setNetWorkStatus(int type);
 
 	//关闭响应事件
-	void	closeEvent(QCloseEvent *event);
+	void		closeEvent(QCloseEvent *event);
 
+	// 消息提示框
+	void		showMsg(QString msg);
 private:
 
 	// 是否允许控制
