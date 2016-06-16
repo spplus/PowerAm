@@ -1,7 +1,8 @@
+#include <string>
 #include "userlogindlg.h"
 
 UserLogindlg* UserLogindlg::m_inst = NULL;
-
+using namespace std;
 UserLogindlg* UserLogindlg::instance()
 {
 	if (m_inst == NULL)
@@ -148,8 +149,9 @@ void UserLogindlg::login()
 	loginreq.set_username(strusername.toStdString());
 	loginreq.set_userpwd(strpwdmd5.toStdString());
 
+	string data = loginreq.SerializeAsString();
 	//发送数据信号
-	NetClient::instance()->sendData(CMD_USER_LONGIN,loginreq.SerializeAsString().c_str(),strData.size());
+	NetClient::instance()->sendData(CMD_USER_LONGIN,data.c_str(),data.length());
 
 	return;
 }

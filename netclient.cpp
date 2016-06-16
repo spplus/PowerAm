@@ -175,7 +175,7 @@ QByteArray NetClient::pack(const char* msg,const int msgtype,const int msglength
 	//消息长度		 消息头		 消息类型		 数据区内容		 消息结尾
 	// 4个字节	  2字节(0x11)	  4个字节						2字节(0x88)
 	//计算消息区长度
-	quint32 len = 2 + 4 + strlen(msg) + 2;
+	quint32 len = 2 + 4 + msglength + 2;
 
 	//写入消息长度
 	bpack.append(reinterpret_cast<const char*>(&len),4);
@@ -185,7 +185,7 @@ QByteArray NetClient::pack(const char* msg,const int msgtype,const int msglength
 	//消息类型
 	bpack.append(reinterpret_cast<const char*>(&msgtype),4);
 	//数据体
-	bpack.append(msg,strlen(msg));
+	bpack.append(msg,msglength);
 	//消息尾
 	quint32 ntail = 0x88;
 	bpack.append(reinterpret_cast<const char*>(&FRAM_TAIL),2);
