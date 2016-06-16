@@ -91,10 +91,16 @@
     <ClCompile Include="openthread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="openwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="push_button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="righttopwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="savewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stationmgr.cpp">
@@ -195,12 +201,18 @@
     <CustomBuild Include="openthread.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="openwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="push_button.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="righttopwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="savewidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="stationmgr.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -332,10 +344,22 @@
     <ClCompile Include="release\moc_openthread.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="debug\moc_openwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_openwidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include="debug\moc_push_button.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_push_button.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_savewidget.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_savewidget.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_stationmgr.cpp">

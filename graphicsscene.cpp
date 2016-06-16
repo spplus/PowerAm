@@ -444,7 +444,7 @@ void GraphicsScene::sendTagReq(eTagState type)
 	PBNS::TagMsg_Request req;
 	req.set_saveid(m_saveId);
 	req.set_type(type);
-	req.set_unitcim(m_curItem->getCimId().toStdString());
+	req.set_unitcim(m_curItem->getCimId() .toStdString());
 	string data;
 	req.SerializeToString(&data);
 	NetClient::instance()->sendData(CMD_TAG_OP,data.c_str(),data.length());

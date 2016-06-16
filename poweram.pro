@@ -67,6 +67,8 @@ SOURCES += main.cpp\
 	usermgrdlg.cpp \
 	push_button.cpp \
 	linesetwidget.cpp \
+	savewidget.cpp \
+	openwidget.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -107,6 +109,8 @@ HEADERS  += mainwindow.h \
 	usermgrdlg.h \
 	push_button.h \
 	linesetwidget.h \
+	savewidget.h \
+	openwidget.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 
