@@ -19,6 +19,7 @@
 #include "comutil.h"
 #include "buff/msgbody.pb.h"
 #include "include/commands.h"
+#include "openwidget.h"
 
 using namespace std;
 MainWindow * MainWindow::m_inst = NULL;
@@ -306,6 +307,8 @@ void MainWindow::initConnections()
 	connect(m_inLineSetAction,SIGNAL(triggered()),m_sence,SLOT(setLine()));
 	connect(m_signOnAction,SIGNAL(triggered()),m_sence,SLOT(tagOn()));
 	connect(m_signOffAction,SIGNAL(triggered()),m_sence,SLOT(tagOff()));
+	connect(m_readAction,SIGNAL(triggered()),m_sence,SLOT(readSaving()));
+	connect(m_saveAction,SIGNAL(triggered()),m_sence,SLOT(writeSaving()));
 }
 
 MainWindow::~MainWindow()
@@ -437,7 +440,11 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_DISCONNECTED:
 		setNetWorkStatus(msgtype);
 		break;
-
+	case CMD_READ_SAVING:
+		showSavingList(msg,msglength);
+		break;
+	case CMD_WRITE_SAVING:
+		break;
 	default:
 		break;
 	}
@@ -572,3 +579,23 @@ void MainWindow::setCheckEnable()
 	m_chekAction->setToolTip(msg);
 }
 
+void MainWindow::showSavingList(const char* msg,int msglength)
+{
+	PBNS::SavingListMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+
+	// 2.客户端显示存档列表窗口
+
+	// 3.选择一个存档
+
+	// 4.获取该存档下面设备状态
+
+	// 5.着色
+
+	OpenWidget odlg;
+	odlg.setData(res);
+	if (odlg.exec() == QDialog::Accepted)
+	{
+
+	}
+}

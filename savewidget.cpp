@@ -18,6 +18,7 @@ void SaveWidget::initUi()
 	hbox1->addStretch();
 	hbox1->addWidget(pName);
 	hbox1->addWidget(m_saveName);
+	hbox1->addStretch();
 
 	QPushButton* okbtn = new QPushButton(tr("确定"));
 	QPushButton* cancelbtn = new QPushButton(tr("取消"));
@@ -26,12 +27,16 @@ void SaveWidget::initUi()
 	hbox2->addStretch();
 	hbox2->addWidget(okbtn);
 	hbox2->addWidget(cancelbtn);
+	hbox2->addStretch();
 
+	vbox->addStretch();
 	vbox->addLayout(hbox1);
 	vbox->addLayout(hbox2);
+	vbox->addStretch();
+
 	setLayout(vbox);
 
-	setFixedSize(400,300);
+	setFixedSize(400,200);
 	setWindowFlags(Qt::WindowCloseButtonHint);
 	setWindowTitle(tr("保存存档"));
 

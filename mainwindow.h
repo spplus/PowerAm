@@ -84,6 +84,9 @@ private:
 
 	// 消息提示框
 	void		showMsg(QString msg);
+
+	// 显示存档列表
+	void		showSavingList(const char* msg,int msglength);
 private:
 
 	// 是否允许控制

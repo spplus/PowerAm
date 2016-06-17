@@ -9,6 +9,8 @@
 #ifndef __OPENWIDGET_H__
 #define __OPENWIDGET_H__
 
+#include "define.h"
+#include "buff/msgbody.pb.h"
 #include <QtGui>
 
 class OpenWidget		:public QDialog
@@ -16,6 +18,7 @@ class OpenWidget		:public QDialog
 	Q_OBJECT
 public:
 	OpenWidget(QWidget* parent = NULL);
+	void		setData(PBNS::SavingListMsg_Response &res);
 
 private slots:
 	void		itemDoubleClicked ( QTableWidgetItem * item );
@@ -30,6 +33,8 @@ private:
 	QPushButton*			m_okBtn;
 	QPushButton*			m_cancelBtn;
 	QTableWidget*		m_saveList;
+
+	PBNS::SavingListMsg_Response		m_dataList;
 };
 
 #endif

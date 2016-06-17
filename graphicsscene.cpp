@@ -8,6 +8,8 @@
 #include "mainwindow.h"
 #include "buff/msgbody.pb.h"
 #include "linesetwidget.h"
+#include "openwidget.h"
+#include "savewidget.h"
 
 GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	:QGraphicsScene(parant)
@@ -448,4 +450,29 @@ void GraphicsScene::sendTagReq(eTagState type)
 	string data;
 	req.SerializeToString(&data);
 	NetClient::instance()->sendData(CMD_TAG_OP,data.c_str(),data.length());
+}
+
+void GraphicsScene::readSaving()
+{
+	// 1.发送获取存档列表命令
+	PBNS::SavingListMsg_Request req;
+	req.set_id("0");
+	string data;
+	req.SerializeToString(&data);
+	NetClient::instance()->sendData(CMD_READ_SAVING,data.c_str(),data.length());
+
+}
+
+void GraphicsScene::writeSaving()
+{
+	// 1.设置存档名称
+
+	// 2.获取当前设备的状态，发送到后台进行保存
+
+	SaveWidget sdlg;
+	if(sdlg.exec() == QDialog::Accepted)
+	{
+		QString sname = sdlg.getSaveName();
+
+	}
 }

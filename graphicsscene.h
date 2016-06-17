@@ -59,6 +59,12 @@ public slots:
 	// 摘牌
 	void			tagOff();
 	
+	// 打开存档
+	void			readSaving();
+
+	// 保存存档
+	void			writeSaving();
+
 	// 测试动画
 	void			startAnimation();
 
@@ -90,9 +96,9 @@ protected:
 
 	// 开关变位
 	void					switchChange(int state);
-	QString			getNewSymbolId(QString oldid,int state);
+	QString				getNewSymbolId(QString oldid,int state);
 	void					mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
-	virtual void		contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+	virtual void			contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
 	// 当前打开的存档ID
