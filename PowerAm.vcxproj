@@ -178,7 +178,7 @@
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_contentwidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 contentwidget.h -o debug\moc_contentwidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 contentwidget.h -o debug\moc_contentwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC contentwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_contentwidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;contentwidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -215,7 +215,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_graphicsscene.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsscene.h -o debug\moc_graphicsscene.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsscene.h -o debug\moc_graphicsscene.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC graphicsscene.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_graphicsscene.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;graphicsscene.h;%(AdditionalInputs)</AdditionalInputs>
@@ -233,7 +233,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_graphicsview.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsview.h -o debug\moc_graphicsview.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 graphicsview.h -o debug\moc_graphicsview.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC graphicsview.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_graphicsview.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;graphicsview.h;%(AdditionalInputs)</AdditionalInputs>
@@ -251,7 +251,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_homewindow.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 homewindow.h -o debug\moc_homewindow.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 homewindow.h -o debug\moc_homewindow.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC homewindow.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_homewindow.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;homewindow.h;%(AdditionalInputs)</AdditionalInputs>
@@ -269,7 +269,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_leftwidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 leftwidget.h -o debug\moc_leftwidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 leftwidget.h -o debug\moc_leftwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC leftwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_leftwidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;leftwidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -287,7 +287,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_linesetwidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 linesetwidget.h -o debug\moc_linesetwidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 linesetwidget.h -o debug\moc_linesetwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC linesetwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_linesetwidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;linesetwidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -305,7 +305,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_mainwindow.cpp 
 if errorlevel 1 goto VCEnd
- $(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
+ $(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 mainwindow.h -o debug\moc_mainwindow.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC mainwindow.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_mainwindow.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;mainwindow.h;%(AdditionalInputs)</AdditionalInputs>
@@ -343,7 +343,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navdelegate.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navdelegate.h -o debug\moc_navdelegate.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navdelegate.h -o debug\moc_navdelegate.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navdelegate.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navdelegate.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navdelegate.h;%(AdditionalInputs)</AdditionalInputs>
@@ -361,7 +361,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navmodel.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navmodel.h -o debug\moc_navmodel.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navmodel.h -o debug\moc_navmodel.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navmodel.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navmodel.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navmodel.h;%(AdditionalInputs)</AdditionalInputs>
@@ -379,7 +379,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_navview.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navview.h -o debug\moc_navview.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 navview.h -o debug\moc_navview.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC navview.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_navview.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;navview.h;%(AdditionalInputs)</AdditionalInputs>
@@ -433,7 +433,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_openwidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 openwidget.h -o debug\moc_openwidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 openwidget.h -o debug\moc_openwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC openwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_openwidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;openwidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -451,7 +451,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_push_button.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 push_button.h -o debug\moc_push_button.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 push_button.h -o debug\moc_push_button.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC push_button.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_push_button.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;push_button.h;%(AdditionalInputs)</AdditionalInputs>
@@ -470,7 +470,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_savewidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 savewidget.h -o debug\moc_savewidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 savewidget.h -o debug\moc_savewidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC savewidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_savewidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;savewidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -488,7 +488,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_stationmgr.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 stationmgr.h -o debug\moc_stationmgr.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 stationmgr.h -o debug\moc_stationmgr.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC stationmgr.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_stationmgr.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;stationmgr.h;%(AdditionalInputs)</AdditionalInputs>
@@ -514,7 +514,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_titlewidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 titlewidget.h -o debug\moc_titlewidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 titlewidget.h -o debug\moc_titlewidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC titlewidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_titlewidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;titlewidget.h;%(AdditionalInputs)</AdditionalInputs>
@@ -533,7 +533,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_userlogindlg.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 userlogindlg.h -o debug\moc_userlogindlg.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 userlogindlg.h -o debug\moc_userlogindlg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC userlogindlg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_userlogindlg.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;userlogindlg.h;%(AdditionalInputs)</AdditionalInputs>
@@ -551,7 +551,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_usermgrdlg.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 usermgrdlg.h -o debug\moc_usermgrdlg.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 usermgrdlg.h -o debug\moc_usermgrdlg.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC usermgrdlg.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_usermgrdlg.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;usermgrdlg.h;%(AdditionalInputs)</AdditionalInputs>
@@ -569,7 +569,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_userpasswdreset.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 userpasswdreset.h -o debug\moc_userpasswdreset.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 userpasswdreset.h -o debug\moc_userpasswdreset.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC userpasswdreset.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_userpasswdreset.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;userpasswdreset.h;%(AdditionalInputs)</AdditionalInputs>
@@ -587,7 +587,7 @@ if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
  Rem IncrediBuild_OutputFile debug\moc_waitwidget.cpp 
 if errorlevel 1 goto VCEnd
-$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"d:\work\3rd\pbuff\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 waitwidget.h -o debug\moc_waitwidget.cpp</Command>
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DQT_DLL -DQT_SVG_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"$(QTDIR)\include\QtCore" -I"$(QTDIR)\include\QtNetwork" -I"$(QTDIR)\include\QtGui" -I"$(QTDIR)\include\QtXml" -I"$(QTDIR)\include\QtSvg" -I"$(QTDIR)\include" -I"..\common" -I"$(PB_ROOT)\include" -I"$(QTDIR)\include\ActiveQt" -I"debug" -I$(QTDIR)\mkspecs\win32-msvc2010 -D_MSC_VER=1600 -DWIN32 waitwidget.h -o debug\moc_waitwidget.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC waitwidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\moc_waitwidget.cpp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rem;waitwidget.h;%(AdditionalInputs)</AdditionalInputs>
