@@ -473,6 +473,10 @@ void GraphicsScene::writeSaving()
 	if(sdlg.exec() == QDialog::Accepted)
 	{
 		QString sname = sdlg.getSaveName();
-
+		PBNS::WriteSavingMsg_Request req;
+		
+		req.set_savename(sname.toStdString());
+		string data = req.SerializeAsString();
+		NetClient::instance()->sendData(CMD_WRITE_SAVING,data.c_str(),data.length());
 	}
 }

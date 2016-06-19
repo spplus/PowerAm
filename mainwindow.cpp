@@ -444,6 +444,7 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		showSavingList(msg,msglength);
 		break;
 	case CMD_WRITE_SAVING:
+		showWriteSavingResult(msg,msglength);
 		break;
 	default:
 		break;
@@ -458,6 +459,19 @@ void MainWindow::showMsg(QString msg)
 	box.information(this,MSG_TITLE,msg);
 }
 
+void MainWindow::showWriteSavingResult(const char* msg,int msglength)
+{
+	PBNS::WriteSavingMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+	if (res.rescode() == eSUCCESS)
+	{
+		showMsg("保存成功");
+	}
+	else
+	{
+		showMsg("保存失败");
+	}
+}
 void MainWindow::showPowerSetResult(const char* msg,int msglength)
 {
 	PBNS::PowerSetMsg_Response res;

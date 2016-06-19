@@ -75,6 +75,7 @@ private:
 	void		showLineSetResult(const char* msg,int msglength);
 	void		showPowerSetResult(const char* msg,int msglength);
 	void		showTagOpResult(const char* msg,int msglength);
+	void		showWriteSavingResult(const char* msg,int msglength);
 
 	// 设置网络状态显示
 	void		setNetWorkStatus(int type);
