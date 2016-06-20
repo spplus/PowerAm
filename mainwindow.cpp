@@ -112,14 +112,16 @@ void MainWindow::openOk()
 	// 打开完成后需要做的事情
 	
 	// 加载设备状态数据
-	PBNS::DevStateMsg_Request req;
+	m_sence->reqUnitState(m_curStationId);
 
-	// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
-	req.set_saveid(1);
-	req.set_stationcim(m_curStationId.toStdString());
-	string reqstr;
-	req.SerializeToString(&reqstr);
-	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
+	//PBNS::DevStateMsg_Request req;
+
+	//// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
+	//req.set_saveid(1);
+	//req.set_stationcim(m_curStationId.toStdString());
+	//string reqstr;
+	//req.SerializeToString(&reqstr);
+	//NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
 
 }
 
@@ -441,9 +443,10 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		setNetWorkStatus(msgtype);
 		break;
 	case CMD_READ_SAVING:
-		showSavingList(msg,msglength);
+		m_sence->showSavingList(msg,msglength);
 		break;
 	case CMD_WRITE_SAVING:
+		showWriteSavingResult(msg,msglength);
 		break;
 	default:
 		break;
@@ -458,6 +461,19 @@ void MainWindow::showMsg(QString msg)
 	box.information(this,MSG_TITLE,msg);
 }
 
+void MainWindow::showWriteSavingResult(const char* msg,int msglength)
+{
+	PBNS::WriteSavingMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+	if (res.rescode() == eSUCCESS)
+	{
+		showMsg("保存成功");
+	}
+	else
+	{
+		showMsg("保存失败");
+	}
+}
 void MainWindow::showPowerSetResult(const char* msg,int msglength)
 {
 	PBNS::PowerSetMsg_Response res;
@@ -577,25 +593,4 @@ void MainWindow::setCheckEnable()
 
 	m_chekAction->setIcon(QIcon(icon));
 	m_chekAction->setToolTip(msg);
-}
-
-void MainWindow::showSavingList(const char* msg,int msglength)
-{
-	PBNS::SavingListMsg_Response res;
-	res.ParseFromArray(msg,msglength);
-
-	// 2.客户端显示存档列表窗口
-
-	// 3.选择一个存档
-
-	// 4.获取该存档下面设备状态
-
-	// 5.着色
-
-	OpenWidget odlg;
-	odlg.setData(res);
-	if (odlg.exec() == QDialog::Accepted)
-	{
-
-	}
 }

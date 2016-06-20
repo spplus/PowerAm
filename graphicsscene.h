@@ -25,13 +25,22 @@ public:
 	~GraphicsScene();
 
 	// 解析SVG文件
-	SvgGraph* parserSvg(QString filename);
+	SvgGraph*	parserSvg(QString filename);
 
 	// 打开图形文件
 	void			openSvgFile(QString filename);
 
 	// 显示设备状态信息
 	void			showDevState(const char* msg,int length);
+
+	// 显示存档列表
+	void			showSavingList(const char* msg,int msglength);
+
+	// 返回当前的saveid
+	int			getSaveId(){return m_saveId;}
+
+	// 发送请求设备状态请求
+	void			reqUnitState(QString stationCim);
 
 public slots:
 
@@ -71,6 +80,7 @@ public slots:
 	// 把解析后的对象生成SVG图元
 	void			drawSvgGraph(SvgGraph* graph);
 
+
 protected:
 
 	// 修改dom中开关状态
@@ -100,19 +110,27 @@ protected:
 	void					mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
 	virtual void			contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
+	
 private:
+
 	// 当前打开的存档ID
 	int					m_saveId;
+
+	// 当前打开的站点ID
+	QString				m_stationCim;
 
 	// 当前打开的图形序号
 	int					m_curIndex;
 
+	// 当前存档的变位记录
+	QList<PBNS::StateBean>	m_opDevList;
+
 	// 当前选中的item
-	SvgItem*			m_curItem;
+	SvgItem*				m_curItem;
 	QMenu*				m_cntMenu;
 	SvgParser			m_svgParser;
-	SvgRenderer*		m_svgRender;
-	QList<SvgGraph*>	m_graphList;
+	SvgRenderer*			m_svgRender;
+	QList<SvgGraph*>		m_graphList;
 	QPropertyAnimation	m_animation;
 
 	PBNS::DevStateMsg_Response m_devList;

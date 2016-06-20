@@ -45,7 +45,7 @@ public:
 
 private:
 
-	QDomNode	getElementById(QString nodeid);
+	QDomNode			getElementById(QString nodeid);
 
 	// ͼID
 	QString			m_id;

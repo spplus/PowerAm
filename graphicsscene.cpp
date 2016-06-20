@@ -19,6 +19,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_curItem = NULL;
 	m_curIndex = -1;
 	m_saveId = 0;
+	m_stationCim = "1";
 }
 
 GraphicsScene::~GraphicsScene()
@@ -177,6 +178,14 @@ void GraphicsScene::switchChange(int state)
 	addItem(newItem);
 
 	m_curItem = newItem;
+
+	// 保存当前变位的设备
+	PBNS::StateBean bean;
+	if(findUnitBeanByCimId(pdev->getMetaId(),bean))
+	{
+		bean.set_state(state);
+		m_opDevList.append(bean);
+	}
 }
 
 QString GraphicsScene::getNewSymbolId(QString oldid,int state)
@@ -450,6 +459,15 @@ void GraphicsScene::sendTagReq(eTagState type)
 	string data;
 	req.SerializeToString(&data);
 	NetClient::instance()->sendData(CMD_TAG_OP,data.c_str(),data.length());
+
+	// 保存当前挂牌的设备
+	PBNS::StateBean bean;
+	if(findUnitBeanByCimId(m_curItem->getCimId(),bean))
+	{
+		bean.set_isboard(type);
+		m_opDevList.append(bean);
+	}
+
 }
 
 void GraphicsScene::readSaving()
@@ -467,12 +485,64 @@ void GraphicsScene::writeSaving()
 {
 	// 1.设置存档名称
 
-	// 2.获取当前设备的状态，发送到后台进行保存
+	// 2.获取操作变位后的设备状态（开关状态，挂牌操作），发送到后台进行保存
 
 	SaveWidget sdlg;
 	if(sdlg.exec() == QDialog::Accepted)
 	{
 		QString sname = sdlg.getSaveName();
+		PBNS::WriteSavingMsg_Request req;
+		
+		// 客户端操作设备的状态
+		for (int i = 0;i<m_opDevList.size();i++)
+		{
+			PBNS::StateBean *bean = req.add_statelist();
+			bean->CopyFrom(m_opDevList.at(i));
+		}
 
+		req.set_savename(sname.toStdString());
+		string data = req.SerializeAsString();
+		NetClient::instance()->sendData(CMD_WRITE_SAVING,data.c_str(),data.length());
 	}
+}
+
+
+void GraphicsScene::showSavingList(const char* msg,int msglength)
+{
+	PBNS::SavingListMsg_Response res;
+	res.ParseFromArray(msg,msglength);
+
+	// 2.客户端显示存档列表窗口
+
+	// 3.选择一个存档
+
+	// 4.获取该存档下面设备状态
+
+	// 5.着色
+
+	OpenWidget odlg;
+	odlg.setData(res);
+	if (odlg.exec() == QDialog::Accepted)
+	{
+		m_saveId = odlg.getSaveId();
+
+		// 获取该存档下的设备状态
+		reqUnitState(m_stationCim);
+	}
+}
+
+void GraphicsScene::reqUnitState(QString stationCim)
+{
+	// 保存当前站点ID
+	m_stationCim = stationCim;
+
+	// 加载设备状态数据
+	PBNS::DevStateMsg_Request req;
+
+	// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
+	req.set_saveid(m_saveId);
+	req.set_stationcim(stationCim.toStdString());
+	string reqstr;
+	req.SerializeToString(&reqstr);
+	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
 }
