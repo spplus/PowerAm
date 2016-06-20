@@ -17,10 +17,6 @@ class SaveWidget		:public QDialog
 public:
 	SaveWidget(QWidget* parent=NULL);
 	QString		getSaveName();
-
-private slots:
-	void				onOk();
-
 private:
 	void		initUi();
 
