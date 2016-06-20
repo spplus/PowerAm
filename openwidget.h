@@ -19,7 +19,7 @@ class OpenWidget		:public QDialog
 public:
 	OpenWidget(QWidget* parent = NULL);
 	void		setData(PBNS::SavingListMsg_Response &res);
-
+	int		getSaveId();
 private slots:
 	void		itemDoubleClicked ( QTableWidgetItem * item );
 

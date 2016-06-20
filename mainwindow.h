@@ -86,8 +86,7 @@ private:
 	// 消息提示框
 	void		showMsg(QString msg);
 
-	// 显示存档列表
-	void		showSavingList(const char* msg,int msglength);
+
 private:
 
 	// 是否允许控制
@@ -104,7 +103,7 @@ private:
 	QMenu*						m_queryMenu;
 	QMenu*						m_contextMenu;             //右键菜单
     QToolBar*					m_toolBar;
-	QToolButton*				m_drawerBtn;				// 抽屉按钮
+	QToolButton*					m_drawerBtn;				// 抽屉按钮
 	QAction*						m_homeAction;			// 返回主页
 	QAction *					m_openAction;			// 打开图形文件
 	QAction*						m_nextAction;				// 前进
@@ -152,7 +151,7 @@ private:
 	QString						m_curStationId;
 
 	FtpUtil					m_ftpUtil;
-	NavView*				m_navview;
+	NavView*					m_navview;
 	NavModel*				m_model;
 	QString					m_title;
     QSplitter*				m_spliter;

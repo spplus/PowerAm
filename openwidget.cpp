@@ -97,3 +97,8 @@ void OpenWidget::setData(PBNS::SavingListMsg_Response &res)
 	m_dataList = res;
 	initData();
 }
+
+int OpenWidget::getSaveId()
+{
+	return m_saveId;
+}
