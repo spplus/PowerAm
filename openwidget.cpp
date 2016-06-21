@@ -14,6 +14,7 @@ void OpenWidget::initUi()
 	QHBoxLayout* hbox = new QHBoxLayout;
 
 	m_saveList = new QTableWidget;
+	m_saveList->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
 	m_saveList->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_saveList->setSelectionMode(QAbstractItemView::SingleSelection);
 	
@@ -33,7 +34,7 @@ void OpenWidget::initUi()
 	vbox->addLayout(hbox2);
 
 	setLayout(vbox);
-	setFixedSize(600,400);
+	setFixedSize(300,200);
 	setWindowFlags(Qt::WindowCloseButtonHint);
 	setWindowTitle(tr("Ñ¡Ôñ´æµµ"));
 
@@ -44,6 +45,20 @@ void OpenWidget::initSlots()
 	connect(m_okBtn,SIGNAL(pressed()),this,SLOT(accept()));
 	connect(m_cancelBtn,SIGNAL(pressed()),this,SLOT(reject()));
 	connect(m_saveList,SIGNAL(itemDoubleClicked ( QTableWidgetItem *)),this,SLOT(itemDoubleClicked ( QTableWidgetItem *)));
+}
+
+void OpenWidget::onOk()
+{
+	QTableWidgetItem* curitem = m_saveList->currentItem();
+	if(curitem != NULL)
+	{
+		m_saveId = curitem->data(Qt::UserRole).toInt();
+		accept();
+	}
+	else
+	{
+		QMessageBox::warning(this,MSG_TITLE,"ÇëÑ¡ÔñÒ»Ìõ´æµµ¼ÇÂ¼");
+	}
 }
 
 void OpenWidget::initData()
@@ -90,6 +105,7 @@ void OpenWidget::initTable()
 void OpenWidget::itemDoubleClicked( QTableWidgetItem * item )
 {
 	m_saveId = item->data(Qt::UserRole).toInt();
+	accept();
 }
 
 void OpenWidget::setData(PBNS::SavingListMsg_Response &res)

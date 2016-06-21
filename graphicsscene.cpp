@@ -499,7 +499,7 @@ void GraphicsScene::writeSaving()
 			PBNS::StateBean *bean = req.add_statelist();
 			bean->CopyFrom(m_opDevList.at(i));
 		}
-
+		req.set_saveid(m_saveId);
 		req.set_savename(sname.toStdString());
 		string data = req.SerializeAsString();
 		NetClient::instance()->sendData(CMD_WRITE_SAVING,data.c_str(),data.length());
@@ -528,6 +528,9 @@ void GraphicsScene::showSavingList(const char* msg,int msglength)
 
 		// 获取该存档下的设备状态
 		reqUnitState(m_stationCim);
+
+		// 清空上一存档保持的操作设备集合
+		m_opDevList.clear();
 	}
 }
 

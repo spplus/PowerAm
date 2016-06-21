@@ -22,7 +22,7 @@ public:
 	int		getSaveId();
 private slots:
 	void		itemDoubleClicked ( QTableWidgetItem * item );
-
+	void		onOk();
 private:
 	void		initUi();
 	void		initData();
