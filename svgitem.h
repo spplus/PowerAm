@@ -12,6 +12,7 @@
 #include <QGraphicsSvgItem>
 #include "define.h"
 
+
 class SvgItem	:public QGraphicsSvgItem
 {
 public:

@@ -29,7 +29,7 @@ public:
 	static ComUtil*		instance();
 
 	// 加载配置文件
-	bool							initConfig();
+	bool					initConfig();
 	
 	// 获取当前运行目录
 	QString				getAppPath();

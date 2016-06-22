@@ -336,8 +336,11 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		for (int i = 0;i<colist.count();i++)
 		{
 			SvgItem* coitem = (SvgItem*)colist.at(i);
-			if (coitem->getType() == eSWITCH  
-				|| coitem->getType() == eDEFAULT
+			eDeviceType devtype = coitem->getType();
+			if (devtype == eSWITCH 
+				|| devtype == eBREAKER
+				|| devtype == eGROUNDSWITCH
+				|| devtype == eDEFAULT
 				|| coitem->getSvgId().length()==0)
 			{
 				continue;

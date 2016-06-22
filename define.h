@@ -9,6 +9,7 @@
 #ifndef __DEFINE_H__
 #define __DEFINE_H__
 #include <QString>
+#include "include/commands.h"
 
 // 带电颜色
 #define					POWERON_COLOR		"#FF0000"
@@ -19,20 +20,20 @@
 //enum eDevType{eBREAKER,eLINE,eTRANS};
 
 // 设备类型
-enum eDeviceType
-{
-	eSWITCH,			// 开关大类，包括负荷开关，刀闸，接地刀闸
-	eTRANSFORMER,		// 变压器
-	eWINDING,			// 变压器绕组
-	eBUS,				// 母线
-	eLINK,				// 连接线
-	eACLINE,			// 交流线路
-	eLOAD,				// 进线
-	eARRESTER,			// 避雷针
-	eTEXT,				// 文字
-	eLINE,					// 进出线
-	eDEFAULT			// 缺省类型
-};
+//enum eDeviceType
+//{
+//	eSWITCH,			// 开关大类，包括负荷开关，刀闸，接地刀闸
+//	eTRANSFORMER,		// 变压器
+//	eWINDING,			// 变压器绕组
+//	eBUS,				// 母线
+//	eLINK,				// 连接线
+//	eACLINE,			// 交流线路
+//	eLOAD,				// 进线
+//	eARRESTER,			// 避雷针
+//	eTEXT,				// 文字
+//	eLINE,					// 进出线
+//	eDEFAULT			// 缺省类型
+//};
 
 enum eResult
 {

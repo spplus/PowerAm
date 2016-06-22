@@ -34,7 +34,7 @@ void OpenWidget::initUi()
 	vbox->addLayout(hbox2);
 
 	setLayout(vbox);
-	setFixedSize(300,200);
+	setFixedSize(400,350);
 	setWindowFlags(Qt::WindowCloseButtonHint);
 	setWindowTitle(tr("Ñ¡Ôñ´æµµ"));
 

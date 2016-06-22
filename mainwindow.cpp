@@ -225,6 +225,8 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 	{
 	
 	case eSWITCH:
+	case eBREAKER:
+	case eGROUNDSWITCH:
 		if (m_isControl)
 		{
 			m_contextMenu->addAction(m_onAction);

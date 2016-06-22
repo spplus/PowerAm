@@ -82,6 +82,7 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>../temp/$(Configuration)/$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
