@@ -248,7 +248,7 @@ void SvgParser::parserComDev(SvgGraph*grahp,QDomNode &node)
 
 void SvgParser::parserBreaker(SvgGraph*grahp,QDomNode &node)
 {
-	parserSvgLayer(grahp,node,eSWITCH);
+	parserSvgLayer(grahp,node,eBREAKER);
 }
 
 void SvgParser::parserDisconnector(SvgGraph*grahp,QDomNode &node)
@@ -258,7 +258,7 @@ void SvgParser::parserDisconnector(SvgGraph*grahp,QDomNode &node)
 
 void SvgParser::parserGroundDisconnector(SvgGraph*grahp,QDomNode &node)
 {
-	parserSvgLayer(grahp,node,eSWITCH);
+	parserSvgLayer(grahp,node,eGROUNDSWITCH);
 }
 
 void SvgParser::parserLink(SvgGraph*grahp,QDomNode &node)
@@ -429,6 +429,8 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 			
 			break;
 		case eSWITCH:
+		case eBREAKER:
+		case eGROUNDSWITCH:
 		case eARRESTER:
 		case eDEFAULT:
 			pdev = parserTemplate(cnode);
