@@ -34,7 +34,7 @@ public:
 public:
 	void		show();
 	void		addContextMenuAction(eDeviceType type);
-
+	bool		getIsCheck(){return m_isCheck;};
 public slots:
 	void		goHome();
     void		openFile();

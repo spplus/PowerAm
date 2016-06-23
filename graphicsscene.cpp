@@ -125,6 +125,11 @@ void GraphicsScene::contextMenuEvent ( QGraphicsSceneContextMenuEvent * contextM
 
 void GraphicsScene::setOpen()
 {
+	// 1. 发送操作命令
+
+	// 2.后台判断是否允许校验，如果允许校验，则执行校验判断，并返回校验判断结果
+	sendBreakOpReq(eOFF);
+
 	switchChange(0);
 }
 
@@ -451,6 +456,17 @@ void GraphicsScene::tagOn()
 	}
 
 	sendTagReq(eTagOn);
+}
+
+void GraphicsScene::sendBreakOpReq(eBreakerState state)
+{
+	PBNS::OprationMsg_Request req;
+	req.set_saveid(m_saveId);
+	req.set_type(state);
+	req.set_unitcim(m_curItem->getCimId().toStdString());
+	req.set_ischeck(MainWindow::instance()->getIsCheck());
+	string data = req.SerializeAsString();
+	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
 }
 
 void GraphicsScene::sendTagReq(eTagState type)

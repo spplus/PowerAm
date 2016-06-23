@@ -14,7 +14,7 @@ void OpenWidget::initUi()
 	QHBoxLayout* hbox = new QHBoxLayout;
 
 	m_saveList = new QTableWidget;
-	m_saveList->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
+	m_saveList->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	m_saveList->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_saveList->setSelectionMode(QAbstractItemView::SingleSelection);
 	

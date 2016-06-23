@@ -104,6 +104,9 @@ protected:
 	// 发送挂牌操作请求
 	void				sendTagReq(eTagState type);
 
+	// 发送开关变位请求
+	void				sendBreakOpReq(eBreakerState state);
+
 	// 开关变位
 	void					switchChange(int state);
 	QString				getNewSymbolId(QString oldid,int state);
