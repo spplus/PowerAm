@@ -155,6 +155,7 @@
     <ClCompile Include="openwidget.cpp" />
     <ClCompile Include="push_button.cpp" />
     <ClCompile Include="righttopwidget.cpp" />
+    <ClCompile Include="rulecheckwidget.cpp" />
     <ClCompile Include="savewidget.cpp" />
     <ClCompile Include="stationmgr.cpp" />
     <ClCompile Include="svggraph.cpp" />
@@ -501,6 +502,7 @@ if errorlevel 1 goto VCEnd
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC stationmgr.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_stationmgr.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="rulecheckwidget.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="svggraph.h" />
     <ClInclude Include="svgitem.h" />

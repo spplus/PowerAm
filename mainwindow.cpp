@@ -450,6 +450,18 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_WRITE_SAVING:
 		showWriteSavingResult(msg,msglength);
 		break;
+
+	case CMD_TRIGGER_RULES:
+		// 规则触发，显示触发的规则列表
+		m_sence->showRuleList(msg,msglength);
+		break;
+	case CMD_TOPO_BREAKER_CHANGE:
+	case CMD_CHECK_PASS:
+		// 变位客户端操作的设备
+		// 开关变位后台业务逻辑完成，返回带电设备列表，对带电设备按电压等级定义的颜色着色
+		m_sence->recvBreakerOpRes(msg,msglength);
+
+		break;
 	default:
 		break;
 	}

@@ -42,6 +42,12 @@ public:
 	// 发送请求设备状态请求
 	void			reqUnitState(QString stationCim);
 
+	// 显示触发的规则列表
+	void			showRuleList(const char* msg,int length);
+
+	// 开关变位后台结果返回
+	void			recvBreakerOpRes(const char* msg,int length);
+
 public slots:
 
 	// 前进
@@ -93,7 +99,7 @@ protected:
 	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
 
 	// 设置关联设备的颜色，开关设备除外，因为开关设备有着色过程
-	void				setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
+	void			setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
 
 	// 根据svgid查找svgItem
 	SvgItem*		findSvgItemById(QString id);
@@ -105,7 +111,7 @@ protected:
 	void				sendTagReq(eTagState type);
 
 	// 发送开关变位请求
-	void				sendBreakOpReq(eBreakerState state);
+	void				sendBreakOpReq(eBreakerState state,bool ischeck);
 
 	// 开关变位
 	void					switchChange(int state);

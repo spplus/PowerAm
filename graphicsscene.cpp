@@ -10,6 +10,7 @@
 #include "linesetwidget.h"
 #include "openwidget.h"
 #include "savewidget.h"
+#include "rulecheckwidget.h"
 
 GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	:QGraphicsScene(parant)
@@ -128,14 +129,28 @@ void GraphicsScene::setOpen()
 	// 1. 发送操作命令
 
 	// 2.后台判断是否允许校验，如果允许校验，则执行校验判断，并返回校验判断结果
-	sendBreakOpReq(eOFF);
+	sendBreakOpReq(eOFF,MainWindow::instance()->getIsCheck());
 
-	switchChange(0);
+	//switchChange(0);
 }
 
 void GraphicsScene::setClose()
 {
-	switchChange(1);
+	sendBreakOpReq(eON,MainWindow::instance()->getIsCheck());
+
+	//switchChange(1);
+}
+
+void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
+{
+	PBNS::OprationMsg_Response res;
+	res.ParseFromArray(msg,length);
+	
+	// 执行图形中的图元开关变位
+	switchChange(res.optype());
+
+	// 给带电的设备着色
+	// ...
 }
 
 void GraphicsScene::switchChange(int state)
@@ -196,12 +211,7 @@ void GraphicsScene::switchChange(int state)
 QString GraphicsScene::getNewSymbolId(QString oldid,int state)
 {
 	// 截取最后一位
-	//int state = oldid.mid(oldid.length()-1,1).toInt();
-
-	//state = state==0?1:0;
-	
-	QString newid = QString("%1%2").arg(oldid.mid(0,oldid.length()-1)).arg(state);
-	return newid;
+	return QString("%1%2").arg(oldid.mid(0,oldid.length()-1)).arg(state);
 }
 
 void GraphicsScene::startAnimation()
@@ -305,10 +315,15 @@ void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,
 			{
 				pdev->setDevType(eLINE);
 			}
-
+			
 			// 开关变位
-			setBreakState(graph,pdev,(eBreakerState)bean.state());
-
+			if (bean.unittype() == eSWITCH
+				|| bean.unittype() == eBREAKER
+				|| bean.unittype() == eGROUNDSWITCH)
+			{
+				setBreakState(graph,pdev,(eBreakerState)bean.state());
+			}
+			
 			// 如果带电，则按配置的电压等级颜色进行着色
 			if (bean.iselectric() == 1)
 			{
@@ -458,13 +473,13 @@ void GraphicsScene::tagOn()
 	sendTagReq(eTagOn);
 }
 
-void GraphicsScene::sendBreakOpReq(eBreakerState state)
+void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 {
 	PBNS::OprationMsg_Request req;
 	req.set_saveid(m_saveId);
 	req.set_type(state);
 	req.set_unitcim(m_curItem->getCimId().toStdString());
-	req.set_ischeck(MainWindow::instance()->getIsCheck());
+	req.set_ischeck(ischeck);
 	string data = req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
 }
@@ -551,6 +566,22 @@ void GraphicsScene::showSavingList(const char* msg,int msglength)
 		// 清空上一存档保持的操作设备集合
 		m_opDevList.clear();
 	}
+}
+
+void GraphicsScene::showRuleList(const char* msg,int length)
+{
+	PBNS::OprationMsg_Response res;
+	res.ParseFromArray(msg,length);
+
+	eBreakerState optype = (eBreakerState)res.optype();
+	RuleCheckWidget dlg;
+	dlg.setData(res);
+	if (dlg.exec() == QDialog::Accepted)
+	{
+		// 发送开关变位请求
+		sendBreakOpReq(optype,false);
+	}
+
 }
 
 void GraphicsScene::reqUnitState(QString stationCim)

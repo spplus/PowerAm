@@ -70,10 +70,6 @@ void OpenWidget::initData()
 	for (int i=0;i<m_dataList.savelist_size();i++)
 	{
 		PBNS::SavingBean bean = m_dataList.savelist(i);
-		QTableWidgetItem *itemIdx = new QTableWidgetItem;
-		
-		itemIdx->setText(tr("%1").arg(i+1));
-		itemIdx->setData(Qt::UserRole,bean.id());
 
 		QTableWidgetItem *itemName = new QTableWidgetItem;
 		itemName->setText(bean.name().c_str());
