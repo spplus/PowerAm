@@ -479,6 +479,7 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	req.set_saveid(m_saveId);
 	req.set_type(state);
 	req.set_unitcim(m_curItem->getCimId().toStdString());
+	req.set_unittype(m_curItem->getType());
 	req.set_ischeck(ischeck);
 	string data = req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
