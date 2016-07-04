@@ -35,6 +35,7 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_TOPO_BREAKER_CHANGE:
 	case CMD_TRIGGER_RULES:
 	case CMD_CHECK_PASS:
+	case	CMD_TOPO_ENTIRE:
 		MainWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_USER_MANAGER:

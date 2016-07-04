@@ -303,7 +303,7 @@ void MainWindow::initConnections()
 	connect(m_viewModelAction,SIGNAL(triggered()),this,SLOT(setViewModel()));
 	connect(m_offAction,SIGNAL(triggered()),m_sence,SLOT(setOpen()));
 	connect(m_onAction,SIGNAL(triggered()),m_sence,SLOT(setClose()));
-	connect(m_refreshAction,SIGNAL(triggered()),m_sence,SLOT(startAnimation()));
+	connect(m_refreshAction,SIGNAL(triggered()),this,SLOT(topoEntire()));
 	connect(m_controlAction,SIGNAL(triggered()),this,SLOT(setControlEnable()));
 	connect(m_soundAction,SIGNAL(triggered()),this,SLOT(setAlarmEnable()));
 	connect(m_chekAction,SIGNAL(triggered()),this,SLOT(setCheckEnable()));
@@ -462,6 +462,9 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		m_sence->recvBreakerOpRes(msg,msglength);
 
 		break;
+	case CMD_TOPO_ENTIRE:
+
+		break;
 	default:
 		break;
 	}
@@ -607,4 +610,11 @@ void MainWindow::setCheckEnable()
 
 	m_chekAction->setIcon(QIcon(icon));
 	m_chekAction->setToolTip(msg);
+}
+
+void MainWindow::topoEntire()
+{
+	string msg="topo";
+	NetClient::instance()->sendData(CMD_TOPO_ENTIRE,msg.c_str(),msg.length());
+	showMsg("拓扑分析命令发送成功");
 }

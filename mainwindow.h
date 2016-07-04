@@ -55,7 +55,8 @@ public slots:
 	// 设置校验
 	void		setCheckEnable();
 
-	
+	// 整站拓扑
+	void		topoEntire();
 
 private:
 
