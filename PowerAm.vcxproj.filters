@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Generated Files">
@@ -100,6 +100,12 @@
     <ClCompile Include="righttopwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rulecheckwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rulemgrdlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="savewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -134,9 +140,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="waitwidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rulecheckwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -213,6 +216,12 @@
     <ClInclude Include="righttopwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rulecheckwidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="rulemgrdlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="savewidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -261,9 +270,6 @@
     <CustomBuild Include="waitwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="rulecheckwidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug\moc_contentwidget.cpp">
@@ -360,6 +366,12 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="release\moc_push_button.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_rulemgrdlg.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_rulemgrdlg.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="debug\moc_savewidget.cpp">

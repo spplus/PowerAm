@@ -54,6 +54,17 @@ public slots:
 
 	// 设置校验
 	void		setCheckEnable();
+	
+	//显示环路查询Dockwidget
+	void		showCircleQueryDockwdg();
+	//显示挂牌查询Dockwidget
+	void		showSignQueryDockwdg();
+	//显示接地查询Dockwidget
+	void		showGswitchQueryDockwdg();
+	//显示人工设置查询Dockwidget
+	void		showMsetQueryDockwdg();
+	//显示事件查询Dockwidget
+	void		showEventQueryDockwdg();
 
 	// 整站拓扑
 	void		topoEntire();
@@ -69,6 +80,7 @@ private:
 	void		initStatusBar();
 	void		initNavView();
 	void		initOpenThread();
+	void		initDocWidget();
 	void		updateModel();
 	void		cleanScene();
 
@@ -81,12 +93,25 @@ private:
 	// 设置网络状态显示
 	void		setNetWorkStatus(int type);
 
-	//关闭响应事件
-	void		closeEvent(QCloseEvent *event);
-
 	// 消息提示框
 	void		showMsg(QString msg);
 
+	//创建环路查询Dockwidget
+	void	createCircleQueryDockwdg();
+	//创建挂牌查询Dockwidget
+	void	createSignQueryDockwdg();
+	//显示挂牌查询结果
+	void	showSignQueryResult(const char* msg,int msglength);
+	//创建接地查询Dockwidget
+	void	createGswitchQueryDockwdg();
+	//显示接地查询结果
+	void	showGswitchQueryResult(const char* msg,int msglength);
+	//创建人工设置查询Dockwidget
+	void	createMsetQueryDockwdg();
+	//显示人工设置查询结果
+	void	showMsetQueryResult(const char* msg,int msglength);
+	//创建事件查询Dockwidget
+	void	createEventQueryDockwdg();
 
 private:
 
@@ -162,6 +187,31 @@ private:
 	OpenThread*				m_openThread;
 	static		MainWindow*		m_inst;
 
+
+	//设置环路查询QDockWidget
+	QDockWidget*		m_pCircleQueryDockwdg;
+	//设置环路查询的DOC中的tableWidget
+	QTableWidget*		m_pCircleQueryTabWdgt;
+
+	//设置挂牌查询QDockWidget
+	QDockWidget*		m_pSignQueryDockwdg;
+	//设置挂牌查询的DOC中的tableWidget
+	QTableWidget*		m_pSignQueryTabWdgt;
+
+	//设置接地查询QDockWidget
+	QDockWidget*		m_pGswitchQueryDockwdg;
+	//设置接地查询的DOC中的tableWidget
+	QTableWidget*		m_pGswitchQueryTabWdgt;
+
+	//人工设置查询QDockWidget
+	QDockWidget*		m_pMsetQueryDockwdg;
+	//人工设置查询的DOC中的tableWidget
+	QTableWidget*		m_pMsetQueryTabWdgt;
+
+	//事件查询QDockWidget
+	QDockWidget*		m_pEventQueryDockwdg;
+	//事件查询的DOC中的tableWidget
+	QTableWidget*		m_pEventQueryTabWdgt;
 
 };
 

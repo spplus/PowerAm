@@ -57,6 +57,24 @@ void ComUtil::getStationType()
 	NetClient::instance()->sendData(CMD_STATION_TYPE,reqstr.c_str(),reqstr.length());
 }
 
+void ComUtil::getStation()
+{
+	PBNS::StationListMsg_Request req;
+	req.set_stationid(1);
+	string reqstr;
+	req.SerializeToString(&reqstr);
+	NetClient::instance()->sendData(CMD_STATION_LIST,reqstr.c_str(),reqstr.length());
+}
+
+void ComUtil::getRuleType()
+{
+	PBNS::RuleListMsg_Request req;
+	req.set_reqdate("1");
+	string reqstr;
+	req.SerializeToString(&reqstr);
+	NetClient::instance()->sendData(CMD_COM_RULE_LIST,reqstr.c_str(),reqstr.length());
+}
+
 vector<TreeNode*> ComUtil::getStationList()
 {
 	return m_stationList;
@@ -65,13 +83,18 @@ vector<TreeNode*> ComUtil::getStationList()
 
 vector<StationType_S> ComUtil::getStationTypeMgrList()
 {
-	return m_stationtypelis;
+	return m_stationtypelist;
 }
 
 
 vector<Station_S> ComUtil::getStationMgrList()
 {
 	return m_staList;
+}
+
+vector<RuleType_S> ComUtil::getRuleTypeList()
+{
+	return m_rulelist;
 }
 
 QList<QString> ComUtil::getSvgPathName()
@@ -113,10 +136,38 @@ void ComUtil::saveStationList(PBNS::StationTypeMsg_Response& res)
 	}
 }
 
-void ComUtil::saveStationAndTypeList(PBNS::StationTypeMsg_Response& res)
+void ComUtil::saveStationListonly(PBNS::StationListMsg_Response& res)
 {
 	m_staList.clear();
-	m_stationtypelis.clear();
+
+	for (int i=0;i<res.stationlist_size();i++)
+	{
+		PBNS::StationBean stabean = res.stationlist(i);
+		Station_S station;
+		station.id = stabean.id();
+		station.stypeid = stabean.categoryid();
+		station.stypename = QString("");
+		vector<StationType_S>::iterator iter;
+		for (iter=m_stationtypelist.begin();iter!=m_stationtypelist.end();iter++)
+		{
+			if (iter->id == station.stypeid)
+			{
+				station.stypename = iter->name;
+			}
+		}
+		station.cimid = stabean.cimid().c_str();
+		station.name = stabean.name().c_str();
+		station.curname = stabean.currentname().c_str();
+		station.path = stabean.path().c_str();
+
+		m_staList.push_back(station);
+	}
+}
+
+void ComUtil::saveStationTypeList(PBNS::StationTypeMsg_Response& res)
+{
+	//m_staList.clear();
+	m_stationtypelist.clear();
 
 	for (int i=0;i<res.typelist_size();i++)
 	{
@@ -125,7 +176,7 @@ void ComUtil::saveStationAndTypeList(PBNS::StationTypeMsg_Response& res)
 		statype.id = statypebean.id();
 		statype.name = statypebean.name().c_str();
 		statype.odernum = statypebean.ordernum();
-
+		/*
 		for(int j=0;j<statypebean.stationlist_size();j++)
 		{
 			PBNS::StationBean stabean = statypebean.stationlist(j);
@@ -140,8 +191,26 @@ void ComUtil::saveStationAndTypeList(PBNS::StationTypeMsg_Response& res)
 
 			m_staList.push_back(station);
 		}
+		*/
+		m_stationtypelist.push_back(statype);
+	}
 
-		m_stationtypelis.push_back(statype);
+}
+
+void ComUtil::saveRuleTypeList(PBNS::RuleListMsg_Response& res)
+{
+	m_rulelist.clear();
+
+	for (int i=0;i<res.rulelist_size();i++)
+	{
+		PBNS::RuleBean rbean = res.rulelist(i);
+		RuleType_S ruletype;
+		ruletype.ruleid = rbean.id();
+		ruletype.rulename = rbean.name().c_str();
+		ruletype.rulelevel = atoi(rbean.alarmlevel().c_str());
+		ruletype.ruledescrip = rbean.description().c_str();
+
+		m_rulelist.push_back(ruletype);
 	}
 
 }

@@ -106,12 +106,28 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			m_leftWidget->loadData(res);
 
 			//厂站管理返回
-			ComUtil::instance()->saveStationAndTypeList(res);
+			ComUtil::instance()->saveStationTypeList(res);
 			//获取ftp路径中svg文件名称
 			ComUtil::instance()->saveSvgPathName();
 			//设置刷新标志
 			ComUtil::instance()->setStationTypeRushflag(true);
 
+		}
+		break;
+	case CMD_STATION_LIST:
+		{
+			PBNS::StationListMsg_Response res;
+			res.ParseFromArray(msg,msglength);
+
+			ComUtil::instance()->saveStationListonly(res);
+		}
+		break;
+	case CMD_COM_RULE_LIST:
+		{
+			PBNS::RuleListMsg_Response res;
+			res.ParseFromArray(msg,msglength);
+
+			ComUtil::instance()->saveRuleTypeList(res);
 		}
 		break;
 	case CMD_STATION_MANAGER:
@@ -126,6 +142,10 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_USER_DEL:
 	case CMD_USER_MODIFY:
 		retUserMgr(msgtype,msg,msglength);
+		break;
+	case CMD_STATION_RULE_LIST:
+	case CMD_STATION_RULE_MGR:
+		m_titleWidget->retRuleMgr(msgtype,msg);
 		break;
 	default:
 		break;

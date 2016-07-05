@@ -72,4 +72,22 @@ struct Station_S
 	QString path;
 };
 
+struct RuleType_S
+{
+	int ruleid;
+	QString rulename;
+	int	rulelevel;
+	QString ruledescrip;
+};
+
+struct StationRule_S
+{
+	QString stationCim;
+	QString stationName;
+	int ruleId;
+	QString ruleName;
+	QString isUse;
+	QString isUseName;
+};
+
 #endif

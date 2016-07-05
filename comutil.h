@@ -29,7 +29,7 @@ public:
 	static ComUtil*		instance();
 
 	// 加载配置文件
-	bool					initConfig();
+	bool							initConfig();
 	
 	// 获取当前运行目录
 	QString				getAppPath();
@@ -61,8 +61,20 @@ public:
 	//获取ftp路径下的svg文件列表
 	QList<QString>		getSvgPathName();
 
-	//保存厂站类型列表和厂站列表
-	void				saveStationAndTypeList(PBNS::StationTypeMsg_Response& res);
+	//加载厂站列表
+	void				getStation();
+	//保存纯厂站列表
+	void				saveStationListonly(PBNS::StationListMsg_Response& res);
+	//保存纯厂站类型列表
+	void				saveStationTypeList(PBNS::StationTypeMsg_Response& res);
+
+	//加载规则类型列表
+	void				getRuleType();
+	//保存规则类型列表
+	void				saveRuleTypeList(PBNS::RuleListMsg_Response& res);
+
+	//获取规则类型列表
+	vector<RuleType_S> getRuleTypeList();
 
 	//获取厂站类型列表
 	vector<StationType_S> getStationTypeMgrList();
@@ -109,10 +121,13 @@ private:
 
 
 	//厂站类型列表
-	vector<StationType_S>		m_stationtypelis;
+	vector<StationType_S>		m_stationtypelist;
 
 	//厂站列表
 	vector<Station_S>			m_staList;
+
+	//规则类型列表
+	vector<RuleType_S>			m_rulelist;
 
 	// 文件列表
 	QList<QString>				m_svgflist;

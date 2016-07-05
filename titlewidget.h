@@ -14,6 +14,7 @@
 #include "userpasswdreset.h"
 #include "usermgrdlg.h"
 #include "stationmgr.h"
+#include "rulemgrdlg.h"
 
 class TitleWidget	:public QMainWindow
 {
@@ -27,6 +28,9 @@ public:
 
 	//用户登录管理返回
 	void		retUserMgr(int msgtype,const char* msg,int msglength);
+
+	//规则编辑管理返回
+	void		retRuleMgr(int msgtype,const char* msg);
 
 	//厂站管理返回
 	void		retStationMgr(int msgtype,const char* msg);
@@ -78,6 +82,8 @@ private:
 	UserPasswdReset *m_pUserPwddlg;
 	//厂站管理
 	StationMgr		*m_pStationMgrdlg;
+	//规则编辑管理
+	RuleMgrdlg		*m_pRuleMgrdlg;
 
 	PBNS::StationTypeMsg_Response	m_stationList;
 };

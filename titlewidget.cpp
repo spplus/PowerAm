@@ -213,9 +213,8 @@ void TitleWidget::retStationMgr(int msgtype,const char* msg)
 	case CMD_STATION_MANAGER:
 		m_pStationMgrdlg->retStationMgr(msgtype,msg);
 		break;
-	case CMD_STATION_LIST:
-
-		break;
+	//case CMD_STATION_LIST:
+	//	break;
 
 	}
 }
@@ -240,5 +239,24 @@ void TitleWidget::retpasswdMgr(int msgtype,const char* msg)
 
 void TitleWidget::roleMgr()
 {
+	m_pRuleMgrdlg = new RuleMgrdlg(this);
 
+	//请求站点规则关联关系列表
+	m_pRuleMgrdlg->reqStaionRuleList();
+
+	m_pRuleMgrdlg->setWindowIcon(QIcon(":images/rolemgr.png"));
+	m_pRuleMgrdlg->setWindowTitle("规则编辑");
+
+	m_pRuleMgrdlg->exec();
+
+	delete m_pRuleMgrdlg;
+
+	return;
+}
+
+void TitleWidget::retRuleMgr(int msgtype,const char* msg)
+{
+	m_pRuleMgrdlg->retStationRuleManager(msgtype,msg);
+
+	return;
 }

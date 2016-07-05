@@ -13,6 +13,10 @@ NetClient::NetClient()
 {
 	m_netflag = false;
 
+	m_brecvflag = true;
+
+	m_recvLen = 0;
+
 	m_pTcpScoket = new QTcpSocket(this);
 
 	//客户端连接信号
@@ -144,11 +148,52 @@ int NetClient::sendData(int msgtype,const char* msg,int msglength)
 
 void NetClient::readMessage()
 {
-	QByteArray qbarecv = m_pTcpScoket->readAll();
-	qDebug()<<qbarecv;
-	QString strrecv=QVariant(qbarecv).toString();
+	while(1)
+	{
+		m_qbarecv.append(m_pTcpScoket->readAll());
 
-	if (qbarecv.length() < 12)
+		//将第一次接收的数据中的长度提取出来，为以后接收大量数据计算长度
+		if (m_brecvflag)
+		{
+			//取出消息中的前4个字节：消息总长度
+			qint32 msgLen = m_qbarecv[0] & 0x000000FF;    
+			msgLen |= ((m_qbarecv[1] << 8) & 0x0000FF00);    
+			msgLen |= ((m_qbarecv[2] << 16) & 0x00FF0000);    
+			msgLen |= ((m_qbarecv[3] << 24) & 0xFF000000);
+
+			m_recvLen = msgLen;
+
+			m_brecvflag = false;
+		}
+
+		//当接收长度小于最小帧长时直接返回
+		if (m_qbarecv.length() < 12)
+		{
+			qDebug("接收数据长度小于最小帧长度");
+			return;
+		}
+
+		//当接收数据长度相等时跳出循环
+		if (m_qbarecv.length() == m_recvLen)
+		{
+			break;
+		}
+
+		//等待服务端每次发送数据
+		if(!(m_pTcpScoket->waitForReadyRead(50)))
+		{
+			qDebug()<<"m_pTcpScoket->errorString()2: "<< m_pTcpScoket->errorString();
+			return;
+		}
+
+	}
+	
+	QString recstr = QString("接收信息:");
+	qDebug()<<recstr;
+	QString strrecv=QVariant(m_qbarecv).toString();
+	qDebug()<<strrecv;
+
+	if (m_qbarecv.length() < 12)
 	{
 		qDebug("接收数据长度小于最小帧长度");
 		return;
@@ -156,13 +201,17 @@ void NetClient::readMessage()
 
 	int nmsgty = 0;
 
-	QByteArray qBymsg = unpack(qbarecv,nmsgty,qbarecv.length());
+	QByteArray qBymsg = unpack(m_qbarecv,nmsgty,m_qbarecv.length());
 	//数据解包
 	const char* msg = qBymsg.data();
 
 	//向应用层发信号
-	emit recvdata(nmsgty,msg,qbarecv.length());
+	emit recvdata(nmsgty,msg,m_qbarecv.length());
 	
+	m_brecvflag = true;
+	m_recvLen = 0;
+	m_qbarecv.clear();
+
 	return;
 }
 

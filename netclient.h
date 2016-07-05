@@ -98,6 +98,13 @@ private:
 
 	//客户端连接服务器标志
 	bool			m_netflag;
+	
+	//接收数据
+	QByteArray	m_qbarecv;
+	//接收数据总长度
+	qint32		m_recvLen;
+	//第一次接收标志
+	bool		m_brecvflag;
 };
 
 #endif

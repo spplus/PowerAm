@@ -3,6 +3,7 @@
 #include "homewindow.h"
 #include "userlogindlg.h"
 #include "stationmgr.h"
+#include "rulemgrdlg.h"
 
 MsgRouter* MsgRouter::m_inst = NULL;
 
@@ -30,6 +31,11 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_LINE_SET:
 	case CMD_POWER_SET:
 	case CMD_TAG_OP:
+	case CMD_QUERY_CIRCLE_LIST:
+	case CMD_QUERY_SIGN_LIST:
+	case CMD_QUERY_GSWITCH_LIST:
+	case CMD_QUERY_MSET_LIST:
+	case CMD_QUERY_EVENT_LIST:
 	case CMD_READ_SAVING:
 	case CMD_WRITE_SAVING:
 	case CMD_TOPO_BREAKER_CHANGE:
@@ -47,6 +53,9 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_STATION_TYPE:
 	case CMD_STATION_LIST:
 	case CMD_STATION_MANAGER:
+	case CMD_STATION_RULE_LIST:
+	case CMD_STATION_RULE_MGR:
+	case CMD_COM_RULE_LIST:
 		HomeWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_USER_LONGIN:
@@ -57,6 +66,12 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_STATION_TYPE_MODIFY:
 	case CMD_STATION_TYPE_LIST:
 		StationTypeMgr::instance()->recvdata(msgtype,msg,msglength);
+		break;
+	case CMD_RULE_LIST:
+	case CMD_RULE_ADD:
+	case CMD_RULE_DEL:
+	case CMD_RULE_MODIFY:
+		RuleTypeMgrdlg::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	default:
 		break;

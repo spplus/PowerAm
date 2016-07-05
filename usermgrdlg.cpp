@@ -1,5 +1,7 @@
+#include <string>
 #include "usermgrdlg.h"
 
+using namespace std;
 UserMgrdlg::UserMgrdlg(QWidget *parent)
 	: QDialog(parent)
 {
@@ -160,8 +162,11 @@ void UserMgrdlg::reqUserRoleList()
 	strData.append("1");
 
 	urlreq.set_reqdate("1");
+
+	string sdata = urlreq.SerializeAsString();
+
 	//发射请求用户角色列表
-	NetClient::instance()->sendData(CMD_USER_ROLE,urlreq.SerializeAsString().c_str(),strData.size());
+	NetClient::instance()->sendData(CMD_USER_ROLE,sdata.c_str(),sdata.length());
 
 	return;
 }
@@ -212,7 +217,7 @@ void UserMgrdlg::reqUserList()
 	ulreq.set_reqdate("1");
 
 	//发射发送数据请求消息信号
-	NetClient::instance()->sendData(CMD_USER_MANAGER,ulreq.SerializeAsString().c_str(),strData.size());
+	NetClient::instance()->sendData(CMD_USER_MANAGER,ulreq.SerializeAsString().c_str(),ulreq.SerializeAsString().length());
 
 	return;
 }
@@ -248,13 +253,6 @@ void UserMgrdlg::retUserList(const char* msg)
 	pbntadd->setEnabled(true);
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
-
-	if (bfst)
-	{
-		getUserItem(ptabwdgulist->currentItem());
-	}
-
-	bfst = true;
 
 }
 
@@ -356,7 +354,9 @@ void UserMgrdlg::addUser()
 		PBNS::UserMgrMsg_Request addureq;
 		addureq.set_mgrsql(sql.toStdString());
 
-		NetClient::instance()->sendData(CMD_USER_ADD,addureq.SerializeAsString().c_str(),sql.size());
+		string sdata = addureq.SerializeAsString();
+
+		NetClient::instance()->sendData(CMD_USER_ADD,sdata.c_str(),sdata.length());
 
 		baddflag = false;
 		pnamelied->setDisabled(true);
@@ -381,7 +381,9 @@ void UserMgrdlg::delUser()
 	PBNS::UserMgrMsg_Request delureq;
 	delureq.set_mgrsql(sql.toStdString());
 
-	NetClient::instance()->sendData(CMD_USER_DEL,delureq.SerializeAsString().c_str(),sql.size());
+	string sdata = delureq.SerializeAsString();
+
+	NetClient::instance()->sendData(CMD_USER_DEL,sdata.c_str(),sdata.length());
 
 	//设置操作按钮状态
 	pbntdel->setEnabled(false);
@@ -465,7 +467,8 @@ void UserMgrdlg::mdfUser()
 		PBNS::UserMgrMsg_Request delureq;
 		delureq.set_mgrsql(sql.toStdString());
 
-		NetClient::instance()->sendData(CMD_USER_MODIFY,delureq.SerializeAsString().c_str(),sql.size());
+		string sdata = delureq.SerializeAsString();
+		NetClient::instance()->sendData(CMD_USER_MODIFY,sdata.c_str(),sdata.length());
 
 		bmdfflag = false;
 		pnamelied->setDisabled(true);

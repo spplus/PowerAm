@@ -56,6 +56,12 @@ int main(int argc, char *argv[])
 	// 加载分类列表
 	ComUtil::instance()->getStationType();
 
+	//加载厂站
+	ComUtil::instance()->getStation();
+
+	//加载规则类型列表
+	ComUtil::instance()->getRuleType();
+
 	//设置登录用户名
 	HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
 	HomeWindow::instance()->show();

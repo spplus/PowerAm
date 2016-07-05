@@ -69,6 +69,8 @@ SOURCES += main.cpp\
 	linesetwidget.cpp \
 	savewidget.cpp \
 	openwidget.cpp \
+	rulemgrdlg.cpp \
+	rulecheckwidget.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -111,6 +113,8 @@ HEADERS  += mainwindow.h \
 	linesetwidget.h \
 	savewidget.h \
 	openwidget.h \
+	rulemgrdlg.h \
+	rulecheckwidget.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

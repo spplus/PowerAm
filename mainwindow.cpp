@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	initMenu();
 	initStatusBar();
 	initConnections();
+	initDocWidget();
 	setWindowTitle(m_title); 
 
 	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
@@ -313,6 +314,21 @@ void MainWindow::initConnections()
 	connect(m_signOffAction,SIGNAL(triggered()),m_sence,SLOT(tagOff()));
 	connect(m_readAction,SIGNAL(triggered()),m_sence,SLOT(readSaving()));
 	connect(m_saveAction,SIGNAL(triggered()),m_sence,SLOT(writeSaving()));
+	//环路查询
+	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));
+	connect(m_signQueryAction,SIGNAL(triggered()),this,SLOT(showSignQueryDockwdg()));
+	connect(m_gswitchQueryAction,SIGNAL(triggered()),this,SLOT(showGswitchQueryDockwdg()));
+	connect(m_msetQueryAction,SIGNAL(triggered()),this,SLOT(showMsetQueryDockwdg()));
+	connect(m_eventQueryAction,SIGNAL(triggered()),this,SLOT(showEventQueryDockwdg()));
+}
+
+void MainWindow::initDocWidget()
+{
+	createCircleQueryDockwdg();
+	createSignQueryDockwdg();
+	createGswitchQueryDockwdg();
+	createMsetQueryDockwdg();
+	createEventQueryDockwdg();
 }
 
 MainWindow::~MainWindow()
@@ -444,6 +460,19 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_DISCONNECTED:
 		setNetWorkStatus(msgtype);
 		break;
+	case CMD_QUERY_CIRCLE_LIST:
+		break;
+	case CMD_QUERY_SIGN_LIST:
+		showSignQueryResult(msg,msglength);
+		break;
+	case CMD_QUERY_GSWITCH_LIST:
+		showGswitchQueryResult(msg,msglength);
+		break;
+	case CMD_QUERY_MSET_LIST:
+		showMsetQueryResult(msg,msglength);
+		break;
+	case CMD_QUERY_EVENT_LIST:
+		break;
 	case CMD_READ_SAVING:
 		m_sence->showSavingList(msg,msglength);
 		break;
@@ -533,13 +562,6 @@ void MainWindow::showLineSetResult(const char* msg,int msglength)
 	}
 }
 
-//关闭响应事件
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-	//pStaTypeDockWidget->close();
-	return;
-}
-
 void MainWindow::setNetWorkStatus(int type)
 {
 	if (type == CMD_CONNECTED)
@@ -617,4 +639,324 @@ void MainWindow::topoEntire()
 	string msg="topo";
 	NetClient::instance()->sendData(CMD_TOPO_ENTIRE,msg.c_str(),msg.length());
 	showMsg("拓扑分析命令发送成功");
+}
+
+
+void MainWindow::createCircleQueryDockwdg()
+{
+	m_pCircleQueryDockwdg = new QDockWidget;//(tr("环路查询"),this);
+	//设置QDockWidget的窗口名称  
+	m_pCircleQueryDockwdg->setWindowTitle(tr("环路查询"));  
+	//设置电站类别QDockWidget的可停靠区域：左右全部可停靠    
+	m_pCircleQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+	//创建dock中的tabwidget
+	m_pCircleQueryTabWdgt = new QTableWidget;//(m_pCircleQueryDockwdg);
+
+	m_pCircleQueryTabWdgt->setColumnCount(4);
+	m_pCircleQueryTabWdgt->setRowCount(5);
+	//添加tab列表头名称
+	QStringList headers;
+	headers << "设备名称" << "厂站名称" << "设备ID" << "厂站ID" ;
+	m_pCircleQueryTabWdgt->setHorizontalHeaderLabels(headers);
+	//行背景颜色变化
+	m_pCircleQueryTabWdgt->setAlternatingRowColors(true);
+	//设置每行内容不可编辑
+	m_pCircleQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//设置只能选择一行，不能选择多行
+	m_pCircleQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
+	//设置单击选择一行
+	m_pCircleQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
+	//将tabwidget添加到dock中
+	m_pCircleQueryDockwdg->setWidget(m_pCircleQueryTabWdgt);
+	//将dockwidget添加到主界面中并右侧停靠
+	this->addDockWidget(Qt::RightDockWidgetArea, m_pCircleQueryDockwdg);
+
+	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
+	m_pCircleQueryDockwdg->hide();
+
+	//m_queryMenu->addAction(m_pCircleQueryDockwdg->toggleViewAction());
+
+	return;
+}
+
+void MainWindow::showCircleQueryDockwdg()
+{
+	if (m_pCircleQueryDockwdg->isHidden())
+	{
+		m_pCircleQueryTabWdgt->setItem(0, 0, new QTableWidgetItem(QString("0001")));
+		m_pCircleQueryTabWdgt->setItem(1, 0, new QTableWidgetItem(QString("0002")));
+		m_pCircleQueryTabWdgt->setItem(2, 0, new QTableWidgetItem(QString("0003")));
+		m_pCircleQueryTabWdgt->setItem(3, 0, new QTableWidgetItem(QString("0004")));
+		m_pCircleQueryTabWdgt->setItem(4, 0, new QTableWidgetItem(QString("0005")));
+		m_pCircleQueryTabWdgt->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+
+		m_pCircleQueryDockwdg->show();
+	} 
+}
+
+
+void MainWindow::createSignQueryDockwdg()
+{
+	m_pSignQueryDockwdg = new QDockWidget;
+	//设置QDockWidget的窗口名称  
+	m_pSignQueryDockwdg->setWindowTitle(tr("挂牌查询"));  
+	//设置电站类别QDockWidget的可停靠区域：左右全部可停靠    
+	m_pSignQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+	//创建dock中的tabwidget
+	m_pSignQueryTabWdgt = new QTableWidget;
+
+	m_pSignQueryTabWdgt->setColumnCount(5);
+	//添加tab列表头名称
+	QStringList headers;
+	headers <<"设备名称"<<"厂站名称"<<"设备类型"<<"设备ID"<<"厂站ID" ;
+	m_pSignQueryTabWdgt->setHorizontalHeaderLabels(headers);
+	//行背景颜色变化
+	m_pSignQueryTabWdgt->setAlternatingRowColors(true);
+	//设置每行内容不可编辑
+	m_pSignQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//设置只能选择一行，不能选择多行
+	m_pSignQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
+	//设置单击选择一行
+	m_pSignQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
+	//将tabwidget添加到dock中
+	m_pSignQueryDockwdg->setWidget(m_pSignQueryTabWdgt);
+	//将dockwidget添加到主界面中并右侧停靠
+	this->addDockWidget(Qt::RightDockWidgetArea, m_pSignQueryDockwdg);
+
+	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
+	m_pSignQueryDockwdg->hide();
+
+
+	return;
+}
+
+
+void MainWindow::showSignQueryDockwdg()
+{
+	if (m_pSignQueryDockwdg->isHidden())
+	{
+		PBNS::SignListMsg_Request req;
+		req.set_reqdate("1");
+
+		//发射发送数据请求消息信号
+		NetClient::instance()->sendData(CMD_QUERY_SIGN_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
+
+		m_pSignQueryDockwdg->show();
+	} 
+}
+
+void MainWindow::showSignQueryResult(const char* msg,int msglength)
+{
+	PBNS::SignListMsg_Response resp;
+	resp.ParseFromArray(msg,msglength);
+
+	int nrow = resp.signlist_size();
+
+	//设置行数
+	m_pSignQueryTabWdgt->setRowCount(nrow);
+
+	for (int i=0;i<resp.signlist_size();i++)
+	{
+		PBNS::SignQueryBean sgBean = resp.signlist(i);
+
+		m_pSignQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(sgBean.unitcimname())));		
+		m_pSignQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(sgBean.stationname())));
+		m_pSignQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(sgBean.unittype())));		
+		m_pSignQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(sgBean.unitcim())));
+		m_pSignQueryTabWdgt->setItem(i,4,new QTableWidgetItem(QString::fromStdString(sgBean.stationcim())));		
+	}
+
+}
+
+void MainWindow::createGswitchQueryDockwdg()
+{
+	m_pGswitchQueryDockwdg = new QDockWidget;
+	//设置QDockWidget的窗口名称  
+	m_pGswitchQueryDockwdg->setWindowTitle(tr("接地查询"));  
+	//设置电站类别QDockWidget的可停靠区域：左右全部可停靠    
+	m_pGswitchQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+	//创建dock中的tabwidget
+	m_pGswitchQueryTabWdgt = new QTableWidget;
+
+	m_pGswitchQueryTabWdgt->setColumnCount(5);
+	//添加tab列表头名称
+	QStringList headers;
+	headers <<"设备名称"<<"厂站名称"<<"类型"<<"设备ID"<<"厂站ID" ;
+	m_pGswitchQueryTabWdgt->setHorizontalHeaderLabels(headers);
+	//行背景颜色变化
+	m_pGswitchQueryTabWdgt->setAlternatingRowColors(true);
+	//设置每行内容不可编辑
+	m_pGswitchQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//设置只能选择一行，不能选择多行
+	m_pGswitchQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
+	//设置单击选择一行
+	m_pGswitchQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
+	//将tabwidget添加到dock中
+	m_pGswitchQueryDockwdg->setWidget(m_pGswitchQueryTabWdgt);
+	//将dockwidget添加到主界面中并右侧停靠
+	this->addDockWidget(Qt::RightDockWidgetArea, m_pGswitchQueryDockwdg);
+
+	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
+	m_pGswitchQueryDockwdg->hide();
+
+	return;
+}
+
+void MainWindow::showGswitchQueryDockwdg()
+{
+	if (m_pGswitchQueryDockwdg->isHidden())
+	{
+		PBNS::GswitchListMsg_Request req;
+		req.set_reqdate("1");
+
+		//发射发送数据请求消息信号
+		NetClient::instance()->sendData(CMD_QUERY_GSWITCH_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
+
+		m_pGswitchQueryDockwdg->show();
+	} 
+}
+
+void MainWindow::showGswitchQueryResult(const char* msg,int msglength)
+{
+	PBNS::GswitchListMsg_Response resp;
+	resp.ParseFromArray(msg,msglength);
+
+	int nrow = resp.gswitchlist_size();
+
+	//设置行数
+	m_pGswitchQueryTabWdgt->setRowCount(nrow);
+
+	for (int i=0;i<resp.gswitchlist_size();i++)
+	{
+		PBNS::GswitchQueryBean gsBean = resp.gswitchlist(i);
+
+		m_pGswitchQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(gsBean.unitcimname())));		
+		m_pGswitchQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(gsBean.stationname())));
+		m_pGswitchQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(gsBean.unittype())));		
+		m_pGswitchQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(gsBean.unitcim())));
+		m_pGswitchQueryTabWdgt->setItem(i,4,new QTableWidgetItem(QString::fromStdString(gsBean.stationcim())));		
+	}
+}
+
+void MainWindow::createMsetQueryDockwdg()
+{
+	m_pMsetQueryDockwdg = new QDockWidget;
+	//设置QDockWidget的窗口名称  
+	m_pMsetQueryDockwdg->setWindowTitle(tr("人工设置查询"));  
+	//设置电站类别QDockWidget的可停靠区域：左右全部可停靠    
+	m_pMsetQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+	//创建dock中的tabwidget
+	m_pMsetQueryTabWdgt = new QTableWidget;
+	//行背景颜色变化
+	m_pMsetQueryTabWdgt->setAlternatingRowColors(true);
+	//设置每行内容不可编辑
+	m_pMsetQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//设置只能选择一行，不能选择多行
+	m_pMsetQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
+	//设置单击选择一行
+	m_pMsetQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
+	m_pMsetQueryTabWdgt->setColumnCount(5);
+	m_pMsetQueryTabWdgt->setRowCount(5);
+	//添加tab列表头名称
+	QStringList headers;
+	headers <<"设备名称"<<"厂站名称"<<"类型"<<"设备ID"<<"厂站ID" ;
+	m_pMsetQueryTabWdgt->setHorizontalHeaderLabels(headers);
+
+	//将tabwidget添加到dock中
+	m_pMsetQueryDockwdg->setWidget(m_pMsetQueryTabWdgt);
+	//将dockwidget添加到主界面中并右侧停靠
+	this->addDockWidget(Qt::RightDockWidgetArea, m_pMsetQueryDockwdg);
+
+	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
+	m_pMsetQueryDockwdg->hide();
+
+
+	return;
+}
+
+void MainWindow::showMsetQueryDockwdg()
+{
+	if (m_pMsetQueryDockwdg->isHidden())
+	{
+		PBNS::MsetListMsg_Request req;
+		req.set_reqdate("1");
+
+		//发射发送数据请求消息信号
+		NetClient::instance()->sendData(CMD_QUERY_MSET_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
+
+		m_pMsetQueryDockwdg->show();
+	} 
+}
+
+void MainWindow::showMsetQueryResult(const char* msg,int msglength)
+{
+	PBNS::MsetListMsg_Response resp;
+	resp.ParseFromArray(msg,msglength);
+
+	int nrow = resp.msetlist_size();
+
+	//设置行数
+	m_pMsetQueryTabWdgt->setRowCount(nrow);
+
+	for (int i=0;i<resp.msetlist_size();i++)
+	{
+		PBNS::MsetQueryBean mstBean = resp.msetlist(i);
+
+		m_pMsetQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(mstBean.unitcimname())));		
+		m_pMsetQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(mstBean.stationname())));
+		m_pMsetQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(mstBean.unittype())));		
+		m_pMsetQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(mstBean.unitcim())));
+		m_pMsetQueryTabWdgt->setItem(i,4,new QTableWidgetItem(QString::fromStdString(mstBean.stationcim())));		
+	}
+}
+
+void MainWindow::createEventQueryDockwdg()
+{
+	m_pEventQueryDockwdg = new QDockWidget;
+	//设置QDockWidget的窗口名称  
+	m_pEventQueryDockwdg->setWindowTitle(tr("事件查询"));  
+	//设置电站类别QDockWidget的可停靠区域：左右全部可停靠    
+	m_pEventQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+	//创建dock中的tabwidget
+	m_pEventQueryTabWdgt = new QTableWidget;
+
+	m_pEventQueryTabWdgt->setColumnCount(4);
+	m_pEventQueryTabWdgt->setRowCount(5);
+	//添加tab列表头名称
+	QStringList headers;
+	headers <<"厂站名称"<<"设备名称"<<"内容"<<"时间" ;
+	m_pEventQueryTabWdgt->setHorizontalHeaderLabels(headers);
+	//行背景颜色变化
+	m_pEventQueryTabWdgt->setAlternatingRowColors(true);
+	//设置每行内容不可编辑
+	m_pEventQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//设置只能选择一行，不能选择多行
+	m_pEventQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
+	//设置单击选择一行
+	m_pEventQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
+	//将tabwidget添加到dock中
+	m_pEventQueryDockwdg->setWidget(m_pEventQueryTabWdgt);
+	//将dockwidget添加到主界面中并右侧停靠
+	this->addDockWidget(Qt::RightDockWidgetArea, m_pEventQueryDockwdg);
+
+	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
+	m_pEventQueryDockwdg->hide();
+
+
+	return;
+}
+
+void MainWindow::showEventQueryDockwdg()
+{
+	if (m_pEventQueryDockwdg->isHidden())
+	{
+		m_pEventQueryTabWdgt->setItem(0, 0, new QTableWidgetItem(QString("0001")));
+		m_pEventQueryTabWdgt->setItem(1, 0, new QTableWidgetItem(QString("0002")));
+		m_pEventQueryTabWdgt->setItem(2, 0, new QTableWidgetItem(QString("0003")));
+		m_pEventQueryTabWdgt->setItem(3, 0, new QTableWidgetItem(QString("0004")));
+		m_pEventQueryTabWdgt->setItem(4, 0, new QTableWidgetItem(QString("0005")));
+		m_pEventQueryTabWdgt->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+
+		m_pEventQueryDockwdg->show();
+	} 
 }

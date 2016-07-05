@@ -36,7 +36,7 @@ StationMgr::StationMgr(QWidget *parent)
 	ptabwdgStaList->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
-	pbntStaType = new QPushButton("产站类型");
+	pbntStaType = new QPushButton("厂站类型");
 	pbnCommit = new QPushButton("提  交");
 
 	pbtnhlayt->addStretch();
@@ -233,10 +233,12 @@ void StationMgr::retStationMgr(int msgtype,const char* msg)
 		{
 			PBNS::StationMgrMsg_Response starep;
 			starep.ParseFromString(msg);
-			if (starep.rescode() == 0)
+			if (starep.rescode() > 0)
 			{
-				ComUtil::instance()->getStationType();
+				
 				QMessageBox::information(this,tr("厂站设置"),tr("厂站修改提交成功!"));
+				ComUtil::instance()->getStationType();
+				ComUtil::instance()->getStation();
 				pbnCommit->setEnabled(false);
 			}
 			else
@@ -432,7 +434,7 @@ void StationTypeMgr::recvdata(int msgtype,const char* msg,int msglength)
 			PBNS::StationTypeMgrMsg_Response rep;
 			rep.ParseFromString(msg);
 
-			if (rep.rescode()==0)
+			if (rep.rescode()>0)
 			{
 				//修改厂站类型成功后，对主界面中厂站类型重新加载
 				ComUtil::instance()->getStationType();
@@ -460,7 +462,7 @@ void StationTypeMgr::reqStationTypeList()
 
 
 	//发射发送数据请求消息信号
-	NetClient::instance()->sendData(CMD_STATION_TYPE_LIST,statypereq.SerializeAsString().c_str(),strData.size());
+	NetClient::instance()->sendData(CMD_STATION_TYPE_LIST,statypereq.SerializeAsString().c_str(),statypereq.SerializeAsString().length());
 
 	return;
 }
@@ -586,7 +588,7 @@ void StationTypeMgr::addStationType()
 		PBNS::StationTypeMgrMsg_Request addreq;
 		addreq.set_mgrsql(sql.toStdString());
 
-		NetClient::instance()->sendData(CMD_STATION_TYPE_ADD,addreq.SerializeAsString().c_str(),sql.size());
+		NetClient::instance()->sendData(CMD_STATION_TYPE_ADD,addreq.SerializeAsString().c_str(),addreq.SerializeAsString().length());
 
 		bflgadd = false;
 		porderspbox->setEnabled(false);
@@ -609,7 +611,7 @@ void StationTypeMgr::delStationType()
 	PBNS::StationTypeMgrMsg_Request delureq;
 	delureq.set_mgrsql(sql.toStdString());
 
-	NetClient::instance()->sendData(CMD_STATION_TYPE_DEL,delureq.SerializeAsString().c_str(),sql.size());
+	NetClient::instance()->sendData(CMD_STATION_TYPE_DEL,delureq.SerializeAsString().c_str(),delureq.SerializeAsString().length());
 
 	//设置操作按钮状态
 	pbntdel->setEnabled(false);
@@ -660,7 +662,7 @@ void StationTypeMgr::mdfStationType()
 		PBNS::StationTypeMgrMsg_Request mdfreq;
 		mdfreq.set_mgrsql(sql.toStdString());
 
-		NetClient::instance()->sendData(CMD_STATION_TYPE_MODIFY,mdfreq.SerializeAsString().c_str(),sql.size());
+		NetClient::instance()->sendData(CMD_STATION_TYPE_MODIFY,mdfreq.SerializeAsString().c_str(),mdfreq.SerializeAsString().length());
 
 		bflgmdf = false;
 		porderspbox->setEnabled(false);
