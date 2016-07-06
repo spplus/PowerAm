@@ -96,7 +96,7 @@ protected:
 	void			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
 
 	// 修改设备状态列表中的设备状态
-	void			setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev);
+	void			setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
 
 	// 设置关联设备的颜色，开关设备除外，因为开关设备有着色过程
 	void			setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
@@ -119,7 +119,13 @@ protected:
 	void					mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
 	virtual void			contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
-	
+	// buff 转list
+	QList<PBNS::StateBean>	getStateBeanList(PBNS::DevStateMsg_Response& res);
+	QList<PBNS::StateBean>	getStateBeanList(PBNS::OprationMsg_Response& res);
+
+	// 设备着色，变位
+	void						drawDev(QList<PBNS::StateBean> & devList);
+
 private:
 
 	// 当前打开的存档ID

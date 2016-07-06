@@ -150,7 +150,7 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	switchChange(res.optype());
 
 	// 给带电的设备着色
-	// ...
+	drawDev(getStateBeanList(res));
 }
 
 void GraphicsScene::switchChange(int state)
@@ -237,46 +237,49 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	// 保存当前站点设备列表
 	m_devList = res;
 
-	// 设置图形中的设备状态
-	int size = res.devstate_size();
-	if (size <= 0)
-	{
-		return;
-	}
-	
-	// 获取当前的图形
-	if (m_graphList.size()<=m_curIndex)
-	{
-		return;
-	}
-	SvgGraph* pgraph = m_graphList.at(m_curIndex);
-
-	// 根据cimid在图形中找到对应的设备对象
-	for (int i = 0;i<pgraph->getLayerList().count();i++)
-	{
-		SvgLayer *player = pgraph->getLayerList().at(i);
-		if (player->getId() == BREAKER_LAYER
-			|| player->getId() == DISCONN_LAYER
-			|| player->getId() == GROUNDDISCONN_LAYER
-			|| player->getId() == BUS_LAYER
-			|| player->getId() == BUS_LAYER_JC
-			|| player->getId() == LINK_LAYER
-			|| player->getId() == ACLINE_LAYER
-			)
-		{
-			QList<BaseDevice*> devList = player->getDevList();
-			for (int j = 0;j<devList.count();j++)
-			{
-				// 根据svgid 修改dom中的图元模板,改变状态。
-				BaseDevice* pdev = devList.at(j);
-				setDevState(res,pgraph,pdev);
-			}
-		}
-	}
-	// 重新加载图形
-	this->clear();
-	
-	m_svgRender->drawGraph(pgraph);
+	// 着色，变位
+	drawDev(getStateBeanList(res));
+// 
+// 	// 设置图形中的设备状态
+// 	int size = res.devstate_size();
+// 	if (size <= 0)
+// 	{
+// 		return;
+// 	}
+// 	
+// 	// 获取当前的图形
+// 	if (m_graphList.size()<=m_curIndex)
+// 	{
+// 		return;
+// 	}
+// 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
+// 
+// 	// 根据cimid在图形中找到对应的设备对象
+// 	for (int i = 0;i<pgraph->getLayerList().count();i++)
+// 	{
+// 		SvgLayer *player = pgraph->getLayerList().at(i);
+// 		if (player->getId() == BREAKER_LAYER
+// 			|| player->getId() == DISCONN_LAYER
+// 			|| player->getId() == GROUNDDISCONN_LAYER
+// 			|| player->getId() == BUS_LAYER
+// 			|| player->getId() == BUS_LAYER_JC
+// 			|| player->getId() == LINK_LAYER
+// 			|| player->getId() == ACLINE_LAYER
+// 			)
+// 		{
+// 			QList<BaseDevice*> devList = player->getDevList();
+// 			for (int j = 0;j<devList.count();j++)
+// 			{
+// 				// 根据svgid 修改dom中的图元模板,改变状态。
+// 				BaseDevice* pdev = devList.at(j);
+// 				setDevState(res,pgraph,pdev);
+// 			}
+// 		}
+// 	}
+// 	// 重新加载图形
+// 	this->clear();
+// 	
+// 	m_svgRender->drawGraph(pgraph);
 }
 
 void GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
@@ -302,11 +305,11 @@ void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState
 	}
 }
 
-void GraphicsScene::setDevState(PBNS::DevStateMsg_Response &res,SvgGraph* graph,BaseDevice* pdev)
+void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
 {
-	for (int i = 0;i<res.devstate_size();i++)
+	for (int i = 0;i<devlist.size();i++)
 	{
-		PBNS::StateBean bean = res.devstate(i);
+		PBNS::StateBean bean = devlist.at(i);
 
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
@@ -599,4 +602,66 @@ void GraphicsScene::reqUnitState(QString stationCim)
 	string reqstr;
 	req.SerializeToString(&reqstr);
 	NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
+}
+
+QList<PBNS::StateBean> GraphicsScene::getStateBeanList(PBNS::DevStateMsg_Response& res)
+{
+	QList<PBNS::StateBean> devlist;
+	for (int i = 0;i<res.devstate_size();i++)
+	{
+		devlist.push_back(res.devstate(i));
+	}
+	return devlist;
+}
+
+QList<PBNS::StateBean> GraphicsScene::getStateBeanList(PBNS::OprationMsg_Response& res)
+{
+	QList<PBNS::StateBean> devlist;
+	for (int i = 0;i<res.devstate_size();i++)
+	{
+		devlist.push_back(res.devstate(i));
+	}
+	return devlist;
+}
+
+void GraphicsScene::drawDev(QList<PBNS::StateBean> & stateList)
+{
+	if (stateList.size()<0)
+	{
+		return;
+	}
+
+	// 获取当前的图形
+	if (m_graphList.size()<=m_curIndex)
+	{
+		return;
+	}
+	SvgGraph* pgraph = m_graphList.at(m_curIndex);
+
+	// 根据cimid在图形中找到对应的设备对象
+	for (int i = 0;i<pgraph->getLayerList().count();i++)
+	{
+		SvgLayer *player = pgraph->getLayerList().at(i);
+		if (player->getId() == BREAKER_LAYER
+			|| player->getId() == DISCONN_LAYER
+			|| player->getId() == GROUNDDISCONN_LAYER
+			|| player->getId() == BUS_LAYER
+			|| player->getId() == BUS_LAYER_JC
+			|| player->getId() == LINK_LAYER
+			|| player->getId() == ACLINE_LAYER
+			)
+		{
+			QList<BaseDevice*> devList = player->getDevList();
+			for (int j = 0;j<devList.count();j++)
+			{
+				// 根据svgid 修改dom中的图元模板,改变状态。
+				BaseDevice* pdev = devList.at(j);
+				setDevState(stateList,pgraph,pdev);
+			}
+		}
+	}
+	// 重新加载图形
+	this->clear();
+
+	m_svgRender->drawGraph(pgraph);
 }

@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>"..\..\..\Qt\4.8.7\include\QtCore";"..\..\..\Qt\4.8.7\include\QtNetwork";"..\..\..\Qt\4.8.7\include\QtGui";"..\..\..\Qt\4.8.7\include\QtXml";"..\..\..\Qt\4.8.7\include\QtSvg";"..\..\..\Qt\4.8.7\include";"..\common";"d:\work\3rd\pbuff\include";"..\..\..\Qt\4.8.7\include\ActiveQt";"debug";..\..\..\Qt\4.8.7\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Qt\4.8.7\include\QtCore;..\..\..\Qt\4.8.7\include\QtNetwork;..\..\..\Qt\4.8.7\include\QtGui;..\..\..\Qt\4.8.7\include\QtXml;..\..\..\Qt\4.8.7\include\QtSvg;..\..\..\Qt\4.8.7\include;..\common;$(PB_ROOT)\include;..\..\..\Qt\4.8.7\include\ActiveQt;debug;..\..\..\Qt\4.8.7\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zm200 -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
