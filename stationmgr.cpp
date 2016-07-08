@@ -843,7 +843,7 @@ void StationEditMgr::setStationTypeCbox()
 void StationEditMgr::setStationPathCbox()
 {
 	m_svgflist = ComUtil::instance()->getSvgPathName();
-	m_svgflist<<"10kV城关开关站.fac.svg"<<"35kV敖城变电站.fac.svg"<<"35kV白云山电站.fac.svg"<<"35kV大冲变电站.fac.svg"<<"35kV高塘变电站.fac.svg"<<"35kV高塘变电站1.fac.svg"<<"35kV固江变电站.fac.svg"<<"35kV盘田变电站.fac.svg";
+	//m_svgflist<<"10kV城关开关站.fac.svg"<<"35kV敖城变电站.fac.svg"<<"35kV白云山电站.fac.svg"<<"35kV大冲变电站.fac.svg"<<"35kV高塘变电站.fac.svg"<<"35kV高塘变电站1.fac.svg"<<"35kV固江变电站.fac.svg"<<"35kV盘田变电站.fac.svg";
 
 	for (int i=0;i<m_svgflist.size();i++)
 	{
