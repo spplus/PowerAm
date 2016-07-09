@@ -7,6 +7,17 @@
 #include "define.h"
 #include "comutil.h"
 
+FtpUtil* FtpUtil::m_inst = NULL;
+
+FtpUtil* FtpUtil::instance()
+{
+	if (m_inst == NULL)
+	{
+		m_inst = new FtpUtil;
+	}
+	return m_inst;
+}
+
 FtpUtil::FtpUtil(QWidget *parent)
 	:QDialog(parent)
 {

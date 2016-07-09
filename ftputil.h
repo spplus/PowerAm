@@ -21,7 +21,8 @@ class FtpUtil	:public QDialog
 {
 	Q_OBJECT
 public:
-	FtpUtil(QWidget *parent = 0);
+	static FtpUtil* instance();
+
 	~FtpUtil();
 	QSize sizeHint() const;
 
@@ -39,6 +40,7 @@ public slots:
 	QList<QString>	getFileList();
 
 private:
+	FtpUtil(QWidget *parent = 0);
 	void		initUi();
 	void		showListInfo();
 	QString		_FromSpecialEncoding(const QString &InputStr);
@@ -52,6 +54,7 @@ private slots:
 	void	updateDataTransferProgress(qint64 readBytes,qint64 totalBytes);
 
 private:
+	static FtpUtil*		m_inst;
 
 	// 已下载数量
 	int			m_downCount;

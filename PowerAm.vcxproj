@@ -164,6 +164,7 @@
     <ClCompile Include="svgparser.cpp" />
     <ClCompile Include="svgrenderer.cpp" />
     <ClCompile Include="textitem.cpp" />
+    <ClCompile Include="ticketmgr.cpp" />
     <ClCompile Include="titlewidget.cpp" />
     <ClCompile Include="userlogindlg.cpp" />
     <ClCompile Include="usermgrdlg.cpp" />
@@ -548,6 +549,7 @@ if errorlevel 1 goto VCEnd
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC titlewidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_titlewidget.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="ticketmgr.h" />
     <ClInclude Include="transformer.h" />
     <CustomBuild Include="userlogindlg.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem;userlogindlg.h;%(AdditionalInputs)</AdditionalInputs>

@@ -35,7 +35,9 @@ public:
 	void		show();
 	void		addContextMenuAction(eDeviceType type);
 	bool		getIsCheck(){return m_isCheck;};
+
 public slots:
+	
 	void		goHome();
     void		openFile();
 	void		setViewModel();
@@ -68,6 +70,9 @@ public slots:
 
 	// 整站拓扑
 	void		topoEntire();
+
+	// 拟票态
+	void		ticketShow();
 
 private:
 
@@ -176,7 +181,6 @@ private:
 	// 当前打开站点的CIMID
 	QString						m_curStationId;
 
-	FtpUtil					m_ftpUtil;
 	NavView*					m_navview;
 	NavModel*				m_model;
 	QString					m_title;

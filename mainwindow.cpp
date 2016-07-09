@@ -20,6 +20,7 @@
 #include "buff/msgbody.pb.h"
 #include "include/commands.h"
 #include "openwidget.h"
+#include "ticketmgr.h"
 
 using namespace std;
 MainWindow * MainWindow::m_inst = NULL;
@@ -51,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	initDocWidget();
 	setWindowTitle(m_title); 
 
-	connect(&m_ftpUtil,SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
+	connect(FtpUtil::instance(),SIGNAL(downloaded(QString ,QString,bool)),this,SLOT(openFile(QString,QString,bool)));
 	hide();
 }
 
@@ -314,6 +315,8 @@ void MainWindow::initConnections()
 	connect(m_signOffAction,SIGNAL(triggered()),m_sence,SLOT(tagOff()));
 	connect(m_readAction,SIGNAL(triggered()),m_sence,SLOT(readSaving()));
 	connect(m_saveAction,SIGNAL(triggered()),m_sence,SLOT(writeSaving()));
+	connect(m_modelAction,SIGNAL(triggered()),this,SLOT(ticketShow()));
+
 	//»·Â·²éÑ¯
 	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));
 	connect(m_signQueryAction,SIGNAL(triggered()),this,SLOT(showSignQueryDockwdg()));
@@ -383,8 +386,8 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	if (!file.exists())
 	{
 		file.close();
-		m_ftpUtil.show();
-		m_ftpUtil.getFile(tempName);
+		FtpUtil::instance()->show();
+		FtpUtil::instance()->getFile(tempName);
 		return;
 	}
 	file.close();
@@ -427,7 +430,7 @@ void MainWindow::setViewModel()
 
 void MainWindow::showDownSvg()
 {
-	m_ftpUtil.exec();
+	FtpUtil::instance()->exec();
 }
 
 void MainWindow::initStatusBar()
@@ -959,4 +962,10 @@ void MainWindow::showEventQueryDockwdg()
 
 		m_pEventQueryDockwdg->show();
 	} 
+}
+
+void MainWindow::ticketShow()
+{
+	TicketMgr tkt(this);
+	tkt.exec();
 }

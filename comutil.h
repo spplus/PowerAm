@@ -29,7 +29,7 @@ public:
 	static ComUtil*		instance();
 
 	// 加载配置文件
-	bool							initConfig();
+	bool					initConfig();
 	
 	// 获取当前运行目录
 	QString				getAppPath();
@@ -104,7 +104,10 @@ private:
 	QString				m_appPath;
 
 	// 当前对象实例
-	static	ComUtil*	m_inst;
+	static	ComUtil*		m_inst;
+
+	// FTP对象
+	//FtpUtil*				m_ftpUtil;
 
 	// 服务器地址
 	QString				m_svrAddr;

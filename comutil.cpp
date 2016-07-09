@@ -217,9 +217,9 @@ void ComUtil::saveRuleTypeList(PBNS::RuleListMsg_Response& res)
 
 void ComUtil::saveSvgPathName()
 {
-	FtpUtil ftputil;
-	m_svgflist = ftputil.getFileList();
-
+	//FtpUtil ftputil;
+	//m_svgflist = ftputil.getFileList();
+	m_svgflist = FtpUtil::instance()->getFileList();
 }
 
 bool ComUtil::openFile(QString fname,QDomDocument &doc)
