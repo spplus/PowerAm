@@ -94,20 +94,23 @@ public:
 	// 获取颜色规则
 	QMap<QString,QString>&	getStyleMap();
 
+	// 获取当前用户的角色
+	int				getCurUserRole();
+	void				setCurUserRole(int roleid);
 
 private:
 	ComUtil();
 	
 	bool		openFile(QString fname,QDomDocument &doc);
 private:
+
+	int					m_curUserRole;
+
 	// 当前运行目录
 	QString				m_appPath;
 
 	// 当前对象实例
 	static	ComUtil*		m_inst;
-
-	// FTP对象
-	//FtpUtil*				m_ftpUtil;
 
 	// 服务器地址
 	QString				m_svrAddr;

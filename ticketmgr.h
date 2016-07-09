@@ -21,7 +21,9 @@ private slots:
 	void		onCreateActions();
 
 	// 保存
-	void		onSaveTicket();
+	void		onSave();
+	void		onAdd();
+	void		onDel();
 
 private:
 	// 调度员创建命令界面
@@ -32,12 +34,16 @@ private:
 
 	void		initSlots();
 
+	void		initData();
+
 private:
 	QComboBox*		m_userBox;
 	QTableWidget*	m_ticketTable;
 	QTableWidget*	m_missionTable;
 	QDateTimeEdit*	m_crateTime;
 	QPushButton*		m_saveBtn;
+	QPushButton*		m_addBtn;
+	QPushButton*		m_delBtu;
 	QPushButton*		m_createBtn;
 };
 

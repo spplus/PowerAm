@@ -42,7 +42,14 @@ QString ComUtil::getSvrPort()
 	return m_svrPort;
 }
 
-
+void ComUtil::setCurUserRole(int roleid)
+{
+	m_curUserRole = roleid;
+}
+int ComUtil::getCurUserRole()
+{
+	return m_curUserRole;
+}
 QString ComUtil::getSvgRoot()
 {
 	return m_svgRoot;

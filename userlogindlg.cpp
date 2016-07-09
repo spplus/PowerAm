@@ -1,6 +1,6 @@
 #include <string>
 #include "userlogindlg.h"
-
+#include "comutil.h"
 UserLogindlg* UserLogindlg::m_inst = NULL;
 using namespace std;
 UserLogindlg* UserLogindlg::instance()
@@ -179,6 +179,9 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 				uname   = QString::fromStdString(ubean.username());
 				passwd	= QString::fromStdString(ubean.userpwd());
 				roleid  = atoi(ubean.userrole().c_str());
+				
+				// 保存当前登录用户的角色
+				ComUtil::instance()->setCurUserRole(roleid);
 				realname = QString::fromStdString(ubean.realname());
 				switch (roleid)
 				{
