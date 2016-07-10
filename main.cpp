@@ -62,6 +62,9 @@ int main(int argc, char *argv[])
 	//加载规则类型列表
 	ComUtil::instance()->getRuleType();
 
+	//加载用户列表
+	ComUtil::instance()->getAllUserList();
+
 	//设置登录用户名
 	HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
 	HomeWindow::instance()->show();

@@ -490,6 +490,13 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		break;
 	case CMD_QUERY_EVENT_LIST:
 		break;
+	case CMD_TICKETMS_LIST:
+	case CMD_TICKETMS_MANAGER:
+	case CMD_TICKETMS_ADD:
+	case CMD_TICKETMS_DEL:
+	case CMD_TICKETMS_MODIFY:
+		m_TcktMgr->recvdata(msgtype,msg,msglength);
+		break;
 	case CMD_READ_SAVING:
 		m_sence->showSavingList(msg,msglength);
 		break;
@@ -700,17 +707,36 @@ void MainWindow::showCircleQueryDockwdg()
 {
 	if (m_pCircleQueryDockwdg->isHidden())
 	{
-		m_pCircleQueryTabWdgt->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-		m_pCircleQueryTabWdgt->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-		m_pCircleQueryTabWdgt->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-		m_pCircleQueryTabWdgt->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-		m_pCircleQueryTabWdgt->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-		m_pCircleQueryTabWdgt->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+		PBNS::CircleListMsg_Request req;
+		req.set_saveid(m_sence->getSaveId());
+
+		//发射发送数据请求消息信号
+		NetClient::instance()->sendData(CMD_QUERY_CIRCLE_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pCircleQueryDockwdg->show();
 	} 
 }
 
+void MainWindow::showCircleQueryResult(const char* msg,int msglength)
+{
+	PBNS::CircleListMsg_Response resp;
+	resp.ParseFromArray(msg,msglength);
+
+	int nrow = resp.circlelist_size();
+
+	//设置行数
+	m_pCircleQueryTabWdgt->setRowCount(nrow);
+
+	for (int i=0;i<resp.circlelist_size();i++)
+	{
+		PBNS::CircleQueryBean cleBean = resp.circlelist(i);
+
+		m_pCircleQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(cleBean.name())));		
+		m_pCircleQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(cleBean.stationname())));	
+		m_pCircleQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(cleBean.unitcim())));
+		m_pCircleQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(cleBean.stationcim())));		
+	}
+}
 
 void MainWindow::createSignQueryDockwdg()
 {
@@ -965,21 +991,55 @@ void MainWindow::createEventQueryDockwdg()
 
 void MainWindow::showEventQueryDockwdg()
 {
+
 	if (m_pEventQueryDockwdg->isHidden())
 	{
-		m_pEventQueryTabWdgt->setItem(0, 0, new QTableWidgetItem(QString("0001")));
-		m_pEventQueryTabWdgt->setItem(1, 0, new QTableWidgetItem(QString("0002")));
-		m_pEventQueryTabWdgt->setItem(2, 0, new QTableWidgetItem(QString("0003")));
-		m_pEventQueryTabWdgt->setItem(3, 0, new QTableWidgetItem(QString("0004")));
-		m_pEventQueryTabWdgt->setItem(4, 0, new QTableWidgetItem(QString("0005")));
-		m_pEventQueryTabWdgt->setItem(0, 1, new QTableWidgetItem(QString("20100112")));
+		PBNS::EventListMsg_Request req;
+		req.set_reqdate("1");
+
+		//发射发送数据请求消息信号
+		NetClient::instance()->sendData(CMD_QUERY_EVENT_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pEventQueryDockwdg->show();
 	} 
 }
 
+void MainWindow::showEventQueryResult(const char* msg,int msglength)
+{
+	PBNS::EventListMsg_Response resp;
+	resp.ParseFromArray(msg,msglength);
+
+	int nrow = resp.eventlist_size();
+
+	//设置行数
+	m_pMsetQueryTabWdgt->setRowCount(nrow);
+
+	for (int i=0;i<resp.eventlist_size();i++)
+	{
+		PBNS::EventQueryBean evtBean = resp.eventlist(i);
+
+		m_pEventQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(evtBean.unitcimname())));		
+		m_pEventQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(evtBean.stationname())));
+		m_pEventQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(evtBean.unittype())));		
+		m_pEventQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(evtBean.unitcim())));
+		m_pEventQueryTabWdgt->setItem(i,4,new QTableWidgetItem(QString::fromStdString(evtBean.stationcim())));		
+	}
+}
+
 void MainWindow::ticketShow()
 {
-	TicketMgr tkt(this);
-	tkt.exec();
+
+	m_TcktMgr = new TicketMgr(this);
+
+	//请求操作票任务列表
+	m_TcktMgr->reqTicketMsionList();
+
+	//m_TcktMgr->setWindowIcon(QIcon(":images/usermgr.png"));
+	m_TcktMgr->setWindowTitle("操作票任务管理");
+
+	m_TcktMgr->exec();
+
+	delete m_TcktMgr;
+
+	return;
 }

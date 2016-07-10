@@ -35,6 +35,14 @@
 //	eDEFAULT			// 缺省类型
 //};
 
+enum eRoleType
+{
+	eManager = 1,			//管理员
+	eDispatcher = 2,		//调度员
+	eAutomater = 3,			//自动化
+	eMaintainers = 4		
+};
+
 enum eResult
 {
 	eSUCCESS=0,eERROR

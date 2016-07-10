@@ -90,4 +90,15 @@ struct StationRule_S
 	QString isUseName;
 };
 
+struct UserInfo_S
+{
+	int userid;
+	QString username;
+	QString userpwd;
+	int userrole;
+	QString rolename;
+	QString realname;
+
+};
+
 #endif

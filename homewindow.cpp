@@ -143,6 +143,15 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_USER_MODIFY:
 		retUserMgr(msgtype,msg,msglength);
 		break;
+	case CMD_ROLE_USER_LIST:
+		{
+			PBNS::UserListMsg_Response res;
+			res.ParseFromArray(msg,msglength);
+
+			//用户列表返回
+			ComUtil::instance()->saveAllUserList(res);
+		}
+		break;
 	case CMD_STATION_RULE_LIST:
 	case CMD_STATION_RULE_MGR:
 		m_titleWidget->retRuleMgr(msgtype,msg);

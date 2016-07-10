@@ -96,7 +96,21 @@ public:
 
 	// 获取当前用户的角色
 	int				getCurUserRole();
-	void				setCurUserRole(int roleid);
+	void			setCurUserRole(int roleid);
+
+	// 获取当前用户ID
+	int				getCurUserId();
+	void			setCurUserId(int userid);
+
+	//获取用户列表
+	void			getAllUserList();
+	//保存用户列表
+	void			saveAllUserList(PBNS::UserListMsg_Response& res);
+
+	//当用户编辑时更新用户列表
+	void			setUserList(vector<UserInfo_S> vctUlist){m_userlist = vctUlist;};
+	//取用户列表信息
+	vector<UserInfo_S>	getUserList(){return m_userlist;};
 
 private:
 	ComUtil();
@@ -104,6 +118,7 @@ private:
 	bool		openFile(QString fname,QDomDocument &doc);
 private:
 
+	int					m_curUserId;
 	int					m_curUserRole;
 
 	// 当前运行目录
@@ -140,6 +155,9 @@ private:
 
 	//保存厂站刷新标志
 	bool						m_bStatype;
+
+	//用户列表
+	vector<UserInfo_S>			m_userlist;
 
 };
 

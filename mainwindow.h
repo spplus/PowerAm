@@ -21,6 +21,7 @@
 #include "ftputil.h"
 #include "openthread.h"
 #include "waitwidget.h"
+#include "ticketmgr.h"
 
 class MainWindow : public QMainWindow
 {
@@ -103,6 +104,8 @@ private:
 
 	//创建环路查询Dockwidget
 	void	createCircleQueryDockwdg();
+	//显示环路查询结果
+	void	showCircleQueryResult(const char* msg,int msglength);
 	//创建挂牌查询Dockwidget
 	void	createSignQueryDockwdg();
 	//显示挂牌查询结果
@@ -117,6 +120,8 @@ private:
 	void	showMsetQueryResult(const char* msg,int msglength);
 	//创建事件查询Dockwidget
 	void	createEventQueryDockwdg();
+	//显示事件查询结果
+	void	showEventQueryResult(const char* msg,int msglength);
 
 private:
 
@@ -190,6 +195,9 @@ private:
 	WaitWidget				m_waitDlg;
 	OpenThread*				m_openThread;
 	static		MainWindow*		m_inst;
+
+	//操作票管理界面
+	TicketMgr*				m_TcktMgr;
 
 
 	//设置环路查询QDockWidget

@@ -182,19 +182,21 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 				
 				// 保存当前登录用户的角色
 				ComUtil::instance()->setCurUserRole(roleid);
+				ComUtil::instance()->setCurUserId(userid);
+
 				realname = QString::fromStdString(ubean.realname());
 				switch (roleid)
 				{
-				case 1:
+				case eManager:
 					rolename = tr("管理员");
 					break;
-				case 2:
+				case eDispatcher:
 					rolename = tr("调度");
 					break;
-				case 3:
+				case eAutomater:
 					rolename = tr("自动化");
 					break;
-				case 4:
+				case eMaintainers:
 					rolename = tr("运维");
 					break;
 				default:

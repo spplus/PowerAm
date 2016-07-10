@@ -71,6 +71,7 @@ SOURCES += main.cpp\
 	openwidget.cpp \
 	rulemgrdlg.cpp \
 	rulecheckwidget.cpp \
+	ticketmgr.cpp \
 	$$(AM_ROOT)/buff/msgbean.pb.cc \
 	$$(AM_ROOT)/buff/msgbody.pb.cc
 
@@ -115,6 +116,7 @@ HEADERS  += mainwindow.h \
 	openwidget.h \
 	rulemgrdlg.h \
 	rulecheckwidget.h \
+	ticketmgr.h \
 	$$(AM_ROOT)/buff/msgbean.pb.h \
 	$$(AM_ROOT)/buff/msgbody.pb.h
 

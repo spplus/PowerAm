@@ -125,6 +125,12 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 			{
 				item->setZValue(-1);
 			}
+			else if (pdev->getDevType() == eBREAKER 
+				|| pdev->getDevType() == eSWITCH
+				|| pdev->getDevType() == eGROUNDSWITCH)
+			{
+				item->setZValue(2);
+			}
 		}
 	}
 
@@ -277,7 +283,7 @@ SvgItem* SvgRenderer::makeSvgItem(QString id)
 {
 
 	SvgItem* item = new SvgItem();
-	item->setFlags( QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
+	item->setFlags( QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable|QGraphicsItem::ItemIsMovable);
 	item->setSharedRenderer(m_renderer);
 	item->setElementId(id.toLatin1());
 	return item;

@@ -50,6 +50,17 @@ int ComUtil::getCurUserRole()
 {
 	return m_curUserRole;
 }
+
+void ComUtil::setCurUserId(int userid)
+{
+	m_curUserId = userid;
+}
+
+int ComUtil::getCurUserId()
+{
+	return m_curUserId;
+}
+
 QString ComUtil::getSvgRoot()
 {
 	return m_svgRoot;
@@ -80,6 +91,39 @@ void ComUtil::getRuleType()
 	string reqstr;
 	req.SerializeToString(&reqstr);
 	NetClient::instance()->sendData(CMD_COM_RULE_LIST,reqstr.c_str(),reqstr.length());
+}
+
+void ComUtil::getAllUserList()
+{
+	PBNS::UserListMsg_Request ulreq;
+
+	QString strcurUserid = QString("%1").arg(m_curUserId);
+
+	ulreq.set_reqdate(strcurUserid.toStdString().c_str());
+
+	//发射发送数据请求消息信号
+	NetClient::instance()->sendData(CMD_ROLE_USER_LIST,ulreq.SerializeAsString().c_str(),ulreq.SerializeAsString().length());
+
+}
+
+void ComUtil::saveAllUserList(PBNS::UserListMsg_Response& res)
+{
+	m_userlist.clear();
+
+	for (int i = 0;i<res.userlist_size();i++)
+	{
+		PBNS::UserBean ubean = res.userlist(i);
+		UserInfo_S uinfo;
+
+		uinfo.userid = atoi(ubean.userid().c_str());
+		uinfo.username = ubean.username().c_str();
+		uinfo.userrole = atoi(ubean.userrole().c_str());
+		uinfo.rolename = ubean.rolename().c_str();
+		uinfo.userpwd = ubean.userpwd().c_str();
+		uinfo.realname = ubean.realname().c_str();
+
+		m_userlist.push_back(uinfo);
+	}
 }
 
 vector<TreeNode*> ComUtil::getStationList()
