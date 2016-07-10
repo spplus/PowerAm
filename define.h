@@ -156,6 +156,7 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			ICON_ROLE			":images/role.png"
 #define			ICON_CIRLCE			":images/circle.png"
 #define			ICON_TAG_ON			":images/tag_on.png"
+#define			ICON_TAG_QUERY			":images/tag_query.png"
 #define			ICON_TAG_OFF		":images/tag_off.png"
 #define			ICON_OPRATION		":images/opration.png"
 #define			ICON_EVENT			":images/envent.png"

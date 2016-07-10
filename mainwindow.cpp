@@ -183,16 +183,17 @@ void MainWindow::initToolBar()
 	m_toolBar->addAction(m_chekAction);
 	m_toolBar->addAction(m_netAction);
 	m_toolBar->addAction(m_soundAction);
-	m_toolBar->addAction(m_roleAction);
+	//m_toolBar->addAction(m_roleAction);
 	m_toolBar->addAction(m_circleQueryAction);
 	m_toolBar->addAction(m_signQueryAction);
 	m_toolBar->addAction(m_gswitchQueryAction);
-	m_toolBar->addAction(m_opQueryAction);
+	//m_toolBar->addAction(m_opQueryAction);
 	m_toolBar->addAction(m_eventQueryAction);
 
 	m_toolBar->addAction(m_modelAction);
 
 	m_toolBar->setIconSize(QSize(24,24));
+	
 }
 
 void MainWindow::initMenu()
@@ -263,11 +264,11 @@ void MainWindow::initActions()
 	m_chekAction = new QAction(QIcon(ICON_CHECK_ON),tr(MSG_TIP_CHECK_ON),this);
 	m_netAction = new QAction(QIcon(ICON_NETWORK_ON),tr(MSG_TIP_NETWORK_ON),this);
 	m_soundAction = new QAction(QIcon(ICON_ALARM_ON),tr(MSG_TIP_ALARM_ON),this);
-	m_roleAction = new QAction(QIcon(ICON_ROLE),tr(MSG_TIP_RULE),this);
+	//m_roleAction = new QAction(QIcon(ICON_ROLE),tr(MSG_TIP_RULE),this);
 	m_circleQueryAction = new QAction(QIcon(ICON_CIRLCE),tr(MSG_TIP_CIRCLE),this);
-	m_signQueryAction = new QAction(QIcon(ICON_TAG_ON),tr(MSG_TIP_TAG),this);
+	m_signQueryAction = new QAction(QIcon(ICON_TAG_QUERY),tr(MSG_TIP_TAG),this);
 	m_gswitchQueryAction = new QAction(QIcon(ICON_GROUND),tr(MSG_TIP_GROUND),this);
-	m_opQueryAction = new QAction(QIcon(ICON_OPRATION),tr(MSG_TIP_OPRATION),this);
+	//m_opQueryAction = new QAction(QIcon(ICON_OPRATION),tr(MSG_TIP_OPRATION),this);
 	m_eventQueryAction	= new QAction(QIcon(ICON_EVENT),tr(MSG_TIP_EVENT),this);
 	m_modelAction = new QAction(QIcon(ICON_RUN),tr(MSG_TIP_RUN_ANALOG),this);
 

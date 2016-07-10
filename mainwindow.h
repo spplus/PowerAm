@@ -146,11 +146,11 @@ private:
 	QAction*						m_chekAction;				// 校验 （禁止校验，运行校验）
 	QAction*						m_netAction;				// 网络状态
 	QAction*						m_soundAction;			// 声音告警
-	QAction*						m_roleAction;				// 设置规则
+	//QAction*						m_roleAction;				// 设置规则
 	QAction*						m_circleQueryAction;	// 环路查询
 	QAction*						m_signQueryAction;	// 挂牌查询
 	QAction*						m_gswitchQueryAction;		// 接地查询
-	QAction*						m_opQueryAction;				// 操作查询
+	//QAction*						m_opQueryAction;				// 操作查询
 	QAction*						m_eventQueryAction;			// 事件查询
 
 	QAction*						m_zoutAction;				// 放大
