@@ -237,7 +237,7 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 		
 		m_contextMenu->addAction(m_signOnAction);
 		m_contextMenu->addAction(m_signOffAction);
-		m_contextMenu->addAction(m_inLineSetAction);
+		
 		break;
 	case eLINE:
 		m_contextMenu->addAction(m_powerSetAction);
@@ -406,7 +406,20 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	int idx = fileName.lastIndexOf("/");
 	fileName = fileName.right(fileName.length()-idx-1);
 	fileName = m_title+"-"+fileName;
-	this->setWindowTitle(fileName);
+
+	QString titleName;
+	vector<Station_S> stationList = ComUtil::instance()->getStationMgrList();
+	for (int i = 0;i<stationList.size();i++)
+	{
+		Station_S st = stationList.at(i);
+		if (st.cimid == m_curStationId)
+		{
+			titleName = st.curname.length()>0?st.curname:st.name;
+			break;
+		}
+	}
+
+	this->setWindowTitle(titleName);
 
 }
 

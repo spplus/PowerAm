@@ -36,6 +36,8 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 
 	QWidget* m_widget = new QWidget; 
 	m_gbox = new QGridLayout;
+	//m_gbox->setSpacing(15);
+	m_gbox->setVerticalSpacing(15);
 	m_widget->setLayout(m_gbox);
 
 	// 查找该类别的站点列表
@@ -78,6 +80,7 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 
 			// 保存站点bean
 			btn->setProperty(KEY_STATION,val);
+
 			//btn->setProperty("sname",btn->text());
 			
 			m_gbox->addWidget(btn,i,j,1,1);
