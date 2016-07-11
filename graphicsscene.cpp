@@ -658,7 +658,7 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean> & stateList)
 	}
 
 	// 获取当前的图形
-	if (m_graphList.size()<=m_curIndex)
+	if (m_graphList.size()<=m_curIndex || m_curIndex < 0)
 	{
 		return;
 	}
