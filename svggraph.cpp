@@ -72,6 +72,7 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 			|| layerid == BUS_LAYER_JC
 			|| layerid== LINK_LAYER
 			|| layerid == ACLINE_LAYER
+			|| layerid == CONNECTNODE_LAYER
 			)
 		{
 			QDomNodeList cnodelist = node.childNodes();
@@ -119,6 +120,7 @@ bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 	QDomNode cnode = getElementById(nodeid);
 	if (cnode.isNull())
 	{
+		qDebug("setAttribute failed,nodeid %s,attrname:%s,val :%s",nodeid,attr,val);
 		return false;
 	}
 	// 图元节点的第一个子节点，比如设备图元的use节点，母线图元的path节点等

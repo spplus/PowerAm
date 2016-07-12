@@ -282,13 +282,14 @@ void GraphicsScene::showDevState(const char* msg,int length)
 // 	m_svgRender->drawGraph(pgraph);
 }
 
-void GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
+bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 {
 	QString color= tr("stroke:%1").arg(style);
 	if (graph != NULL)
 	{
-		graph->setAttribute(svgId,ATTR_STYLE,color);
+		return graph->setAttribute(svgId,ATTR_STYLE,color);
 	}
+	return false;
 }
 void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
 {
@@ -313,10 +314,14 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 	// 查找item
 	SvgItem* item = findSvgItemById(pdev->getSvgId());
 
-	if (item != NULL)
+	if (item != NULL && !item->getIsColor())
 	{
 		item->setIsColor(true);
-		item->setColor(bean.volcolor().c_str());
+		item->setColor(color);
+	}
+	else
+	{
+		return;
 	}
 
 	// 查找关联设备进行着色
@@ -328,6 +333,11 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 	for (int i = 0;i<devlist.size();i++)
 	{
 		PBNS::StateBean bean = devlist.at(i);
+		
+		// QString cim = "_BusbarSection_yaz110BUSⅠ";
+		//	int  sid = cim.compare(pdev->getMetaId());
+		
+		//QString doms = graph->getDom()->toString();
 
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
@@ -375,6 +385,10 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		for (int i = 0;i<colist.count();i++)
 		{
 			SvgItem* coitem = (SvgItem*)colist.at(i);
+			if (coitem == NULL || coitem->getType() >eDEFAULT )
+			{
+				continue;
+			}
 			eDeviceType devtype = coitem->getType();
 			if (devtype == eSWITCH 
 				|| devtype == eBREAKER

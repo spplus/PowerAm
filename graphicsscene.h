@@ -93,7 +93,7 @@ protected:
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
 
 	// 修改dom中的style属性
-	void			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
+	bool			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
 
 	// 修改设备状态列表中的设备状态
 	void			setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
