@@ -305,6 +305,24 @@ void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState
 	}
 }
 
+void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color)
+{
+	// 本设备着色
+	setSvgStyle(graph,pdev->getSvgId(),color);
+
+	// 查找item
+	SvgItem* item = findSvgItemById(pdev->getSvgId());
+
+	if (item != NULL)
+	{
+		item->setIsColor(true);
+		item->setColor(bean.volcolor().c_str());
+	}
+
+	// 查找关联设备进行着色
+	setConnectedDevColor(graph,item);
+}
+
 void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
 {
 	for (int i = 0;i<devlist.size();i++)
@@ -328,21 +346,19 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 			}
 			
 			// 如果带电，则按配置的电压等级颜色进行着色
-			if (bean.iselectric() == 1)
+			if (bean.iselectric() == 1 && bean.isground() != 1)
 			{
-				// 本设备着色
-				QString style = tr("%1").arg(bean.volvalue().c_str());
-				setSvgStyle(graph,pdev->getSvgId(),style);
-
-				// 查找关联设备进行着色
-				QString test = graph->getDom()->toString();
-				// 查找item
-				SvgItem* item = findSvgItemById(pdev->getSvgId());
-				if (item != NULL)
-				{
-					item->setIsColor(true);
-				}
-				setConnectedDevColor(graph,item);
+				colorDev(graph,pdev,bean,bean.volcolor().c_str());
+			}
+			// 带电接地
+			else if (bean.iselectric() == 1 && bean.isground() == 1)
+			{
+				colorDev(graph,pdev,bean,POWERON_GROUND_COLOR);
+			}
+			// 不带电
+			else if (bean.iselectric() == 0)
+			{
+				colorDev(graph,pdev,bean,POWEROFF_COLOR);
 			}
 		
 		}
@@ -370,11 +386,21 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 			}
 			if (!coitem->getIsColor())
 			{
-				setSvgStyle(pgraph,coitem->getSvgId(),POWERON_COLOR);
+				setSvgStyle(pgraph,coitem->getSvgId(),item->getColor());
 				coitem->setIsColor(true);
+				coitem->setColor(item->getColor());
 
-				// 递归设置其关联的设备颜色
-				setConnectedDevColor(pgraph,coitem);
+				// 如果遇到变压器，则表示电压等级发送变化，不继续按原有电压等级进行关联着色
+				if (devtype == eTRANSFORMER)
+				{
+					continue;
+				}
+				else
+				{
+					// 递归设置其关联的设备颜色
+					setConnectedDevColor(pgraph,coitem);
+				}
+				
 			}
 		}
 

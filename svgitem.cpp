@@ -55,3 +55,13 @@ bool SvgItem::getIsColor()
 {
 	return m_isColor;
 }
+
+void SvgItem::setColor(QString color)
+{
+	m_color = color;
+}
+
+QString SvgItem::getColor()
+{
+	return m_color;
+}

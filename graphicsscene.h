@@ -126,6 +126,8 @@ protected:
 	// 设备着色，变位
 	void						drawDev(QList<PBNS::StateBean> & devList);
 
+	// 关联着色
+	void						colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color);
 private:
 
 	// 当前打开的存档ID

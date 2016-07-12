@@ -11,29 +11,17 @@
 #include <QString>
 #include "include/commands.h"
 
-// 带电颜色
-#define					POWERON_COLOR		"#FF0000"
+// 带电接地颜色
+#define					POWERON_GROUND_COLOR		"#FF0000"
+
+// 不带电接地
+#define					POWEROFF_GROUND_COLOR	"#835858"
 
 // 不带电颜色
-#define					POWEROFF_COLOR	"#00FF00"
+#define					POWEROFF_COLOR			"#AAAAAA"
 
-//enum eDevType{eBREAKER,eLINE,eTRANS};
-
-// 设备类型
-//enum eDeviceType
-//{
-//	eSWITCH,			// 开关大类，包括负荷开关，刀闸，接地刀闸
-//	eTRANSFORMER,		// 变压器
-//	eWINDING,			// 变压器绕组
-//	eBUS,				// 母线
-//	eLINK,				// 连接线
-//	eACLINE,			// 交流线路
-//	eLOAD,				// 进线
-//	eARRESTER,			// 避雷针
-//	eTEXT,				// 文字
-//	eLINE,					// 进出线
-//	eDEFAULT			// 缺省类型
-//};
+// 提示颜色
+#define					TIPSHOW_COLOR			"#e634e0"
 
 enum eRoleType
 {

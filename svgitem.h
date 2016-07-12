@@ -27,12 +27,18 @@ public:
 	void				setSvgId(QString svgid);
 	void				setIsColor(bool iscolor);
 	bool				getIsColor();
+	void				setColor(QString color);
+	QString			getColor();
 private:
-	bool					m_isColor;
+
+	// 是否设置过颜色
+	bool				m_isColor;
 	QString			m_svgId;
 	QString			m_cimId;
 	QString			m_layerId;
+	QString			m_color;
 	eDeviceType		m_type;
+
 };
 
 #endif
