@@ -9,6 +9,7 @@
 #ifndef		__GRAPHICSSCENE_H__
 #define		__GRAPHICSSCENE_H__
 
+#include <QMutex>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QPropertyAnimation>
@@ -48,6 +49,8 @@ public:
 	// 开关变位后台结果返回
 	void			recvBreakerOpRes(const char* msg,int length);
 
+	void			putItem(SvgItem* item);
+	void			clearItem();
 public slots:
 
 	// 前进
@@ -91,18 +94,21 @@ protected:
 
 	// 修改dom中开关状态
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
+	void			setBreakStateEx(SvgGraph* graph,QString svgid,eBreakerState state);
 
 	// 修改dom中的style属性
 	bool			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
 
 	// 修改设备状态列表中的设备状态
 	void			setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
+	void			setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
 
 	// 设置关联设备的颜色，开关设备除外，因为开关设备有着色过程
 	void			setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
 
 	// 根据svgid查找svgItem
 	SvgItem*		findSvgItemById(QString id);
+	SvgItem*		findSvgItemByCim(QString cimid);
 
 	// 根据cimid查找设备对象
 	bool				findUnitBeanByCimId(QString cimid,PBNS::StateBean & bean);
@@ -128,7 +134,11 @@ protected:
 
 	// 关联着色
 	void						colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color);
+	void						colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color);
+
 private:
+	QMutex				m_mutex;
+	QList<SvgItem*>		m_itemList;
 
 	// 当前打开的存档ID
 	int					m_saveId;

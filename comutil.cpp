@@ -398,3 +398,8 @@ QString ComUtil::getAppPath()
 {
 	return m_appPath;
 }
+
+QString ComUtil::now()
+{
+	return QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz"); 
+}

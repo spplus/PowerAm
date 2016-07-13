@@ -5,7 +5,13 @@
 SvgItem::SvgItem()
 {
 	m_isColor = false;
+	m_cimId = "";
+	m_svgId = "";
+	m_layerId = "";
+	m_color = "";
+	m_type = eDEFAULT;
 }
+
 void SvgItem::setType(eDeviceType tp)
 {
 	m_type = tp;

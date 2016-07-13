@@ -29,6 +29,7 @@ public:
 	bool				getIsColor();
 	void				setColor(QString color);
 	QString			getColor();
+
 private:
 
 	// 是否设置过颜色

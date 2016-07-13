@@ -4,8 +4,9 @@
 #include "define.h"
 #include "textitem.h"
 #include "comutil.h"
+#include "graphicsscene.h"
 
-SvgRenderer::SvgRenderer(QGraphicsScene* scene)
+SvgRenderer::SvgRenderer(GraphicsScene* scene)
 {
 	m_scene = scene;
 	m_graph = NULL;
@@ -94,6 +95,9 @@ SvgItem* SvgRenderer::renderById(SvgGraph* graph,BaseDevice* pdev)
 
 void SvgRenderer::drawGraph(SvgGraph* graph)
 {
+	// 清空之前保存的Item
+	m_scene->clearItem();
+
 	m_graph = graph;
 
 	// SVG文件格式转换
@@ -183,7 +187,7 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 		return NULL;
 	}
 	QString id = pdev->getSvgId();
-	int iid = id.toInt();
+	int iid = pdev->getDevType();
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
@@ -200,6 +204,7 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 		item->setSvgId(id);
 
 		m_scene->addItem(item);
+		m_scene->putItem(item);
 	}
 
 	return item;
@@ -260,6 +265,7 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 		item->setType(tp);
 
 		m_scene->addItem(item);
+		m_scene->putItem(item);
 	}
 	
 	return item;

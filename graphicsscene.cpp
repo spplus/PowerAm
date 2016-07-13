@@ -1,4 +1,5 @@
 
+
 #include <QMessageBox>
 #include <QGraphicsSceneMouseEvent>
 #include <QPropertyAnimation>
@@ -193,9 +194,14 @@ void GraphicsScene::switchChange(int state)
 	SvgItem* newItem = m_svgRender->renderById(pgraph,pdev);
 
 	newItem->setType(m_curItem->getType());
-
+	
+	// 删除老Item
+	//m_itemList.removeOne(m_curItem);
 	removeItem(m_curItem);
 	addItem(newItem);
+
+	// 插入新item
+	//m_itemList.push_back(newItem);
 
 	m_curItem = newItem;
 
@@ -236,6 +242,8 @@ void GraphicsScene::showDevState(const char* msg,int length)
 
 	// 保存当前站点设备列表
 	m_devList = res;
+
+	qDebug()<<ComUtil::instance()->now()<<"记录数："<<m_devList.devstate_size();
 
 	// 着色，变位
 	drawDev(getStateBeanList(res));
@@ -291,6 +299,23 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 	}
 	return false;
 }
+
+void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,eBreakerState state)
+{
+	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
+	QString oldid = graph->getAttribute(svgid,ATTR_XLINK);
+
+	// 2.组建新状态下的模板ID
+	QString symbolid = getNewSymbolId(oldid,state);
+
+	// 3.修改dom中该节点的href属性
+	if (graph != NULL)
+	{
+		graph->setAttribute(svgid,ATTR_XLINK,symbolid);
+	}
+}
+
+
 void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
 {
 	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
@@ -305,6 +330,28 @@ void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState
 		graph->setAttribute(pdev->getSvgId(),ATTR_XLINK,symbolid);
 	}
 }
+
+void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color)
+{
+	if (!item->getIsColor())
+	{
+		// 本设备着色
+		setSvgStyle(graph,item->getSvgId(),color);
+
+		item->setIsColor(true);
+		item->setColor(color);
+	}
+	else 
+	{
+		return;
+	}
+	
+	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
+
+	// 查找关联设备进行着色
+	setConnectedDevColor(graph,item);
+}
+
 
 void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color)
 {
@@ -324,23 +371,90 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 		return;
 	}
 
+	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<pdev->getMetaId();
+
+
 	// 查找关联设备进行着色
 	setConnectedDevColor(graph,item);
 }
+
+void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
+{
+	for (int i = 0;i<devlist.size();i++)
+	{
+		qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
+		
+		PBNS::StateBean bean = devlist.at(i);
+
+		QString cim = "_BusbarSection_yaz110BUSⅠ";
+		
+
+		SvgItem *item = findSvgItemByCim(bean.cimid().c_str());
+	
+		if (item == NULL)
+		{
+			continue;
+		}
+
+		int  sid = cim.compare(item->getCimId());
+
+		//if (bean.cimid().c_str() == pdev->getMetaId())
+		{
+			qDebug()<<ComUtil::instance()->now()<<"find dev cim="<<bean.cimid().c_str();
+
+			// 进出线在SVG中没有类型，通过unit表中的类型更新图元类型
+			if (bean.unittype() == eLINE)
+			{
+				//pdev->setDevType(eLINE);
+				item->setType(eLINE);
+			}
+
+			// 开关变位
+			if (bean.unittype() == eSWITCH
+				|| bean.unittype() == eBREAKER
+				|| bean.unittype() == eGROUNDSWITCH)
+			{
+				setBreakStateEx(graph,item->getSvgId(),(eBreakerState)bean.state());
+			}
+
+			// 如果带电，则按配置的电压等级颜色进行着色
+			if (bean.iselectric() == 1 && bean.isground() != 1)
+			{
+				colorDevEx(graph,item,bean,bean.volcolor().c_str());
+			}
+			// 带电接地
+			else if (bean.iselectric() == 1 && bean.isground() == 1)
+			{
+				colorDevEx(graph,item,bean,POWERON_GROUND_COLOR);
+			}
+			// 不带电
+			else if (bean.iselectric() == 0)
+			{
+				colorDevEx(graph,item,bean,POWEROFF_COLOR);
+			}
+
+		}
+	}
+}
+
 
 void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
 {
 	for (int i = 0;i<devlist.size();i++)
 	{
+		qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
+
 		PBNS::StateBean bean = devlist.at(i);
 		
-		// QString cim = "_BusbarSection_yaz110BUSⅠ";
-		//	int  sid = cim.compare(pdev->getMetaId());
+		QString cim = "_BusbarSection_yaz110BUSⅠ";
+		int  sid = cim.compare(pdev->getMetaId());
 		
 		//QString doms = graph->getDom()->toString();
 
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
+			qDebug()<<ComUtil::instance()->now()<<"find dev cim="<<pdev->getMetaId();
+
 			// 进出线在SVG中没有类型，通过unit表中的类型更新图元类型
 			if (bean.unittype() == eLINE)
 			{
@@ -384,16 +498,18 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		QList<QGraphicsItem*> colist = item->collidingItems();
 		for (int i = 0;i<colist.count();i++)
 		{
+
+			qDebug()<<ComUtil::instance()->now()<<"setConnectedDevColor find ="<<colist.count()<<" i="<<i;
+
 			SvgItem* coitem = (SvgItem*)colist.at(i);
-			if (coitem == NULL || coitem->getType() >eDEFAULT )
-			{
-				continue;
-			}
+			
 			eDeviceType devtype = coitem->getType();
 			if (devtype == eSWITCH 
 				|| devtype == eBREAKER
 				|| devtype == eGROUNDSWITCH
+				|| devtype == eBUS
 				|| devtype == eDEFAULT
+				|| devtype > eDEFAULT
 				|| coitem->getSvgId().length()==0)
 			{
 				continue;
@@ -419,6 +535,28 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		}
 
 	}
+}
+
+SvgItem* GraphicsScene::findSvgItemByCim(QString cimid)
+{
+	
+
+	// 获取当前场景中的全部item
+	QList<SvgItem*>	sceneItems = m_itemList;//this->items();
+	for(int i = 0;i<sceneItems.count();i++)
+	{
+		SvgItem* sitem = sceneItems.at(i);
+		
+		QString itemcim = sitem->getCimId();
+		int rlst = itemcim.compare(cimid);
+		qDebug()<<"compare result:"<<rlst<<"sitem->getCimId()="<<sitem->getCimId()<<"cimid="<<cimid;
+		if (rlst == 0)
+		{
+			return sitem;
+		}
+	}
+
+	return NULL;
 }
 
 SvgItem* GraphicsScene::findSvgItemById(QString id)
@@ -678,6 +816,11 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean> & stateList)
 	}
 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
 
+
+	setDevStateEx(stateList,pgraph,NULL);
+
+	/*
+
 	// 根据cimid在图形中找到对应的设备对象
 	for (int i = 0;i<pgraph->getLayerList().count();i++)
 	{
@@ -691,17 +834,32 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean> & stateList)
 			|| player->getId() == ACLINE_LAYER
 			)
 		{
+			qDebug()<<ComUtil::instance()->now()<<"drawDev i="<<i;
+
 			QList<BaseDevice*> devList = player->getDevList();
 			for (int j = 0;j<devList.count();j++)
 			{
+				qDebug()<<ComUtil::instance()->now()<<"drawDev i="<<i<<" j="<<j<<" devList count="<<devList.count();
 				// 根据svgid 修改dom中的图元模板,改变状态。
 				BaseDevice* pdev = devList.at(j);
 				setDevState(stateList,pgraph,pdev);
 			}
 		}
 	}
+
+	*/
 	// 重新加载图形
 	this->clear();
 
 	m_svgRender->drawGraph(pgraph);
+}
+
+void GraphicsScene::putItem(SvgItem* item)
+{
+	m_itemList.push_back(item);
+}
+
+void GraphicsScene::clearItem()
+{
+	m_itemList.clear();
 }

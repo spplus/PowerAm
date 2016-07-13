@@ -18,13 +18,13 @@
 
 #include "svggraph.h"
 #include "svgitem.h"
-//#include "structs.h"
 
+class GraphicsScene;
 class SvgRenderer
 {
 public:
 
-	SvgRenderer(QGraphicsScene* scene);
+	SvgRenderer(GraphicsScene* scene);
 	~SvgRenderer();
 
 	// 把SVG中的图元，生成qgraphicsitem，并插入到scene中
@@ -54,7 +54,7 @@ private:
 private:
 	SvgGraph*		m_graph;
 	QSvgRenderer*	m_renderer;
-	QGraphicsScene*	m_scene;
+	GraphicsScene*	m_scene;
 };
 
 

@@ -112,6 +112,7 @@ public:
 	//取用户列表信息
 	vector<UserInfo_S>	getUserList(){return m_userlist;};
 
+	QString		now();
 private:
 	ComUtil();
 	

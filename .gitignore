@@ -90,3 +90,5 @@ debug
 *.idb
 *.unsuccessfulbuild
 Win32/PowerAm.unsuccessfulbuild
+*.vsp
+*.psess
