@@ -124,16 +124,22 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 			{
 				item->setLayerId(layer->getId());
 			}
+
 			// ·ÇÉè±¸²ã£¬ÖÃµ×
-			if (pdev->getDevType() == eDEFAULT)
+			switch (pdev->getDevType())
 			{
-				item->setZValue(-1);
-			}
-			else if (pdev->getDevType() == eBREAKER 
-				|| pdev->getDevType() == eSWITCH
-				|| pdev->getDevType() == eGROUNDSWITCH)
-			{
+			case eBREAKER:
+				item->setZValue(3);
+				break;
+			case eSWITCH:
 				item->setZValue(2);
+				break;
+			case eGROUNDSWITCH:
+				item->setZValue(1);
+				break;
+			default:
+				item->setZValue(-1);
+				break;
 			}
 		}
 	}

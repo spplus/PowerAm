@@ -194,14 +194,31 @@ void GraphicsScene::switchChange(int state)
 	SvgItem* newItem = m_svgRender->renderById(pgraph,pdev);
 
 	newItem->setType(m_curItem->getType());
-	
-	// 删除老Item
-	//m_itemList.removeOne(m_curItem);
+	newItem->setLayerId(m_curItem->getLayerId());
+
+	// 从场景中删除
 	removeItem(m_curItem);
+
+	// 删除老Item
+	//int ret = m_itemList.removeOne(m_curItem);
+	QString c0 = m_curItem->getCimId();
+
+	for (int i = 0;i<m_itemList.size();i++)
+	{
+		SvgItem* it = m_itemList.at(i);
+		QString c1=it->getCimId();
+		
+		if (c1 == c0)
+		{
+			 m_itemList.removeAt(i);
+			 break;
+		}
+	}
+	
 	addItem(newItem);
 
 	// 插入新item
-	//m_itemList.push_back(newItem);
+	m_itemList.push_back(newItem);
 
 	m_curItem = newItem;
 
@@ -504,11 +521,11 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 			SvgItem* coitem = (SvgItem*)colist.at(i);
 			
 			eDeviceType devtype = coitem->getType();
-			if (devtype == eSWITCH 
+			if (/*devtype == eSWITCH 
 				|| devtype == eBREAKER
 				|| devtype == eGROUNDSWITCH
 				|| devtype == eBUS
-				|| devtype == eDEFAULT
+				|| */devtype == eDEFAULT
 				|| devtype > eDEFAULT
 				|| coitem->getSvgId().length()==0)
 			{
