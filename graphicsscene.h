@@ -94,7 +94,7 @@ protected:
 
 	// 修改dom中开关状态
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
-	void			setBreakStateEx(SvgGraph* graph,QString svgid,eBreakerState state);
+	void			setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state);
 
 	// 修改dom中的style属性
 	bool			setSvgStyle(SvgGraph* graph,QString svgid,QString style);

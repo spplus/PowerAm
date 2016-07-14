@@ -20,7 +20,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_cntMenu = cntmenu;
 	m_curItem = NULL;
 	m_curIndex = -1;
-	m_saveId = 0;
+	m_saveId = 1;
 	m_stationCim = "1";
 }
 
@@ -148,7 +148,7 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	res.ParseFromArray(msg,length);
 	
 	// 执行图形中的图元开关变位
-	switchChange(res.optype());
+	//switchChange(res.optype());
 
 	// 给带电的设备着色
 	drawDev(getStateBeanList(res));
@@ -317,7 +317,7 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 	return false;
 }
 
-void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,eBreakerState state)
+void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state)
 {
 	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
 	QString oldid = graph->getAttribute(svgid,ATTR_XLINK);
@@ -329,6 +329,14 @@ void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,eBreakerState 
 	if (graph != NULL)
 	{
 		graph->setAttribute(svgid,ATTR_XLINK,symbolid);
+	}
+
+	// 保存当前变位的设备
+	PBNS::StateBean bean;
+	if(findUnitBeanByCimId(cimid,bean))
+	{
+		bean.set_state(state);
+		m_opDevList.append(bean);
 	}
 }
 
@@ -431,7 +439,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 				|| bean.unittype() == eBREAKER
 				|| bean.unittype() == eGROUNDSWITCH)
 			{
-				setBreakStateEx(graph,item->getSvgId(),(eBreakerState)bean.state());
+				setBreakStateEx(graph,item->getSvgId(),item->getCimId(),(eBreakerState)bean.state());
 			}
 
 			// 如果带电，则按配置的电压等级颜色进行着色
@@ -521,11 +529,11 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 			SvgItem* coitem = (SvgItem*)colist.at(i);
 			
 			eDeviceType devtype = coitem->getType();
-			if (/*devtype == eSWITCH 
+			if (devtype == eSWITCH 
 				|| devtype == eBREAKER
 				|| devtype == eGROUNDSWITCH
 				|| devtype == eBUS
-				|| */devtype == eDEFAULT
+				|| devtype == eDEFAULT
 				|| devtype > eDEFAULT
 				|| coitem->getSvgId().length()==0)
 			{
