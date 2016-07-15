@@ -136,6 +136,11 @@ protected:
 	void						colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color);
 	void						colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color);
 
+	// 根据CIM查找已操作的设备
+	int						findDevByCim(QString cim,PBNS::StateBean & sbean);
+
+	// 加入本地操作的设备到列表
+	void						putDev2OpList(QString cim,int state);
 private:
 	QMutex				m_mutex;
 	QList<SvgItem*>		m_itemList;

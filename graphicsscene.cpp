@@ -149,6 +149,7 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	
 	// 执行图形中的图元开关变位
 	//switchChange(res.optype());
+	putDev2OpList(m_curItem->getCimId(),res.optype());
 
 	// 给带电的设备着色
 	drawDev(getStateBeanList(res));
@@ -223,12 +224,8 @@ void GraphicsScene::switchChange(int state)
 	m_curItem = newItem;
 
 	// 保存当前变位的设备
-	PBNS::StateBean bean;
-	if(findUnitBeanByCimId(pdev->getMetaId(),bean))
-	{
-		bean.set_state(state);
-		m_opDevList.append(bean);
-	}
+	putDev2OpList(m_curItem->getCimId(),state);
+
 }
 
 QString GraphicsScene::getNewSymbolId(QString oldid,int state)
@@ -319,6 +316,16 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 
 void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state)
 {
+	PBNS::StateBean bean;
+	int idx = findDevByCim(cimid,bean);
+
+	// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
+	if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
+	{
+		state = (eBreakerState)bean.state();
+	}
+
+
 	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
 	QString oldid = graph->getAttribute(svgid,ATTR_XLINK);
 
@@ -331,13 +338,6 @@ void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,
 		graph->setAttribute(svgid,ATTR_XLINK,symbolid);
 	}
 
-	// 保存当前变位的设备
-	PBNS::StateBean bean;
-	if(findUnitBeanByCimId(cimid,bean))
-	{
-		bean.set_state(state);
-		m_opDevList.append(bean);
-	}
 }
 
 
@@ -358,13 +358,45 @@ void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState
 
 void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color)
 {
-	if (!item->getIsColor())
-	{
-		// 本设备着色
-		setSvgStyle(graph,item->getSvgId(),color);
+	eDeviceType dtype = item->getType();
 
-		item->setIsColor(true);
-		item->setColor(color);
+	if (!item->getIsColor() )
+	{
+		if (dtype == eBREAKER 
+			|| dtype == eSWITCH 
+			|| dtype == eGROUNDSWITCH) 
+		{
+			PBNS::StateBean sbean;
+			int idx = findDevByCim(item->getCimId(),sbean);
+			int state = 0;
+			if (idx >=0)
+			{
+				state = sbean.state();
+			}
+			else
+			{
+				state = bean.state();
+			}
+
+			if ( state == 0)
+			{
+				color = POWEROFF_COLOR;
+			}
+		
+			// 本设备着色
+			setSvgStyle(graph,item->getSvgId(),color);
+			item->setIsColor(true);
+			item->setColor(color);
+		}
+		else
+		{
+			// 本设备着色
+			setSvgStyle(graph,item->getSvgId(),color);
+			item->setIsColor(true);
+			item->setColor(color);
+		}
+
+	
 	}
 	else 
 	{
@@ -372,7 +404,7 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 	}
 	
 	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
-
+	
 	// 查找关联设备进行着色
 	setConnectedDevColor(graph,item);
 }
@@ -541,10 +573,11 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 			}
 			if (!coitem->getIsColor())
 			{
+
 				setSvgStyle(pgraph,coitem->getSvgId(),item->getColor());
 				coitem->setIsColor(true);
 				coitem->setColor(item->getColor());
-
+				
 				// 如果遇到变压器，则表示电压等级发送变化，不继续按原有电压等级进行关联着色
 				if (devtype == eTRANSFORMER)
 				{
@@ -887,4 +920,37 @@ void GraphicsScene::putItem(SvgItem* item)
 void GraphicsScene::clearItem()
 {
 	m_itemList.clear();
+}
+
+void GraphicsScene::putDev2OpList(QString cim,int state)
+{
+	// 查找是否已经存在
+	PBNS::StateBean bean;
+	int idx = findDevByCim(cim,bean);
+	if (idx>=0)
+	{
+		m_opDevList.removeAt(idx);
+	}
+	else
+	{
+		findUnitBeanByCimId(cim,bean);
+	}
+	// 更新状态
+	bean.set_state(state);
+
+	// 保持新状态
+	m_opDevList.push_back(bean);
+}
+
+int GraphicsScene::findDevByCim(QString cim,PBNS::StateBean & sbean)
+{
+	for (int i = 0;i<m_opDevList.size();i++)
+	{
+		sbean = m_opDevList.at(i);
+		if (sbean.cimid() == cim.toStdString())
+		{
+			return i;
+		}
+	}
+	return -1;
 }
