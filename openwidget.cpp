@@ -42,7 +42,7 @@ void OpenWidget::initUi()
 
 void OpenWidget::initSlots()
 {
-	connect(m_okBtn,SIGNAL(pressed()),this,SLOT(accept()));
+	connect(m_okBtn,SIGNAL(pressed()),this,SLOT(onOk()));
 	connect(m_cancelBtn,SIGNAL(pressed()),this,SLOT(reject()));
 	connect(m_saveList,SIGNAL(itemDoubleClicked ( QTableWidgetItem *)),this,SLOT(itemDoubleClicked ( QTableWidgetItem *)));
 }
@@ -83,6 +83,7 @@ void OpenWidget::initData()
 		m_saveList->setItem(i,1,itemTime);
 	}
 	m_saveList->resizeColumnsToContents();
+	m_saveList->setCurrentCell(-1,-1);
 }
 
 void OpenWidget::initTable()
@@ -96,6 +97,9 @@ void OpenWidget::initTable()
 	heads.append("´æµµÊ±¼ä");
 	m_saveList->setColumnCount(2);
 	m_saveList->setHorizontalHeaderLabels(heads);
+	m_saveList->setSelectionBehavior(QAbstractItemView::SelectRows); 
+	m_saveList->setSelectionMode(QAbstractItemView::SingleSelection);
+
 }
 
 void OpenWidget::itemDoubleClicked( QTableWidgetItem * item )

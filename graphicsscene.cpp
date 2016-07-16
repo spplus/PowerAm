@@ -105,16 +105,23 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 	if (mouseEvent->button() == Qt::RightButton)
 	{   
 		SvgItem *item1= (SvgItem *)(this->itemAt(mouseEvent->scenePos()));
-		if (item1 != NULL)
+		if (item1 != NULL && item1->getCimId().length()>0)
 		{
-			// 根据类型，创建菜单项
-			MainWindow::instance()->addContextMenuAction(item1->getType());
-			
+			PBNS::StateBean bean;
+			if (findUnitBeanByCimId(item1->getCimId(),bean))
+			{
+				// 根据类型，创建菜单项
+				MainWindow::instance()->addContextMenuAction((eDeviceType)bean.unittype());
 
-			// 保存当前选中的item；
-			m_curItem = item1;
+				// 保存当前选中的item；
+				m_curItem = item1;
+			}
+			
 		}
-		
+		else
+		{
+			m_cntMenu->clear();
+		}
 		return ;
 	}
 }

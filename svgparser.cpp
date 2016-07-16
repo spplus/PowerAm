@@ -140,8 +140,11 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 				{
 					parserGroundDisconnector(pgraph,node);
 				}
+				else if (sid == ACLINE_LAYER)
+				{
+					parserACLine(pgraph,node);
+				}
 				else if (sid == LINK_LAYER 
-					|| sid == ACLINE_LAYER
 					|| sid == LOAD_LAYER
 					|| sid == CONNECTNODE_LAYER)
 				{
@@ -264,6 +267,11 @@ void SvgParser::parserGroundDisconnector(SvgGraph*grahp,QDomNode &node)
 void SvgParser::parserLink(SvgGraph*grahp,QDomNode &node)
 {
 	parserSvgLayer(grahp,node,eLINK);
+}
+
+void SvgParser::parserACLine(SvgGraph*grahp,QDomNode &node)
+{
+	parserSvgLayer(grahp,node,eLINE);
 }
 
 void SvgParser::parserTransformer(SvgGraph*grahp,QDomNode &node)
@@ -425,6 +433,7 @@ void SvgParser::parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType
 		case eACLINE:
 		case eLOAD:
 		case eTEXT:
+		case eLINE:
 			pdev = parserOriginal(cnode);
 			
 			break;

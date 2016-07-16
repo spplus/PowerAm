@@ -516,7 +516,7 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 
 		break;
 	case CMD_TOPO_ENTIRE:
-
+		showMsg("拓扑分析已完成，请立即重启客户端");
 		break;
 	default:
 		break;
@@ -660,7 +660,9 @@ void MainWindow::setCheckEnable()
 
 void MainWindow::topoEntire()
 {
-	string msg="topo";
+	PBNS::OprationMsg_Request req; 
+	req.set_saveid(m_sence->getSaveId());
+	string msg=req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_ENTIRE,msg.c_str(),msg.length());
 	showMsg("拓扑分析命令发送成功");
 }

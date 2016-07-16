@@ -8,7 +8,7 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	this->resize(520,650);
+	this->resize(600,650);
 
 	QGridLayout *pglyt = new QGridLayout;
 
@@ -49,26 +49,26 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 
 	QGroupBox *pusgbox = new QGroupBox("用户显示");
 	pnamelab = new QLabel("用户名");
-	pnamelab->setFixedWidth(40);
+	pnamelab->setFixedWidth(50);
 	pnamelied = new QLineEdit;
 	pnamelied->setFixedWidth(135);
 	pnamelied->setFixedHeight(25);
 
 	prolelab = new QLabel("  角  色");
-	prolelab->setFixedWidth(50);
+	prolelab->setFixedWidth(60);
 	prolecbx = new QComboBox;
 	prolecbx->setFixedWidth(135);
 	prolecbx->setFixedHeight(25);
 
 	ppwdlab = new QLabel("密  码");
-	ppwdlab->setFixedWidth(40);
+	ppwdlab->setFixedWidth(50);
 	ppwdlined = new QLineEdit;
 	ppwdlined->setEchoMode(QLineEdit::Password);
 	ppwdlined->setFixedWidth(135);
 	ppwdlined->setFixedHeight(25);
 
 	prealnamelab = new QLabel("真实姓名");
-	prealnamelab->setFixedWidth(50);
+	prealnamelab->setFixedWidth(60);
 	prealnameld = new QLineEdit;
 	prealnameld->setFixedWidth(135);
 	prealnameld->setFixedHeight(25);

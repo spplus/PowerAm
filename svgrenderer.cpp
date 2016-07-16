@@ -137,6 +137,9 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 			case eGROUNDSWITCH:
 				item->setZValue(1);
 				break;
+			case eLINE:
+				item->setZValue(4);
+				break;
 			default:
 				item->setZValue(-1);
 				break;
