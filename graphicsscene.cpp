@@ -316,14 +316,14 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 
 void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state)
 {
-	PBNS::StateBean bean;
-	int idx = findDevByCim(cimid,bean);
+	//PBNS::StateBean bean;
+	//int idx = findDevByCim(cimid,bean);
 
-	// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
-	if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
-	{
-		state = (eBreakerState)bean.state();
-	}
+	//// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
+	//if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
+	//{
+	//	state = (eBreakerState)bean.state();
+	//}
 
 
 	// 1.通过svgid 找到对应的对应的设备对象中记录的symbolid
@@ -443,8 +443,9 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 		
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_BusbarSection_yaz110BUSⅠ";
+		QString cim = "_Breaker_hmkCB901G";
 		
+		int ck = cim.compare(bean.cimid().c_str());
 
 		SvgItem *item = findSvgItemByCim(bean.cimid().c_str());
 	
@@ -471,6 +472,17 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 				|| bean.unittype() == eBREAKER
 				|| bean.unittype() == eGROUNDSWITCH)
 			{
+	
+				PBNS::StateBean opbean ;
+				int idx = findDevByCim(item->getCimId(),opbean);
+
+				// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
+				if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
+				{
+					bean.set_state(opbean.state());
+					bean.set_iselectric(opbean.state());
+				}
+
 				setBreakStateEx(graph,item->getSvgId(),item->getCimId(),(eBreakerState)bean.state());
 			}
 
@@ -565,7 +577,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				|| devtype == eBREAKER
 				|| devtype == eGROUNDSWITCH
 				|| devtype == eBUS
-				|| devtype == eDEFAULT
+				//|| devtype == eDEFAULT
 				|| devtype > eDEFAULT
 				|| coitem->getSvgId().length()==0)
 			{
@@ -720,6 +732,15 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	req.set_unitcim(m_curItem->getCimId().toStdString());
 	req.set_unittype(m_curItem->getType());
 	req.set_ischeck(ischeck);
+	
+	// 设置操作设备列表
+	
+	for (int i = 0;i<m_opDevList.size();i++)
+	{
+		 PBNS::StateBean* opbean = req.add_opdevlist();
+		 opbean->CopyFrom(m_opDevList.at(i));
+	}
+
 	string data = req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
 }
