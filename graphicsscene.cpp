@@ -677,6 +677,7 @@ void GraphicsScene::setPower()
 	if (findUnitBeanByCimId(m_curItem->getCimId(),bean))
 	{
 		PBNS::PowerSetMsg_Request req;
+		req.set_saveid(m_saveId);
 		req.set_unitcim(bean.cimid());
 		req.set_stationcim(bean.stationcim());
 		string data;

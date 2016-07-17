@@ -6,7 +6,7 @@ StationMgr::StationMgr(QWidget *parent)
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	this->resize(720,900);
+	this->resize(720,780);
 
 	QHBoxLayout *pstahlayt = new QHBoxLayout;
 	QHBoxLayout *pbtnhlayt = new QHBoxLayout;

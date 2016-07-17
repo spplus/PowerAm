@@ -47,6 +47,10 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_TICKETMS_ADD:
 	case CMD_TICKETMS_DEL:
 	case CMD_TICKETMS_MODIFY:
+	case CMD_TICKET_LIST:
+	case CMD_TICKET_CREATE:
+	case CMD_TICKET_QUERY:
+	case CMD_TICKET_COMMIT:
 		MainWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_USER_MANAGER:

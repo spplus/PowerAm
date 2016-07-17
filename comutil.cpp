@@ -61,6 +61,11 @@ int ComUtil::getCurUserId()
 	return m_curUserId;
 }
 
+QString ComUtil::getCompanyName()
+{
+	return m_companyName;
+}
+
 QString ComUtil::getSvgRoot()
 {
 	return m_svgRoot;
@@ -369,6 +374,18 @@ bool ComUtil::initConfig()
 	{
 		QDomNode titleNode = titleNodes.at(0);
 		m_sysName = titleNode.toElement().attribute("name");
+	}
+	else
+	{
+		return false;
+	}
+
+	// ¹«Ë¾Ãû³Æ
+	QDomNodeList companyNodes = doc.elementsByTagName("company");
+	if (companyNodes.count()>0)
+	{
+		QDomNode companyNode = companyNodes.at(0);
+		m_companyName = companyNode.toElement().attribute("name");
 	}
 	else
 	{

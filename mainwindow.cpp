@@ -322,7 +322,7 @@ void MainWindow::initConnections()
 	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));
 	connect(m_signQueryAction,SIGNAL(triggered()),this,SLOT(showSignQueryDockwdg()));
 	connect(m_gswitchQueryAction,SIGNAL(triggered()),this,SLOT(showGswitchQueryDockwdg()));
-	connect(m_msetQueryAction,SIGNAL(triggered()),this,SLOT(showMsetQueryDockwdg()));
+	//connect(m_msetQueryAction,SIGNAL(triggered()),this,SLOT(showMsetQueryDockwdg()));
 	connect(m_eventQueryAction,SIGNAL(triggered()),this,SLOT(showEventQueryDockwdg()));
 }
 
@@ -489,12 +489,17 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		showMsetQueryResult(msg,msglength);
 		break;
 	case CMD_QUERY_EVENT_LIST:
+		showEventQueryResult(msg,msglength);
 		break;
 	case CMD_TICKETMS_LIST:
 	case CMD_TICKETMS_MANAGER:
 	case CMD_TICKETMS_ADD:
 	case CMD_TICKETMS_DEL:
 	case CMD_TICKETMS_MODIFY:
+	case CMD_TICKET_LIST:
+	case CMD_TICKET_CREATE:
+	case CMD_TICKET_QUERY:
+	case CMD_TICKET_COMMIT:
 		m_TcktMgr->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_READ_SAVING:
@@ -679,7 +684,7 @@ void MainWindow::createCircleQueryDockwdg()
 	m_pCircleQueryTabWdgt = new QTableWidget;//(m_pCircleQueryDockwdg);
 
 	m_pCircleQueryTabWdgt->setColumnCount(4);
-	m_pCircleQueryTabWdgt->setRowCount(5);
+	//m_pCircleQueryTabWdgt->setRowCount(5);
 	//添加tab列表头名称
 	QStringList headers;
 	headers << "设备名称" << "厂站名称" << "设备ID" << "厂站ID" ;
@@ -700,6 +705,7 @@ void MainWindow::createCircleQueryDockwdg()
 	//将dock隐藏起来,等需要真正用到时调用显示函数并对tab中填充值
 	m_pCircleQueryDockwdg->hide();
 
+	//菜单中添加选项
 	//m_queryMenu->addAction(m_pCircleQueryDockwdg->toggleViewAction());
 
 	return;
@@ -923,12 +929,13 @@ void MainWindow::showMsetQueryDockwdg()
 {
 	if (m_pMsetQueryDockwdg->isHidden())
 	{
+		/*
 		PBNS::MsetListMsg_Request req;
 		req.set_reqdate("1");
 
 		//发射发送数据请求消息信号
 		NetClient::instance()->sendData(CMD_QUERY_MSET_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
-
+		*/
 		m_pMsetQueryDockwdg->show();
 	} 
 }
@@ -966,7 +973,7 @@ void MainWindow::createEventQueryDockwdg()
 	m_pEventQueryTabWdgt = new QTableWidget;
 
 	m_pEventQueryTabWdgt->setColumnCount(4);
-	m_pEventQueryTabWdgt->setRowCount(5);
+	//m_pEventQueryTabWdgt->setRowCount(5);
 	//添加tab列表头名称
 	QStringList headers;
 	headers <<"厂站名称"<<"设备名称"<<"内容"<<"时间" ;
@@ -1014,17 +1021,17 @@ void MainWindow::showEventQueryResult(const char* msg,int msglength)
 	int nrow = resp.eventlist_size();
 
 	//设置行数
-	m_pMsetQueryTabWdgt->setRowCount(nrow);
+	m_pEventQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.eventlist_size();i++)
 	{
 		PBNS::EventQueryBean evtBean = resp.eventlist(i);
 
-		m_pEventQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(evtBean.unitcimname())));		
-		m_pEventQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(evtBean.stationname())));
-		m_pEventQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(evtBean.unittype())));		
-		m_pEventQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(evtBean.unitcim())));
-		m_pEventQueryTabWdgt->setItem(i,4,new QTableWidgetItem(QString::fromStdString(evtBean.stationcim())));		
+		m_pEventQueryTabWdgt->setItem(i,0,new QTableWidgetItem(QString::fromStdString(evtBean.stationname())));
+		m_pEventQueryTabWdgt->setItem(i,1,new QTableWidgetItem(QString::fromStdString(evtBean.unitcimname())));		
+		m_pEventQueryTabWdgt->setItem(i,2,new QTableWidgetItem(QString::fromStdString(evtBean.eventvalue())));		
+		m_pEventQueryTabWdgt->setItem(i,3,new QTableWidgetItem(QString::fromStdString(evtBean.eventtime())));
+		
 	}
 }
 
@@ -1034,14 +1041,19 @@ void MainWindow::ticketShow()
 	m_TcktMgr = new TicketMgr(this);
 
 	//请求操作票任务列表
-	m_TcktMgr->reqTicketMsionList();
+	//m_TcktMgr->reqTicketMsionList();
 
 	//m_TcktMgr->setWindowIcon(QIcon(":images/usermgr.png"));
-	m_TcktMgr->setWindowTitle("操作票任务管理");
+	m_TcktMgr->setWindowTitle("操作票管理");
 
-	m_TcktMgr->exec();
+	m_TcktMgr->setModal(false);
+	m_TcktMgr->show();
 
-	delete m_TcktMgr;
+	//非模式窗口下，窗口总是在前层显示
+	//m_TcktMgr->setWindowFlags(Qt::WindowStaysOnTopHint);
+	//m_TcktMgr->exec();
+
+	//delete m_TcktMgr;
 
 	return;
 }

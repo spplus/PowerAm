@@ -54,6 +54,7 @@ struct FtpConfig
 	QString				m_ftpDir;
 };
 
+//厂站类型
 struct StationType_S
 {
 	int id;
@@ -61,6 +62,7 @@ struct StationType_S
 	QString name;
 };
 
+//厂站信息
 struct Station_S
 {
 	int id;
@@ -72,6 +74,7 @@ struct Station_S
 	QString path;
 };
 
+//规则类型
 struct RuleType_S
 {
 	int ruleid;
@@ -80,6 +83,7 @@ struct RuleType_S
 	QString ruledescrip;
 };
 
+//厂站关联规则信息
 struct StationRule_S
 {
 	QString stationCim;
@@ -90,6 +94,7 @@ struct StationRule_S
 	QString isUseName;
 };
 
+//用户信息
 struct UserInfo_S
 {
 	int userid;
@@ -99,6 +104,47 @@ struct UserInfo_S
 	QString rolename;
 	QString realname;
 
+};
+
+//操作任务
+struct TicketMsion_S
+{
+	int id;
+	int userid;
+	QString username;
+	int actuserid;
+	QString actusername;
+	QString name;
+	QString publishtime;
+};
+
+// 操作票
+struct Ticket_S
+{
+	int id;
+	int CuserId;
+	QString CuserName;
+	int AuserId;
+	QString AuserName;
+	int MissionId;
+	QString MissionName;
+	QString No;
+	QString ActionType;
+	QString info;
+	QString ActionPerson;
+	QString ProtectPerson;
+	QString ChargePerson;
+	QString StartTime;
+	QString EndTime;
+	QString PublishTime;
+};
+
+struct TicketActions_S
+{
+	int Ticketid;
+	int OrderNum;
+	QString SystemContent;
+	QString Content;
 };
 
 #endif

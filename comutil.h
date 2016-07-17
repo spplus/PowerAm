@@ -43,6 +43,9 @@ public:
 	// 获取服务器端口
 	QString				getSvrPort();
 
+	//获取公司名称
+	QString				getCompanyName();
+
 	// 获取SVG文件保存目录
 	QString				getSvgRoot();
 
@@ -132,6 +135,7 @@ private:
 	QString				m_svrAddr;
 	QString				m_svrPort;
 	QString				m_sysName;
+	QString				m_companyName;
 	QString				m_svgRoot;
 	FtpConfig			m_ftpConfig;
 
