@@ -21,12 +21,8 @@
 #include <QLineEdit>
 #include <QStringList>
 #include "comutil.h"
-
 #include "netclient.h"
-#include "..\common\include\commands.h"
-#include "..\common\buff\msgbody.pb.h"
 
-#define	PBNS com::spplus::buff
 
 /************************************************************************/
 /*                         规则类型编辑管理                             */

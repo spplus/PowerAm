@@ -76,12 +76,12 @@ void SvgParser::convertSvg(SvgGraph* pgraph)
 	while (iter != pgraph->getStyleMap().constEnd()) 
 	{
 		QString key = iter.key();
-		fiter = ComUtil::instance()->getStyleMap().find(key);
+		/*fiter = ComUtil::instance()->getStyleMap().find(key);
 		if (fiter !=  ComUtil::instance()->getStyleMap().end())
 		{
 			iter ++;
 			continue;
-		}
+		}*/
 		QString value = iter.value();
 		sxml = sxml.replace(key,value);		
 		iter ++;

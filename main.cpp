@@ -31,11 +31,11 @@ int main(int argc, char *argv[])
 	qss.close();
 
 	// 加载颜色配置
-	if(!ComUtil::instance()->loadColorRule())
+	/*if(!ComUtil::instance()->loadColorRule())
 	{
 		QMessageBox::warning(NULL,"系统提示","加载颜色规则失败，请检查配置.");
 		return -1;
-	}
+	}*/
 
 	//初始化网络连接
 	if(!NetClient::instance()->init())

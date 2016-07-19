@@ -21,12 +21,7 @@
 #include <QStringList>
 #include "structs.h"
 #include "comutil.h"
-
 #include "netclient.h"
-#include "..\common\include\commands.h"
-#include "..\common\buff\msgbody.pb.h"
-
-#define	PBNS com::spplus::buff
 
 /************************************************************************/
 /*                           站点类型管理                               */

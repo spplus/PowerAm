@@ -20,8 +20,7 @@
 #include "comutil.h"
 #include "userlogindlg.h"
 #include "netclient.h"
-#include "..\common\include\commands.h"
-#include "..\common\buff\msgbody.pb.h"
+
 
 class UserPasswdReset : public QDialog
 {

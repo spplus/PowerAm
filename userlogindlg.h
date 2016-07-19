@@ -22,13 +22,9 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <qmath.h>
-
+#include "comutil.h"
 #include "netclient.h"
 #include "push_button.h"
-#include "include\commands.h"
-#include "buff\msgbody.pb.h"
-
-#define		PBNS	com::spplus::buff
 
 class UserLogindlg : public QDialog
 {

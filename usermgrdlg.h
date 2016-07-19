@@ -18,12 +18,9 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QStringList>
-
 #include "netclient.h"
-#include "..\common\include\commands.h"
-#include "..\common\buff\msgbody.pb.h"
+#include "comutil.h"
 
-#define	PBNS com::spplus::buff
 
 class UserMgrdlg : public QDialog
 {
