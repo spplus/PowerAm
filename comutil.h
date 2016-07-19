@@ -16,6 +16,7 @@
 #include <string>
 #include <QSettings>
 #include <vector>
+#include <QVector>
 #include "structs.h"
 #include "ftputil.h"
 
@@ -89,7 +90,7 @@ public:
 	bool				getStationTypeRushflag(){return m_bStatype;};
 
 	// 获取站点列表
-	vector<TreeNode*>	getStationList();
+	QVector<TreeNode*>	getStationList();
 
 	// 加载颜色规则
 	bool				loadColorRule();
@@ -143,7 +144,7 @@ private:
 	QMap<QString,QString>		m_styleMap;
 
 	// 站点列表
-	vector<TreeNode*>			m_stationList;
+	QVector<TreeNode*>			m_stationList;
 
 
 	//厂站类型列表

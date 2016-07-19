@@ -3,8 +3,9 @@
 
 #include <QAbstractListModel>
 #include <vector>
+#include <QVector>
 #include "structs.h"
-
+using namespace std;
 class NavModel : public QAbstractListModel
 {
 	Q_OBJECT
@@ -22,10 +23,10 @@ public:
 
 	void Refresh();
 
-	void	setData(std::vector<TreeNode*>& datalist);
+	void		setData(QVector<TreeNode*>& datalist);
 
 signals:
-	void	openFile(QString fname,QString stationId,bool svgroot);
+	void		openFile(QString fname,QString stationId,bool svgroot);
 
 public:
 	int rowCount(const QModelIndex &parent /* = QModelIndex */) const;
@@ -38,8 +39,8 @@ private:
 	void RefreshList();
 
 private:
-	std::vector<TreeNode*> m_nodeList;
-	std::vector<ListNode> m_list;
+	QVector<TreeNode*> m_nodeList;
+	QVector<ListNode> m_list;
 };
 
 #endif // NAVMODEL_H

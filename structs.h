@@ -13,6 +13,7 @@
 #include <QString>
 #include <QList>
 #include <QMap>
+#include <QVector>
 #include <QDomDocument>
 
 struct TreeNode
@@ -24,7 +25,7 @@ struct TreeNode
 	int				count;
 	QString		nodeId;
 	QString		filePath;
-	std::list<TreeNode*> children;
+	QList<TreeNode*> children;
 	TreeNode()
 	{
 		label = "";

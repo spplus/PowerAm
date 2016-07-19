@@ -13,10 +13,10 @@ NavModel::NavModel(QObject *parent)
 
 NavModel::~NavModel()
 {
-	for ( std::vector<TreeNode*>::iterator it = m_nodeList.begin();
+	for ( QVector<TreeNode*>::iterator it = m_nodeList.begin();
 		  it != m_nodeList.end(); )
 	{
-		for ( std::list<TreeNode*>::iterator child = (*it)->children.begin();
+		for ( QList<TreeNode*>::iterator child = (*it)->children.begin();
 			  child != (*it)->children.end(); )
 		{
 			delete (*child);
@@ -28,7 +28,7 @@ NavModel::~NavModel()
 	}
 }
 
-void NavModel::setData(std::vector<TreeNode*>& datalist)
+void NavModel::setData(QVector<TreeNode*>& datalist)
 {
 	m_nodeList = datalist;
 	RefreshList();
@@ -108,7 +108,7 @@ void NavModel::RefreshList()
 {
 	m_list.clear();
 
-	for ( std::vector<TreeNode*>::iterator it = m_nodeList.begin();
+	for ( QVector<TreeNode*>::iterator it = m_nodeList.begin();
 		  it != m_nodeList.end();
 		  ++it )
 	{
@@ -121,7 +121,7 @@ void NavModel::RefreshList()
 		if ( (*it)->collapse )
 			continue;
 
-		for ( std::list<TreeNode*>::iterator child = (*it)->children.begin();
+		for ( QList<TreeNode*>::iterator child = (*it)->children.begin();
 			  child != (*it)->children.end();
 			  ++child )
 		{

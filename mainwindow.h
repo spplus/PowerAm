@@ -9,7 +9,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QSplitter>
-#include <Qtimer>
+#include <qtimer.h>
 #include <QtGui>
 #include "netclient.h"
 #include "comutil.h"

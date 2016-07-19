@@ -131,7 +131,7 @@ void ComUtil::saveAllUserList(PBNS::UserListMsg_Response& res)
 	}
 }
 
-vector<TreeNode*> ComUtil::getStationList()
+QVector<TreeNode*> ComUtil::getStationList()
 {
 	return m_stationList;
 }
