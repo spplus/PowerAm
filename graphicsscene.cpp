@@ -450,7 +450,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 		
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_Breaker_hmkCB901G";
+		QString cim = "_ACLineSegment_LNshunyong2";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
@@ -584,6 +584,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				|| devtype == eBREAKER
 				|| devtype == eGROUNDSWITCH
 				|| devtype == eBUS
+				|| devtype == eLINE
 				//|| devtype == eDEFAULT
 				|| devtype > eDEFAULT
 				|| coitem->getSvgId().length()==0)
