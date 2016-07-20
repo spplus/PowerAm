@@ -39,6 +39,7 @@ GraphicsScene::~GraphicsScene()
 		delete m_svgRender;
 		m_svgRender = NULL;
 	}
+	//clearItem();
 }
 
 SvgGraph* GraphicsScene::parserSvg(QString filename)
@@ -54,6 +55,10 @@ void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 		this->clear();
 		m_svgRender->drawGraph(pgrahp);
 		m_graphList.insert(++m_curIndex,pgrahp); 
+	}
+	else
+	{
+		QMessageBox::warning(views().at(0),MSG_TITLE,"打开图像文件失败");
 	}
 }
 
