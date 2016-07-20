@@ -130,7 +130,7 @@ protected:
 	QList<PBNS::StateBean>	getStateBeanList(PBNS::OprationMsg_Response& res);
 
 	// 设备着色，变位
-	void						drawDev(QList<PBNS::StateBean> & devList);
+	void						drawDev(QList<PBNS::StateBean>  devList);
 
 	// 关联着色
 	void						colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color);

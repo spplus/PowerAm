@@ -890,7 +890,7 @@ QList<PBNS::StateBean> GraphicsScene::getStateBeanList(PBNS::OprationMsg_Respons
 	return devlist;
 }
 
-void GraphicsScene::drawDev(QList<PBNS::StateBean> & stateList)
+void GraphicsScene::drawDev(QList<PBNS::StateBean>  stateList)
 {
 	if (stateList.size()<0)
 	{

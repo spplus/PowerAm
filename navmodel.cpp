@@ -28,7 +28,7 @@ NavModel::~NavModel()
 	}
 }
 
-void NavModel::setData(QVector<TreeNode*>& datalist)
+void NavModel::setData(QVector<TreeNode*> datalist)
 {
 	m_nodeList = datalist;
 	RefreshList();

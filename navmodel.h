@@ -23,7 +23,7 @@ public:
 
 	void Refresh();
 
-	void		setData(QVector<TreeNode*>& datalist);
+	void		setData(QVector<TreeNode*> datalist);
 
 signals:
 	void		openFile(QString fname,QString stationId,bool svgroot);
