@@ -42,6 +42,14 @@ enum eTransType
 	eTHREE				// 三卷 变
 };
 
+// 系统状态
+enum		eSysState
+{
+	eREALTIME,
+	eANALOG,
+	eTICKET
+};
+
 // 挂牌状态
 enum	eTagState{eTagOff,eTagOn};
 // 开关状态
@@ -171,6 +179,9 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			ICON_HAND			":images/hand.png"
 #define			ICON_POWERSET	":images/powerset.png"
 #define			ICON_LINESET			":images/lineset.png"
+#define			ICON_ANALOG		":images/analog.png"
+#define			ICON_REALTIME		":images/realtime.png"
+#define			ICON_TICKET			":images/ticket.png"
 
 // 定义提示信息
 #define			MSG_TITLE				"系统提示"

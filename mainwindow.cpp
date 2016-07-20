@@ -96,7 +96,10 @@ void MainWindow::initWidget()
 	m_waitDlg.hide();
 
 	setCentralWidget(m_spliter);
-	this->showMaximized();
+
+	m_radioWidget	= new RadioWidget;
+
+	//this->showMaximized();
 }
 
 void MainWindow::show()
@@ -193,7 +196,9 @@ void MainWindow::initToolBar()
 	m_toolBar->addAction(m_modelAction);
 
 	m_toolBar->setIconSize(QSize(24,24));
-	
+	m_toolBar->addSeparator();
+	m_toolBar->addWidget(m_radioWidget);
+	showMaximized();
 }
 
 void MainWindow::initMenu()
@@ -317,6 +322,9 @@ void MainWindow::initConnections()
 	connect(m_readAction,SIGNAL(triggered()),m_sence,SLOT(readSaving()));
 	connect(m_saveAction,SIGNAL(triggered()),m_sence,SLOT(writeSaving()));
 	connect(m_modelAction,SIGNAL(triggered()),this,SLOT(ticketShow()));
+	connect(m_radioWidget,SIGNAL(realtime()),m_sence,SLOT(setRealState()));
+	connect(m_radioWidget,SIGNAL(analog()),m_sence,SLOT(setAnalogState()));
+	connect(m_radioWidget,SIGNAL(ticket()),m_sence,SLOT(setTicketState()));
 
 	//»·Â·²éÑ¯
 	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));

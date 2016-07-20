@@ -22,6 +22,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_curIndex = -1;
 	m_saveId = 1;
 	m_stationCim = "1";
+	m_sysState = eREALTIME;
 }
 
 GraphicsScene::~GraphicsScene()
@@ -990,4 +991,17 @@ int GraphicsScene::findDevByCim(QString cim,PBNS::StateBean & sbean)
 		}
 	}
 	return -1;
+}
+
+void GraphicsScene::setRealState()
+{
+		m_sysState = eREALTIME;
+}
+void GraphicsScene::setAnalogState()
+{
+	m_sysState = eANALOG;
+}
+void GraphicsScene::setTicketState()
+{
+	m_sysState = eTICKET;
 }

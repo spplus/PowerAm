@@ -89,7 +89,10 @@ public slots:
 	// 把解析后的对象生成SVG图元
 	void			drawSvgGraph(SvgGraph* graph);
 
-
+	// 设置系统状态
+	void			setRealState();
+	void			setAnalogState();
+	void			setTicketState();
 protected:
 
 	// 修改dom中开关状态
@@ -141,7 +144,12 @@ protected:
 
 	// 加入本地操作的设备到列表
 	void						putDev2OpList(QString cim,int state);
+
 private:
+
+	// 当前的系统状态
+	eSysState				m_sysState;
+
 	QMutex				m_mutex;
 	QList<SvgItem*>		m_itemList;
 

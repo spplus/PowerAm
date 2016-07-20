@@ -22,7 +22,7 @@
 #include "openthread.h"
 #include "waitwidget.h"
 #include "ticketmgr.h"
-
+#include "radiowidget.h"
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -199,6 +199,8 @@ private:
 	//操作票管理界面
 	TicketMgr*				m_TcktMgr;
 
+	// 工具栏按钮窗口
+	RadioWidget*			m_radioWidget;
 
 	//设置环路查询QDockWidget
 	QDockWidget*		m_pCircleQueryDockwdg;
