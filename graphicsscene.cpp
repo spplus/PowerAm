@@ -159,7 +159,9 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	putDev2OpList(m_curItem->getCimId(),res.optype());
 
 	// 给带电的设备着色
-	drawDev(getStateBeanList(res));
+	QList<PBNS::StateBean> blist = getStateBeanList(res);
+
+	drawDev(blist);
 }
 
 void GraphicsScene::switchChange(int state)

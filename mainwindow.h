@@ -42,7 +42,7 @@ public slots:
 	void		goHome();
     void		openFile();
 	void		setViewModel();
-	void		openFile(QString fname,QString stationId = 0,bool needRoot=true);
+	void		openFile(QString fname,QString stationId = "0",bool needRoot=true);
 	void		showDownSvg();
 	void		onToolButton();
 	void		openOk();
