@@ -22,7 +22,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_curIndex = -1;
 	m_saveId = 1;
 	m_stationCim = "1";
-	m_sysState = eREALTIME;
+	m_sysState = eANALOG;
 }
 
 GraphicsScene::~GraphicsScene()

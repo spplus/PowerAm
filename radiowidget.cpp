@@ -13,12 +13,11 @@ void RadioWidget::initUi()
 	
 	char* pname = "ID";
 	m_realtimeBtn = new QRadioButton(tr("ÊµÊ±Ì¬"));
-	m_realtimeBtn->setChecked(true);
 
 	m_analogBtn = new QRadioButton(tr("Ä£ÄâÌ¬"));
-	
+	m_analogBtn->setChecked(true);
+
 	m_ticketBtn = new QRadioButton(tr("ÄâÆ±Ì¬"));
-	
 
 	m_realtimeBtn->setIcon(QIcon(ICON_REALTIME));
 	m_analogBtn->setIcon(QIcon(ICON_ANALOG));
