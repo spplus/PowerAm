@@ -358,6 +358,7 @@ void MainWindow::goHome()
 void MainWindow::cleanScene()
 {
 	m_sence->clear();
+	m_sence->clearItem();
 	m_sence->setBackgroundBrush(QBrush(Qt::white));
 }
 void MainWindow::openFile()

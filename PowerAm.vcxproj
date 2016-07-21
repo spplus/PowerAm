@@ -42,7 +42,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AM_ROOT)/bin/</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(AM_ROOT)\bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PowerAm</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
@@ -73,7 +73,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libprotobufd.lib;QtSvgd4.lib;QtXmld4.lib;QtGuid4.lib;QtNetworkd4.lib;QtCored4.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\..\Qt\4.8.7\lib;$(PB_ROOT)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>f:\Qt\4.8.7\lib;$(PB_ROOT)/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -468,8 +468,7 @@ if errorlevel 1 goto VCEnd
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC push_button.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_push_button.cpp;%(Outputs)</Outputs>
     </CustomBuild>
-    <ClInclude Include="radiowidget.h" />
-	<CustomBuild Include="radiowidget.h">
+    <CustomBuild Include="radiowidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem;radiowidget.h;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rem IncrediBuild_AllowRemote 
 if errorlevel 1 goto VCEnd
@@ -487,7 +486,6 @@ if errorlevel 1 goto VCEnd
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC radiowidget.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_radiowidget.cpp;%(Outputs)</Outputs>
     </CustomBuild>
-	
     <ClInclude Include="righttopwidget.h" />
     <ClInclude Include="rulecheckwidget.h" />
     <CustomBuild Include="rulemgrdlg.h">
@@ -759,6 +757,12 @@ if errorlevel 1 goto VCEnd
     <ClCompile Include="release\moc_push_button.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="debug\moc_radiowidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_radiowidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="debug\moc_rulemgrdlg.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -768,20 +772,9 @@ if errorlevel 1 goto VCEnd
     <ClCompile Include="debug\moc_savewidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    
-	<ClCompile Include="debug\moc_radiowidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-
-	
-	<ClCompile Include="release\moc_savewidget.cpp">
+    <ClCompile Include="release\moc_savewidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-	
-	<ClCompile Include="release\moc_radiowidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-	
     <ClCompile Include="debug\moc_stationmgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -834,6 +827,7 @@ if errorlevel 1 goto VCEnd
   <ItemGroup>
     <None Include="images\alarm_off.png" />
     <None Include="images\alarm_on.png" />
+    <None Include="images\analog.png" />
     <None Include="images\bay.png" />
     <None Include="images\bottom.png" />
     <None Include="images\check_off.png" />
@@ -878,11 +872,11 @@ if errorlevel 1 goto VCEnd
     <None Include="images\pointer.png" />
     <CustomBuild Include="poweram.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\alarm_off.png;images\alarm_on.png;images\bay.png;images\bottom.png;images\check_off.png;images\check_on.png;images\circle.png;images\control_off.png;images\control_on.png;images\cutquery.png;images\envent.png;images\expand_normal.png;images\expand_selected.png;images\ground.png;images\hand.png;images\home.png;images\item-hover.png;images\item.png;images\leftbk.png;images\lineset.png;images\loading.gif;images\log.png;images\login.png;images\loginmainbk.png;images\logo.png;images\logout.png;images\msetquery.png;images\network_off.png;images\network_on.png;images\next.png;images\off.png;images\on.png;images\open.png;images\opration.png;images\pointer.png;images\powerset.png;images\prev.png;images\read.png;images\refresh.png;images\righttop.png;images\role.png;images\rolemgr.png;images\run.png;images\save.png;images\set_system.png;images\stategridicon.png;images\stationmgr.png;images\stationrela.png;images\tag_off.png;images\tag_on.png;images\tag_query.png;images\titel\close.png;images\titel\close_hover.png;images\titel\close_pressed.png;images\titel\menu.png;images\titel\menu_hover.png;images\titel\menu_pressed.png;images\titel\min.png;images\titel\min_hover.png;images\titel\min_pressed.png;images\title.png;images\top_bk.png;images\top_home.png;images\topo.png;images\typemgr.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\usermgrbk.png;images\usermgrmainbk.png;images\zoom_in.png;images\zoom_original.png;images\zoom_out.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\alarm_off.png;images\alarm_on.png;images\analog.png;images\bay.png;images\bottom.png;images\check_off.png;images\check_on.png;images\circle.png;images\control_off.png;images\control_on.png;images\cutquery.png;images\envent.png;images\expand_normal.png;images\expand_selected.png;images\ground.png;images\hand.png;images\home.png;images\item-hover.png;images\item.png;images\leftbk.png;images\lineset.png;images\loading.gif;images\log.png;images\login.png;images\loginmainbk.png;images\logo.png;images\logout.png;images\msetquery.png;images\network_off.png;images\network_on.png;images\next.png;images\off.png;images\on.png;images\open.png;images\opration.png;images\pointer.png;images\powerset.png;images\prev.png;images\read.png;images\realtime.png;images\refresh.png;images\righttop.png;images\role.png;images\rolemgr.png;images\run.png;images\save.png;images\set_system.png;images\stategridicon.png;images\stationmgr.png;images\stationrela.png;images\tag_off.png;images\tag_on.png;images\tag_query.png;images\ticket.png;images\titel\close.png;images\titel\close_hover.png;images\titel\close_pressed.png;images\titel\menu.png;images\titel\menu_hover.png;images\titel\menu_pressed.png;images\titel\min.png;images\titel\min_hover.png;images\titel\min_pressed.png;images\title.png;images\top_bk.png;images\top_home.png;images\topo.png;images\typemgr.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\usermgrbk.png;images\usermgrmainbk.png;images\zoom_in.png;images\zoom_original.png;images\zoom_out.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\Qt\4.8.7\bin\rcc.exe -name poweram poweram.qrc -o debug\qrc_poweram.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RCC poweram.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\qrc_poweram.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\alarm_off.png;images\alarm_on.png;images\bay.png;images\bottom.png;images\check_off.png;images\check_on.png;images\circle.png;images\control_off.png;images\control_on.png;images\cutquery.png;images\envent.png;images\expand_normal.png;images\expand_selected.png;images\ground.png;images\hand.png;images\home.png;images\item-hover.png;images\item.png;images\leftbk.png;images\lineset.png;images\loading.gif;images\log.png;images\login.png;images\loginmainbk.png;images\logo.png;images\logout.png;images\msetquery.png;images\network_off.png;images\network_on.png;images\next.png;images\off.png;images\on.png;images\open.png;images\opration.png;images\pointer.png;images\powerset.png;images\prev.png;images\read.png;images\refresh.png;images\righttop.png;images\role.png;images\rolemgr.png;images\run.png;images\save.png;images\set_system.png;images\stategridicon.png;images\stationmgr.png;images\stationrela.png;images\tag_off.png;images\tag_on.png;images\tag_query.png;images\titel\close.png;images\titel\close_hover.png;images\titel\close_pressed.png;images\titel\menu.png;images\titel\menu_hover.png;images\titel\menu_pressed.png;images\titel\min.png;images\titel\min_hover.png;images\titel\min_pressed.png;images\title.png;images\top_bk.png;images\top_home.png;images\topo.png;images\typemgr.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\usermgrbk.png;images\usermgrmainbk.png;images\zoom_in.png;images\zoom_original.png;images\zoom_out.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe;images\alarm_off.png;images\alarm_on.png;images\analog.png;images\bay.png;images\bottom.png;images\check_off.png;images\check_on.png;images\circle.png;images\control_off.png;images\control_on.png;images\cutquery.png;images\envent.png;images\expand_normal.png;images\expand_selected.png;images\ground.png;images\hand.png;images\home.png;images\item-hover.png;images\item.png;images\leftbk.png;images\lineset.png;images\loading.gif;images\log.png;images\login.png;images\loginmainbk.png;images\logo.png;images\logout.png;images\msetquery.png;images\network_off.png;images\network_on.png;images\next.png;images\off.png;images\on.png;images\open.png;images\opration.png;images\pointer.png;images\powerset.png;images\prev.png;images\read.png;images\realtime.png;images\refresh.png;images\righttop.png;images\role.png;images\rolemgr.png;images\run.png;images\save.png;images\set_system.png;images\stategridicon.png;images\stationmgr.png;images\stationrela.png;images\tag_off.png;images\tag_on.png;images\tag_query.png;images\ticket.png;images\titel\close.png;images\titel\close_hover.png;images\titel\close_pressed.png;images\titel\menu.png;images\titel\menu_hover.png;images\titel\menu_pressed.png;images\titel\min.png;images\titel\min_hover.png;images\titel\min_pressed.png;images\title.png;images\top_bk.png;images\top_home.png;images\topo.png;images\typemgr.png;images\unexpand_normal.png;images\unexpand_selected.png;images\usermgr.png;images\usermgrbk.png;images\usermgrmainbk.png;images\zoom_in.png;images\zoom_original.png;images\zoom_out.png;poweram.qrc;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\Qt\4.8.7\bin\rcc.exe -name poweram poweram.qrc -o release\qrc_poweram.cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RCC poweram.qrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\qrc_poweram.cpp;%(Outputs)</Outputs>
@@ -890,6 +884,7 @@ if errorlevel 1 goto VCEnd
     <None Include="images\powerset.png" />
     <None Include="images\prev.png" />
     <None Include="images\read.png" />
+    <None Include="images\realtime.png" />
     <None Include="images\refresh.png" />
     <None Include="images\righttop.png" />
     <None Include="images\role.png" />
@@ -903,6 +898,7 @@ if errorlevel 1 goto VCEnd
     <None Include="images\tag_off.png" />
     <None Include="images\tag_on.png" />
     <None Include="images\tag_query.png" />
+    <None Include="images\ticket.png" />
     <None Include="images\title.png" />
     <None Include="images\top_bk.png" />
     <None Include="images\top_home.png" />

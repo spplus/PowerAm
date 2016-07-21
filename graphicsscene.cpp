@@ -40,6 +40,7 @@ GraphicsScene::~GraphicsScene()
 		delete m_svgRender;
 		m_svgRender = NULL;
 	}
+	m_curItem = NULL;
 	//clearItem();
 }
 
@@ -52,7 +53,7 @@ void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 {
 	if (pgrahp != NULL)
 	{
-
+		m_curItem = NULL;
 		this->clear();
 		m_svgRender->drawGraph(pgrahp);
 		m_graphList.insert(++m_curIndex,pgrahp); 
@@ -69,7 +70,7 @@ void GraphicsScene::openSvgFile(QString filename)
 	SvgGraph *pgrahp = m_svgParser.parserSvg(filename);
 	if (pgrahp != NULL)
 	{
-
+		m_curItem = NULL;
 		this->clear();
 		m_svgRender->drawGraph(pgrahp);
 		m_graphList.insert(++m_curIndex,pgrahp); 
@@ -78,6 +79,7 @@ void GraphicsScene::openSvgFile(QString filename)
 
 void GraphicsScene::goNext()
 {
+	m_curItem = NULL;
 	clear();
 	if (++m_curIndex < m_graphList.size() )
 	{
@@ -93,6 +95,7 @@ void GraphicsScene::goNext()
 
 void GraphicsScene::goPrev()
 {
+	m_curItem = NULL;
 	clear();
 	if (--m_curIndex >= 0 )
 	{
@@ -110,6 +113,11 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 {
 	if (mouseEvent->button() == Qt::RightButton)
 	{   
+		// 判断系统状态，只有在模拟态下才可以操作
+		if (m_sysState != eANALOG)
+		{
+			return;
+		}
 		SvgItem *item1= (SvgItem *)(this->itemAt(mouseEvent->scenePos()));
 		if (item1 != NULL && item1->getCimId().length()>0)
 		{
@@ -492,7 +500,8 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 				int idx = findDevByCim(item->getCimId(),opbean);
 
 				// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
-				if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
+				if (idx >= 0 && m_curItem != NULL 
+					&& bean.cimid() != m_curItem->getCimId().toStdString())
 				{
 					bean.set_state(opbean.state());
 					bean.set_iselectric(opbean.state());
