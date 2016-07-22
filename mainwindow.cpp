@@ -115,18 +115,9 @@ void MainWindow::openOk()
 	m_waitDlg.hide();
 
 	// 打开完成后需要做的事情
-	
+
 	// 加载设备状态数据
 	m_sence->reqUnitState(m_curStationId);
-
-	//PBNS::DevStateMsg_Request req;
-
-	//// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
-	//req.set_saveid(1);
-	//req.set_stationcim(m_curStationId.toStdString());
-	//string reqstr;
-	//req.SerializeToString(&reqstr);
-	//NetClient::instance()->sendData(CMD_DEV_STATE,reqstr.c_str(),reqstr.length());
 
 }
 

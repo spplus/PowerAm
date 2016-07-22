@@ -120,17 +120,21 @@ bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 	QDomNode cnode = getElementById(nodeid);
 	if (cnode.isNull())
 	{
-		qDebug("setAttribute failed,nodeid %s,attrname:%s,val :%s",nodeid,attr,val);
+		qDebug("setAttribute failed! nodeid %s,attr:%s,val:%s",nodeid.toStdString().c_str(),attr.toStdString().c_str(),val.toStdString().c_str());
 		return false;
 	}
 	// 图元节点的第一个子节点，比如设备图元的use节点，母线图元的path节点等
 	QDomNode cn = cnode.firstChild();
 	//if (cn.nodeName() == TAG_USE)
 	{
+		if (attr == ATTR_STYLE)
+		{
+			cn.toElement().removeAttribute("stroke");
+		}
+		
 		cn.toElement().setAttribute(attr,val);
 		return true;
 	}
-	return false;
 }
 
 QString SvgGraph::getAttribute(QString nodeid,QString attr)
@@ -138,6 +142,7 @@ QString SvgGraph::getAttribute(QString nodeid,QString attr)
 	QDomNode cnode = getElementById(nodeid);
 	if (cnode.isNull())
 	{
+		//qDebug()<<"查找dom节点失败:"<<nodeid;
 		return "";
 	}
 

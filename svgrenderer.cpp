@@ -25,46 +25,7 @@ QString SvgRenderer::initSvgRenderer()
 	{
 		// 把symbol标签转成g标签
 		QString sxml = m_graph->getDom()->toString();
-		/*
-		// 替换class属性为style属性
-		sxml = sxml.replace("class","style");
-	
-		// 替换Open 为 0
-		sxml = sxml.replace("Open","0");
-
-		// 替换Close 为 1
-		sxml = sxml.replace("Close","1");
-
-		// 根据自定义颜色进行着色
-		QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
-		while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
-		{
-			QString key = iter.key();
-			QString value = iter.value();
-
-			sxml = sxml.replace(key,value);		
-			iter ++;
-		}
 		
-		// 对于没有定义的电压等级，按SVG中定义的颜色进行着色
-		QMap<QString, QString>::const_iterator fiter;
-		iter = m_graph->getStyleMap().constBegin();
-		while (iter != m_graph->getStyleMap().constEnd()) 
-		{
-			QString key = iter.key();
-			fiter = ComUtil::instance()->getStyleMap().find(key);
-			if (fiter !=  ComUtil::instance()->getStyleMap().end())
-			{
-				iter ++;
-				continue;
-			}
-			QString value = iter.value();
-			sxml = sxml.replace(key,value);		
-			iter ++;
-		}
-
-		m_graph->getDom()->setContent(sxml);
-		*/
 		return sxml;
 	}
 	else
@@ -101,6 +62,11 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 	m_graph = graph;
 
 	// SVG文件格式转换
+	if (m_renderer != NULL)
+	{
+		delete m_renderer;
+		m_renderer = NULL;
+	}
 	m_renderer = new QSvgRenderer(initSvgRenderer().toUtf8());
 	
 	// 背景层 
