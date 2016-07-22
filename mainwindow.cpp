@@ -1046,17 +1046,27 @@ void MainWindow::showEventQueryResult(const char* msg,int msglength)
 
 void MainWindow::ticketShow()
 {
+	//根据不同角色创建不同操作票界面
+	if (ComUtil::instance()->getCurUserRole() == eDispatcher || ComUtil::instance()->getCurUserRole() == eManager)
+	{
+		m_TcktMgr = new TicketMgr(this);
 
-	m_TcktMgr = new TicketMgr(this);
+		m_TcktMgr->setWindowTitle("操作任务管理");
 
-	//请求操作票任务列表
-	//m_TcktMgr->reqTicketMsionList();
+		m_TcktMgr->exec();
 
-	//m_TcktMgr->setWindowIcon(QIcon(":images/usermgr.png"));
-	m_TcktMgr->setWindowTitle("操作票管理");
+		delete m_TcktMgr;
+	}
 
-	m_TcktMgr->setModal(false);
-	m_TcktMgr->show();
+	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
+	{
+		m_TcktMgr = new TicketMgr(this);
+		m_TcktMgr->setWindowTitle("操作票管理");
+
+		m_TcktMgr->setModal(false);
+		m_TcktMgr->show();
+	}
+	
 
 	//非模式窗口下，窗口总是在前层显示
 	//m_TcktMgr->setWindowFlags(Qt::WindowStaysOnTopHint);

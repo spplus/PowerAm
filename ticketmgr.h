@@ -21,8 +21,11 @@ class TicketActionsMgr	:public QDialog
 	Q_OBJECT
 
 public:
+	//static TicketActionsMgr* instance();
 	TicketActionsMgr(QWidget* parent = NULL);
+	//~TicketActionsMgr();
 
+	//static void deleteInstance();
 	//设置操作任务
 	void setTicketMsion(TicketMsion_S& tketMsion){m_tketMsion = tketMsion;}
 
@@ -38,15 +41,23 @@ public:
 	//获取操作票信息
 	Ticket_S getTicketInfo();
 
+	//获取操作明细列表
+	vector<TicketActions_S> getTicketActions();
+
 	//初始化数据
 	void		initDataByTicketMsion();
 	//初始化数据
 	void		initDataByTicket();
 	//接收操作票列表
-	void retTicketActionsList(const char* msg);
+	void retTicketActionsList(const char* msg,int msglength);
 
 	//设置操作类型
 	void		setActionsType();
+
+	//设置具体操作
+	void setTicketActions(QString strActions);
+	
+
 
 private slots:
 
@@ -56,7 +67,8 @@ private:
 
 	//请求操作票列表
 	void reqTicketActionsList();
-
+	//添加操作到列表中
+	void addTicketActionsToTable(QString strAct);
 	
 
 
@@ -92,7 +104,10 @@ private:
 	QString m_strOverhaul;										//检修人员操作
 	QString m_strActType;										//操作类型
 	int		m_viewType;											//显示类型1表示创建，2表示查询
-	
+	vector<TicketActions_S> m_tketActions;						//保存操作明细列表
+
+	//static TicketActionsMgr *m_inst;
+
 };
 
 
@@ -110,18 +125,16 @@ public:
 	void reqTicketMsionList();
 
 	//接收操作票任务列表
-	void retTicketMsionList(const char* msg);
+	void retTicketMsionList(const char* msg,int msglength);
 
 	//请求操作票列表
 	void reqTicketList();
 
 	//接收操作票列表
-	void retTicketList(const char* msg);
+	void retTicketList(const char* msg,int msglength);
 
 	// 接收数据
 	void recvdata(int msgtype,const char* msg,int msglength);
-
-	//
 
 private slots:
 	void getTicketMsionItem(QTableWidgetItem* item);					//选中tab表中某一行响应函数
@@ -136,6 +149,8 @@ private slots:
 	void		onMdf();
 	void		onAdd();
 	void		onDel();
+	//子窗口关闭事件
+	void		closeTicketActionsMgr();
 
 private:
 	// 调度员创建命令界面
@@ -180,6 +195,9 @@ private:
 	TicketActionsMgr	*m_tktActmgr;
 	bool				m_bcomitflag;							//提交标志
 	bool				m_bdlgflag;								//是否已经创建操作票明细对话框
+	bool				m_bcloseflag;							//操作票明细对话框(是否关闭)标志
+	bool				m_bcreateflag;							//创建标志
+	bool				m_bqueryflag;							//查询标志
 	QString m_strActType;										//操作类型
 
 };

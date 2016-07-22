@@ -4,13 +4,18 @@
 
 TicketMgr::TicketMgr(QWidget* parent /* = NULL */)
 {
-	setAttribute (Qt::WA_DeleteOnClose);
+	//当登录角色为运维人员时,对话框是非模态的，设置关闭窗口自动释放
+	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
+	{
+		setAttribute (Qt::WA_DeleteOnClose);
+	}
 
 	m_ticketTable = NULL;
 	m_missionTable = NULL;
 	m_crateTime = NULL;
 	m_tktActmgr = NULL;
 	m_bdlgflag = false;
+	m_bcloseflag = true;
 
 	switch (ComUtil::instance()->getCurUserRole())
 	{
@@ -175,15 +180,15 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 	switch (msgtype)
 	{
 	case CMD_TICKETMS_LIST:
-		retTicketMsionList(msg);
+		retTicketMsionList(msg,msglength);
 		break;
 	case CMD_TICKET_LIST:
-		retTicketList(msg);
+		retTicketList(msg,msglength);
 		break;
 	case CMD_TICKET_COMMIT:
 		{
 			PBNS::TicketMgrMsg_Response resp;
-			resp.ParseFromString(msg);
+			resp.ParseFromArray(msg,msglength);
 			//提交成功时，重新查询操作票列表
 			if (resp.rescode())
 			{
@@ -192,7 +197,19 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 		}
 		break;
 	case CMD_TICKET_QUERY:
-		m_tktActmgr->retTicketActionsList(msg);
+		//m_tktActmgr->instance()->retTicketActionsList(msg,msglength);
+		m_tktActmgr->retTicketActionsList(msg,msglength);
+		break;
+	case CMD_TICKET_CREATE:
+		{
+			PBNS::TicketActMgrMsg_Response resp;
+			resp.ParseFromArray(msg,msglength);
+			//提交成功时，重新查询操作票列表
+			if (resp.rescode())
+			{
+				reqTicketList();
+			}
+		}
 		break;
 	}
 }
@@ -216,10 +233,10 @@ void TicketMgr::reqTicketMsionList()
 	return;
 }
 
-void TicketMgr::retTicketMsionList(const char* msg)
+void TicketMgr::retTicketMsionList(const char* msg,int msglength)
 {
 	PBNS::TicketMsionListMsg_Response resp;
-	resp.ParseFromString(msg);
+	resp.ParseFromArray(msg,msglength);
 
 	int nrow = resp.tktmsionlist_size();
 
@@ -268,10 +285,10 @@ void TicketMgr::reqTicketList()
 	NetClient::instance()->sendData(CMD_TICKET_LIST,tkreq.SerializeAsString().c_str(),tkreq.SerializeAsString().length());
 }
 
-void TicketMgr::retTicketList(const char* msg)
+void TicketMgr::retTicketList(const char* msg,int msglength)
 {
 	PBNS::TicketListMsg_Response resp;
-	resp.ParseFromString(msg);
+	resp.ParseFromArray(msg,msglength);
 
 	int nrow = resp.ticketlist_size();
 
@@ -366,6 +383,12 @@ void TicketMgr::getTicketMsionItem(QTableWidgetItem* item)
 
 void TicketMgr::getTicketItem(QTableWidgetItem* item)
 {
+	//子窗口未关闭，直接返回
+	if (!m_bcloseflag)
+	{
+		return;
+	}
+
 	int itemrow = item->row();
 
 	m_ticket.id = m_ticketTable->item(itemrow,0)->text().toInt();
@@ -586,6 +609,7 @@ void TicketMgr::initData()
 
 		//点击列表某行信号槽关联
 		connect(m_ticketTable,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getTicketItem(QTableWidgetItem*)));
+		
 
 		reqTicketList();
 	}
@@ -672,47 +696,120 @@ void TicketMgr::initData()
 
 }
 
+void TicketMgr::closeTicketActionsMgr()
+{
+	//子窗口关闭状态设置为true
+	m_bcloseflag = true;
+	//提交按钮设为灰
+	m_comitBtn->setEnabled(false);
+	//提交标准设为true
+	m_bcomitflag = true;
+}
 
 void TicketMgr::onCreateActions()
 {
-	//已经创建，直接返回
-	if (m_tktActmgr != NULL)
+	//子窗口未关闭，直接返回
+	if (!m_bcloseflag)
 	{
 		return;
 	}
 
+	
 	m_tktActmgr = new TicketActionsMgr(this);
 	m_tktActmgr->setWindowTitle(tr("操作票"));
+	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
+	connect(m_tktActmgr,SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
 
 	m_tktActmgr->setTicketMsion(m_ticketMsion);
 	m_tktActmgr->initDataByTicketMsion();
-
+	QString strTest1 = QString(tr("开关1变位由分到合"));
+	QString strTest2 = QString(tr("开关2变位由分到合"));
+	m_tktActmgr->setTicketActions(strTest1);
+	m_tktActmgr->setTicketActions(strTest2);
 	m_tktActmgr->setModal(false);
 	m_tktActmgr->show();
+	
+/*
+	m_tktActmgr->instance()->setWindowTitle(tr("操作票"));
+	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
+	connect(m_tktActmgr->instance(),SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
 
+	m_tktActmgr->instance()->setTicketMsion(m_ticketMsion);
+	m_tktActmgr->instance()->initDataByTicketMsion();
+	QString strTest1 = QString(tr("开关1变位由分到合"));
+	QString strTest2 = QString(tr("开关2变位由分到合"));
+	m_tktActmgr->instance()->setTicketActions(strTest1);
+	m_tktActmgr->instance()->setTicketActions(strTest2);
+	m_tktActmgr->instance()->setModal(false);
+	m_tktActmgr->instance()->show();
+*/
+	m_bcreateflag = true;
+	m_bqueryflag = false;
 	m_bcomitflag = false;
 	m_createBtn->setEnabled(false);
 	m_comitBtn->setEnabled(true);
 
-	//delete m_tktActmgr;
+	m_bcloseflag = false;
 
 }
 
 
 void TicketMgr::onCommitActions()
 {
-	if (m_tktActmgr)
+	//子窗口未关闭时提交才有效
+	if (!m_bcloseflag)
 	{
-		m_ticket = m_tktActmgr->getTicketInfo();		
+		if (m_bqueryflag)
+		{
+			//Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();		
+			Ticket_S mticket = m_tktActmgr->getTicketInfo();
 
-		QString sql = QString(tr("insert into tickets (UserId,MissionId,No,ActionType,info,ActionPerson,ProtectPerson,ChargePerson,StartTime,EndTime) VALUES (%1,%2,'%3','%4','%5','%6','%7','%8','%9','%10');")).arg(m_ticket.AuserId).arg(m_ticket.MissionId).arg(m_ticket.No).arg(m_ticket.ActionType).arg(m_ticket.info).arg(m_ticket.ActionPerson).arg(m_ticket.ProtectPerson).arg(m_ticket.ChargePerson).arg(m_ticket.StartTime).arg(m_ticket.EndTime);
+			//QString sql = QString(tr("update tickets set UserId=%1,MissionId=%2,No='%3',ActionType='%4',info='%5',ActionPerson='%6',ProtectPerson='%7',ChargePerson='%8',StartTime='%9',EndTime='%10' where ID=%11;")).arg(mticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime).arg(m_ticket.id);
+			QString sql = QString(tr("update tickets set UserId=%1,MissionId=%2,No='%3',ActionType='%4',info='%5',ActionPerson='%6',ProtectPerson='%7',ChargePerson='%8',StartTime='%9',EndTime='%10' where ID=%11;")).arg(m_ticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime).arg(m_ticket.id);
 
-		PBNS::TicketMgrMsg_Request req;
-		req.set_mgrsql(sql.toStdString());
+			PBNS::TicketMgrMsg_Request req;
+			req.set_mgrsql(sql.toStdString());
 
-		//发射发送数据请求消息信号
-		NetClient::instance()->sendData(CMD_TICKET_COMMIT,req.SerializeAsString().c_str(),req.SerializeAsString().length());
+			//发射发送数据请求消息信号
+			NetClient::instance()->sendData(CMD_TICKET_COMMIT,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
+		}
+		
+		if (m_bcreateflag)
+		{
+			//Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();	
+			//vector<TicketActions_S> tketActionvect = m_tktActmgr->instance()->getTicketActions();
+
+			Ticket_S mticket = m_tktActmgr->getTicketInfo();	
+			vector<TicketActions_S> tketActionvect = m_tktActmgr->getTicketActions();
+
+			QString sql = QString(tr("insert into tickets (UserId,MissionId,No,ActionType,info,ActionPerson,ProtectPerson,ChargePerson,StartTime,EndTime) VALUES (%1,%2,'%3','%4','%5','%6','%7','%8','%9','%10');")).arg(mticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime);
+
+			int uid = mticket.AuserId;
+			int mid = mticket.MissionId;
+			QString sttime = mticket.StartTime;
+			QString endtime = mticket.EndTime;
+
+			PBNS::TicketActMgrMsg_Request req;
+			req.set_requid(uid);
+			req.set_reqmid(mid);
+			req.set_startt(sttime.toStdString());
+			req.set_endt(endtime.toStdString());
+			req.set_mgrsql(sql.toStdString());
+
+			for (int i = 0;i<tketActionvect.size();i++)
+			{
+				PBNS::TicketActBean* tketactbean = req.add_ticketactlist();
+				tketactbean->set_ticketid(tketActionvect.at(i).Ticketid);
+				tketactbean->set_ordernum(tketActionvect.at(i).OrderNum);
+				tketactbean->set_systemcontent(tketActionvect.at(i).SystemContent.toStdString());
+				tketactbean->set_content(tketActionvect.at(i).Content.toStdString());
+			}
+
+			//发射发送数据请求消息信号
+			NetClient::instance()->sendData(CMD_TICKET_CREATE,req.SerializeAsString().c_str(),req.SerializeAsString().length());
+
+		}
 
 		m_bcomitflag = true;
 		m_comitBtn->setEnabled(false);
@@ -722,14 +819,17 @@ void TicketMgr::onCommitActions()
 
 void TicketMgr::onQueryActions()
 {
-	//已经创建，直接返回
-	if (m_tktActmgr != NULL)
+	//子窗口未关闭，直接返回
+	if (!m_bcloseflag)
 	{
 		return;
 	}
 
+	
 	m_tktActmgr = new TicketActionsMgr(this);
-	m_tktActmgr->setWindowTitle(tr("操作票"));
+	m_tktActmgr->setWindowTitle(tr("操作票查询"));
+	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
+	connect(m_tktActmgr,SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
 
 	m_tktActmgr->setTicket(m_ticket);
 	m_tktActmgr->initDataByTicket();
@@ -737,24 +837,72 @@ void TicketMgr::onQueryActions()
 	m_tktActmgr->setModal(false);
 	m_tktActmgr->show();
 
+/*
+	m_tktActmgr->instance()->setWindowTitle(tr("操作票查询"));
+	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
+	connect(m_tktActmgr->instance(),SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
+
+	m_tktActmgr->instance()->setTicket(m_ticket);
+	m_tktActmgr->instance()->initDataByTicket();
+
+	m_tktActmgr->instance()->setModal(false);
+	m_tktActmgr->instance()->show();
+*/
+
+
+	m_bqueryflag = true;
+	m_bcreateflag = false;
 	m_bcomitflag = false;
 	m_queryBtn->setEnabled(false);
-	//m_comitBtn->setEnabled(true);
+	m_comitBtn->setEnabled(true);
+
+	m_bcloseflag = false;
 }
 
 
 /************************************************************************/
 /*                           操作票明细                                 */
 /************************************************************************/
+/*
+TicketActionsMgr* TicketActionsMgr::m_inst = NULL;
+
+TicketActionsMgr* TicketActionsMgr::instance()
+{
+	if (m_inst == NULL)
+	{
+		m_inst = new TicketActionsMgr;
+
+	}
+	return m_inst;
+}
+*/
+
 TicketActionsMgr::TicketActionsMgr(QWidget* parent /* = NULL */)
 {
-	setAttribute (Qt::WA_DeleteOnClose);
+	//setAttribute (Qt::WA_DeleteOnClose);
 	m_viewType = 1;
 
 	initUi_Operator();
 
 }
 
+/*
+TicketActionsMgr::~TicketActionsMgr()
+{
+	
+	deleteInstance();
+}
+
+void TicketActionsMgr::deleteInstance()
+{
+	if (m_inst != NULL)
+	{
+		delete m_inst;
+
+		m_inst = NULL;
+	}
+}
+*/
 
 void TicketActionsMgr::initUi_Operator()
 {
@@ -967,6 +1115,9 @@ void TicketActionsMgr::initDataByTicketMsion()
 	header<<"操作票ID"<<"顺序"<<"操作项目(系统)"<<"操作项目(描述)"<<"√"<<"时间";
 	m_ticketActTable->setHorizontalHeaderLabels(header);
 
+	//隐藏第一列:操作票ID
+	m_ticketActTable->setColumnHidden(0,true);
+
 }
 
 void TicketActionsMgr::initDataByTicket()
@@ -1031,10 +1182,10 @@ void TicketActionsMgr::reqTicketActionsList()
 	NetClient::instance()->sendData(CMD_TICKET_QUERY,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 }
 
-void TicketActionsMgr::retTicketActionsList(const char* msg)
+void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 {
 	PBNS::TicketActListMsg_Response resp;
-	resp.ParseFromString(msg);
+	resp.ParseFromArray(msg,msglength);
 
 	int nrow = resp.ticketactlist_size();
 
@@ -1057,6 +1208,74 @@ void TicketActionsMgr::retTicketActionsList(const char* msg)
 		m_ticketActTable->setItem(i,3,new QTableWidgetItem(strGou));	
 
 	}
+}
+
+void TicketActionsMgr::setTicketActions(QString strActions)
+{
+
+	//在明细列表中添加内容
+	addTicketActionsToTable(strActions);
+
+}
+
+void TicketActionsMgr::addTicketActionsToTable(QString strAct)
+{
+	//当前列表记录数
+	int tktRow = m_ticketActTable->rowCount();
+	//设置操作明细列表行数
+	m_ticketActTable->setRowCount(tktRow+1);
+	
+	//操作票ID还未提交暂时得不到，现在默认为0，后面更新
+	QString strTktid = QString(tr("0"));					//操作票ID
+	QString strNum = QString(tr("%1")).arg(tktRow+1);			//顺序号
+	QString strDesc = QString(tr(""));						//项目描述
+	QString strGou = QString(tr("√"));
+
+	m_ticketActTable->setItem(tktRow,0,new QTableWidgetItem(strTktid));
+	m_ticketActTable->setItem(tktRow,1,new QTableWidgetItem(strNum));
+	m_ticketActTable->setItem(tktRow,2,new QTableWidgetItem(strAct));
+	m_ticketActTable->setItem(tktRow,3,new QTableWidgetItem(strDesc));
+	m_ticketActTable->setItem(tktRow,4,new QTableWidgetItem(strGou));
+
+	//操作描述设置成可编辑
+	QTableWidgetItem *item = m_ticketActTable->item(tktRow,3);
+	if(item) 
+	{
+		item->setFlags(item->flags() & (~Qt::ItemIsEditable));
+	} 
+	else 
+	{
+		item = new QTableWidgetItem;
+		item->setFlags(item->flags() & (~Qt::ItemIsEditable));
+		m_ticketActTable->setItem(tktRow, 3, item);
+	}
+	
+}
+
+vector<TicketActions_S> TicketActionsMgr::getTicketActions()
+{
+	m_tketActions.clear();
+
+	int nRow = m_ticketActTable->rowCount();
+
+	for (int i=0;i<nRow;i++)
+	{
+		TicketActions_S tketActions;
+
+		tketActions.Ticketid = m_ticketActTable->item(i,0)->text().toInt();
+		tketActions.OrderNum = m_ticketActTable->item(i,1)->text().toInt();
+		tketActions.SystemContent = m_ticketActTable->item(i,2)->text();
+		tketActions.Content = m_ticketActTable->item(i,3)->text();
+
+		//tketActbean.set_ticketid(m_ticketActTable->item(i,0)->text().toInt());
+		//tketActbean.set_ordernum(m_ticketActTable->item(i,1)->text().toInt());
+		//tketActbean.set_systemcontent(m_ticketActTable->item(i,2)->text().toStdString());
+		//tketActbean.set_content(m_ticketActTable->item(i,3)->text().toStdString());
+		
+		m_tketActions.push_back(tketActions);
+	}
+
+	return m_tketActions;
 }
 
 void TicketActionsMgr::setActionsType()

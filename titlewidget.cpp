@@ -250,13 +250,17 @@ void TitleWidget::roleMgr()
 	m_pRuleMgrdlg->exec();
 
 	delete m_pRuleMgrdlg;
+	m_pRuleMgrdlg = NULL;
 
 	return;
 }
 
 void TitleWidget::retRuleMgr(int msgtype,const char* msg)
 {
-	m_pRuleMgrdlg->retStationRuleManager(msgtype,msg);
-
+	if (m_pRuleMgrdlg != NULL)
+	{
+		m_pRuleMgrdlg->retStationRuleManager(msgtype,msg);
+	}
+	
 	return;
 }
