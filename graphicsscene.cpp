@@ -172,6 +172,40 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	//switchChange(res.optype());
 	putDev2OpList(m_curItem->getCimId(),res.optype());
 
+	if (ComUtil::instance()->getActionFlag())
+	{
+		m_curItem->getCimId();
+		m_curItem->getType();
+		QString strType = QString(tr("开关"));
+		QString strState = QString(tr(""));
+		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
+		{
+			switch (m_curItem->getType())
+			{
+			case eBREAKER:
+				strType = QString(tr("开关"));
+				break;
+			case eSWITCH:
+				strType = QString(tr("刀闸"));
+				break;
+			}
+
+			if (res.optype()==1)
+			{
+				strState = QString(tr("由分到合"));
+			}
+			else if (res.optype()==0)
+			{
+				strState = QString(tr("由合到分"));
+			}
+
+			QString strAct = QString(tr("%1 %2 %3")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
+			TicketActionsMgr::instance()->setTicketActions(strAct);
+
+		}
+		
+	}
+
 	// 给带电的设备着色
 	QList<PBNS::StateBean> blist = getStateBeanList(res);
 
@@ -427,7 +461,7 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 	}
 	
 	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
-	
+
 	// 查找关联设备进行着色
 	setConnectedDevColor(graph,item);
 }
@@ -504,7 +538,6 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 					&& bean.cimid() != m_curItem->getCimId().toStdString())
 				{
 					bean.set_state(opbean.state());
-					bean.set_iselectric(opbean.state());
 				}
 
 				setBreakStateEx(graph,item->getSvgId(),item->getCimId(),(eBreakerState)bean.state());
@@ -584,7 +617,8 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 
 void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 {
-	
+	//QString dom =pgraph->getDom()->toString();
+
 	if (item != NULL)
 	{
 		// 查找与该图元关联的图元
@@ -615,6 +649,8 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				coitem->setIsColor(true);
 				coitem->setColor(item->getColor());
 				
+				//dom =pgraph->getDom()->toString();
+
 				// 如果遇到变压器，则表示电压等级发送变化，不继续按原有电压等级进行关联着色
 				if (devtype == eTRANSFORMER)
 				{
@@ -904,6 +940,7 @@ QList<PBNS::StateBean> GraphicsScene::getStateBeanList(PBNS::OprationMsg_Respons
 	{
 		devlist.push_back(res.devstate(i));
 	}
+
 	return devlist;
 }
 

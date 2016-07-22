@@ -34,7 +34,7 @@ public slots:
 	void		getAll();
 
 	// 下载指定文件
-	void		getFile(QString fname);
+	void		getFile(QString fname,QString stationcim);
 
 	// 获取文件列表
 	QList<QString>	getFileList();
@@ -68,6 +68,9 @@ private:
 	QLabel*		m_msgLabel;
 	QProgressBar*	m_progressBar;
 	
+	// 当前站点CIM
+	QString		m_stationCim;
+
 	// 当前路径
 	QString		m_currentPath;
 

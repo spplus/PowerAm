@@ -106,6 +106,10 @@ public:
 	int				getCurUserId();
 	void			setCurUserId(int userid);
 
+	//获取操作明细标志
+	bool			getActionFlag();
+	void			setActionFlag(bool bflag);
+
 	//获取用户列表
 	void			getAllUserList();
 	//保存用户列表
@@ -161,6 +165,9 @@ private:
 
 	//保存厂站刷新标志
 	bool						m_bStatype;
+
+	//操作票明细窗口是否存在
+	bool						m_bActiondlg;
 
 	//用户列表
 	vector<UserInfo_S>			m_userlist;

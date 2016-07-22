@@ -74,12 +74,13 @@ void FtpUtil::getAll()
 			continue;
 		}
 		
-		getFile(_FromSpecialEncoding(iter.key()));
+		getFile(_FromSpecialEncoding(iter.key()),m_stationCim);
 	}
 }
 
-void FtpUtil::getFile(QString fname)
+void FtpUtil::getFile(QString fname,QString stationcim)
 {
+	m_stationCim = stationcim;
 	
 	QString fpath = ComUtil::instance()->getSvgRoot()+"/"+fname;
 	QFile *file = new QFile(fpath);
@@ -268,7 +269,7 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 			// 获取文件名称
 			fname = file->property("fname").toString();
 
-			emit downloaded(fname);
+			emit downloaded(fname,m_stationCim);
 
 			// 关闭窗口
 			this->accept();

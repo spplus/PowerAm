@@ -397,7 +397,7 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	{
 		file.close();
 		FtpUtil::instance()->show();
-		FtpUtil::instance()->getFile(tempName);
+		FtpUtil::instance()->getFile(tempName,m_curStationId);
 		return;
 	}
 	file.close();

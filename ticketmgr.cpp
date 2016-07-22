@@ -197,8 +197,8 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 		}
 		break;
 	case CMD_TICKET_QUERY:
-		//m_tktActmgr->instance()->retTicketActionsList(msg,msglength);
-		m_tktActmgr->retTicketActionsList(msg,msglength);
+		m_tktActmgr->instance()->retTicketActionsList(msg,msglength);
+		//m_tktActmgr->retTicketActionsList(msg,msglength);
 		break;
 	case CMD_TICKET_CREATE:
 		{
@@ -357,6 +357,12 @@ void TicketMgr::getTicketMsionItem(QTableWidgetItem* item)
 	//运维角色有效
 	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
 	{
+		//子窗口未关闭，直接返回
+		if (!m_bcloseflag)
+		{
+			return;
+		}
+
 		//已经提交状态时相应点击更新数据，否则不更新数据
 		if (m_bcomitflag)
 		{
@@ -464,7 +470,7 @@ void TicketMgr::onMdf()
 		int nTktMsid = m_missionTable->item(ncurrow,0)->text().toInt();
 
 		//取操作票任务列表中选中行的第四列操作票任务执行人ID
-		int nActUserid = m_missionTable->item(ncurrow,3)->text().toInt();
+		int nActUserid = m_userBox->itemData(m_userBox->currentIndex()).toInt();
 
 		//取当前设置的创建时间
 		QString strCrtTime = m_crateTime->dateTime().toString("yyyy-MM-dd hh:mm:ss");  
@@ -714,7 +720,7 @@ void TicketMgr::onCreateActions()
 		return;
 	}
 
-	
+/*	
 	m_tktActmgr = new TicketActionsMgr(this);
 	m_tktActmgr->setWindowTitle(tr("操作票"));
 	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
@@ -728,21 +734,19 @@ void TicketMgr::onCreateActions()
 	m_tktActmgr->setTicketActions(strTest2);
 	m_tktActmgr->setModal(false);
 	m_tktActmgr->show();
-	
-/*
+*/	
+
 	m_tktActmgr->instance()->setWindowTitle(tr("操作票"));
 	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
-	connect(m_tktActmgr->instance(),SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
+	connect(m_tktActmgr->instance(),SIGNAL(sendCloseTicketActionsMgr()),this,SLOT(closeTicketActionsMgr()));
 
 	m_tktActmgr->instance()->setTicketMsion(m_ticketMsion);
 	m_tktActmgr->instance()->initDataByTicketMsion();
-	QString strTest1 = QString(tr("开关1变位由分到合"));
-	QString strTest2 = QString(tr("开关2变位由分到合"));
-	m_tktActmgr->instance()->setTicketActions(strTest1);
-	m_tktActmgr->instance()->setTicketActions(strTest2);
 	m_tktActmgr->instance()->setModal(false);
 	m_tktActmgr->instance()->show();
-*/
+
+	ComUtil::instance()->setActionFlag(true);
+
 	m_bcreateflag = true;
 	m_bqueryflag = false;
 	m_bcomitflag = false;
@@ -761,8 +765,8 @@ void TicketMgr::onCommitActions()
 	{
 		if (m_bqueryflag)
 		{
-			//Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();		
-			Ticket_S mticket = m_tktActmgr->getTicketInfo();
+			Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();		
+			//Ticket_S mticket = m_tktActmgr->getTicketInfo();
 
 			//QString sql = QString(tr("update tickets set UserId=%1,MissionId=%2,No='%3',ActionType='%4',info='%5',ActionPerson='%6',ProtectPerson='%7',ChargePerson='%8',StartTime='%9',EndTime='%10' where ID=%11;")).arg(mticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime).arg(m_ticket.id);
 			QString sql = QString(tr("update tickets set UserId=%1,MissionId=%2,No='%3',ActionType='%4',info='%5',ActionPerson='%6',ProtectPerson='%7',ChargePerson='%8',StartTime='%9',EndTime='%10' where ID=%11;")).arg(m_ticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime).arg(m_ticket.id);
@@ -777,11 +781,11 @@ void TicketMgr::onCommitActions()
 		
 		if (m_bcreateflag)
 		{
-			//Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();	
-			//vector<TicketActions_S> tketActionvect = m_tktActmgr->instance()->getTicketActions();
+			Ticket_S mticket = m_tktActmgr->instance()->getTicketInfo();	
+			vector<TicketActions_S> tketActionvect = m_tktActmgr->instance()->getTicketActions();
 
-			Ticket_S mticket = m_tktActmgr->getTicketInfo();	
-			vector<TicketActions_S> tketActionvect = m_tktActmgr->getTicketActions();
+			//Ticket_S mticket = m_tktActmgr->getTicketInfo();	
+			//vector<TicketActions_S> tketActionvect = m_tktActmgr->getTicketActions();
 
 			QString sql = QString(tr("insert into tickets (UserId,MissionId,No,ActionType,info,ActionPerson,ProtectPerson,ChargePerson,StartTime,EndTime) VALUES (%1,%2,'%3','%4','%5','%6','%7','%8','%9','%10');")).arg(mticket.AuserId).arg(mticket.MissionId).arg(mticket.No).arg(mticket.ActionType).arg(mticket.info).arg(mticket.ActionPerson).arg(mticket.ProtectPerson).arg(mticket.ChargePerson).arg(mticket.StartTime).arg(mticket.EndTime);
 
@@ -825,7 +829,7 @@ void TicketMgr::onQueryActions()
 		return;
 	}
 
-	
+	/*
 	m_tktActmgr = new TicketActionsMgr(this);
 	m_tktActmgr->setWindowTitle(tr("操作票查询"));
 	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
@@ -836,19 +840,17 @@ void TicketMgr::onQueryActions()
 
 	m_tktActmgr->setModal(false);
 	m_tktActmgr->show();
+*/
 
-/*
 	m_tktActmgr->instance()->setWindowTitle(tr("操作票查询"));
 	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
-	connect(m_tktActmgr->instance(),SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
+	connect(m_tktActmgr->instance(),SIGNAL(sendCloseTicketActionsMgr()),this,SLOT(closeTicketActionsMgr()));
 
 	m_tktActmgr->instance()->setTicket(m_ticket);
 	m_tktActmgr->instance()->initDataByTicket();
 
 	m_tktActmgr->instance()->setModal(false);
 	m_tktActmgr->instance()->show();
-*/
-
 
 	m_bqueryflag = true;
 	m_bcreateflag = false;
@@ -863,7 +865,7 @@ void TicketMgr::onQueryActions()
 /************************************************************************/
 /*                           操作票明细                                 */
 /************************************************************************/
-/*
+/**/
 TicketActionsMgr* TicketActionsMgr::m_inst = NULL;
 
 TicketActionsMgr* TicketActionsMgr::instance()
@@ -875,7 +877,7 @@ TicketActionsMgr* TicketActionsMgr::instance()
 	}
 	return m_inst;
 }
-*/
+
 
 TicketActionsMgr::TicketActionsMgr(QWidget* parent /* = NULL */)
 {
@@ -1028,11 +1030,11 @@ void TicketActionsMgr::initUi_Operator()
 	//行背景颜色变化
 	m_ticketActTable->setAlternatingRowColors(true);
 	//设置每行内容不可编辑
-	m_ticketActTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	//m_ticketActTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	//设置只能选择一行，不能选择多行
 	m_ticketActTable->setSelectionMode(QAbstractItemView::SingleSelection);
 	//设置单击选择一行
-	m_ticketActTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+	//m_ticketActTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	hbox6->addWidget(m_ticketActTable);
 
 
@@ -1080,6 +1082,8 @@ void TicketActionsMgr::initUi_Operator()
 
 	this->setLayout(pmainvlyt);
 
+	//connect(m_ticketActTable,SIGNAL(itemDoubleClicked(QTableWidgetItem*)),this,SLOT(setDesc(QTableWidgetItem*)));
+	
 	m_createLied->setEnabled(false);
 	m_actLied->setEnabled(false);
 	m_createrTime->setEnabled(false);
@@ -1160,6 +1164,9 @@ void TicketActionsMgr::initDataByTicket()
 	header<<"操作票ID"<<"顺序"<<"操作项目"<<"√"<<"时间";
 	m_ticketActTable->setHorizontalHeaderLabels(header);
 
+	//隐藏第一列:操作票ID
+	m_ticketActTable->setColumnHidden(0,true);
+
 	m_companyLied->setEnabled(false);
 	m_guardianChbox->setEnabled(false);
 	m_onerChbox->setEnabled(false);
@@ -1201,11 +1208,20 @@ void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 
 		QString strInfo = QString(tr("%1%2")).arg(QString::fromStdString(tkacbean.systemcontent())).arg(QString::fromStdString(tkacbean.content()));
 		QString strGou = QString(tr("√"));
+		QString strTime = QString(tr(""));
 
 		m_ticketActTable->setItem(i,0,new QTableWidgetItem(strTicketid));
 		m_ticketActTable->setItem(i,1,new QTableWidgetItem(strOrderNum));
 		m_ticketActTable->setItem(i,2,new QTableWidgetItem(strInfo));
-		m_ticketActTable->setItem(i,3,new QTableWidgetItem(strGou));	
+		m_ticketActTable->setItem(i,3,new QTableWidgetItem(strGou));
+		m_ticketActTable->setItem(i,4,new QTableWidgetItem(strTime));
+
+		//默认是全部可编辑现设置为不可编辑
+		m_ticketActTable->item(i,0)->setFlags(Qt::NoItemFlags);
+		m_ticketActTable->item(i,1)->setFlags(Qt::NoItemFlags);
+		m_ticketActTable->item(i,2)->setFlags(Qt::NoItemFlags);
+		m_ticketActTable->item(i,3)->setFlags(Qt::NoItemFlags);
+		m_ticketActTable->item(i,4)->setFlags(Qt::NoItemFlags);
 
 	}
 }
@@ -1230,14 +1246,24 @@ void TicketActionsMgr::addTicketActionsToTable(QString strAct)
 	QString strNum = QString(tr("%1")).arg(tktRow+1);			//顺序号
 	QString strDesc = QString(tr(""));						//项目描述
 	QString strGou = QString(tr("√"));
+	QString strTime = QString(tr(""));
 
 	m_ticketActTable->setItem(tktRow,0,new QTableWidgetItem(strTktid));
 	m_ticketActTable->setItem(tktRow,1,new QTableWidgetItem(strNum));
 	m_ticketActTable->setItem(tktRow,2,new QTableWidgetItem(strAct));
 	m_ticketActTable->setItem(tktRow,3,new QTableWidgetItem(strDesc));
 	m_ticketActTable->setItem(tktRow,4,new QTableWidgetItem(strGou));
+	m_ticketActTable->setItem(tktRow,5,new QTableWidgetItem(strTime));
 
-	//操作描述设置成可编辑
+	//默认是全部可编辑现设置为不可编辑
+	m_ticketActTable->item(tktRow,0)->setFlags(Qt::NoItemFlags);
+	m_ticketActTable->item(tktRow,1)->setFlags(Qt::NoItemFlags);
+	m_ticketActTable->item(tktRow,2)->setFlags(Qt::NoItemFlags);
+	m_ticketActTable->item(tktRow,4)->setFlags(Qt::NoItemFlags);
+	m_ticketActTable->item(tktRow,5)->setFlags(Qt::NoItemFlags);
+
+	
+	/*
 	QTableWidgetItem *item = m_ticketActTable->item(tktRow,3);
 	if(item) 
 	{
@@ -1249,6 +1275,11 @@ void TicketActionsMgr::addTicketActionsToTable(QString strAct)
 		item->setFlags(item->flags() & (~Qt::ItemIsEditable));
 		m_ticketActTable->setItem(tktRow, 3, item);
 	}
+	*/
+}
+
+void TicketActionsMgr::setDesc(QTableWidgetItem* item)
+{
 	
 }
 
@@ -1380,7 +1411,37 @@ Ticket_S TicketActionsMgr::getTicketInfo()
 }
 
 
+void TicketActionsMgr::closeEvent(QCloseEvent *event)
+{
+	//因为是全局静态类所以关闭时清空所有变量和还原所有控件状态
+	m_companyLied->setEnabled(true);
+	m_guardianChbox->setEnabled(true);
+	m_onerChbox->setEnabled(true);
+	m_overhaulChbox->setEnabled(true);
+	m_operatorLied->setEnabled(true);
+	m_guardianLied->setEnabled(true);
+	m_watcherLied->setEnabled(true);
 
+	m_operatorLied->clear();
+	m_guardianLied->clear();
+	m_watcherLied->clear();
+	m_noLied->clear();
+	m_remarksLied->clear();
+
+	TicketMsion_S tktmsn;
+	m_tketMsion = tktmsn;
+
+	Ticket_S tkts;
+	m_tket = tkts;
+	m_tketReturn = tkts;
+
+	m_ticketActTable->clear();
+	m_ticketActTable->setRowCount(0);
+	m_ticketActTable->clearContents();
+	ComUtil::instance()->setActionFlag(false);
+	emit sendCloseTicketActionsMgr();
+
+}
 
 
 

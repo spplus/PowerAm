@@ -21,7 +21,7 @@ class TicketActionsMgr	:public QDialog
 	Q_OBJECT
 
 public:
-	//static TicketActionsMgr* instance();
+	static TicketActionsMgr* instance();
 	TicketActionsMgr(QWidget* parent = NULL);
 	//~TicketActionsMgr();
 
@@ -57,9 +57,13 @@ public:
 	//设置具体操作
 	void setTicketActions(QString strActions);
 	
-
+signals:
+	//向上层传递窗口关闭
+	void sendCloseTicketActionsMgr();
 
 private slots:
+	//table列表中的描述信息
+	void setDesc(QTableWidgetItem* item);
 
 private:
 	//创建操作票界面
@@ -70,7 +74,8 @@ private:
 	//添加操作到列表中
 	void addTicketActionsToTable(QString strAct);
 	
-
+	//关闭事件
+	void closeEvent(QCloseEvent *event);  
 
 private:
 
@@ -106,7 +111,7 @@ private:
 	int		m_viewType;											//显示类型1表示创建，2表示查询
 	vector<TicketActions_S> m_tketActions;						//保存操作明细列表
 
-	//static TicketActionsMgr *m_inst;
+	static TicketActionsMgr *m_inst;
 
 };
 
@@ -135,6 +140,9 @@ public:
 
 	// 接收数据
 	void recvdata(int msgtype,const char* msg,int msglength);
+
+signals:
+	
 
 private slots:
 	void getTicketMsionItem(QTableWidgetItem* item);					//选中tab表中某一行响应函数

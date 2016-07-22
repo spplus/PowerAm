@@ -11,6 +11,7 @@ ComUtil* ComUtil::m_inst = NULL;
 ComUtil::ComUtil()
 {
 	m_appPath = QCoreApplication::applicationDirPath();
+	m_bActiondlg = false;
 }
 
 ComUtil* ComUtil::instance()
@@ -59,6 +60,16 @@ void ComUtil::setCurUserId(int userid)
 int ComUtil::getCurUserId()
 {
 	return m_curUserId;
+}
+
+void ComUtil::setActionFlag(bool bflag)
+{
+	m_bActiondlg = bflag;
+}
+
+bool ComUtil::getActionFlag()
+{
+	return m_bActiondlg;
 }
 
 QString ComUtil::getCompanyName()

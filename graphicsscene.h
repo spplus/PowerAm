@@ -17,6 +17,7 @@
 #include "textitem.h"
 #include "svgparser.h"
 #include "svgrenderer.h"
+#include "ticketmgr.h"
 
 class GraphicsScene		:public QGraphicsScene
 {
