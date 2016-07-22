@@ -51,6 +51,7 @@ void MsgRouter::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_TICKET_CREATE:
 	case CMD_TICKET_QUERY:
 	case CMD_TICKET_COMMIT:
+	case CMD_SERVER_BUSY:
 		MainWindow::instance()->recvdata(msgtype,msg,msglength);
 		break;
 	case CMD_USER_MANAGER:
