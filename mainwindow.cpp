@@ -267,6 +267,7 @@ void MainWindow::initActions()
 	//m_opQueryAction = new QAction(QIcon(ICON_OPRATION),tr(MSG_TIP_OPRATION),this);
 	m_eventQueryAction	= new QAction(QIcon(ICON_EVENT),tr(MSG_TIP_EVENT),this);
 	m_modelAction = new QAction(QIcon(ICON_RUN),tr(MSG_TIP_RUN_ANALOG),this);
+	m_modelAction->setEnabled(false);
 
 	m_msetQueryAction = new QAction(QIcon(ICON_SETQUERY),tr(MSG_TIP_SETTING),this);
 	m_cutQueryAction = new QAction(QIcon(ICON_CUTTING),tr(MSG_TIP_SAVING),this);
@@ -313,9 +314,9 @@ void MainWindow::initConnections()
 	connect(m_readAction,SIGNAL(triggered()),m_sence,SLOT(readSaving()));
 	connect(m_saveAction,SIGNAL(triggered()),m_sence,SLOT(writeSaving()));
 	connect(m_modelAction,SIGNAL(triggered()),this,SLOT(ticketShow()));
-	connect(m_radioWidget,SIGNAL(realtime()),m_sence,SLOT(setRealState()));
-	connect(m_radioWidget,SIGNAL(analog()),m_sence,SLOT(setAnalogState()));
-	connect(m_radioWidget,SIGNAL(ticket()),m_sence,SLOT(setTicketState()));
+	connect(m_radioWidget,SIGNAL(realtime()),this,SLOT(setRealState()));
+	connect(m_radioWidget,SIGNAL(analog()),this,SLOT(setAnalogState()));
+	connect(m_radioWidget,SIGNAL(ticket()),this,SLOT(setTicketState()));
 
 	//»·Â·²éÑ¯
 	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));
@@ -1069,4 +1070,22 @@ void MainWindow::ticketShow()
 	//delete m_TcktMgr;
 
 	return;
+}
+
+void MainWindow::setRealState()
+{
+	m_modelAction->setEnabled(false);
+	m_sence->setSysState(eREALTIME);
+}
+
+void MainWindow::setAnalogState()
+{
+	m_modelAction->setEnabled(false);
+	m_sence->setSysState(eANALOG);
+}
+
+void MainWindow::setTicketState()
+{
+	m_modelAction->setEnabled(true);
+	m_sence->setSysState(eTICKET);
 }

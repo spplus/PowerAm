@@ -23,6 +23,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_saveId = 1;
 	m_stationCim = "1";
 	m_sysState = eANALOG;
+	m_isOpFinished = true;
 }
 
 GraphicsScene::~GraphicsScene()
@@ -142,8 +143,16 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 
 void GraphicsScene::contextMenuEvent ( QGraphicsSceneContextMenuEvent * contextMenuEvent )
 {
-	m_cntMenu->exec(contextMenuEvent->screenPos());
-	QGraphicsScene::contextMenuEvent(contextMenuEvent);
+	if (!m_isOpFinished)
+	{
+		QMessageBox::information(views().at(0),MSG_TITLE,"当前操作未结束，请稍后再试");
+	}
+	else
+	{
+		m_cntMenu->exec(contextMenuEvent->screenPos());
+		QGraphicsScene::contextMenuEvent(contextMenuEvent);
+	}
+	
 }
 
 void GraphicsScene::setOpen()
@@ -165,6 +174,8 @@ void GraphicsScene::setClose()
 
 void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 {
+	
+
 	PBNS::OprationMsg_Response res;
 	res.ParseFromArray(msg,length);
 	
@@ -210,6 +221,8 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	QList<PBNS::StateBean> blist = getStateBeanList(res);
 
 	drawDev(blist);
+
+	m_isOpFinished = true;
 }
 
 void GraphicsScene::switchChange(int state)
@@ -738,6 +751,8 @@ void GraphicsScene::tagOn()
 
 void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 {
+	m_isOpFinished = false;
+
 	PBNS::OprationMsg_Request req;
 	req.set_saveid(m_saveId);
 	req.set_type(state);
@@ -959,15 +974,7 @@ int GraphicsScene::findDevByCim(QString cim,PBNS::StateBean & sbean)
 	return -1;
 }
 
-void GraphicsScene::setRealState()
+void GraphicsScene::setSysState(eSysState st)
 {
-		m_sysState = eREALTIME;
-}
-void GraphicsScene::setAnalogState()
-{
-	m_sysState = eANALOG;
-}
-void GraphicsScene::setTicketState()
-{
-	m_sysState = eTICKET;
+		m_sysState = st;
 }

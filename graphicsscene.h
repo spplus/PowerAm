@@ -91,9 +91,8 @@ public slots:
 	void			drawSvgGraph(SvgGraph* graph);
 
 	// 设置系统状态
-	void			setRealState();
-	void			setAnalogState();
-	void			setTicketState();
+	void			setSysState(eSysState st);
+
 protected:
 
 	// 修改dom中开关状态
@@ -147,6 +146,8 @@ protected:
 	void						putDev2OpList(QString cim,int state);
 
 private:
+	// 当前操作是否已经完成
+	bool						m_isOpFinished;
 
 	// 当前的系统状态
 	eSysState				m_sysState;

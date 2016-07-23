@@ -75,6 +75,11 @@ public slots:
 	// 拟票态
 	void		ticketShow();
 
+	// 设置拟票态
+	void			setRealState();
+	void			setAnalogState();
+	void			setTicketState();
+
 private:
 
 	 MainWindow(QWidget *parent = 0);

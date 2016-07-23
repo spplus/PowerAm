@@ -209,7 +209,7 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			MSG_TIP_OPRATION		"操作查询"
 #define			MSG_TIP_EVENT			"事件查询"
 #define			MSG_TIP_RUN_REAL		"实时态"
-#define			MSG_TIP_RUN_ANALOG		"模拟态"
+#define			MSG_TIP_RUN_ANALOG		"操作任务"
 #define			MSG_TIP_RUN_BILL		"拟票态"
 #define			MSG_TIP_SETTING			"人工设置查询"
 #define			MSG_TIP_SAVING			"存档查询"
