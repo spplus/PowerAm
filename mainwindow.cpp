@@ -106,7 +106,7 @@ void MainWindow::show()
 {
 	m_model->setData(ComUtil::instance()->getStationList());
 
-	QMainWindow::show();
+	QMainWindow::showMaximized();
 	this->activateWindow();
 }
 
@@ -189,7 +189,7 @@ void MainWindow::initToolBar()
 	m_toolBar->setIconSize(QSize(24,24));
 	m_toolBar->addSeparator();
 	m_toolBar->addWidget(m_radioWidget);
-	showMaximized();
+	//showMaximized();
 }
 
 void MainWindow::initMenu()

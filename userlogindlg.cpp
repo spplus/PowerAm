@@ -205,6 +205,12 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 				}
 
 				this->close();
+
+				// 判断cim文件是否有更新
+				if (userep.rescode() == 2)
+				{
+					QMessageBox::information(this,tr("CIM文件更新"),tr("CIM文件有更新，请点击电路图界面 ‘刷新’按钮进行更新CIM!"));
+				}
 			}
 			else
 			{
