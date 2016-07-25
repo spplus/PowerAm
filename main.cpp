@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
 	QApplication::addLibraryPath("./plugins");
 
 	// 设置编码
-	QTextCodec::setCodecForTr(QTextCodec::codecForName("system"));
-	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("system"));
-	QTextCodec::setCodecForLocale(QTextCodec::codecForName("system"));
+	QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
 
 	// 读取客户端配置信息
 	if (!ComUtil::instance()->initConfig())

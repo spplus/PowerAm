@@ -180,10 +180,10 @@ void NetClient::readMessage()
 		}
 
 		//等待服务端每次发送数据
-		if(!(m_pTcpScoket->waitForReadyRead()))
+		if(!(m_pTcpScoket->waitForReadyRead(10000)))
 		{
 			qDebug()<<"m_pTcpScoket->errorString()2: "<< m_pTcpScoket->errorString();
-			return;
+			//return;
 		}
 
 	}
