@@ -12,6 +12,7 @@
 #include "define.h"
 #include "buff/msgbody.pb.h"
 #include <QtGui>
+#include "comutil.h"
 
 class RuleCheckWidget		:public QDialog
 {
@@ -19,6 +20,7 @@ class RuleCheckWidget		:public QDialog
 public:
 	RuleCheckWidget(QWidget* parent=NULL);
 	void		setData(PBNS::OprationMsg_Response &res);
+	QList<QString> getRuleList();
 
 private:
 	void		initUi();
@@ -30,6 +32,7 @@ private:
 	QPushButton*			m_cancelBtn;
 	QTableWidget*		m_saveList;
 	PBNS::OprationMsg_Response m_dataList;
+	QList<QString> m_rulelist;
 };
 
 #endif

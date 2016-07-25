@@ -24,6 +24,7 @@ GraphicsScene::GraphicsScene(QObject* parant,QMenu* cntmenu)
 	m_stationCim = "1";
 	m_sysState = eANALOG;
 	m_isOpFinished = true;
+	m_boprflag = false;
 }
 
 GraphicsScene::~GraphicsScene()
@@ -112,8 +113,15 @@ void GraphicsScene::goPrev()
 
 void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 {
+
 	if (mouseEvent->button() == Qt::RightButton)
-	{   
+	{
+		if (!m_isOpFinished)
+		{
+			QMessageBox::information(views().at(0),MSG_TITLE,"当前操作未结束，请稍后再试");
+			return;
+		}
+
 		// 判断系统状态，只有在模拟态下才可以操作
 		if (m_sysState != eANALOG)
 		{
@@ -143,16 +151,8 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 
 void GraphicsScene::contextMenuEvent ( QGraphicsSceneContextMenuEvent * contextMenuEvent )
 {
-	if (!m_isOpFinished)
-	{
-		QMessageBox::information(views().at(0),MSG_TITLE,"当前操作未结束，请稍后再试");
-	}
-	else
-	{
-		m_cntMenu->exec(contextMenuEvent->screenPos());
-		QGraphicsScene::contextMenuEvent(contextMenuEvent);
-	}
-	
+	m_cntMenu->exec(contextMenuEvent->screenPos());
+	QGraphicsScene::contextMenuEvent(contextMenuEvent);
 }
 
 void GraphicsScene::setOpen()
@@ -210,7 +210,7 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 				strState = QString(tr("由合到分"));
 			}
 
-			QString strAct = QString(tr("%1 %2 %3")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
+			QString strAct = QString(tr("%1 %2 %3 成功")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
 			TicketActionsMgr::instance()->setTicketActions(strAct);
 
 		}
@@ -527,7 +527,6 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 		}
 		
 	}
-	dom = graph->getDom()->toString();
 }
 
 
@@ -768,6 +767,41 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 		 opbean->CopyFrom(m_opDevList.at(i));
 	}
 
+	if (ComUtil::instance()->getActionFlag())
+	{
+		m_curItem->getCimId();
+		m_curItem->getType();
+		QString strType = QString(tr("开关"));
+		QString strState = QString(tr(""));
+		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
+		{
+			switch (m_curItem->getType())
+			{
+			case eBREAKER:
+				strType = QString(tr("开关"));
+				break;
+			case eSWITCH:
+				strType = QString(tr("刀闸"));
+				break;
+			}
+
+			if (state==eON)
+			{
+				strState = QString(tr("由分到合"));
+			}
+			else if (state==eOFF)
+			{
+				strState = QString(tr("由合到分"));
+			}
+
+			if (!m_boprflag)
+			{
+				QString strAct = QString(tr("%1 %2 %3")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
+				TicketActionsMgr::instance()->setTicketActions(strAct);
+			}
+		}
+	}
+
 	string data = req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
 }
@@ -864,10 +898,61 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 	eBreakerState optype = (eBreakerState)res.optype();
 	RuleCheckWidget dlg;
 	dlg.setData(res);
+	m_isOpFinished = true;
+	
+	//将触发的规则记录下来，写到操作票明细表中
+	if (ComUtil::instance()->getActionFlag())
+	{
+		QList<QString> rulelist;
+		rulelist = dlg.getRuleList();
+
+		//只有开关或刀闸时写操作明细表
+		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
+		{
+			for (int i=0;i<rulelist.size();i++)
+			{
+				QString strRule = rulelist.at(i);
+				QString strAct = QString(tr("触发规则:%1")).arg(strRule);
+				TicketActionsMgr::instance()->setTicketActions(strAct);
+			}
+		}
+	}
+
 	if (dlg.exec() == QDialog::Accepted)
 	{
+		//将触发的规则记录下来，写到操作票明细表中
+		if (ComUtil::instance()->getActionFlag())
+		{
+			QList<QString> rulelist;
+			rulelist = dlg.getRuleList();
+
+			//只有开关或刀闸时写操作明细表
+			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
+			{
+				QString strAct = QString(tr("触发规则后继续执行"));
+				TicketActionsMgr::instance()->setTicketActions(strAct);
+			}
+		}
+		m_boprflag = true;
 		// 发送开关变位请求
 		sendBreakOpReq(optype,false);
+		m_boprflag = false;
+	}
+	else
+	{
+		//将触发的规则记录下来，写到操作票明细表中
+		if (ComUtil::instance()->getActionFlag())
+		{
+			QList<QString> rulelist;
+			rulelist = dlg.getRuleList();
+
+			//只有开关或刀闸时写操作明细表
+			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
+			{
+				QString strAct = QString(tr("触发规则后取消操作"));
+				TicketActionsMgr::instance()->setTicketActions(strAct);
+			}
+		}
 	}
 
 }

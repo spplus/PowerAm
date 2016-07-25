@@ -48,6 +48,7 @@ void RuleCheckWidget::initSlots()
 
 void RuleCheckWidget::initData()
 {
+	m_rulelist.clear();
 	m_saveList->clearContents();	
 	int row = m_dataList.rulelist_size();
 	m_saveList->setRowCount(row);
@@ -71,6 +72,13 @@ void RuleCheckWidget::initData()
 		m_saveList->setItem(i,0,itemName);
 		m_saveList->setItem(i,1,itemLevel);
 		m_saveList->setItem(i,2,itemDesc);
+
+		//将触发的规则记录下来保存到列表中
+		if (ComUtil::instance()->getActionFlag())
+		{
+			m_rulelist.push_back(bean.name().c_str());
+		}
+
 	}
 	m_saveList->resizeColumnsToContents();
 }
@@ -93,4 +101,9 @@ void RuleCheckWidget::setData(PBNS::OprationMsg_Response &res)
 {
 	m_dataList = res;
 	initData();
+}
+
+QList<QString> RuleCheckWidget::getRuleList()
+{
+	return m_rulelist;
 }

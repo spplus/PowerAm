@@ -1207,7 +1207,7 @@ void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 		QString strOrderNum = QString(tr("%1")).arg(tkacbean.ordernum());
 
 		QString strInfo = QString(tr("%1%2")).arg(QString::fromStdString(tkacbean.systemcontent())).arg(QString::fromStdString(tkacbean.content()));
-		QString strGou = QString(tr("¡Ì"));
+		QString strGou = QString(tr(""));
 		QString strTime = QString(tr(""));
 
 		m_ticketActTable->setItem(i,0,new QTableWidgetItem(strTicketid));
@@ -1245,7 +1245,7 @@ void TicketActionsMgr::addTicketActionsToTable(QString strAct)
 	QString strTktid = QString(tr("0"));					//²Ù×÷Æ±ID
 	QString strNum = QString(tr("%1")).arg(tktRow+1);			//Ë³ÐòºÅ
 	QString strDesc = QString(tr(""));						//ÏîÄ¿ÃèÊö
-	QString strGou = QString(tr("¡Ì"));
+	QString strGou = QString(tr(""));
 	QString strTime = QString(tr(""));
 
 	m_ticketActTable->setItem(tktRow,0,new QTableWidgetItem(strTktid));

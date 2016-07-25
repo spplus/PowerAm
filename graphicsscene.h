@@ -176,6 +176,9 @@ private:
 	QPropertyAnimation	m_animation;
 
 	PBNS::DevStateMsg_Response m_devList;
+
+	//触发规则后是否执行标志
+	bool	m_boprflag;
 };
 
 #endif
