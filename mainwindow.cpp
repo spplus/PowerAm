@@ -1086,6 +1086,8 @@ void MainWindow::setAnalogState()
 
 void MainWindow::setTicketState()
 {
+	//ÇÐ»»µ½ÄâÆ±Ì¬Ê±Çé¿öÓÒ¼ü²Ëµ¥
+	m_contextMenu->clear();
 	m_modelAction->setEnabled(true);
 	m_sence->setSysState(eTICKET);
 }

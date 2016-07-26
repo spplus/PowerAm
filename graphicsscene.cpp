@@ -123,10 +123,15 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 		}
 
 		// 判断系统状态，只有在模拟态下才可以操作
-		if (m_sysState != eANALOG)
+		//当系统为拟票态时，在创建操作票的情况下右键才响应菜单
+		if (m_sysState == eTICKET)
 		{
-			return;
+			if (!ComUtil::instance()->getActionFlag())
+			{
+				return;
+			}
 		}
+
 		SvgItem *item1= (SvgItem *)(this->itemAt(mouseEvent->scenePos()));
 		if (item1 != NULL && item1->getCimId().length()>0)
 		{
