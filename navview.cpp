@@ -1,4 +1,4 @@
-
+﻿
 #include "navview.h"
 #include "colordefines.h"
 

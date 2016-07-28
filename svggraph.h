@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-		DESC:		¶¨ÒåSVGÍ¼ĞÎ.
+		DESC:		å®šä¹‰SVGå›¾å½¢.
 		DATE:		2016-03-31
 		AUTHOR:		YUANLS
 */
@@ -31,35 +31,35 @@ public:
 
 	QMap<QString,QString>& getStyleMap();
 
-	// »ñÈ¡Í¼²ãÁĞ±íµÄÒıÓÃ
+	// è·å–å›¾å±‚åˆ—è¡¨çš„å¼•ç”¨
 	QList<SvgLayer*>&	getLayerList();
 
-	// ÉèÖÃDOM½ÚµãÊôĞÔ
+	// è®¾ç½®DOMèŠ‚ç‚¹å±æ€§
 	bool			setAttribute(QString nodeid,QString attr,QString val);
 
-	// »ñÈ¡DOM½ÚµãÊôĞÔ
+	// è·å–DOMèŠ‚ç‚¹å±æ€§
 	QString			getAttribute(QString nodeid,QString attr);
 
-	// ¸ù¾İsvgId»ñÈ¡Éè±¸¶ÔÏó
+	// æ ¹æ®svgIdè·å–è®¾å¤‡å¯¹è±¡
 	BaseDevice*		getDevById(QString svgid);
 
 private:
 
 	QDomNode			getElementById(QString nodeid);
 
-	// Í¼ID
+	// å›¾ID
 	QString			m_id;
 
-	// Í¼ÎÄ¼şÂ·¾¶
+	// å›¾æ–‡ä»¶è·¯å¾„
 	QString			m_filePath;
 
-	// ÎÄ¼şdom¶ÔÏó
+	// æ–‡ä»¶domå¯¹è±¡
 	QDomDocument*	m_dom;
 
 	// CSS
 	QMap<QString,QString> m_styleMap;
 
-	// Í¼²ãÁĞ±í
+	// å›¾å±‚åˆ—è¡¨
 	QList<SvgLayer*>	m_layerList;
 };
 

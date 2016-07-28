@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-		DESC:		¶¨Òå³£Á¿.
+		DESC:		å®šä¹‰å¸¸é‡.
 		DATE:		2016-03-24
 		AUTHOR: YUANLS
 */
@@ -11,23 +11,23 @@
 #include <QString>
 #include "include/commands.h"
 
-// ´øµç½ÓµØÑÕÉ«
+// å¸¦ç”µæ¥åœ°é¢œè‰²
 #define					POWERON_GROUND_COLOR		"#FF0000"
 
-// ²»´øµç½ÓµØ
+// ä¸å¸¦ç”µæ¥åœ°
 #define					POWEROFF_GROUND_COLOR	"#835858"
 
-// ²»´øµçÑÕÉ«
+// ä¸å¸¦ç”µé¢œè‰²
 #define					POWEROFF_COLOR			"#AAAAAA"
 
-// ÌáÊ¾ÑÕÉ«
+// æç¤ºé¢œè‰²
 #define					TIPSHOW_COLOR			"#e634e0"
 
 enum eRoleType
 {
-	eManager = 1,			//¹ÜÀíÔ±
-	eDispatcher = 2,		//µ÷¶ÈÔ±
-	eAutomater = 3,			//×Ô¶¯»¯
+	eManager = 1,			//ç®¡ç†å‘˜
+	eDispatcher = 2,		//è°ƒåº¦å‘˜
+	eAutomater = 3,			//è‡ªåŠ¨åŒ–
 	eMaintainers = 4		
 };
 
@@ -38,11 +38,11 @@ enum eResult
 
 enum eTransType
 {
-	eTWO,				// Á½¾í ±ä
-	eTHREE				// Èı¾í ±ä
+	eTWO,				// ä¸¤å· å˜
+	eTHREE				// ä¸‰å· å˜
 };
 
-// ÏµÍ³×´Ì¬
+// ç³»ç»ŸçŠ¶æ€
 enum		eSysState
 {
 	eREALTIME,
@@ -50,15 +50,15 @@ enum		eSysState
 	eTICKET
 };
 
-// ¹ÒÅÆ×´Ì¬
+// æŒ‚ç‰ŒçŠ¶æ€
 enum	eTagState{eTagOff,eTagOn};
-// ¿ª¹Ø×´Ì¬
+// å¼€å…³çŠ¶æ€
 enum	eBreakerState{eOFF=0,eON};
 
-// ²ã¶¨Òå
+// å±‚å®šä¹‰
 const	QString		HEAD_LAYER				= "Head_Layer";
 const	QString		BUS_LAYER				= "Bus_Layer";
-const	QString		BUS_LAYER_JC			= "Busbarsection_Layer";	// ¼¯³Éµç×ÓÄ¸Ïß²ã
+const	QString		BUS_LAYER_JC			= "Busbarsection_Layer";	// é›†æˆç”µå­æ¯çº¿å±‚
 const	QString		BREAKER_LAYER			= "Breaker_Layer";
 const	QString		DISCONN_LAYER			= "Disconnector_Layer";
 const	QString		GROUNDDISCONN_LAYER		= "GroundDisconnector_Layer";
@@ -72,15 +72,15 @@ const	QString		LOAD_LAYER				= "Load_Layer";
 const	QString		TERM_LAYER				= "Term_Layer";
 const	QString		ARRESTER_LAYER			= "Arrester_Layer";
 const	QString		MEASURE_LAYER			= "MeasurementValue_Layer";
-const	QString		MEASURE2_LAYER			= "MeasureValue_Layer";			// kedongÍ¼ĞÎµÄÁ¿²â²ã
-const	QString		MEASURE3_LAYER			= "Measurement_Layer";				// »ı³Éµç×Ó
+const	QString		MEASURE2_LAYER			= "MeasureValue_Layer";			// kedongå›¾å½¢çš„é‡æµ‹å±‚
+const	QString		MEASURE3_LAYER			= "Measurement_Layer";				// ç§¯æˆç”µå­
 const	QString		PT_LAYER				= "PT_Layer";
 const	QString		GZP_LAYER				= "GZP_Layer";
 const	QString		GENERATER_LAYER			= "Generator_Layer";
 const	QString		CONNECTNODE_LAYER = "ConnectNode_Layer";
 
 
-// ÊôĞÔ¶¨Òå
+// å±æ€§å®šä¹‰
 
 const	QString		ATTR_OBJECT_ID			= "ObjectID";
 const	QString		ATTR_OBJECT_NAME		= "ObjectName";
@@ -103,7 +103,7 @@ const	QString		ATTR_FONTFAMILY		= "font-family";
 const	QString		ATTR_STROKE					= "stroke";
 
 
-// ±êÇ©¶¨Òå
+// æ ‡ç­¾å®šä¹‰
 const	QString		TAG_METADATA			= "metadata";
 const	QString		TAG_USE					= "use";
 const	QString		TAG_SVG					= "svg";
@@ -116,30 +116,30 @@ const	QString		TAG_POLYLINE			= "polyline";
 const	QString		TAG_STYLE				= "style";
 const	QString		TAG_TEXT				= "text";
 
-// ÅäÖÃÎÄ¼şÃû³Æ
+// é…ç½®æ–‡ä»¶åç§°
 const	QString		CONFIG		=		"client.conf";
 const	QString		CLIENT			=		"client.xml";
 
-// ÑÕÉ«¹æÔòÅäÖÃÎÄ¼şÃû³Æ
+// é¢œè‰²è§„åˆ™é…ç½®æ–‡ä»¶åç§°
 const	QString		COLOR		=		"color.xml";
 
-// ÑùÊ½¶¨Òå
+// æ ·å¼å®šä¹‰
 const	QString		STYLE		=		"style.qss";
 
 
-// SVGÎÄ¼ş±£´æµÄÄ¿Â¼
-const	QString		SVG_ROOT				= QString::fromLocal8Bit("F:\\Work\\SVG\\nanrui\\¼ª°²SVGºÍCIMÎÄ¼ş\\svg_output\\");
+// SVGæ–‡ä»¶ä¿å­˜çš„ç›®å½•
+const	QString		SVG_ROOT				= QString::fromLocal8Bit("F:\\Work\\SVG\\nanrui\\å‰å®‰SVGå’ŒCIMæ–‡ä»¶\\svg_output\\");
 
-// ±¾µØSVGÎÄ¼ş±£´æÄ¿Â¼
+// æœ¬åœ°SVGæ–‡ä»¶ä¿å­˜ç›®å½•
 const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 
 #define		PBNS	com::spplus::buff
 
-// Ê×Ò³Õ¾µãÃ¿ĞĞÏÔÊ¾ÁĞÊı
+// é¦–é¡µç«™ç‚¹æ¯è¡Œæ˜¾ç¤ºåˆ—æ•°
 #define		COL		5
 
 
-// ×ÊÔ´ÎÄ¼ş¶¨Òå
+// èµ„æºæ–‡ä»¶å®šä¹‰
 #define			ICON_NETWORK_ON		":images/network_on.png"
 #define			ICON_NETWORK_OFF	":images/network_off.png"
 #define			ICON_CHECK_ON		":images/check_on.png"
@@ -183,46 +183,46 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			ICON_REALTIME		":images/realtime.png"
 #define			ICON_TICKET			":images/ticket.png"
 
-// ¶¨ÒåÌáÊ¾ĞÅÏ¢
-#define			MSG_TITLE				"ÏµÍ³ÌáÊ¾"
-#define			MSG_TIP_NETWORK_ON		"³É¹¦Á¬½Ó·şÎñÆ÷"
-#define			MSG_TIP_NETWORK_OFF		"·şÎñÆ÷Á¬½Ó¶Ï¿ª"
-#define			MSG_TIP_CONTROL_ON		"ÔÊĞí¿ØÖÆ"
-#define			MSG_TIP_CONTROL_OFF		"½ûÖ¹¿ØÖÆ"
-#define			MSG_TIP_ALARM_ON		"ÔÊĞíÉùÒô¸æ¾¯"
-#define			MSG_TIP_ALARM_OFF		"½ûÖ¹ÉùÒô¸æ¾¯"
-#define			MSG_TIP_CHECK_ON		"ÔÊĞíĞ£Ñé"
-#define			MSG_TIP_CHECK_OFF		"½ûÖ¹Ğ£Ñé"
-#define			MSG_TIP_HOME			"Ê×Ò³"
-#define			MSG_TIP_OPEN			"´ò¿ª"
-#define			MSG_TIP_NEXT			"ÏÂÒ»ÕÅ"
-#define			MSG_TIP_PREV			"Ç°Ò»ÕÅ"
-#define			MSG_TIP_ZOOMOUT			"·Å´ó"
-#define			MSG_TIP_ZOOMIN			"ËõĞ¡"
-#define			MSG_TIP_REFRESH			"Ë¢ĞÂ"
-#define			MSG_TIP_SAVE			"±£´æ´æµµ"
-#define			MSG_TIP_READ			"´ò¿ª´æµµ"
-#define			MSG_TIP_RULE			"¹æÔòÉèÖÃ"
-#define			MSG_TIP_CIRCLE			"»·Â·²éÑ¯"
-#define			MSG_TIP_TAG				"¹ÒÅÆ²éÑ¯"
-#define			MSG_TIP_GROUND			"½ÓµØ²éÑ¯"
-#define			MSG_TIP_OPRATION		"²Ù×÷²éÑ¯"
-#define			MSG_TIP_EVENT			"ÊÂ¼ş²éÑ¯"
-#define			MSG_TIP_RUN_REAL		"ÊµÊ±Ì¬"
-#define			MSG_TIP_RUN_ANALOG		"²Ù×÷ÈÎÎñ"
-#define			MSG_TIP_RUN_BILL		"ÄâÆ±Ì¬"
-#define			MSG_TIP_SETTING			"ÈË¹¤ÉèÖÃ²éÑ¯"
-#define			MSG_TIP_SAVING			"´æµµ²éÑ¯"
-#define			MSG_TIP_SWITCH_ON		"ÖÃºÏ"
-#define			MSG_TIP_SWITCH_OFF		"ÖÃ·Ö"
-#define			MSG_TIP_TAG_ON			"¹ÒÅÆ"
-#define			MSG_TIP_TAG_OFF			"ÕªÅÆ"
-#define			MSG_TIP_POINTER			"Ö¸Õë"
-#define			MSG_TIP_ZOOM_ORG		"Ô­Ê¼³ß´ç"
-#define			MSG_TIP_TOPO			"ÍØÆË²éÑ¯"
-#define			MSG_TIP_BAY				"¼ä¸ô²éÑ¯"
-#define			MSG_TIP_LOG				"ÈÕÖ¾²éÑ¯"
-#define			MSG_TIP_POWERSET	"ÉèÖÃµçÔ´µã"
-#define			MSG_TIP_LINESET		"ÉèÖÃ½ø³öÏß"
+// å®šä¹‰æç¤ºä¿¡æ¯
+#define			MSG_TITLE				"ç³»ç»Ÿæç¤º"
+#define			MSG_TIP_NETWORK_ON		"æˆåŠŸè¿æ¥æœåŠ¡å™¨"
+#define			MSG_TIP_NETWORK_OFF		"æœåŠ¡å™¨è¿æ¥æ–­å¼€"
+#define			MSG_TIP_CONTROL_ON		"å…è®¸æ§åˆ¶"
+#define			MSG_TIP_CONTROL_OFF		"ç¦æ­¢æ§åˆ¶"
+#define			MSG_TIP_ALARM_ON		"å…è®¸å£°éŸ³å‘Šè­¦"
+#define			MSG_TIP_ALARM_OFF		"ç¦æ­¢å£°éŸ³å‘Šè­¦"
+#define			MSG_TIP_CHECK_ON		"å…è®¸æ ¡éªŒ"
+#define			MSG_TIP_CHECK_OFF		"ç¦æ­¢æ ¡éªŒ"
+#define			MSG_TIP_HOME			"é¦–é¡µ"
+#define			MSG_TIP_OPEN			"æ‰“å¼€"
+#define			MSG_TIP_NEXT			"ä¸‹ä¸€å¼ "
+#define			MSG_TIP_PREV			"å‰ä¸€å¼ "
+#define			MSG_TIP_ZOOMOUT			"æ”¾å¤§"
+#define			MSG_TIP_ZOOMIN			"ç¼©å°"
+#define			MSG_TIP_REFRESH			"åˆ·æ–°"
+#define			MSG_TIP_SAVE			"ä¿å­˜å­˜æ¡£"
+#define			MSG_TIP_READ			"æ‰“å¼€å­˜æ¡£"
+#define			MSG_TIP_RULE			"è§„åˆ™è®¾ç½®"
+#define			MSG_TIP_CIRCLE			"ç¯è·¯æŸ¥è¯¢"
+#define			MSG_TIP_TAG				"æŒ‚ç‰ŒæŸ¥è¯¢"
+#define			MSG_TIP_GROUND			"æ¥åœ°æŸ¥è¯¢"
+#define			MSG_TIP_OPRATION		"æ“ä½œæŸ¥è¯¢"
+#define			MSG_TIP_EVENT			"äº‹ä»¶æŸ¥è¯¢"
+#define			MSG_TIP_RUN_REAL		"å®æ—¶æ€"
+#define			MSG_TIP_RUN_ANALOG		"æ“ä½œä»»åŠ¡"
+#define			MSG_TIP_RUN_BILL		"æ‹Ÿç¥¨æ€"
+#define			MSG_TIP_SETTING			"äººå·¥è®¾ç½®æŸ¥è¯¢"
+#define			MSG_TIP_SAVING			"å­˜æ¡£æŸ¥è¯¢"
+#define			MSG_TIP_SWITCH_ON		"ç½®åˆ"
+#define			MSG_TIP_SWITCH_OFF		"ç½®åˆ†"
+#define			MSG_TIP_TAG_ON			"æŒ‚ç‰Œ"
+#define			MSG_TIP_TAG_OFF			"æ‘˜ç‰Œ"
+#define			MSG_TIP_POINTER			"æŒ‡é’ˆ"
+#define			MSG_TIP_ZOOM_ORG		"åŸå§‹å°ºå¯¸"
+#define			MSG_TIP_TOPO			"æ‹“æ‰‘æŸ¥è¯¢"
+#define			MSG_TIP_BAY				"é—´éš”æŸ¥è¯¢"
+#define			MSG_TIP_LOG				"æ—¥å¿—æŸ¥è¯¢"
+#define			MSG_TIP_POWERSET	"è®¾ç½®ç”µæºç‚¹"
+#define			MSG_TIP_LINESET		"è®¾ç½®è¿›å‡ºçº¿"
 
 #endif

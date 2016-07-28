@@ -1,4 +1,4 @@
-#include "graphicsview.h"
+﻿#include "graphicsview.h"
 
 GraphicsView::GraphicsView(GraphicsScene* scene)
 

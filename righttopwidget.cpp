@@ -1,14 +1,14 @@
-#include "righttopwidget.h"
+ï»¿#include "righttopwidget.h"
 
 RightTopWidget::RightTopWidget(QWidget* parent /* = NULL */)
 {
-	m_oppath = tr("Ê×Ò³");
+	m_oppath = tr("é¦–é¡µ");
 	initUi();
 }
 
 void RightTopWidget::setOppath(QString path)
 {
-	QString temp = tr("Ê×Ò³ > %1").arg(path);
+	QString temp = tr("é¦–é¡µ > %1").arg(path);
 	m_oppath =temp;
 	m_label->setText(temp);
 }
@@ -36,7 +36,7 @@ void RightTopWidget::initUi()
 	hbox1->addWidget(homeLabel);
 	hbox1->addWidget(m_label);
 	hbox1->addStretch();
-	m_label->setStyleSheet("font-size:15px;color:#006A6A;font-family:Î¢ÈíÑÅºÚ,ËÎÌå;font-weight:bold;");
+	m_label->setStyleSheet("font-size:15px;color:#006A6A;font-family:å¾®è½¯é›…é»‘,å®‹ä½“;font-weight:bold;");
 	setStyleSheet("border-image:url(:images/top_bk.png);");
 	setLayout(hbox1);
 }

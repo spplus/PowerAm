@@ -1,4 +1,4 @@
-#ifndef COLORDEFINES_H
+﻿#ifndef COLORDEFINES_H
 #define COLORDEFINES_H
 
 #include <QColor>

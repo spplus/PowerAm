@@ -1,4 +1,4 @@
-#include <QVBoxLayout>
+ï»¿#include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QToolButton>
@@ -35,10 +35,10 @@ HomeWindow::HomeWindow(QWidget *parent /* = 0 */)
 {
 	setGeometry(QRect(100,100,1024,600));
 
-	// ³õÊ¼»¯½çÃæ
+	// åˆå§‹åŒ–ç•Œé¢
 	initUi();
 
-	// ³õÊ¼»¯ÐÅºÅ²Û
+	// åˆå§‹åŒ–ä¿¡å·æ§½
 	initConnections();
 
 }
@@ -105,11 +105,11 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			ComUtil::instance()->saveStationList(res);
 			m_leftWidget->loadData(res);
 
-			//³§Õ¾¹ÜÀí·µ»Ø
+			//åŽ‚ç«™ç®¡ç†è¿”å›ž
 			ComUtil::instance()->saveStationTypeList(res);
-			//»ñÈ¡ftpÂ·¾¶ÖÐsvgÎÄ¼þÃû³Æ
+			//èŽ·å–ftpè·¯å¾„ä¸­svgæ–‡ä»¶åç§°
 			ComUtil::instance()->saveSvgPathName();
-			//ÉèÖÃË¢ÐÂ±êÖ¾
+			//è®¾ç½®åˆ·æ–°æ ‡å¿—
 			ComUtil::instance()->setStationTypeRushflag(true);
 
 		}
@@ -148,7 +148,7 @@ void HomeWindow::recvdata(int msgtype,const char* msg,int msglength)
 			PBNS::UserListMsg_Response res;
 			res.ParseFromArray(msg,msglength);
 
-			//ÓÃ»§ÁÐ±í·µ»Ø
+			//ç”¨æˆ·åˆ—è¡¨è¿”å›ž
 			ComUtil::instance()->saveAllUserList(res);
 		}
 		break;
@@ -178,7 +178,7 @@ void HomeWindow::openFile(PBNS::StationBean& bean)
 {
 	m_rightTopWidget->setStationName(bean.currentname().c_str());
 
-	// ÏÔÊ¾µçÂ·Í¼´°¿Ú£¬Òþ²Øµ±Ç°´°¿Ú
+	// æ˜¾ç¤ºç”µè·¯å›¾çª—å£ï¼Œéšè—å½“å‰çª—å£
 	this->hide();
 
 	MainWindow::instance()->show();
@@ -187,7 +187,7 @@ void HomeWindow::openFile(PBNS::StationBean& bean)
 
 void HomeWindow::logout()
 {
-	if(QMessageBox::question(this,"ÏµÍ³ÌáÊ¾","È·¶¨ÍË³öÏµÍ³Âð£¿",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+	if(QMessageBox::question(this,"ç³»ç»Ÿæç¤º","ç¡®å®šé€€å‡ºç³»ç»Ÿå—ï¼Ÿ",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
 	{
 		exit(0);
 	}
@@ -195,10 +195,10 @@ void HomeWindow::logout()
 
 void HomeWindow::loadStationsById(int id,QString tname)
 {
-	// °´Àà±ð¼ÓÔØÕ¾µã
+	// æŒ‰ç±»åˆ«åŠ è½½ç«™ç‚¹
 	m_contentWidget->loadData(m_stationList,id);
 
-	// ÉèÖÃ²Ù×÷Â·¾¶
+	// è®¾ç½®æ“ä½œè·¯å¾„
 	m_rightTopWidget->setOppath(tname);
 }
 

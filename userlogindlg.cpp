@@ -1,4 +1,4 @@
-#include <string>
+ï»¿#include <string>
 #include "userlogindlg.h"
 #include "comutil.h"
 UserLogindlg* UserLogindlg::m_inst = NULL;
@@ -18,7 +18,7 @@ UserLogindlg::UserLogindlg()
 	setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	setAttribute(Qt::WA_TranslucentBackground);
 
-	//³õÊ¼»¯ÎªÎ´°´ÏÂÊó±ê×ó¼ü
+	//åˆå§‹åŒ–ä¸ºæœªæŒ‰ä¸‹é¼ æ ‡å·¦é”®
 	mouse_press = false;
 
 	loginwidget = new QWidget(this);
@@ -34,62 +34,62 @@ UserLogindlg::UserLogindlg()
 
 	QVBoxLayout *pvlyt = new QVBoxLayout;
 
-	//´´½¨±êÌâwidget
+	//åˆ›å»ºæ ‡é¢˜widget
 	plgntitel_widget = new QWidget(this);
 	plgntitel_widget->setFixedWidth(544);
 	plgntitel_widget->setFixedHeight(137);
 	//button_widget->setFixedHeight(30);
-	//ÉèÖÃwidgetÔ²½ÇºÍ±³¾°Í¼Æ¬border:1px groove gray;border-radius:5px;padding:2px 4px;
+	//è®¾ç½®widgetåœ†è§’å’ŒèƒŒæ™¯å›¾ç‰‡border:1px groove gray;border-radius:5px;padding:2px 4px;
 	plgntitel_widget->setStyleSheet("background-image:url(:stgirdicon);");
 
 	plgntitel_widget->setAutoFillBackground(true);
 
 	close_button = new PushButton(plgntitel_widget);
-	//ÉèÖÃ°´Å¥±³¾°Í¼Æ¬
+	//è®¾ç½®æŒ‰é’®èƒŒæ™¯å›¾ç‰‡
 	close_button->setPicName(QString(":close"));
 
-	//°´Å¥°Ú·Åµ±Ç°widgetµÄÓÒÉÏ½ÇÎ»ÖÃ£¬Ä¬ÈÏÔÚ×óÉÏ½Ç°ÑÒÆ¶¯µ½×óÉÏ½Ç
+	//æŒ‰é’®æ‘†æ”¾å½“å‰widgetçš„å³ä¸Šè§’ä½ç½®ï¼Œé»˜è®¤åœ¨å·¦ä¸Šè§’æŠŠç§»åŠ¨åˆ°å·¦ä¸Šè§’
 	int width = plgntitel_widget->width();
 	close_button->move(width-close_button->width(), 0);
 
 
-	//µÇÂ¼¿òÓÃ»§Ãû
+	//ç™»å½•æ¡†ç”¨æˆ·å
 	//pusercobx = new QComboBox;
 	//pusercobx->setEditable(true);
-	//pusercobx->lineEdit()->setPlaceholderText("ÓÃ»§Ãû");
+	//pusercobx->lineEdit()->setPlaceholderText("ç”¨æˆ·å");
 	//pusercobx->setFixedSize(180,32);
 
-	//µÇÂ¼¿òÓÃ»§Ãû
+	//ç™»å½•æ¡†ç”¨æˆ·å
 	puserlined = new QLineEdit;
-	puserlined->setPlaceholderText("ÓÃ»§Ãû");
+	puserlined->setPlaceholderText("ç”¨æˆ·å");
 	puserlined->setFixedSize(180,32);
 
-	//µÇÂ¼¿òÃÜÂë
+	//ç™»å½•æ¡†å¯†ç 
 	ppwdlined = new QLineEdit;
-	ppwdlined->setPlaceholderText("ÃÜ  Âë");
+	ppwdlined->setPlaceholderText("å¯†  ç ");
 	ppwdlined->setEchoMode(QLineEdit::Password);
 	ppwdlined->setFixedSize(180,32);
-	//µÇÂ¼°´Å¥
+	//ç™»å½•æŒ‰é’®
 	ploginbtn = new QPushButton();
 	//ploginbtn->setIcon(QPixmap(QString(":login")));
 	ploginbtn->setStyleSheet("border-radius:5px;background-image:url(:login);");
 	ploginbtn->setFixedSize(180,32);
 
-	//²¼¾ÖµÇÂ¼ÓÃ»§ÃûºÍÃÜÂë¿ò
+	//å¸ƒå±€ç™»å½•ç”¨æˆ·åå’Œå¯†ç æ¡†
 	plgnvlyt->addWidget(puserlined);
 	plgnvlyt->addWidget(ppwdlined);
 	plgnvlyt->setSpacing(0);
 
-	//²¼¾ÖµÇÂ¼¿òºÍ°´Å¥
+	//å¸ƒå±€ç™»å½•æ¡†å’ŒæŒ‰é’®
 	ploginvlyt->addLayout(plgnvlyt);
 	ploginvlyt->addSpacing(32);
 	ploginvlyt->addWidget(ploginbtn);
 
-	//²¼¾ÖµÇÂ¼ÊäÈë¿ò¼°°´Å¥
+	//å¸ƒå±€ç™»å½•è¾“å…¥æ¡†åŠæŒ‰é’®
 	plgnhlyt->addSpacing(265);
 	plgnhlyt->addLayout(ploginvlyt);
 
-	//×ÜÌå²¼¾Ö
+	//æ€»ä½“å¸ƒå±€
 	pvlyt->addWidget(plgntitel_widget);
 	pvlyt->addSpacing(45);
 	pvlyt->addLayout(plgnhlyt);
@@ -97,11 +97,11 @@ UserLogindlg::UserLogindlg()
 	pvlyt->setContentsMargins(21,21,21,50);
 
 	loginwidget->setLayout(pvlyt);
-	//ÉèÖÃ°´Å¥½¹µã
+	//è®¾ç½®æŒ‰é’®ç„¦ç‚¹
 	ploginbtn->setFocus(Qt::ActiveWindowFocusReason);
-	//µã»÷¹Ø±Õ°´Å¥¹Ø±ÕµÇÂ¼½çÃæ
+	//ç‚¹å‡»å…³é—­æŒ‰é’®å…³é—­ç™»å½•ç•Œé¢
 	connect(close_button, SIGNAL(clicked()), this, SLOT(closedlg()));
-	//µÇÂ¼ÏìÓ¦
+	//ç™»å½•å“åº”
 	connect(ploginbtn,SIGNAL(clicked()),this,SLOT(login()));
 	
 	bcloselgn = false;
@@ -126,17 +126,17 @@ void UserLogindlg::login()
 
 	if (strusername == "")
 	{
-		QMessageBox::information(this,tr("ÓÃ»§µÇÂ¼ÌáÊ¾:"),tr("µÇÂ¼ÓÃ»§ÃûÎª¿Õ,ÇëÊäÈëÓÃ»§Ãû!"));
+		QMessageBox::information(this,tr("ç”¨æˆ·ç™»å½•æç¤º:"),tr("ç™»å½•ç”¨æˆ·åä¸ºç©º,è¯·è¾“å…¥ç”¨æˆ·å!"));
 		return;
 	}
 
 	if (strpwd == "")
 	{
-		QMessageBox::information(this,tr("ÓÃ»§µÇÂ¼ÌáÊ¾:"),tr("µÇÂ¼ÃÜÂëÎª¿Õ,ÇëÊäÈëÃÜÂë!"));
+		QMessageBox::information(this,tr("ç”¨æˆ·ç™»å½•æç¤º:"),tr("ç™»å½•å¯†ç ä¸ºç©º,è¯·è¾“å…¥å¯†ç !"));
 		return;
 	}
 
-	//¶ÔÊäÈëÃÜÂëÖµ½øÐÐMd5¼ÓÃÜ
+	//å¯¹è¾“å…¥å¯†ç å€¼è¿›è¡ŒMd5åŠ å¯†
 	QByteArray byte_array;
 	byte_array.append(strpwd);
 	QByteArray hash_byte_array = QCryptographicHash::hash(byte_array, QCryptographicHash::Md5);
@@ -150,7 +150,7 @@ void UserLogindlg::login()
 	loginreq.set_userpwd(strpwdmd5.toStdString());
 
 	string data = loginreq.SerializeAsString();
-	//·¢ËÍÊý¾ÝÐÅºÅ
+	//å‘é€æ•°æ®ä¿¡å·
 	NetClient::instance()->sendData(CMD_USER_LONGIN,data.c_str(),data.length());
 
 	return;
@@ -166,7 +166,7 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 			userep.ParseFromString(msg);
 			PBNS::UserBean ubean;
 
-			//µÃµ½¶ÔÓ¦ÓÃ»§ÃûÃÜÂëµÄÓÃ»§ÐÅÏ¢,µÇÂ½³É¹¦£¬¹Ø±ÕµÇÂ½½çÃæ
+			//å¾—åˆ°å¯¹åº”ç”¨æˆ·åå¯†ç çš„ç”¨æˆ·ä¿¡æ¯,ç™»é™†æˆåŠŸï¼Œå…³é—­ç™»é™†ç•Œé¢
 			if (userep.userlist_size() > 0)
 			{
 				for (int i=0;i<userep.userlist_size();i++)
@@ -174,13 +174,13 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 					ubean = userep.userlist(i);
 				}
 
-				//ÉèÖÃÓÃ»§Ïà¹ØÐÅÏ¢
+				//è®¾ç½®ç”¨æˆ·ç›¸å…³ä¿¡æ¯
 				userid  = atoi(ubean.userid().c_str());
 				uname   = QString::fromStdString(ubean.username());
 				passwd	= QString::fromStdString(ubean.userpwd());
 				roleid  = atoi(ubean.userrole().c_str());
 				
-				// ±£´æµ±Ç°µÇÂ¼ÓÃ»§µÄ½ÇÉ«
+				// ä¿å­˜å½“å‰ç™»å½•ç”¨æˆ·çš„è§’è‰²
 				ComUtil::instance()->setCurUserRole(roleid);
 				ComUtil::instance()->setCurUserId(userid);
 
@@ -188,33 +188,33 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 				switch (roleid)
 				{
 				case eManager:
-					rolename = tr("¹ÜÀíÔ±");
+					rolename = tr("ç®¡ç†å‘˜");
 					break;
 				case eDispatcher:
-					rolename = tr("µ÷¶È");
+					rolename = tr("è°ƒåº¦");
 					break;
 				case eAutomater:
-					rolename = tr("×Ô¶¯»¯");
+					rolename = tr("è‡ªåŠ¨åŒ–");
 					break;
 				case eMaintainers:
-					rolename = tr("ÔËÎ¬");
+					rolename = tr("è¿ç»´");
 					break;
 				default:
-					rolename = tr("Î´Öª");
+					rolename = tr("æœªçŸ¥");
 					break;
 				}
 
 				this->close();
 
-				// ÅÐ¶ÏcimÎÄ¼þÊÇ·ñÓÐ¸üÐÂ
+				// åˆ¤æ–­cimæ–‡ä»¶æ˜¯å¦æœ‰æ›´æ–°
 				if (userep.rescode() == 2)
 				{
-					QMessageBox::information(this,tr("CIMÎÄ¼þ¸üÐÂ"),tr("CIMÎÄ¼þÓÐ¸üÐÂ£¬Çëµã»÷µçÂ·Í¼½çÃæ ¡®Ë¢ÐÂ¡¯°´Å¥½øÐÐ¸üÐÂCIM!"));
+					QMessageBox::information(this,tr("CIMæ–‡ä»¶æ›´æ–°"),tr("CIMæ–‡ä»¶æœ‰æ›´æ–°ï¼Œè¯·ç‚¹å‡»ç”µè·¯å›¾ç•Œé¢ â€˜åˆ·æ–°â€™æŒ‰é’®è¿›è¡Œæ›´æ–°CIM!"));
 				}
 			}
 			else
 			{
-				QMessageBox::information(this,tr("ÓÃ»§µÇÂ¼ÌáÊ¾:"),tr("ÓÃ»§Ãû»òÃÜÂëÊäÈë´íÎó!"));
+				QMessageBox::information(this,tr("ç”¨æˆ·ç™»å½•æç¤º:"),tr("ç”¨æˆ·åæˆ–å¯†ç è¾“å…¥é”™è¯¯!"));
 				return;
 			}
 		}
@@ -257,13 +257,13 @@ QString UserLogindlg::getLoginRealName()
 
 void UserLogindlg::mousePressEvent(QMouseEvent *event)
 {
-	//Ö»ÄÜÊÇÊó±ê×ó¼üÒÆ¶¯ºÍ¸Ä±ä´óÐ¡
+	//åªèƒ½æ˜¯é¼ æ ‡å·¦é”®ç§»åŠ¨å’Œæ”¹å˜å¤§å°
 	if(event->button() == Qt::LeftButton) 
 	{
 		mouse_press = true;
 	}
 
-	//´°¿ÚÒÆ¶¯¾àÀë
+	//çª—å£ç§»åŠ¨è·ç¦»
 	move_point = event->globalPos() - pos(); 
 
 }
@@ -275,7 +275,7 @@ void UserLogindlg::mouseReleaseEvent(QMouseEvent *event)
 
 void UserLogindlg::mouseMoveEvent(QMouseEvent *event)
 {
-	//ÒÆ¶¯´°¿Ú
+	//ç§»åŠ¨çª—å£
 	if(mouse_press)   
 	{
 		QPoint move_pos = event->globalPos();

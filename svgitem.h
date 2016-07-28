@@ -1,6 +1,6 @@
-/************************************************************************/
+﻿/************************************************************************/
 /* 
-	DESC:		�Զ���ITEM���̳���QGraphicsSvgItem.
+	DESC:		自定义ITEM，继承至QGraphicsSvgItem.
 	DATE:		2016-04-01
 	AUTHOR:		YUANLS	
 */
@@ -32,7 +32,7 @@ public:
 
 private:
 
-	// �Ƿ����ù���ɫ
+	// 是否设置过颜色
 	bool				m_isColor;
 	QString			m_svgId;
 	QString			m_cimId;

@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-		DESC:	ÓÒ±ß¹¤×÷ÇøÕ¾µãÁĞ±íÏÔÊ¾ÇøÓò.
+		DESC:	å³è¾¹å·¥ä½œåŒºç«™ç‚¹åˆ—è¡¨æ˜¾ç¤ºåŒºåŸŸ.
 		DATE:	2016-05-09
 		AUTHOR:	YUANLS
 */
@@ -21,15 +21,15 @@ public:
 
 signals:
 	
-	// ´ò¿ªÍ¼ĞÎ
+	// æ‰“å¼€å›¾å½¢
 	void	openfile(PBNS::StationBean& bean);
 
 public slots:
 	
-	// ¼ÓÔØÕ¾µã
+	// åŠ è½½ç«™ç‚¹
 	void	loadData(PBNS::StationTypeMsg_Response& res,int tpid);
 
-	// °´Å¥´¥·¢ÊÂ¼ş
+	// æŒ‰é’®è§¦å‘äº‹ä»¶
 	void	btnPressed();
 	
 private:
@@ -40,7 +40,7 @@ private:
 	PBNS::StationTypeMsg_Response m_stationList;
 };
 
-// ÉùÃ÷Ä£°åÀàĞÍ£¬¿ÉÒÔÓÃÓÚĞÅºÅ²Û
+// å£°æ˜æ¨¡æ¿ç±»å‹ï¼Œå¯ä»¥ç”¨äºä¿¡å·æ§½
 Q_DECLARE_METATYPE(PBNS::StationBean);
 
 #endif

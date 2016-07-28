@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		ÓÃ»§¹ÜÀí
+	DESC:		ç”¨æˆ·ç®¡ç†
 	DATE:		2016-05-10
 	AUTHOR:		Abelsky
 */
@@ -30,36 +30,36 @@ public:
 	UserMgrdlg(QWidget *parent);
 	~UserMgrdlg();
 
-	void reqUserList();										    //ÇëÇóÓÃ»§ÁĞ±í
-	void retUserManager(int msgtype,const char* msg);			//ÓÃ»§¹ÜÀí
+	void reqUserList();										    //è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
+	void retUserManager(int msgtype,const char* msg);			//ç”¨æˆ·ç®¡ç†
 
 private:
 	
-	void reqUserRoleList();										//ÇëÇóÓÃ»§½ÇÉ«ÁĞ±í
+	void reqUserRoleList();										//è¯·æ±‚ç”¨æˆ·è§’è‰²åˆ—è¡¨
 
-	void retUserList(const char* msg);							//µÃµ½·µ»ØÓÃ»§ÁĞ±í
-	void retUserRoleList(const char* msg);						//µÃµ½·µ»ØÓÃ»§½ÇÉ«ÁĞ±í
+	void retUserList(const char* msg);							//å¾—åˆ°è¿”å›ç”¨æˆ·åˆ—è¡¨
+	void retUserRoleList(const char* msg);						//å¾—åˆ°è¿”å›ç”¨æˆ·è§’è‰²åˆ—è¡¨
 
 
 signals:
 
 public slots:
-	void getUserItem(QTableWidgetItem* item);					//Ñ¡ÖĞtab±íÖĞÄ³Ò»ĞĞÏìÓ¦º¯Êı
+	void getUserItem(QTableWidgetItem* item);					//é€‰ä¸­tabè¡¨ä¸­æŸä¸€è¡Œå“åº”å‡½æ•°
 	void addUser();
 	void delUser();
 	void mdfUser();
 
 private:
 	
-	QLabel		*pnamelab,*prolelab,*ppwdlab,*prealnamelab;		//±êÇ©:ÓÃ»§Ãû,½ÇÉ«,ÃÜÂë,ÕæÊµĞÕÃû
-	QLineEdit	*pnamelied,*ppwdlined,*prealnameld;				//ÊäÈë¿ò:ÓÃ»§Ãû,ÃÜÂë,ÕæÊµĞÕÃû
-	QComboBox	*prolecbx;										//½ÇÉ«
+	QLabel		*pnamelab,*prolelab,*ppwdlab,*prealnamelab;		//æ ‡ç­¾:ç”¨æˆ·å,è§’è‰²,å¯†ç ,çœŸå®å§“å
+	QLineEdit	*pnamelied,*ppwdlined,*prealnameld;				//è¾“å…¥æ¡†:ç”¨æˆ·å,å¯†ç ,çœŸå®å§“å
+	QComboBox	*prolecbx;										//è§’è‰²
 
-	QTableWidget *ptabwdgulist;									//ÓÃ»§ÁĞ±í
-	QPushButton	*pbntadd,*pbntdel,*pbntmdf;						//²Ù×÷°´Å¥:Ìí¼Ó,É¾³ı,ĞŞ¸Ä
+	QTableWidget *ptabwdgulist;									//ç”¨æˆ·åˆ—è¡¨
+	QPushButton	*pbntadd,*pbntdel,*pbntmdf;						//æ“ä½œæŒ‰é’®:æ·»åŠ ,åˆ é™¤,ä¿®æ”¹
 
-	bool		baddflag;										//Ìí¼ÓÓÃ»§±êÖ¾
-	bool		bmdfflag;										//ĞŞ¸ÄÓÃ»§±êÖ¾
+	bool		baddflag;										//æ·»åŠ ç”¨æˆ·æ ‡å¿—
+	bool		bmdfflag;										//ä¿®æ”¹ç”¨æˆ·æ ‡å¿—
 	bool        bfst;
 };
 

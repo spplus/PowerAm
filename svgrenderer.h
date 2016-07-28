@@ -1,7 +1,7 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:	°ÑSVGÍ¼ÔªäÖÈ¾³ÉQGraphicsSvgItem¶ÔÏó
-			äÖÈ¾ÕûÕÅSVGÍ¼ĞÎµ½QGrahicsSencenÖĞ
+	DESC:	æŠŠSVGå›¾å…ƒæ¸²æŸ“æˆQGraphicsSvgItemå¯¹è±¡
+			æ¸²æŸ“æ•´å¼ SVGå›¾å½¢åˆ°QGrahicsSencenä¸­
 	DATE:	2016-03-24
 	AUTHOR:	YUANLS
 */
@@ -27,10 +27,10 @@ public:
 	SvgRenderer(GraphicsScene* scene);
 	~SvgRenderer();
 
-	// °ÑSVGÖĞµÄÍ¼Ôª£¬Éú³Éqgraphicsitem£¬²¢²åÈëµ½sceneÖĞ
+	// æŠŠSVGä¸­çš„å›¾å…ƒï¼Œç”Ÿæˆqgraphicsitemï¼Œå¹¶æ’å…¥åˆ°sceneä¸­
 	void		drawGraph(SvgGraph* graph);
 
-	// ¸ù¾İID´´½¨svgItem
+	// æ ¹æ®IDåˆ›å»ºsvgItem
 	SvgItem*	renderById(SvgGraph* graph,BaseDevice* pdev);
 
 private:
@@ -44,11 +44,11 @@ private:
 	SvgItem*			addItem(QString id,eDeviceType tp = eWINDING);
 	SvgItem*			addItem(BaseDevice* pdev);
 
-	// ³õÊ¼»¯svg
+	// åˆå§‹åŒ–svg
 	QString				initSvgRenderer();
 	
-	// ÅĞ¶ÏÊÇ·ñĞèÒª×ø±ê·´×ª £¬Èç¹ûÓĞĞı×ª-180£¬ÔòX,YĞèÒª·´Ïò²¹³¥
-	// Èç¹ûĞı×ª-90£¬Ôò½öYĞèÒª²¹³¥
+	// åˆ¤æ–­æ˜¯å¦éœ€è¦åæ ‡åè½¬ ï¼Œå¦‚æœæœ‰æ—‹è½¬-180ï¼Œåˆ™X,Yéœ€è¦åå‘è¡¥å¿
+	// å¦‚æœæ—‹è½¬-90ï¼Œåˆ™ä»…Yéœ€è¦è¡¥å¿
 	int					isReverseCoordination(BaseDevice* pdev);
 
 private:

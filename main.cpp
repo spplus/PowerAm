@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+ï»¿#include "mainwindow.h"
 #include <QApplication>
 #include <QTextCodec>
 #include <QPlastiqueStyle>
@@ -13,15 +13,23 @@ int main(int argc, char *argv[])
 
 	QApplication::addLibraryPath("./plugins");
 
-	// ÉèÖÃ±àÂë
+#ifdef WIN32
+	// è®¾ç½®ç¼–ç 
 	QTextCodec::setCodecForTr(QTextCodec::codecForName("GBK"));
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("GBK"));
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("GBK"));
+#else
+	// è®¾ç½®ç¼–ç 
+	QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+#endif
+	
 
-	// ¶ÁÈ¡¿Í»§¶ËÅäÖÃÐÅÏ¢
+	// è¯»å–å®¢æˆ·ç«¯é…ç½®ä¿¡æ¯
 	if (!ComUtil::instance()->initConfig())
 	{
-		QMessageBox::warning(NULL,"ÏµÍ³ÌáÊ¾","¼ÓÔØ¿Í»§¶ËÅäÖÃÊ§°Ü£¬Çë¼ì²éÅäÖÃ.");
+		QMessageBox::warning(NULL,"ç³»ç»Ÿæç¤º","åŠ è½½å®¢æˆ·ç«¯é…ç½®å¤±è´¥ï¼Œè¯·æ£€æŸ¥é…ç½®.");
 		return -1;
 	}
 
@@ -30,42 +38,42 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(qss.readAll());
 	qss.close();
 
-	// ¼ÓÔØÑÕÉ«ÅäÖÃ
+	// åŠ è½½é¢œè‰²é…ç½®
 	/*if(!ComUtil::instance()->loadColorRule())
 	{
-		QMessageBox::warning(NULL,"ÏµÍ³ÌáÊ¾","¼ÓÔØÑÕÉ«¹æÔòÊ§°Ü£¬Çë¼ì²éÅäÖÃ.");
+		QMessageBox::warning(NULL,"ç³»ç»Ÿæç¤º","åŠ è½½é¢œè‰²è§„åˆ™å¤±è´¥ï¼Œè¯·æ£€æŸ¥é…ç½®.");
 		return -1;
 	}*/
 
-	//³õÊ¼»¯ÍøÂçÁ¬½Ó
+	//åˆå§‹åŒ–ç½‘ç»œè¿žæŽ¥
 	if(!NetClient::instance()->init())
 	{
-		QMessageBox::warning(NULL,"ÏµÍ³ÌáÊ¾","Á¬½Ó·þÎñÆ÷Ê§°Ü");
+		QMessageBox::warning(NULL,"ç³»ç»Ÿæç¤º","è¿žæŽ¥æœåŠ¡å™¨å¤±è´¥");
 		return -1;
 	}
 
-	//¼ÓÔØµÇÂ¼½çÃæ
+	//åŠ è½½ç™»å½•ç•Œé¢
 	UserLogindlg::instance()->exec();
 
-	//µÇÂ¼ÓÃ»§ÊÇ·ñ¹Ø±Õ
+	//ç™»å½•ç”¨æˆ·æ˜¯å¦å…³é—­
 	if (UserLogindlg::instance()->getCloselgn())
 	{
 		return -1;
 	}
 
-	// ¼ÓÔØ·ÖÀàÁÐ±í
+	// åŠ è½½åˆ†ç±»åˆ—è¡¨
 	ComUtil::instance()->getStationType();
 
-	//¼ÓÔØ³§Õ¾
+	//åŠ è½½åŽ‚ç«™
 	ComUtil::instance()->getStation();
 
-	//¼ÓÔØ¹æÔòÀàÐÍÁÐ±í
+	//åŠ è½½è§„åˆ™ç±»åž‹åˆ—è¡¨
 	ComUtil::instance()->getRuleType();
 
-	//¼ÓÔØÓÃ»§ÁÐ±í
+	//åŠ è½½ç”¨æˆ·åˆ—è¡¨
 	ComUtil::instance()->getAllUserList();
 
-	//ÉèÖÃµÇÂ¼ÓÃ»§Ãû
+	//è®¾ç½®ç™»å½•ç”¨æˆ·å
 	HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
 	HomeWindow::instance()->show();
 	

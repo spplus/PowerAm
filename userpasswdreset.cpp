@@ -1,9 +1,9 @@
-#include "userpasswdreset.h"
+ï»¿#include "userpasswdreset.h"
 
 UserPasswdReset::UserPasswdReset(QWidget *parent)
 	: QDialog(parent)
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(300,200);
@@ -14,22 +14,22 @@ UserPasswdReset::UserPasswdReset(QWidget *parent)
 	QHBoxLayout *pbnthlayt = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QLabel *poldlab = new QLabel("    Ô­ÃÜÂë:");
+	QLabel *poldlab = new QLabel("    åŸå¯†ç :");
 	poldpwd = new QLineEdit;
 	poldpwd->setEchoMode(QLineEdit::Password);
 	poldpwd->setFixedSize(150,25);
 
-	QLabel *pnewlab = new QLabel("    ĞÂÃÜÂë:");
+	QLabel *pnewlab = new QLabel("    æ–°å¯†ç :");
 	pnewpwd = new QLineEdit;
 	pnewpwd->setEchoMode(QLineEdit::Password);
 	pnewpwd->setFixedSize(150,25);
 
-	QLabel *pnewaglab = new QLabel("È·ÈÏĞÂÃÜÂë:");
+	QLabel *pnewaglab = new QLabel("ç¡®è®¤æ–°å¯†ç :");
 	pnewagpwd = new QLineEdit;
 	pnewagpwd->setEchoMode(QLineEdit::Password);
 	pnewagpwd->setFixedSize(150,25);
 
-	pbntpwdok = new QPushButton("È·  ÈÏ");
+	pbntpwdok = new QPushButton("ç¡®  è®¤");
 	pbntpwdok->setFixedSize(120,25);
 
 	poldhlayt->addWidget(poldlab);
@@ -75,29 +75,29 @@ void UserPasswdReset::commitPwd()
 
 	if (strpwd == "")
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("Ô­ÃÜÂëÊäÈëÎª¿Õ,ÇëÊäÈëÔ­ÃÜÂë!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("åŸå¯†ç è¾“å…¥ä¸ºç©º,è¯·è¾“å…¥åŸå¯†ç !"));
 		return;
 	}
 
 	if (strnpwd == "")
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("ĞÂÃÜÂëÊäÈëÎª¿Õ,ÇëÊäÈëĞÂÃÜÂë!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("æ–°å¯†ç è¾“å…¥ä¸ºç©º,è¯·è¾“å…¥æ–°å¯†ç !"));
 		return;
 	}
 
 	if (strngpwd == "")
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("È·ÈÏĞÂÃÜÂëÊäÈëÎª¿Õ,ÇëÊäÈëÈ·ÈÏĞÂÃÜÂë!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("ç¡®è®¤æ–°å¯†ç è¾“å…¥ä¸ºç©º,è¯·è¾“å…¥ç¡®è®¤æ–°å¯†ç !"));
 		return;
 	}
 
 	if (strnpwd != strngpwd)
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("ĞÂÃÜÂëÁ½´ÎÊäÈë²»Ò»ÖÂ,ÇëÖØĞÂÊäÈë!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("æ–°å¯†ç ä¸¤æ¬¡è¾“å…¥ä¸ä¸€è‡´,è¯·é‡æ–°è¾“å…¥!"));
 		return;
 	}
 
-	//¶ÔÊäÈëÃÜÂëÖµ½øĞĞMd5¼ÓÃÜ
+	//å¯¹è¾“å…¥å¯†ç å€¼è¿›è¡ŒMd5åŠ å¯†
 	QByteArray byte_array;
 	byte_array.append(strpwd);
 	QByteArray hash_byte_array = QCryptographicHash::hash(byte_array, QCryptographicHash::Md5);
@@ -105,12 +105,12 @@ void UserPasswdReset::commitPwd()
 
 	if (strpwdmd5 != UserLogindlg::instance()->getLoginPasswd())
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("Ô­ÃÜÂëÑéÖ¤Ê§°Ü,ÇëÖØĞÂÊäÈë!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("åŸå¯†ç éªŒè¯å¤±è´¥,è¯·é‡æ–°è¾“å…¥!"));
 		return;
 	}
 
 
-	//¶ÔÊäÈëÃÜÂëÖµ½øĞĞMd5¼ÓÃÜ
+	//å¯¹è¾“å…¥å¯†ç å€¼è¿›è¡ŒMd5åŠ å¯†
 	QByteArray byte_array1;
 	byte_array1.append(strnpwd);
 	QByteArray hash_byte_array1 = QCryptographicHash::hash(byte_array1, QCryptographicHash::Md5);
@@ -137,14 +137,14 @@ void UserPasswdReset::retpasswdMgr(int msgtype,const char* msg)
 	pwdrep.rescode();
 	if (pwdrep.rescode() == 0)
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("ÃÜÂëÖØÖÃ³É¹¦!"));
-		//¸üĞÂĞÂÃÜÂë
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("å¯†ç é‡ç½®æˆåŠŸ!"));
+		//æ›´æ–°æ–°å¯†ç 
 		UserLogindlg::instance()->setLoginPasswd(qstrpwdmd5);
 		this->close();
 	} 
 	else
 	{
-		QMessageBox::information(this,tr("ÃÜÂëÖØÖÃÌáÊ¾"),tr("ÃÜÂëÖØÖÃÊ§°Ü!"));
+		QMessageBox::information(this,tr("å¯†ç é‡ç½®æç¤º"),tr("å¯†ç é‡ç½®å¤±è´¥!"));
 	}
 
 }

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+ï»¿#include "mainwindow.h"
 #include "svgparser.h"
 #include <string>
 #include <QPushButton>
@@ -114,9 +114,9 @@ void MainWindow::openOk()
 {
 	m_waitDlg.hide();
 
-	// ´ò¿ªÍê³ÉºóĞèÒª×öµÄÊÂÇé
+	// æ‰“å¼€å®Œæˆåéœ€è¦åšçš„äº‹æƒ…
 
-	// ¼ÓÔØÉè±¸×´Ì¬Êı¾İ
+	// åŠ è½½è®¾å¤‡çŠ¶æ€æ•°æ®
 	m_sence->reqUnitState(m_curStationId);
 
 }
@@ -194,15 +194,15 @@ void MainWindow::initToolBar()
 
 void MainWindow::initMenu()
 {
-	m_sysMenu = this->menuBar()->addMenu(tr("ÏµÍ³&"));
+	m_sysMenu = this->menuBar()->addMenu(tr("ç³»ç»Ÿ&"));
 	//m_sysMenu->addAction(m_downSvg);
 
-	//m_editMenu = this->menuBar()->addMenu(tr("ÉèÖÃ&"));
+	//m_editMenu = this->menuBar()->addMenu(tr("è®¾ç½®&"));
 	//m_editMenu->addAction(m_userMgrAction);
 	//m_editMenu->addAction(m_stationTypeAction);
 	//m_editMenu->addAction(m_stationRelaAction);
 	
-	m_queryMenu = this->menuBar()->addMenu(tr("²éÑ¯&"));
+	m_queryMenu = this->menuBar()->addMenu(tr("æŸ¥è¯¢&"));
 	m_queryMenu->addAction(m_circleQueryAction);
 	m_queryMenu->addAction(m_cutQueryAction);
 	m_queryMenu->addAction(m_gswitchQueryAction);
@@ -286,7 +286,7 @@ void MainWindow::initActions()
 	m_powerSetAction = new QAction(QIcon(ICON_POWERSET),tr(MSG_TIP_POWERSET),this);
 	m_inLineSetAction = new QAction(QIcon(ICON_LINESET),tr(MSG_TIP_LINESET),this);
 
-	// 1 Ö¸Õë 2 ÊÖÕÆ
+	// 1 æŒ‡é’ˆ 2 æ‰‹æŒ
 	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
 
 }
@@ -318,7 +318,7 @@ void MainWindow::initConnections()
 	connect(m_radioWidget,SIGNAL(analog()),this,SLOT(setAnalogState()));
 	connect(m_radioWidget,SIGNAL(ticket()),this,SLOT(setTicketState()));
 
-	//»·Â·²éÑ¯
+	//ç¯è·¯æŸ¥è¯¢
 	connect(m_circleQueryAction,SIGNAL(triggered()),this,SLOT(showCircleQueryDockwdg()));
 	connect(m_signQueryAction,SIGNAL(triggered()),this,SLOT(showSignQueryDockwdg()));
 	connect(m_gswitchQueryAction,SIGNAL(triggered()),this,SLOT(showGswitchQueryDockwdg()));
@@ -355,7 +355,7 @@ void MainWindow::cleanScene()
 }
 void MainWindow::openFile()
 {
-	QString fileName = QFileDialog::getOpenFileName(this, tr("´ò¿ªÎÄ¼ş"),"/", tr("*.svg"));
+	QString fileName = QFileDialog::getOpenFileName(this, tr("æ‰“å¼€æ–‡ä»¶"),"/", tr("*.svg"));
 	openFile(fileName,m_curStationId,false);
 }
 
@@ -364,26 +364,26 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	QString tempName = fileName;
 	if (fileName.length()== 0)
 	{
-		QMessageBox::warning(this,MSG_TITLE,"ÎÄ¼şÃû³ÆÎª¿Õ");
+		QMessageBox::warning(this,MSG_TITLE,"æ–‡ä»¶åç§°ä¸ºç©º");
 		return;
 	}
-	// ±£´æµ±Ç°Õ¾µãID
+	// ä¿å­˜å½“å‰ç«™ç‚¹ID
 	m_curStationId = stationId;
 
-	// ±êÖ¾ÊÇ·ñ´ò¿ªÄ¬ÈÏÄ¿Â¼ÏÂµÄÎÄ¼ş
+	// æ ‡å¿—æ˜¯å¦æ‰“å¼€é»˜è®¤ç›®å½•ä¸‹çš„æ–‡ä»¶
 	if (needRoot)
 	{
 		QString svgRoot = ComUtil::instance()->getSvgRoot();
 		if (svgRoot.length() == 0)
 		{
-			QMessageBox::warning(this,MSG_TITLE,"SvgÂ·¾¶Îª¿Õ");
+			QMessageBox::warning(this,MSG_TITLE,"Svgè·¯å¾„ä¸ºç©º");
 			return;
 		}
 
 		fileName = svgRoot+"/"+fileName;
 	}
 
-	// ÅĞ¶Ï¸ÃÎÄ¼şÊÇ·ñ´æÔÚ±¾µØÄ¿Â¼£¬Èç¹û²»´æÔÚ£¬ÔòÍ¨¹ıFTPÏÂÔØ¸ÃÎÄ¼ş
+	// åˆ¤æ–­è¯¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨æœ¬åœ°ç›®å½•ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™é€šè¿‡FTPä¸‹è½½è¯¥æ–‡ä»¶
 	QFile file(fileName);
 	if (!file.exists())
 	{
@@ -394,13 +394,13 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	}
 	file.close();
 
-	// Çå¿Õ³¡¾°
+	// æ¸…ç©ºåœºæ™¯
 	cleanScene();
 
-	// ÏÔÊ¾µÈ´ı´°¿Ú
+	// æ˜¾ç¤ºç­‰å¾…çª—å£
 	m_waitDlg.show();
 
-	// Æô¶¯½âÎöÍ¼ĞÎÎÄ¼şÏß³Ì
+	// å¯åŠ¨è§£æå›¾å½¢æ–‡ä»¶çº¿ç¨‹
 	m_openThread->open(fileName);
 
 	//m_sence->openSvgFile(fileName);
@@ -452,7 +452,7 @@ void MainWindow::initStatusBar()
 {
 	m_pConnLabel = new QLabel(this);
 	this->statusBar()->addPermanentWidget(m_pConnLabel);
-	//ÎŞ±ß¿òÉèÖÃ
+	//æ— è¾¹æ¡†è®¾ç½®
 	statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
 
 }
@@ -511,21 +511,21 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 		break;
 
 	case CMD_TRIGGER_RULES:
-		// ¹æÔò´¥·¢£¬ÏÔÊ¾´¥·¢µÄ¹æÔòÁĞ±í
+		// è§„åˆ™è§¦å‘ï¼Œæ˜¾ç¤ºè§¦å‘çš„è§„åˆ™åˆ—è¡¨
 		m_sence->showRuleList(msg,msglength);
 		break;
 	case CMD_TOPO_BREAKER_CHANGE:
 	case CMD_CHECK_PASS:
-		// ±äÎ»¿Í»§¶Ë²Ù×÷µÄÉè±¸
-		// ¿ª¹Ø±äÎ»ºóÌ¨ÒµÎñÂß¼­Íê³É£¬·µ»Ø´øµçÉè±¸ÁĞ±í£¬¶Ô´øµçÉè±¸°´µçÑ¹µÈ¼¶¶¨ÒåµÄÑÕÉ«×ÅÉ«
+		// å˜ä½å®¢æˆ·ç«¯æ“ä½œçš„è®¾å¤‡
+		// å¼€å…³å˜ä½åå°ä¸šåŠ¡é€»è¾‘å®Œæˆï¼Œè¿”å›å¸¦ç”µè®¾å¤‡åˆ—è¡¨ï¼Œå¯¹å¸¦ç”µè®¾å¤‡æŒ‰ç”µå‹ç­‰çº§å®šä¹‰çš„é¢œè‰²ç€è‰²
 		m_sence->recvBreakerOpRes(msg,msglength);
 
 		break;
 	case CMD_TOPO_ENTIRE:
-		showMsg("ÍØÆË·ÖÎöÒÑÍê³É£¬ÇëÁ¢¼´ÖØÆô¿Í»§¶Ë");
+		showMsg("æ‹“æ‰‘åˆ†æå·²å®Œæˆï¼Œè¯·ç«‹å³é‡å¯å®¢æˆ·ç«¯");
 		break;
 	case CMD_SERVER_BUSY:
-		showMsg("·şÎñÆ÷ÕıÔÚ½øĞĞÍØÆË·ÖÎö£¬ÇëÉÔºóÔÙÊÔ...");
+		showMsg("æœåŠ¡å™¨æ­£åœ¨è¿›è¡Œæ‹“æ‰‘åˆ†æï¼Œè¯·ç¨åå†è¯•...");
 		break;
 	default:
 		break;
@@ -546,11 +546,11 @@ void MainWindow::showWriteSavingResult(const char* msg,int msglength)
 	res.ParseFromArray(msg,msglength);
 	if (res.rescode() == eSUCCESS)
 	{
-		showMsg("±£´æ³É¹¦");
+		showMsg("ä¿å­˜æˆåŠŸ");
 	}
 	else
 	{
-		showMsg("±£´æÊ§°Ü");
+		showMsg("ä¿å­˜å¤±è´¥");
 	}
 }
 void MainWindow::showPowerSetResult(const char* msg,int msglength)
@@ -559,11 +559,11 @@ void MainWindow::showPowerSetResult(const char* msg,int msglength)
 	res.ParseFromArray(msg,msglength);
 	if (res.rescode() == eSUCCESS)
 	{
-		showMsg("²Ù×÷³É¹¦");
+		showMsg("æ“ä½œæˆåŠŸ");
 	}
 	else
 	{
-		showMsg("²Ù×÷Ê§°Ü");
+		showMsg("æ“ä½œå¤±è´¥");
 	}
 }
 
@@ -573,11 +573,11 @@ void MainWindow::showTagOpResult(const char* msg,int msglength)
 	res.ParseFromArray(msg,msglength);
 	if (res.rescode() == eSUCCESS)
 	{
-		showMsg("²Ù×÷³É¹¦");
+		showMsg("æ“ä½œæˆåŠŸ");
 	}
 	else
 	{
-		showMsg("²Ù×÷Ê§°Ü");
+		showMsg("æ“ä½œå¤±è´¥");
 	}
 }
 
@@ -587,11 +587,11 @@ void MainWindow::showLineSetResult(const char* msg,int msglength)
 	res.ParseFromArray(msg,msglength);
 	if (res.rescode() == eSUCCESS)
 	{
-		showMsg("²Ù×÷³É¹¦");
+		showMsg("æ“ä½œæˆåŠŸ");
 	}
 	else
 	{
-		showMsg("²Ù×÷Ê§°Ü");
+		showMsg("æ“ä½œå¤±è´¥");
 	}
 }
 
@@ -673,43 +673,43 @@ void MainWindow::topoEntire()
 	req.set_saveid(m_sence->getSaveId());
 	string msg=req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_ENTIRE,msg.c_str(),msg.length());
-	showMsg("ÍØÆË·ÖÎöÃüÁî·¢ËÍ³É¹¦");
+	showMsg("æ‹“æ‰‘åˆ†æå‘½ä»¤å‘é€æˆåŠŸ");
 }
 
 
 void MainWindow::createCircleQueryDockwdg()
 {
-	m_pCircleQueryDockwdg = new QDockWidget;//(tr("»·Â·²éÑ¯"),this);
-	//ÉèÖÃQDockWidgetµÄ´°¿ÚÃû³Æ  
-	m_pCircleQueryDockwdg->setWindowTitle(tr("»·Â·²éÑ¯"));  
-	//ÉèÖÃµçÕ¾Àà±ğQDockWidgetµÄ¿ÉÍ£¿¿ÇøÓò£º×óÓÒÈ«²¿¿ÉÍ£¿¿    
+	m_pCircleQueryDockwdg = new QDockWidget;//(tr("ç¯è·¯æŸ¥è¯¢"),this);
+	//è®¾ç½®QDockWidgetçš„çª—å£åç§°  
+	m_pCircleQueryDockwdg->setWindowTitle(tr("ç¯è·¯æŸ¥è¯¢"));  
+	//è®¾ç½®ç”µç«™ç±»åˆ«QDockWidgetçš„å¯åœé åŒºåŸŸï¼šå·¦å³å…¨éƒ¨å¯åœé     
 	m_pCircleQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-	//´´½¨dockÖĞµÄtabwidget
+	//åˆ›å»ºdockä¸­çš„tabwidget
 	m_pCircleQueryTabWdgt = new QTableWidget;//(m_pCircleQueryDockwdg);
 
 	m_pCircleQueryTabWdgt->setColumnCount(4);
 	//m_pCircleQueryTabWdgt->setRowCount(5);
-	//Ìí¼ÓtabÁĞ±íÍ·Ãû³Æ
+	//æ·»åŠ tabåˆ—è¡¨å¤´åç§°
 	QStringList headers;
-	headers << "Éè±¸Ãû³Æ" << "³§Õ¾Ãû³Æ" << "Éè±¸ID" << "³§Õ¾ID" ;
+	headers << "è®¾å¤‡åç§°" << "å‚ç«™åç§°" << "è®¾å¤‡ID" << "å‚ç«™ID" ;
 	m_pCircleQueryTabWdgt->setHorizontalHeaderLabels(headers);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_pCircleQueryTabWdgt->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_pCircleQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_pCircleQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_pCircleQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//½«tabwidgetÌí¼Óµ½dockÖĞ
+	//å°†tabwidgetæ·»åŠ åˆ°dockä¸­
 	m_pCircleQueryDockwdg->setWidget(m_pCircleQueryTabWdgt);
-	//½«dockwidgetÌí¼Óµ½Ö÷½çÃæÖĞ²¢ÓÒ²àÍ£¿¿
+	//å°†dockwidgetæ·»åŠ åˆ°ä¸»ç•Œé¢ä¸­å¹¶å³ä¾§åœé 
 	this->addDockWidget(Qt::RightDockWidgetArea, m_pCircleQueryDockwdg);
 
-	//½«dockÒş²ØÆğÀ´,µÈĞèÒªÕæÕıÓÃµ½Ê±µ÷ÓÃÏÔÊ¾º¯Êı²¢¶ÔtabÖĞÌî³äÖµ
+	//å°†dockéšè—èµ·æ¥,ç­‰éœ€è¦çœŸæ­£ç”¨åˆ°æ—¶è°ƒç”¨æ˜¾ç¤ºå‡½æ•°å¹¶å¯¹tabä¸­å¡«å……å€¼
 	m_pCircleQueryDockwdg->hide();
 
-	//²Ëµ¥ÖĞÌí¼ÓÑ¡Ïî
+	//èœå•ä¸­æ·»åŠ é€‰é¡¹
 	//m_queryMenu->addAction(m_pCircleQueryDockwdg->toggleViewAction());
 
 	return;
@@ -722,7 +722,7 @@ void MainWindow::showCircleQueryDockwdg()
 		PBNS::CircleListMsg_Request req;
 		req.set_saveid(m_sence->getSaveId());
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_QUERY_CIRCLE_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pCircleQueryDockwdg->show();
@@ -736,7 +736,7 @@ void MainWindow::showCircleQueryResult(const char* msg,int msglength)
 
 	int nrow = resp.circlelist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	m_pCircleQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.circlelist_size();i++)
@@ -753,32 +753,32 @@ void MainWindow::showCircleQueryResult(const char* msg,int msglength)
 void MainWindow::createSignQueryDockwdg()
 {
 	m_pSignQueryDockwdg = new QDockWidget;
-	//ÉèÖÃQDockWidgetµÄ´°¿ÚÃû³Æ  
-	m_pSignQueryDockwdg->setWindowTitle(tr("¹ÒÅÆ²éÑ¯"));  
-	//ÉèÖÃµçÕ¾Àà±ğQDockWidgetµÄ¿ÉÍ£¿¿ÇøÓò£º×óÓÒÈ«²¿¿ÉÍ£¿¿    
+	//è®¾ç½®QDockWidgetçš„çª—å£åç§°  
+	m_pSignQueryDockwdg->setWindowTitle(tr("æŒ‚ç‰ŒæŸ¥è¯¢"));  
+	//è®¾ç½®ç”µç«™ç±»åˆ«QDockWidgetçš„å¯åœé åŒºåŸŸï¼šå·¦å³å…¨éƒ¨å¯åœé     
 	m_pSignQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-	//´´½¨dockÖĞµÄtabwidget
+	//åˆ›å»ºdockä¸­çš„tabwidget
 	m_pSignQueryTabWdgt = new QTableWidget;
 
 	m_pSignQueryTabWdgt->setColumnCount(5);
-	//Ìí¼ÓtabÁĞ±íÍ·Ãû³Æ
+	//æ·»åŠ tabåˆ—è¡¨å¤´åç§°
 	QStringList headers;
-	headers <<"Éè±¸Ãû³Æ"<<"³§Õ¾Ãû³Æ"<<"Éè±¸ÀàĞÍ"<<"Éè±¸ID"<<"³§Õ¾ID" ;
+	headers <<"è®¾å¤‡åç§°"<<"å‚ç«™åç§°"<<"è®¾å¤‡ç±»å‹"<<"è®¾å¤‡ID"<<"å‚ç«™ID" ;
 	m_pSignQueryTabWdgt->setHorizontalHeaderLabels(headers);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_pSignQueryTabWdgt->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_pSignQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_pSignQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_pSignQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//½«tabwidgetÌí¼Óµ½dockÖĞ
+	//å°†tabwidgetæ·»åŠ åˆ°dockä¸­
 	m_pSignQueryDockwdg->setWidget(m_pSignQueryTabWdgt);
-	//½«dockwidgetÌí¼Óµ½Ö÷½çÃæÖĞ²¢ÓÒ²àÍ£¿¿
+	//å°†dockwidgetæ·»åŠ åˆ°ä¸»ç•Œé¢ä¸­å¹¶å³ä¾§åœé 
 	this->addDockWidget(Qt::RightDockWidgetArea, m_pSignQueryDockwdg);
 
-	//½«dockÒş²ØÆğÀ´,µÈĞèÒªÕæÕıÓÃµ½Ê±µ÷ÓÃÏÔÊ¾º¯Êı²¢¶ÔtabÖĞÌî³äÖµ
+	//å°†dockéšè—èµ·æ¥,ç­‰éœ€è¦çœŸæ­£ç”¨åˆ°æ—¶è°ƒç”¨æ˜¾ç¤ºå‡½æ•°å¹¶å¯¹tabä¸­å¡«å……å€¼
 	m_pSignQueryDockwdg->hide();
 
 
@@ -793,7 +793,7 @@ void MainWindow::showSignQueryDockwdg()
 		PBNS::SignListMsg_Request req;
 		req.set_reqdate("1");
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_QUERY_SIGN_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pSignQueryDockwdg->show();
@@ -807,7 +807,7 @@ void MainWindow::showSignQueryResult(const char* msg,int msglength)
 
 	int nrow = resp.signlist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	m_pSignQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.signlist_size();i++)
@@ -826,32 +826,32 @@ void MainWindow::showSignQueryResult(const char* msg,int msglength)
 void MainWindow::createGswitchQueryDockwdg()
 {
 	m_pGswitchQueryDockwdg = new QDockWidget;
-	//ÉèÖÃQDockWidgetµÄ´°¿ÚÃû³Æ  
-	m_pGswitchQueryDockwdg->setWindowTitle(tr("½ÓµØ²éÑ¯"));  
-	//ÉèÖÃµçÕ¾Àà±ğQDockWidgetµÄ¿ÉÍ£¿¿ÇøÓò£º×óÓÒÈ«²¿¿ÉÍ£¿¿    
+	//è®¾ç½®QDockWidgetçš„çª—å£åç§°  
+	m_pGswitchQueryDockwdg->setWindowTitle(tr("æ¥åœ°æŸ¥è¯¢"));  
+	//è®¾ç½®ç”µç«™ç±»åˆ«QDockWidgetçš„å¯åœé åŒºåŸŸï¼šå·¦å³å…¨éƒ¨å¯åœé     
 	m_pGswitchQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-	//´´½¨dockÖĞµÄtabwidget
+	//åˆ›å»ºdockä¸­çš„tabwidget
 	m_pGswitchQueryTabWdgt = new QTableWidget;
 
 	m_pGswitchQueryTabWdgt->setColumnCount(5);
-	//Ìí¼ÓtabÁĞ±íÍ·Ãû³Æ
+	//æ·»åŠ tabåˆ—è¡¨å¤´åç§°
 	QStringList headers;
-	headers <<"Éè±¸Ãû³Æ"<<"³§Õ¾Ãû³Æ"<<"ÀàĞÍ"<<"Éè±¸ID"<<"³§Õ¾ID" ;
+	headers <<"è®¾å¤‡åç§°"<<"å‚ç«™åç§°"<<"ç±»å‹"<<"è®¾å¤‡ID"<<"å‚ç«™ID" ;
 	m_pGswitchQueryTabWdgt->setHorizontalHeaderLabels(headers);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_pGswitchQueryTabWdgt->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_pGswitchQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_pGswitchQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_pGswitchQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//½«tabwidgetÌí¼Óµ½dockÖĞ
+	//å°†tabwidgetæ·»åŠ åˆ°dockä¸­
 	m_pGswitchQueryDockwdg->setWidget(m_pGswitchQueryTabWdgt);
-	//½«dockwidgetÌí¼Óµ½Ö÷½çÃæÖĞ²¢ÓÒ²àÍ£¿¿
+	//å°†dockwidgetæ·»åŠ åˆ°ä¸»ç•Œé¢ä¸­å¹¶å³ä¾§åœé 
 	this->addDockWidget(Qt::RightDockWidgetArea, m_pGswitchQueryDockwdg);
 
-	//½«dockÒş²ØÆğÀ´,µÈĞèÒªÕæÕıÓÃµ½Ê±µ÷ÓÃÏÔÊ¾º¯Êı²¢¶ÔtabÖĞÌî³äÖµ
+	//å°†dockéšè—èµ·æ¥,ç­‰éœ€è¦çœŸæ­£ç”¨åˆ°æ—¶è°ƒç”¨æ˜¾ç¤ºå‡½æ•°å¹¶å¯¹tabä¸­å¡«å……å€¼
 	m_pGswitchQueryDockwdg->hide();
 
 	return;
@@ -864,7 +864,7 @@ void MainWindow::showGswitchQueryDockwdg()
 		PBNS::GswitchListMsg_Request req;
 		req.set_reqdate("1");
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_QUERY_GSWITCH_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pGswitchQueryDockwdg->show();
@@ -878,7 +878,7 @@ void MainWindow::showGswitchQueryResult(const char* msg,int msglength)
 
 	int nrow = resp.gswitchlist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	m_pGswitchQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.gswitchlist_size();i++)
@@ -896,33 +896,33 @@ void MainWindow::showGswitchQueryResult(const char* msg,int msglength)
 void MainWindow::createMsetQueryDockwdg()
 {
 	m_pMsetQueryDockwdg = new QDockWidget;
-	//ÉèÖÃQDockWidgetµÄ´°¿ÚÃû³Æ  
-	m_pMsetQueryDockwdg->setWindowTitle(tr("ÈË¹¤ÉèÖÃ²éÑ¯"));  
-	//ÉèÖÃµçÕ¾Àà±ğQDockWidgetµÄ¿ÉÍ£¿¿ÇøÓò£º×óÓÒÈ«²¿¿ÉÍ£¿¿    
+	//è®¾ç½®QDockWidgetçš„çª—å£åç§°  
+	m_pMsetQueryDockwdg->setWindowTitle(tr("äººå·¥è®¾ç½®æŸ¥è¯¢"));  
+	//è®¾ç½®ç”µç«™ç±»åˆ«QDockWidgetçš„å¯åœé åŒºåŸŸï¼šå·¦å³å…¨éƒ¨å¯åœé     
 	m_pMsetQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-	//´´½¨dockÖĞµÄtabwidget
+	//åˆ›å»ºdockä¸­çš„tabwidget
 	m_pMsetQueryTabWdgt = new QTableWidget;
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_pMsetQueryTabWdgt->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_pMsetQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_pMsetQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_pMsetQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_pMsetQueryTabWdgt->setColumnCount(5);
 	m_pMsetQueryTabWdgt->setRowCount(5);
-	//Ìí¼ÓtabÁĞ±íÍ·Ãû³Æ
+	//æ·»åŠ tabåˆ—è¡¨å¤´åç§°
 	QStringList headers;
-	headers <<"Éè±¸Ãû³Æ"<<"³§Õ¾Ãû³Æ"<<"ÀàĞÍ"<<"Éè±¸ID"<<"³§Õ¾ID" ;
+	headers <<"è®¾å¤‡åç§°"<<"å‚ç«™åç§°"<<"ç±»å‹"<<"è®¾å¤‡ID"<<"å‚ç«™ID" ;
 	m_pMsetQueryTabWdgt->setHorizontalHeaderLabels(headers);
 
-	//½«tabwidgetÌí¼Óµ½dockÖĞ
+	//å°†tabwidgetæ·»åŠ åˆ°dockä¸­
 	m_pMsetQueryDockwdg->setWidget(m_pMsetQueryTabWdgt);
-	//½«dockwidgetÌí¼Óµ½Ö÷½çÃæÖĞ²¢ÓÒ²àÍ£¿¿
+	//å°†dockwidgetæ·»åŠ åˆ°ä¸»ç•Œé¢ä¸­å¹¶å³ä¾§åœé 
 	this->addDockWidget(Qt::RightDockWidgetArea, m_pMsetQueryDockwdg);
 
-	//½«dockÒş²ØÆğÀ´,µÈĞèÒªÕæÕıÓÃµ½Ê±µ÷ÓÃÏÔÊ¾º¯Êı²¢¶ÔtabÖĞÌî³äÖµ
+	//å°†dockéšè—èµ·æ¥,ç­‰éœ€è¦çœŸæ­£ç”¨åˆ°æ—¶è°ƒç”¨æ˜¾ç¤ºå‡½æ•°å¹¶å¯¹tabä¸­å¡«å……å€¼
 	m_pMsetQueryDockwdg->hide();
 
 
@@ -937,7 +937,7 @@ void MainWindow::showMsetQueryDockwdg()
 		PBNS::MsetListMsg_Request req;
 		req.set_reqdate("1");
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_QUERY_MSET_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 		*/
 		m_pMsetQueryDockwdg->show();
@@ -951,7 +951,7 @@ void MainWindow::showMsetQueryResult(const char* msg,int msglength)
 
 	int nrow = resp.msetlist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	m_pMsetQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.msetlist_size();i++)
@@ -969,33 +969,33 @@ void MainWindow::showMsetQueryResult(const char* msg,int msglength)
 void MainWindow::createEventQueryDockwdg()
 {
 	m_pEventQueryDockwdg = new QDockWidget;
-	//ÉèÖÃQDockWidgetµÄ´°¿ÚÃû³Æ  
-	m_pEventQueryDockwdg->setWindowTitle(tr("ÊÂ¼ş²éÑ¯"));  
-	//ÉèÖÃµçÕ¾Àà±ğQDockWidgetµÄ¿ÉÍ£¿¿ÇøÓò£º×óÓÒÈ«²¿¿ÉÍ£¿¿    
+	//è®¾ç½®QDockWidgetçš„çª—å£åç§°  
+	m_pEventQueryDockwdg->setWindowTitle(tr("äº‹ä»¶æŸ¥è¯¢"));  
+	//è®¾ç½®ç”µç«™ç±»åˆ«QDockWidgetçš„å¯åœé åŒºåŸŸï¼šå·¦å³å…¨éƒ¨å¯åœé     
 	m_pEventQueryDockwdg->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-	//´´½¨dockÖĞµÄtabwidget
+	//åˆ›å»ºdockä¸­çš„tabwidget
 	m_pEventQueryTabWdgt = new QTableWidget;
 
 	m_pEventQueryTabWdgt->setColumnCount(4);
 	//m_pEventQueryTabWdgt->setRowCount(5);
-	//Ìí¼ÓtabÁĞ±íÍ·Ãû³Æ
+	//æ·»åŠ tabåˆ—è¡¨å¤´åç§°
 	QStringList headers;
-	headers <<"³§Õ¾Ãû³Æ"<<"Éè±¸Ãû³Æ"<<"ÄÚÈİ"<<"Ê±¼ä" ;
+	headers <<"å‚ç«™åç§°"<<"è®¾å¤‡åç§°"<<"å†…å®¹"<<"æ—¶é—´" ;
 	m_pEventQueryTabWdgt->setHorizontalHeaderLabels(headers);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_pEventQueryTabWdgt->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_pEventQueryTabWdgt->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_pEventQueryTabWdgt->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_pEventQueryTabWdgt->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//½«tabwidgetÌí¼Óµ½dockÖĞ
+	//å°†tabwidgetæ·»åŠ åˆ°dockä¸­
 	m_pEventQueryDockwdg->setWidget(m_pEventQueryTabWdgt);
-	//½«dockwidgetÌí¼Óµ½Ö÷½çÃæÖĞ²¢ÓÒ²àÍ£¿¿
+	//å°†dockwidgetæ·»åŠ åˆ°ä¸»ç•Œé¢ä¸­å¹¶å³ä¾§åœé 
 	this->addDockWidget(Qt::RightDockWidgetArea, m_pEventQueryDockwdg);
 
-	//½«dockÒş²ØÆğÀ´,µÈĞèÒªÕæÕıÓÃµ½Ê±µ÷ÓÃÏÔÊ¾º¯Êı²¢¶ÔtabÖĞÌî³äÖµ
+	//å°†dockéšè—èµ·æ¥,ç­‰éœ€è¦çœŸæ­£ç”¨åˆ°æ—¶è°ƒç”¨æ˜¾ç¤ºå‡½æ•°å¹¶å¯¹tabä¸­å¡«å……å€¼
 	m_pEventQueryDockwdg->hide();
 
 
@@ -1010,7 +1010,7 @@ void MainWindow::showEventQueryDockwdg()
 		PBNS::EventListMsg_Request req;
 		req.set_reqdate("1");
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_QUERY_EVENT_LIST,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		m_pEventQueryDockwdg->show();
@@ -1024,7 +1024,7 @@ void MainWindow::showEventQueryResult(const char* msg,int msglength)
 
 	int nrow = resp.eventlist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	m_pEventQueryTabWdgt->setRowCount(nrow);
 
 	for (int i=0;i<resp.eventlist_size();i++)
@@ -1041,12 +1041,12 @@ void MainWindow::showEventQueryResult(const char* msg,int msglength)
 
 void MainWindow::ticketShow()
 {
-	//¸ù¾İ²»Í¬½ÇÉ«´´½¨²»Í¬²Ù×÷Æ±½çÃæ
+	//æ ¹æ®ä¸åŒè§’è‰²åˆ›å»ºä¸åŒæ“ä½œç¥¨ç•Œé¢
 	if (ComUtil::instance()->getCurUserRole() == eDispatcher || ComUtil::instance()->getCurUserRole() == eManager)
 	{
 		m_TcktMgr = new TicketMgr(this);
 
-		m_TcktMgr->setWindowTitle("²Ù×÷ÈÎÎñ¹ÜÀí");
+		m_TcktMgr->setWindowTitle("æ“ä½œä»»åŠ¡ç®¡ç†");
 
 		m_TcktMgr->exec();
 
@@ -1056,14 +1056,14 @@ void MainWindow::ticketShow()
 	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
 	{
 		m_TcktMgr = new TicketMgr(this);
-		m_TcktMgr->setWindowTitle("²Ù×÷Æ±¹ÜÀí");
+		m_TcktMgr->setWindowTitle("æ“ä½œç¥¨ç®¡ç†");
 
 		m_TcktMgr->setModal(false);
 		m_TcktMgr->show();
 	}
 	
 
-	//·ÇÄ£Ê½´°¿ÚÏÂ£¬´°¿Ú×ÜÊÇÔÚÇ°²ãÏÔÊ¾
+	//éæ¨¡å¼çª—å£ä¸‹ï¼Œçª—å£æ€»æ˜¯åœ¨å‰å±‚æ˜¾ç¤º
 	//m_TcktMgr->setWindowFlags(Qt::WindowStaysOnTopHint);
 	//m_TcktMgr->exec();
 
@@ -1086,7 +1086,7 @@ void MainWindow::setAnalogState()
 
 void MainWindow::setTicketState()
 {
-	//ÇĞ»»µ½ÄâÆ±Ì¬Ê±Çé¿öÓÒ¼ü²Ëµ¥
+	//åˆ‡æ¢åˆ°æ‹Ÿç¥¨æ€æ—¶æƒ…å†µå³é”®èœå•
 	m_contextMenu->clear();
 	m_modelAction->setEnabled(true);
 	m_sence->setSysState(eTICKET);

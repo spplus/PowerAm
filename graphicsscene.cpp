@@ -1,4 +1,4 @@
-
+ï»¿
 
 #include <QMessageBox>
 #include <QGraphicsSceneMouseEvent>
@@ -62,7 +62,7 @@ void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 	}
 	else
 	{
-		QMessageBox::warning(views().at(0),MSG_TITLE,"´ò¿ªÍ¼ÏñÎÄ¼şÊ§°Ü");
+		QMessageBox::warning(views().at(0),MSG_TITLE,"æ‰“å¼€å›¾åƒæ–‡ä»¶å¤±è´¥");
 	}
 }
 
@@ -91,7 +91,7 @@ void GraphicsScene::goNext()
 	else
 	{
 		m_curIndex--;
-		QMessageBox::information(views().at(0),MSG_TITLE,"µ±Ç°ÒÑ¾­´¦ÓÚ×îºóÒ»·ùÎ»ÖÃ");
+		QMessageBox::information(views().at(0),MSG_TITLE,"å½“å‰å·²ç»å¤„äºæœ€åä¸€å¹…ä½ç½®");
 	}
 }
 
@@ -107,7 +107,7 @@ void GraphicsScene::goPrev()
 	else
 	{
 		m_curIndex++;
-		QMessageBox::information(views().at(0),MSG_TITLE,"µ±Ç°ÒÑ¾­´¦ÓÚµÚÒ»·ùÎ»ÖÃ");
+		QMessageBox::information(views().at(0),MSG_TITLE,"å½“å‰å·²ç»å¤„äºç¬¬ä¸€å¹…ä½ç½®");
 	}
 }
 
@@ -118,12 +118,12 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 	{
 		if (!m_isOpFinished)
 		{
-			QMessageBox::information(views().at(0),MSG_TITLE,"µ±Ç°²Ù×÷Î´½áÊø£¬ÇëÉÔºóÔÙÊÔ");
+			QMessageBox::information(views().at(0),MSG_TITLE,"å½“å‰æ“ä½œæœªç»“æŸï¼Œè¯·ç¨åå†è¯•");
 			return;
 		}
 
-		// ÅĞ¶ÏÏµÍ³×´Ì¬£¬Ö»ÓĞÔÚÄ£ÄâÌ¬ÏÂ²Å¿ÉÒÔ²Ù×÷
-		//µ±ÏµÍ³ÎªÄâÆ±Ì¬Ê±£¬ÔÚ´´½¨²Ù×÷Æ±µÄÇé¿öÏÂÓÒ¼ü²ÅÏìÓ¦²Ëµ¥
+		// åˆ¤æ–­ç³»ç»ŸçŠ¶æ€ï¼Œåªæœ‰åœ¨æ¨¡æ‹Ÿæ€ä¸‹æ‰å¯ä»¥æ“ä½œ
+		//å½“ç³»ç»Ÿä¸ºæ‹Ÿç¥¨æ€æ—¶ï¼Œåœ¨åˆ›å»ºæ“ä½œç¥¨çš„æƒ…å†µä¸‹å³é”®æ‰å“åº”èœå•
 		if (m_sysState == eTICKET)
 		{
 			if (!ComUtil::instance()->getActionFlag())
@@ -138,10 +138,10 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 			PBNS::StateBean bean;
 			if (findUnitBeanByCimId(item1->getCimId(),bean))
 			{
-				// ¸ù¾İÀàĞÍ£¬´´½¨²Ëµ¥Ïî
+				// æ ¹æ®ç±»å‹ï¼Œåˆ›å»ºèœå•é¡¹
 				MainWindow::instance()->addContextMenuAction((eDeviceType)bean.unittype());
 
-				// ±£´æµ±Ç°Ñ¡ÖĞµÄitem£»
+				// ä¿å­˜å½“å‰é€‰ä¸­çš„itemï¼›
 				m_curItem = item1;
 			}
 			
@@ -162,9 +162,9 @@ void GraphicsScene::contextMenuEvent ( QGraphicsSceneContextMenuEvent * contextM
 
 void GraphicsScene::setOpen()
 {
-	// 1. ·¢ËÍ²Ù×÷ÃüÁî
+	// 1. å‘é€æ“ä½œå‘½ä»¤
 
-	// 2.ºóÌ¨ÅĞ¶ÏÊÇ·ñÔÊĞíĞ£Ñé£¬Èç¹ûÔÊĞíĞ£Ñé£¬ÔòÖ´ĞĞĞ£ÑéÅĞ¶Ï£¬²¢·µ»ØĞ£ÑéÅĞ¶Ï½á¹û
+	// 2.åå°åˆ¤æ–­æ˜¯å¦å…è®¸æ ¡éªŒï¼Œå¦‚æœå…è®¸æ ¡éªŒï¼Œåˆ™æ‰§è¡Œæ ¡éªŒåˆ¤æ–­ï¼Œå¹¶è¿”å›æ ¡éªŒåˆ¤æ–­ç»“æœ
 	sendBreakOpReq(eOFF,MainWindow::instance()->getIsCheck());
 
 	//switchChange(0);
@@ -184,7 +184,7 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	PBNS::OprationMsg_Response res;
 	res.ParseFromArray(msg,length);
 	
-	// Ö´ĞĞÍ¼ĞÎÖĞµÄÍ¼Ôª¿ª¹Ø±äÎ»
+	// æ‰§è¡Œå›¾å½¢ä¸­çš„å›¾å…ƒå¼€å…³å˜ä½
 	//switchChange(res.optype());
 	putDev2OpList(m_curItem->getCimId(),res.optype());
 
@@ -192,37 +192,37 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	{
 		m_curItem->getCimId();
 		m_curItem->getType();
-		QString strType = QString(tr("¿ª¹Ø"));
+		QString strType = QString(tr("å¼€å…³"));
 		QString strState = QString(tr(""));
 		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 		{
 			switch (m_curItem->getType())
 			{
 			case eBREAKER:
-				strType = QString(tr("¿ª¹Ø"));
+				strType = QString(tr("å¼€å…³"));
 				break;
 			case eSWITCH:
-				strType = QString(tr("µ¶Õ¢"));
+				strType = QString(tr("åˆ€é—¸"));
 				break;
 			}
 
 			if (res.optype()==1)
 			{
-				strState = QString(tr("ÓÉ·Öµ½ºÏ"));
+				strState = QString(tr("ç”±åˆ†åˆ°åˆ"));
 			}
 			else if (res.optype()==0)
 			{
-				strState = QString(tr("ÓÉºÏµ½·Ö"));
+				strState = QString(tr("ç”±åˆåˆ°åˆ†"));
 			}
 
-			QString strAct = QString(tr("%1 %2 %3 ³É¹¦")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
+			QString strAct = QString(tr("%1 %2 %3 æˆåŠŸ")).arg(m_curItem->getCimId()).arg(strType).arg(strState);
 			TicketActionsMgr::instance()->setTicketActions(strAct);
 
 		}
 		
 	}
 
-	// ¸ø´øµçµÄÉè±¸×ÅÉ«
+	// ç»™å¸¦ç”µçš„è®¾å¤‡ç€è‰²
 	QList<PBNS::StateBean> blist = getStateBeanList(res);
 
 	drawDev(blist);
@@ -232,13 +232,13 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 
 void GraphicsScene::switchChange(int state)
 {
-	// 1.Í¨¹ıµ±Ç°Ñ¡ÖĞµÄitem£¬ÕÒµ½svgid
+	// 1.é€šè¿‡å½“å‰é€‰ä¸­çš„itemï¼Œæ‰¾åˆ°svgid
 	if (m_curItem == NULL)
 	{
 		return;
 	}
 
-	// »ñÈ¡µ±Ç°µÄÍ¼ĞÎ
+	// è·å–å½“å‰çš„å›¾å½¢
 	if (m_graphList.size()<=m_curIndex)
 	{
 		return;
@@ -247,12 +247,12 @@ void GraphicsScene::switchChange(int state)
 
 	QString svgid = m_curItem->elementId();
 
-	// 2.Í¨¹ısvgid ÕÒµ½¶ÔÓ¦µÄ¶ÔÓ¦µÄÉè±¸¶ÔÏóÖĞ¼ÇÂ¼µÄsymbolid
+	// 2.é€šè¿‡svgid æ‰¾åˆ°å¯¹åº”çš„å¯¹åº”çš„è®¾å¤‡å¯¹è±¡ä¸­è®°å½•çš„symbolid
 	QString oldid = pgraph->getAttribute(svgid,ATTR_XLINK);
 
 	QString symbolid = getNewSymbolId(oldid,state);
 
-	// 3.ĞŞ¸ÄdomÖĞ¸Ã½ÚµãµÄhrefÊôĞÔ
+	// 3.ä¿®æ”¹domä¸­è¯¥èŠ‚ç‚¹çš„hrefå±æ€§
 	if (pgraph != NULL)
 	{
 		pgraph->setAttribute(svgid,ATTR_XLINK,symbolid);
@@ -272,10 +272,10 @@ void GraphicsScene::switchChange(int state)
 	newItem->setType(m_curItem->getType());
 	newItem->setLayerId(m_curItem->getLayerId());
 
-	// ´Ó³¡¾°ÖĞÉ¾³ı
+	// ä»åœºæ™¯ä¸­åˆ é™¤
 	removeItem(m_curItem);
 
-	// É¾³ıÀÏItem
+	// åˆ é™¤è€Item
 	//int ret = m_itemList.removeOne(m_curItem);
 	QString c0 = m_curItem->getCimId();
 
@@ -293,19 +293,19 @@ void GraphicsScene::switchChange(int state)
 	
 	addItem(newItem);
 
-	// ²åÈëĞÂitem
+	// æ’å…¥æ–°item
 	m_itemList.push_back(newItem);
 
 	m_curItem = newItem;
 
-	// ±£´æµ±Ç°±äÎ»µÄÉè±¸
+	// ä¿å­˜å½“å‰å˜ä½çš„è®¾å¤‡
 	putDev2OpList(m_curItem->getCimId(),state);
 
 }
 
 QString GraphicsScene::getNewSymbolId(QString oldid,int state)
 {
-	// ½ØÈ¡×îºóÒ»Î»
+	// æˆªå–æœ€åä¸€ä½
 	return QString("%1%2").arg(oldid.mid(0,oldid.length()-1)).arg(state);
 }
 
@@ -329,12 +329,12 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	PBNS::DevStateMsg_Response res;
 	res.ParseFromArray(msg,length);
 
-	// ±£´æµ±Ç°Õ¾µãÉè±¸ÁĞ±í
+	// ä¿å­˜å½“å‰ç«™ç‚¹è®¾å¤‡åˆ—è¡¨
 	m_devList = res;
 
-	qDebug()<<ComUtil::instance()->now()<<"¼ÇÂ¼Êı£º"<<m_devList.devstate_size();
+	qDebug()<<ComUtil::instance()->now()<<"è®°å½•æ•°ï¼š"<<m_devList.devstate_size();
 
-	// ×ÅÉ«£¬±äÎ»
+	// ç€è‰²ï¼Œå˜ä½
 	drawDev(getStateBeanList(res));
 }
 
@@ -353,20 +353,20 @@ void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,
 	//PBNS::StateBean bean;
 	//int idx = findDevByCim(cimid,bean);
 
-	//// Èç¹û¸ÃÔª¼şÔÚÒÑ²Ù×÷ÁĞ±í£¬ÇÒ²»ÊÇ±¾´Î²Ù×÷µÄÔª¼ş£¬ÔòÓÃ²Ù×÷ÁĞ±íÖĞ±£³ÖµÄ×´Ì¬½øĞĞÏÔÊ¾
+	//// å¦‚æœè¯¥å…ƒä»¶åœ¨å·²æ“ä½œåˆ—è¡¨ï¼Œä¸”ä¸æ˜¯æœ¬æ¬¡æ“ä½œçš„å…ƒä»¶ï¼Œåˆ™ç”¨æ“ä½œåˆ—è¡¨ä¸­ä¿æŒçš„çŠ¶æ€è¿›è¡Œæ˜¾ç¤º
 	//if (idx >= 0 && bean.cimid() != m_curItem->getCimId().toStdString())
 	//{
 	//	state = (eBreakerState)bean.state();
 	//}
 
 
-	// 1.Í¨¹ısvgid ÕÒµ½¶ÔÓ¦µÄ¶ÔÓ¦µÄÉè±¸¶ÔÏóÖĞ¼ÇÂ¼µÄsymbolid
+	// 1.é€šè¿‡svgid æ‰¾åˆ°å¯¹åº”çš„å¯¹åº”çš„è®¾å¤‡å¯¹è±¡ä¸­è®°å½•çš„symbolid
 	QString oldid = graph->getAttribute(svgid,ATTR_XLINK);
 
-	// 2.×é½¨ĞÂ×´Ì¬ÏÂµÄÄ£°åID
+	// 2.ç»„å»ºæ–°çŠ¶æ€ä¸‹çš„æ¨¡æ¿ID
 	QString symbolid = getNewSymbolId(oldid,state);
 
-	// 3.ĞŞ¸ÄdomÖĞ¸Ã½ÚµãµÄhrefÊôĞÔ
+	// 3.ä¿®æ”¹domä¸­è¯¥èŠ‚ç‚¹çš„hrefå±æ€§
 	if (graph != NULL)
 	{
 		graph->setAttribute(svgid,ATTR_XLINK,symbolid);
@@ -377,13 +377,13 @@ void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,
 
 void GraphicsScene::setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state)
 {
-	// 1.Í¨¹ısvgid ÕÒµ½¶ÔÓ¦µÄ¶ÔÓ¦µÄÉè±¸¶ÔÏóÖĞ¼ÇÂ¼µÄsymbolid
+	// 1.é€šè¿‡svgid æ‰¾åˆ°å¯¹åº”çš„å¯¹åº”çš„è®¾å¤‡å¯¹è±¡ä¸­è®°å½•çš„symbolid
 	QString oldid = graph->getAttribute(pdev->getSvgId(),ATTR_XLINK);
 
-	// 2.×é½¨ĞÂ×´Ì¬ÏÂµÄÄ£°åID
+	// 2.ç»„å»ºæ–°çŠ¶æ€ä¸‹çš„æ¨¡æ¿ID
 	QString symbolid = getNewSymbolId(oldid,state);
 
-	// 3.ĞŞ¸ÄdomÖĞ¸Ã½ÚµãµÄhrefÊôĞÔ
+	// 3.ä¿®æ”¹domä¸­è¯¥èŠ‚ç‚¹çš„hrefå±æ€§
 	if (graph != NULL)
 	{
 		graph->setAttribute(pdev->getSvgId(),ATTR_XLINK,symbolid);
@@ -417,14 +417,14 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 				color = POWEROFF_COLOR;
 			}
 		
-			// ±¾Éè±¸×ÅÉ«
+			// æœ¬è®¾å¤‡ç€è‰²
 			setSvgStyle(graph,item->getSvgId(),color);
 			item->setIsColor(true);
 			item->setColor(color);
 		}
 		else
 		{
-			// ±¾Éè±¸×ÅÉ«
+			// æœ¬è®¾å¤‡ç€è‰²
 			setSvgStyle(graph,item->getSvgId(),color);
 			item->setIsColor(true);
 			item->setColor(color);
@@ -439,17 +439,17 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 	
 	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
 
-	// ²éÕÒ¹ØÁªÉè±¸½øĞĞ×ÅÉ«
+	// æŸ¥æ‰¾å…³è”è®¾å¤‡è¿›è¡Œç€è‰²
 	setConnectedDevColor(graph,item);
 }
 
 
 void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color)
 {
-	// ±¾Éè±¸×ÅÉ«
+	// æœ¬è®¾å¤‡ç€è‰²
 	setSvgStyle(graph,pdev->getSvgId(),color);
 
-	// ²éÕÒitem
+	// æŸ¥æ‰¾item
 	SvgItem* item = findSvgItemById(pdev->getSvgId());
 
 	if (item != NULL && !item->getIsColor())
@@ -465,7 +465,7 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<pdev->getMetaId();
 
 
-	// ²éÕÒ¹ØÁªÉè±¸½øĞĞ×ÅÉ«
+	// æŸ¥æ‰¾å…³è”è®¾å¤‡è¿›è¡Œç€è‰²
 	setConnectedDevColor(graph,item);
 }
 
@@ -479,7 +479,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 		
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_BusbarSection_hmk10BUS¢ñ";
+		QString cim = "_BusbarSection_hmk10BUSâ… ";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
@@ -490,13 +490,13 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 			continue;
 		}
 
-		// ½ø³öÏßÔÚSVGÖĞÃ»ÓĞÀàĞÍ£¬Í¨¹ıunit±íÖĞµÄÀàĞÍ¸üĞÂÍ¼ÔªÀàĞÍ
+		// è¿›å‡ºçº¿åœ¨SVGä¸­æ²¡æœ‰ç±»å‹ï¼Œé€šè¿‡unitè¡¨ä¸­çš„ç±»å‹æ›´æ–°å›¾å…ƒç±»å‹
 		if (bean.unittype() == eLINE)
 		{
 			item->setType(eLINE);
 		}
 
-		// ¿ª¹Ø±äÎ»
+		// å¼€å…³å˜ä½
 		if (bean.unittype() == eSWITCH
 			|| bean.unittype() == eBREAKER
 			|| bean.unittype() == eGROUNDSWITCH)
@@ -505,7 +505,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 			PBNS::StateBean opbean ;
 			int idx = findDevByCim(item->getCimId(),opbean);
 
-			// Èç¹û¸ÃÔª¼şÔÚÒÑ²Ù×÷ÁĞ±í£¬ÇÒ²»ÊÇ±¾´Î²Ù×÷µÄÔª¼ş£¬ÔòÓÃ²Ù×÷ÁĞ±íÖĞ±£³ÖµÄ×´Ì¬½øĞĞÏÔÊ¾
+			// å¦‚æœè¯¥å…ƒä»¶åœ¨å·²æ“ä½œåˆ—è¡¨ï¼Œä¸”ä¸æ˜¯æœ¬æ¬¡æ“ä½œçš„å…ƒä»¶ï¼Œåˆ™ç”¨æ“ä½œåˆ—è¡¨ä¸­ä¿æŒçš„çŠ¶æ€è¿›è¡Œæ˜¾ç¤º
 			if (idx >= 0 && m_curItem != NULL 
 				&& bean.cimid() != m_curItem->getCimId().toStdString())
 			{
@@ -515,17 +515,17 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 			setBreakStateEx(graph,item->getSvgId(),item->getCimId(),(eBreakerState)bean.state());
 		}
 
-		// Èç¹û´øµç£¬Ôò°´ÅäÖÃµÄµçÑ¹µÈ¼¶ÑÕÉ«½øĞĞ×ÅÉ«
+		// å¦‚æœå¸¦ç”µï¼Œåˆ™æŒ‰é…ç½®çš„ç”µå‹ç­‰çº§é¢œè‰²è¿›è¡Œç€è‰²
 		if (bean.iselectric() == 1 && bean.isground() != 1)
 		{
 			colorDevEx(graph,item,bean,bean.volcolor().c_str());
 		}
-		// ´øµç½ÓµØ
+		// å¸¦ç”µæ¥åœ°
 		else if (bean.iselectric() == 1 && bean.isground() == 1)
 		{
 			colorDevEx(graph,item,bean,POWERON_GROUND_COLOR);
 		}
-		// ²»´øµç
+		// ä¸å¸¦ç”µ
 		else if (bean.iselectric() == 0)
 		{
 			colorDevEx(graph,item,bean,POWEROFF_COLOR);
@@ -543,20 +543,20 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 
 		PBNS::StateBean bean = devlist.at(i);
 		
-		QString cim = "_BusbarSection_yaz110BUS¢ñ";
+		QString cim = "_BusbarSection_yaz110BUSâ… ";
 		int  sid = cim.compare(pdev->getMetaId());
 		
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
 			qDebug()<<ComUtil::instance()->now()<<"find dev cim="<<pdev->getMetaId();
 
-			// ½ø³öÏßÔÚSVGÖĞÃ»ÓĞÀàĞÍ£¬Í¨¹ıunit±íÖĞµÄÀàĞÍ¸üĞÂÍ¼ÔªÀàĞÍ
+			// è¿›å‡ºçº¿åœ¨SVGä¸­æ²¡æœ‰ç±»å‹ï¼Œé€šè¿‡unitè¡¨ä¸­çš„ç±»å‹æ›´æ–°å›¾å…ƒç±»å‹
 			if (bean.unittype() == eLINE)
 			{
 				pdev->setDevType(eLINE);
 			}
 			
-			// ¿ª¹Ø±äÎ»
+			// å¼€å…³å˜ä½
 			if (bean.unittype() == eSWITCH
 				|| bean.unittype() == eBREAKER
 				|| bean.unittype() == eGROUNDSWITCH)
@@ -564,17 +564,17 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 				setBreakState(graph,pdev,(eBreakerState)bean.state());
 			}
 			
-			// Èç¹û´øµç£¬Ôò°´ÅäÖÃµÄµçÑ¹µÈ¼¶ÑÕÉ«½øĞĞ×ÅÉ«
+			// å¦‚æœå¸¦ç”µï¼Œåˆ™æŒ‰é…ç½®çš„ç”µå‹ç­‰çº§é¢œè‰²è¿›è¡Œç€è‰²
 			if (bean.iselectric() == 1 && bean.isground() != 1)
 			{
 				colorDev(graph,pdev,bean,bean.volcolor().c_str());
 			}
-			// ´øµç½ÓµØ
+			// å¸¦ç”µæ¥åœ°
 			else if (bean.iselectric() == 1 && bean.isground() == 1)
 			{
 				colorDev(graph,pdev,bean,POWERON_GROUND_COLOR);
 			}
-			// ²»´øµç
+			// ä¸å¸¦ç”µ
 			else if (bean.iselectric() == 0)
 			{
 				colorDev(graph,pdev,bean,POWEROFF_COLOR);
@@ -590,7 +590,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 
 	if (item != NULL)
 	{
-		// ²éÕÒÓë¸ÃÍ¼Ôª¹ØÁªµÄÍ¼Ôª
+		// æŸ¥æ‰¾ä¸è¯¥å›¾å…ƒå…³è”çš„å›¾å…ƒ
 		QList<QGraphicsItem*> colist = item->collidingItems();
 		for (int i = 0;i<colist.count();i++)
 		{
@@ -620,14 +620,14 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				
 				//dom =pgraph->getDom()->toString();
 
-				// Èç¹ûÓöµ½±äÑ¹Æ÷£¬Ôò±íÊ¾µçÑ¹µÈ¼¶·¢ËÍ±ä»¯£¬²»¼ÌĞø°´Ô­ÓĞµçÑ¹µÈ¼¶½øĞĞ¹ØÁª×ÅÉ«
+				// å¦‚æœé‡åˆ°å˜å‹å™¨ï¼Œåˆ™è¡¨ç¤ºç”µå‹ç­‰çº§å‘é€å˜åŒ–ï¼Œä¸ç»§ç»­æŒ‰åŸæœ‰ç”µå‹ç­‰çº§è¿›è¡Œå…³è”ç€è‰²
 				if (devtype == eTRANSFORMER)
 				{
 					continue;
 				}
 				else
 				{
-					// µİ¹éÉèÖÃÆä¹ØÁªµÄÉè±¸ÑÕÉ«
+					// é€’å½’è®¾ç½®å…¶å…³è”çš„è®¾å¤‡é¢œè‰²
 					setConnectedDevColor(pgraph,coitem);
 				}
 				
@@ -639,7 +639,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 
 SvgItem* GraphicsScene::findSvgItemByCim(QString cimid)
 {
-	// »ñÈ¡µ±Ç°³¡¾°ÖĞµÄÈ«²¿item
+	// è·å–å½“å‰åœºæ™¯ä¸­çš„å…¨éƒ¨item
 	QList<SvgItem*>	sceneItems = m_itemList;//this->items();
 	for(int i = 0;i<sceneItems.count();i++)
 	{
@@ -659,7 +659,7 @@ SvgItem* GraphicsScene::findSvgItemByCim(QString cimid)
 
 SvgItem* GraphicsScene::findSvgItemById(QString id)
 {
-	// »ñÈ¡µ±Ç°³¡¾°ÖĞµÄÈ«²¿item
+	// è·å–å½“å‰åœºæ™¯ä¸­çš„å…¨éƒ¨item
 	QList<QGraphicsItem*>	sceneItems = this->items();
 	for(int i = 0;i<sceneItems.count();i++)
 	{
@@ -707,7 +707,7 @@ void GraphicsScene::setPower()
 	}
 	else
 	{
-		QMessageBox::warning(views().at(0),MSG_TITLE,tr("Î´²éÕÒµ½¶ÔÓ¦µÄÉè±¸¶ÔÏó:%1").arg(m_curItem->getCimId()));
+		QMessageBox::warning(views().at(0),MSG_TITLE,tr("æœªæŸ¥æ‰¾åˆ°å¯¹åº”çš„è®¾å¤‡å¯¹è±¡:%1").arg(m_curItem->getCimId()));
 	}
 }
 
@@ -764,7 +764,7 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	req.set_unittype(m_curItem->getType());
 	req.set_ischeck(ischeck);
 	
-	// ÉèÖÃ²Ù×÷Éè±¸ÁĞ±í
+	// è®¾ç½®æ“ä½œè®¾å¤‡åˆ—è¡¨
 	
 	for (int i = 0;i<m_opDevList.size();i++)
 	{
@@ -776,27 +776,27 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	{
 		m_curItem->getCimId();
 		m_curItem->getType();
-		QString strType = QString(tr("¿ª¹Ø"));
+		QString strType = QString(tr("å¼€å…³"));
 		QString strState = QString(tr(""));
 		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 		{
 			switch (m_curItem->getType())
 			{
 			case eBREAKER:
-				strType = QString(tr("¿ª¹Ø"));
+				strType = QString(tr("å¼€å…³"));
 				break;
 			case eSWITCH:
-				strType = QString(tr("µ¶Õ¢"));
+				strType = QString(tr("åˆ€é—¸"));
 				break;
 			}
 
 			if (state==eON)
 			{
-				strState = QString(tr("ÓÉ·Öµ½ºÏ"));
+				strState = QString(tr("ç”±åˆ†åˆ°åˆ"));
 			}
 			else if (state==eOFF)
 			{
-				strState = QString(tr("ÓÉºÏµ½·Ö"));
+				strState = QString(tr("ç”±åˆåˆ°åˆ†"));
 			}
 
 			if (!m_boprflag)
@@ -821,7 +821,7 @@ void GraphicsScene::sendTagReq(eTagState type)
 	req.SerializeToString(&data);
 	NetClient::instance()->sendData(CMD_TAG_OP,data.c_str(),data.length());
 
-	// ±£´æµ±Ç°¹ÒÅÆµÄÉè±¸
+	// ä¿å­˜å½“å‰æŒ‚ç‰Œçš„è®¾å¤‡
 	PBNS::StateBean bean;
 	if(findUnitBeanByCimId(m_curItem->getCimId(),bean))
 	{
@@ -833,7 +833,7 @@ void GraphicsScene::sendTagReq(eTagState type)
 
 void GraphicsScene::readSaving()
 {
-	// 1.·¢ËÍ»ñÈ¡´æµµÁĞ±íÃüÁî
+	// 1.å‘é€è·å–å­˜æ¡£åˆ—è¡¨å‘½ä»¤
 	PBNS::SavingListMsg_Request req;
 	req.set_id("0");
 	string data;
@@ -844,9 +844,9 @@ void GraphicsScene::readSaving()
 
 void GraphicsScene::writeSaving()
 {
-	// 1.ÉèÖÃ´æµµÃû³Æ
+	// 1.è®¾ç½®å­˜æ¡£åç§°
 
-	// 2.»ñÈ¡²Ù×÷±äÎ»ºóµÄÉè±¸×´Ì¬£¨¿ª¹Ø×´Ì¬£¬¹ÒÅÆ²Ù×÷£©£¬·¢ËÍµ½ºóÌ¨½øĞĞ±£´æ
+	// 2.è·å–æ“ä½œå˜ä½åçš„è®¾å¤‡çŠ¶æ€ï¼ˆå¼€å…³çŠ¶æ€ï¼ŒæŒ‚ç‰Œæ“ä½œï¼‰ï¼Œå‘é€åˆ°åå°è¿›è¡Œä¿å­˜
 
 	SaveWidget sdlg;
 	if(sdlg.exec() == QDialog::Accepted)
@@ -854,7 +854,7 @@ void GraphicsScene::writeSaving()
 		QString sname = sdlg.getSaveName();
 		PBNS::WriteSavingMsg_Request req;
 		
-		// ¿Í»§¶Ë²Ù×÷Éè±¸µÄ×´Ì¬
+		// å®¢æˆ·ç«¯æ“ä½œè®¾å¤‡çš„çŠ¶æ€
 		for (int i = 0;i<m_opDevList.size();i++)
 		{
 			PBNS::StateBean *bean = req.add_statelist();
@@ -873,13 +873,13 @@ void GraphicsScene::showSavingList(const char* msg,int msglength)
 	PBNS::SavingListMsg_Response res;
 	res.ParseFromArray(msg,msglength);
 
-	// 2.¿Í»§¶ËÏÔÊ¾´æµµÁĞ±í´°¿Ú
+	// 2.å®¢æˆ·ç«¯æ˜¾ç¤ºå­˜æ¡£åˆ—è¡¨çª—å£
 
-	// 3.Ñ¡ÔñÒ»¸ö´æµµ
+	// 3.é€‰æ‹©ä¸€ä¸ªå­˜æ¡£
 
-	// 4.»ñÈ¡¸Ã´æµµÏÂÃæÉè±¸×´Ì¬
+	// 4.è·å–è¯¥å­˜æ¡£ä¸‹é¢è®¾å¤‡çŠ¶æ€
 
-	// 5.×ÅÉ«
+	// 5.ç€è‰²
 
 	OpenWidget odlg;
 	odlg.setData(res);
@@ -887,10 +887,10 @@ void GraphicsScene::showSavingList(const char* msg,int msglength)
 	{
 		m_saveId = odlg.getSaveId();
 
-		// »ñÈ¡¸Ã´æµµÏÂµÄÉè±¸×´Ì¬
+		// è·å–è¯¥å­˜æ¡£ä¸‹çš„è®¾å¤‡çŠ¶æ€
 		reqUnitState(m_stationCim);
 
-		// Çå¿ÕÉÏÒ»´æµµ±£³ÖµÄ²Ù×÷Éè±¸¼¯ºÏ
+		// æ¸…ç©ºä¸Šä¸€å­˜æ¡£ä¿æŒçš„æ“ä½œè®¾å¤‡é›†åˆ
 		m_opDevList.clear();
 	}
 }
@@ -905,19 +905,19 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 	dlg.setData(res);
 	m_isOpFinished = true;
 	
-	//½«´¥·¢µÄ¹æÔò¼ÇÂ¼ÏÂÀ´£¬Ğ´µ½²Ù×÷Æ±Ã÷Ï¸±íÖĞ
+	//å°†è§¦å‘çš„è§„åˆ™è®°å½•ä¸‹æ¥ï¼Œå†™åˆ°æ“ä½œç¥¨æ˜ç»†è¡¨ä¸­
 	if (ComUtil::instance()->getActionFlag())
 	{
 		QList<QString> rulelist;
 		rulelist = dlg.getRuleList();
 
-		//Ö»ÓĞ¿ª¹Ø»òµ¶Õ¢Ê±Ğ´²Ù×÷Ã÷Ï¸±í
+		//åªæœ‰å¼€å…³æˆ–åˆ€é—¸æ—¶å†™æ“ä½œæ˜ç»†è¡¨
 		if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 		{
 			for (int i=0;i<rulelist.size();i++)
 			{
 				QString strRule = rulelist.at(i);
-				QString strAct = QString(tr("´¥·¢¹æÔò:%1")).arg(strRule);
+				QString strAct = QString(tr("è§¦å‘è§„åˆ™:%1")).arg(strRule);
 				TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
@@ -925,36 +925,36 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 
 	if (dlg.exec() == QDialog::Accepted)
 	{
-		//½«´¥·¢µÄ¹æÔò¼ÇÂ¼ÏÂÀ´£¬Ğ´µ½²Ù×÷Æ±Ã÷Ï¸±íÖĞ
+		//å°†è§¦å‘çš„è§„åˆ™è®°å½•ä¸‹æ¥ï¼Œå†™åˆ°æ“ä½œç¥¨æ˜ç»†è¡¨ä¸­
 		if (ComUtil::instance()->getActionFlag())
 		{
 			QList<QString> rulelist;
 			rulelist = dlg.getRuleList();
 
-			//Ö»ÓĞ¿ª¹Ø»òµ¶Õ¢Ê±Ğ´²Ù×÷Ã÷Ï¸±í
+			//åªæœ‰å¼€å…³æˆ–åˆ€é—¸æ—¶å†™æ“ä½œæ˜ç»†è¡¨
 			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 			{
-				QString strAct = QString(tr("´¥·¢¹æÔòºó¼ÌĞøÖ´ĞĞ"));
+				QString strAct = QString(tr("è§¦å‘è§„åˆ™åç»§ç»­æ‰§è¡Œ"));
 				TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
 		m_boprflag = true;
-		// ·¢ËÍ¿ª¹Ø±äÎ»ÇëÇó
+		// å‘é€å¼€å…³å˜ä½è¯·æ±‚
 		sendBreakOpReq(optype,false);
 		m_boprflag = false;
 	}
 	else
 	{
-		//½«´¥·¢µÄ¹æÔò¼ÇÂ¼ÏÂÀ´£¬Ğ´µ½²Ù×÷Æ±Ã÷Ï¸±íÖĞ
+		//å°†è§¦å‘çš„è§„åˆ™è®°å½•ä¸‹æ¥ï¼Œå†™åˆ°æ“ä½œç¥¨æ˜ç»†è¡¨ä¸­
 		if (ComUtil::instance()->getActionFlag())
 		{
 			QList<QString> rulelist;
 			rulelist = dlg.getRuleList();
 
-			//Ö»ÓĞ¿ª¹Ø»òµ¶Õ¢Ê±Ğ´²Ù×÷Ã÷Ï¸±í
+			//åªæœ‰å¼€å…³æˆ–åˆ€é—¸æ—¶å†™æ“ä½œæ˜ç»†è¡¨
 			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 			{
-				QString strAct = QString(tr("´¥·¢¹æÔòºóÈ¡Ïû²Ù×÷"));
+				QString strAct = QString(tr("è§¦å‘è§„åˆ™åå–æ¶ˆæ“ä½œ"));
 				TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
@@ -964,13 +964,13 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 
 void GraphicsScene::reqUnitState(QString stationCim)
 {
-	// ±£´æµ±Ç°Õ¾µãID
+	// ä¿å­˜å½“å‰ç«™ç‚¹ID
 	m_stationCim = stationCim;
 
-	// ¼ÓÔØÉè±¸×´Ì¬Êı¾İ
+	// åŠ è½½è®¾å¤‡çŠ¶æ€æ•°æ®
 	PBNS::DevStateMsg_Request req;
 
-	// ×¢Òâ£¡£¡£¡£¡£¡£¡Õ¾µãIDºÍsaveId£¬ĞèÒª¸ù¾İ´ò¿ªµÄÍ¼ĞÎ´«¹ıÀ´£¡£¡£¡
+	// æ³¨æ„ï¼ï¼ï¼ï¼ï¼ï¼ç«™ç‚¹IDå’ŒsaveIdï¼Œéœ€è¦æ ¹æ®æ‰“å¼€çš„å›¾å½¢ä¼ è¿‡æ¥ï¼ï¼ï¼
 	req.set_saveid(m_saveId);
 	req.set_stationcim(stationCim.toStdString());
 	string reqstr;
@@ -1006,7 +1006,7 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean>  stateList)
 		return;
 	}
 
-	// »ñÈ¡µ±Ç°µÄÍ¼ĞÎ
+	// è·å–å½“å‰çš„å›¾å½¢
 	if (m_graphList.size()<=m_curIndex || m_curIndex < 0)
 	{
 		return;
@@ -1015,7 +1015,7 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean>  stateList)
 
 	setDevStateEx(stateList,pgraph,NULL);
 
-	// ÖØĞÂ¼ÓÔØÍ¼ĞÎ
+	// é‡æ–°åŠ è½½å›¾å½¢
 	this->clear();
 
 	m_svgRender->drawGraph(pgraph);
@@ -1033,7 +1033,7 @@ void GraphicsScene::clearItem()
 
 void GraphicsScene::putDev2OpList(QString cim,int state)
 {
-	// ²éÕÒÊÇ·ñÒÑ¾­´æÔÚ
+	// æŸ¥æ‰¾æ˜¯å¦å·²ç»å­˜åœ¨
 	PBNS::StateBean bean;
 	int idx = findDevByCim(cim,bean);
 	if (idx>=0)
@@ -1044,10 +1044,10 @@ void GraphicsScene::putDev2OpList(QString cim,int state)
 	{
 		findUnitBeanByCimId(cim,bean);
 	}
-	// ¸üĞÂ×´Ì¬
+	// æ›´æ–°çŠ¶æ€
 	bean.set_state(state);
 
-	// ±£³ÖĞÂ×´Ì¬
+	// ä¿æŒæ–°çŠ¶æ€
 	m_opDevList.push_back(bean);
 }
 

@@ -1,9 +1,9 @@
-#include "stationmgr.h"
+ï»¿#include "stationmgr.h"
 
 StationMgr::StationMgr(QWidget *parent)
 	: QDialog(parent)
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(720,780);
@@ -12,32 +12,32 @@ StationMgr::StationMgr(QWidget *parent)
 	QHBoxLayout *pbtnhlayt = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QGroupBox *pstalisgbox = new QGroupBox("³§Õ¾ÁĞ±í");
+	QGroupBox *pstalisgbox = new QGroupBox("å‚ç«™åˆ—è¡¨");
 	ptabwdgStaList = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = ptabwdgStaList->palette();
-	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//ÉèÖÃÍ¸Ã÷
+	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//è®¾ç½®é€æ˜
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	ptabwdgStaList->setPalette(tabplt);
-	//ÉèÖÃÁĞÊı
+	//è®¾ç½®åˆ—æ•°
 	ptabwdgStaList->setColumnCount(7);
 	QStringList header;
-	header<<"ID"<<"³§Õ¾ÀàĞÍ"<<"ÀàĞÍÃû³Æ"<<"³§Õ¾CIMID"<<"³§Õ¾Ãû³Æ"<<"³§Õ¾ÃèÊö"<<"³§Õ¾Í¼Ãû";
+	header<<"ID"<<"å‚ç«™ç±»å‹"<<"ç±»å‹åç§°"<<"å‚ç«™CIMID"<<"å‚ç«™åç§°"<<"å‚ç«™æè¿°"<<"å‚ç«™å›¾å";
 	ptabwdgStaList->setHorizontalHeaderLabels(header);
-	//Ê¹ĞĞÁĞÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓĞÁĞÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	//ptabwdgStaList->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	ptabwdgStaList->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	ptabwdgStaList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	ptabwdgStaList->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	ptabwdgStaList->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
-	pbntStaType = new QPushButton("³§Õ¾ÀàĞÍ");
-	pbnCommit = new QPushButton("Ìá  ½»");
+	pbntStaType = new QPushButton("å‚ç«™ç±»å‹");
+	pbnCommit = new QPushButton("æ  äº¤");
 
 	pbtnhlayt->addStretch();
 	pbtnhlayt->addWidget(pbntStaType);
@@ -54,9 +54,9 @@ StationMgr::StationMgr(QWidget *parent)
 	pmainvlyt->setContentsMargins(8,5,8,10);
 	this->setLayout(pmainvlyt);
 
-	//ÉèÖÃ³§Õ¾ÀàĞÍÁĞÒş²Ø
+	//è®¾ç½®å‚ç«™ç±»å‹åˆ—éšè—
 	ptabwdgStaList->setColumnHidden(1,true);
-	//³õÊ¼Çå¿ÕÈİÆ÷
+	//åˆå§‹æ¸…ç©ºå®¹å™¨
 	m_stationmdfvct.clear();
 	pbnCommit->setEnabled(false);
 
@@ -78,12 +78,12 @@ void StationMgr::loadStationList()
 	m_stationvct.clear();
 	ptabwdgStaList->clearContents();
 
-	//»ñÈ¡³§Õ¾ÁĞ±í
+	//è·å–å‚ç«™åˆ—è¡¨
 	m_stationvct = ComUtil::instance()->getStationMgrList();
 
 	int nrow = m_stationvct.size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	ptabwdgStaList->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -110,7 +110,7 @@ void StationMgr::createStaTypeMgrDlg()
 {
 
 	StationTypeMgr::instance()->setWindowIcon(QIcon(":images/stationmgr.png"));
-	StationTypeMgr::instance()->setWindowTitle("³§Õ¾ÀàĞÍ¹ÜÀí");
+	StationTypeMgr::instance()->setWindowTitle("å‚ç«™ç±»å‹ç®¡ç†");
 
 	StationTypeMgr::instance()->exec();
 
@@ -124,20 +124,20 @@ void StationMgr::createStationMgrDlg(QTableWidgetItem * item)
 	pStationEditMgrDlg = new StationEditMgr(this);
 
 	pStationEditMgrDlg->setWindowIcon(QIcon(":images/stationmgr.png"));
-	pStationEditMgrDlg->setWindowTitle("³§Õ¾¹ÜÀí");
+	pStationEditMgrDlg->setWindowTitle("å‚ç«™ç®¡ç†");
 	
 	setStationStruct(item);
 	pStationEditMgrDlg->loadStationEditData();
 
 	pStationEditMgrDlg->exec();
 
-	//Èç¹ûÑ¡ÖĞµÄ³§Õ¾½øĞĞÁËĞŞ¸ÄÔòµÃµ½ĞŞ¸ÄºóµÄÖµ
+	//å¦‚æœé€‰ä¸­çš„å‚ç«™è¿›è¡Œäº†ä¿®æ”¹åˆ™å¾—åˆ°ä¿®æ”¹åçš„å€¼
 	if (pStationEditMgrDlg->getConfirmStationFlag())
 	{
 		pbnCommit->setEnabled(true);
 		m_station = pStationEditMgrDlg->getStationSelectVal();
 
-		//¸üĞÂµ±Ç°Ñ¡ÖĞµÄ³§Õ¾ÁĞ±íÖĞµÄÖµ,´Ë²½Ö»ÊÇ½«ĞŞ¸ÄµÄ¶ÔÓ¦ÏîÏÔÊ¾¶øÒÑ
+		//æ›´æ–°å½“å‰é€‰ä¸­çš„å‚ç«™åˆ—è¡¨ä¸­çš„å€¼,æ­¤æ­¥åªæ˜¯å°†ä¿®æ”¹çš„å¯¹åº”é¡¹æ˜¾ç¤ºè€Œå·²
 		int ncrow = item->row();
 		QString strtypeid = QString("%1").arg(m_station.stypeid);
 		ptabwdgStaList->setItem(ncrow,1,new QTableWidgetItem(strtypeid));
@@ -145,13 +145,13 @@ void StationMgr::createStationMgrDlg(QTableWidgetItem * item)
 		ptabwdgStaList->setItem(ncrow,5,new QTableWidgetItem(m_station.curname));
 		ptabwdgStaList->setItem(ncrow,6,new QTableWidgetItem(m_station.path));
 
-		//ÉèÖÃÈİÆ÷ÖĞÊÇ·ñÓĞĞŞ¸ÄµÄ³§Õ¾±êÖ¾
+		//è®¾ç½®å®¹å™¨ä¸­æ˜¯å¦æœ‰ä¿®æ”¹çš„å‚ç«™æ ‡å¿—
 		bool bfind = false;
 
-		//±éÀúÈİÆ÷²éÕÒ±à¼­µÄ³§Õ¾ÊÇ·ñÒÑ¾­±à¼­¹ı´æ´¢ÔÚÈİÆ÷ÖĞ
+		//éå†å®¹å™¨æŸ¥æ‰¾ç¼–è¾‘çš„å‚ç«™æ˜¯å¦å·²ç»ç¼–è¾‘è¿‡å­˜å‚¨åœ¨å®¹å™¨ä¸­
 		for (int i=0;i<m_stationmdfvct.size();i++)
 		{
-			//ÈôÈİÆ÷ÖĞÒÑÓĞ´Ë±à¼­µÄ³§Õ¾£¬ĞèÒª¸üĞÂ³§Õ¾½á¹¹Ìå¸÷ĞŞ¸ÄÖµ
+			//è‹¥å®¹å™¨ä¸­å·²æœ‰æ­¤ç¼–è¾‘çš„å‚ç«™ï¼Œéœ€è¦æ›´æ–°å‚ç«™ç»“æ„ä½“å„ä¿®æ”¹å€¼
 			if (m_station.id == m_stationmdfvct.at(i).id)
 			{
 				m_stationmdfvct.at(i).stypeid = m_station.stypeid;
@@ -190,7 +190,7 @@ void StationMgr::setStationStruct(QTableWidgetItem * item)
 	m_station.curname = ptabwdgStaList->item(ncurrow,5)->text();
 	m_station.path = ptabwdgStaList->item(ncurrow,6)->text();
 
-	//ÉèÖÃµ±Ç°Ñ¡ÖĞ³§Õ¾Öµ
+	//è®¾ç½®å½“å‰é€‰ä¸­å‚ç«™å€¼
 	pStationEditMgrDlg->setStationSelectVal(m_station);
 
 }
@@ -201,7 +201,7 @@ void StationMgr::commitStation()
 	int ncount = m_stationmdfvct.size();
 	if (ncount <= 0 )
 	{
-		QMessageBox::information(this,tr("³§Õ¾ÉèÖÃ"),tr("Î´¶Ô³§Õ¾ĞÅÏ¢½øĞĞĞŞ¸Ä,²»ĞèÌá½»!"));
+		QMessageBox::information(this,tr("å‚ç«™è®¾ç½®"),tr("æœªå¯¹å‚ç«™ä¿¡æ¯è¿›è¡Œä¿®æ”¹,ä¸éœ€æäº¤!"));
 		return;
 	}
 
@@ -236,14 +236,14 @@ void StationMgr::retStationMgr(int msgtype,const char* msg)
 			if (starep.rescode() > 0)
 			{
 				
-				QMessageBox::information(this,tr("³§Õ¾ÉèÖÃ"),tr("³§Õ¾ĞŞ¸ÄÌá½»³É¹¦!"));
+				QMessageBox::information(this,tr("å‚ç«™è®¾ç½®"),tr("å‚ç«™ä¿®æ”¹æäº¤æˆåŠŸ!"));
 				ComUtil::instance()->getStationType();
 				ComUtil::instance()->getStation();
 				pbnCommit->setEnabled(false);
 			}
 			else
 			{
-				QMessageBox::information(this,tr("³§Õ¾ÉèÖÃ"),tr("³§Õ¾ĞŞ¸ÄÌá½»Ê§°Ü!"));
+				QMessageBox::information(this,tr("å‚ç«™è®¾ç½®"),tr("å‚ç«™ä¿®æ”¹æäº¤å¤±è´¥!"));
 				pbnCommit->setEnabled(true);
 			}
 		}
@@ -269,7 +269,7 @@ StationTypeMgr* StationTypeMgr::instance()
 StationTypeMgr::StationTypeMgr()
 	: QDialog()
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(430,500);
@@ -279,31 +279,31 @@ StationTypeMgr::StationTypeMgr()
 	QHBoxLayout *pbtnhlayt = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QGroupBox *ptypelisgbox = new QGroupBox("³§Õ¾ÀàĞÍÁĞ±í");
+	QGroupBox *ptypelisgbox = new QGroupBox("å‚ç«™ç±»å‹åˆ—è¡¨");
 	ptabwdgStaTypeList = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = ptabwdgStaTypeList->palette();
-	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//ÉèÖÃÍ¸Ã÷
+	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//è®¾ç½®é€æ˜
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	ptabwdgStaTypeList->setPalette(tabplt);
-	//ÉèÖÃÁĞÊı
+	//è®¾ç½®åˆ—æ•°
 	ptabwdgStaTypeList->setColumnCount(3);
 	QStringList header;
-	header<<"ID"<<"Ë³ĞòºÅ"<<"³§Õ¾ÀàĞÍÃû³Æ";
+	header<<"ID"<<"é¡ºåºå·"<<"å‚ç«™ç±»å‹åç§°";
 	ptabwdgStaTypeList->setHorizontalHeaderLabels(header);
-	//Ê¹ĞĞÁĞÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓĞÁĞÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	//ptabwdgStaList->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	ptabwdgStaTypeList->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	ptabwdgStaTypeList->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	ptabwdgStaTypeList->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	ptabwdgStaTypeList->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	QGroupBox *pgbox = new QGroupBox("ÀàĞÍÏÔÊ¾");
-	porderlab = new QLabel("Ë³ĞòºÅ");
+	QGroupBox *pgbox = new QGroupBox("ç±»å‹æ˜¾ç¤º");
+	porderlab = new QLabel("é¡ºåºå·");
 	porderlab->setFixedWidth(40);
 	porderspbox = new QSpinBox;
 	porderspbox->setFixedWidth(135);
@@ -313,18 +313,18 @@ StationTypeMgr::StationTypeMgr()
 	porderlined->setFixedWidth(135);
 	porderlined->setFixedHeight(25);
 
-	ptypelab = new QLabel("ÀàĞÍÃû³Æ");
+	ptypelab = new QLabel("ç±»å‹åç§°");
 	ptypelab->setFixedWidth(50);
 	ptypelined = new QLineEdit;
 	ptypelined->setFixedWidth(135);
 	ptypelined->setFixedHeight(25);
 
-	QGroupBox *pbtngbox = new QGroupBox("²Ù×÷");
-	pbntadd = new QPushButton("Ôö  ¼Ó");
+	QGroupBox *pbtngbox = new QGroupBox("æ“ä½œ");
+	pbntadd = new QPushButton("å¢  åŠ ");
 	pbntadd->setFixedHeight(25);
-	pbntdel = new QPushButton("É¾  ³ı");
+	pbntdel = new QPushButton("åˆ   é™¤");
 	pbntdel->setFixedHeight(25);
-	pbntmdf = new QPushButton("ĞŞ  ¸Ä");
+	pbntmdf = new QPushButton("ä¿®  æ”¹");
 	pbntmdf->setFixedHeight(25);
 
 	ptypehlayt->addWidget(ptabwdgStaTypeList);
@@ -361,12 +361,12 @@ StationTypeMgr::StationTypeMgr()
 	bflgadd = false;
 	bflgmdf = false;
 
-	//¼ÓÔØ³§Õ¾ÀàĞÍÁĞ±í
+	//åŠ è½½å‚ç«™ç±»å‹åˆ—è¡¨
 	loadStationTypeList();
 	
-	//µã»÷ÓÃ»§ÁĞ±íÄ³ĞĞĞÅºÅ²Û¹ØÁª
+	//ç‚¹å‡»ç”¨æˆ·åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 	connect(ptabwdgStaTypeList,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getStationTypeItem(QTableWidgetItem*)));
-	//²Ù×÷°´Å¥ĞÅºÅ²Û¹ØÁª
+	//æ“ä½œæŒ‰é’®ä¿¡å·æ§½å…³è”
 	connect(pbntadd,SIGNAL(clicked()),this,SLOT(addStationType()));
 	connect(pbntdel,SIGNAL(clicked()),this,SLOT(delStationType()));
 	connect(pbntmdf,SIGNAL(clicked()),this,SLOT(mdfStationType()));
@@ -395,7 +395,7 @@ void StationTypeMgr::loadStationTypeList()
 	m_stationtype = ComUtil::instance()->getStationTypeMgrList();
 
 	int nrow = m_stationtype.size();
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	ptabwdgStaTypeList->setRowCount(nrow);
 
 	for (int i=0; i<nrow; i++)
@@ -436,7 +436,7 @@ void StationTypeMgr::recvdata(int msgtype,const char* msg,int msglength)
 
 			if (rep.rescode()>0)
 			{
-				//ĞŞ¸Ä³§Õ¾ÀàĞÍ³É¹¦ºó£¬¶ÔÖ÷½çÃæÖĞ³§Õ¾ÀàĞÍÖØĞÂ¼ÓÔØ
+				//ä¿®æ”¹å‚ç«™ç±»å‹æˆåŠŸåï¼Œå¯¹ä¸»ç•Œé¢ä¸­å‚ç«™ç±»å‹é‡æ–°åŠ è½½
 				ComUtil::instance()->getStationType();
 				//loadStationTypeList();
 			}
@@ -461,7 +461,7 @@ void StationTypeMgr::reqStationTypeList()
 	strData.append("1");
 
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_TYPE_LIST,statypereq.SerializeAsString().c_str(),statypereq.SerializeAsString().length());
 
 	return;
@@ -472,14 +472,14 @@ void StationTypeMgr::retStationTypeList(int msgtype,const char* msg)
 	PBNS::StationTypeMsg_Response statyperep;
 	statyperep.ParseFromString(msg);
 
-	//¼ÇÂ¼ÇëÇóÇ°Ñ¡ÔñµÄĞĞ
+	//è®°å½•è¯·æ±‚å‰é€‰æ‹©çš„è¡Œ
 	int ncurrow = ptabwdgStaTypeList->currentRow();
 
 	//ptabwdgStaTypeList->clear();
 	ptabwdgStaTypeList->clearContents();
 	int nrow = statyperep.typelist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	ptabwdgStaTypeList->setRowCount(nrow);
 
 	for (int i=0; i<nrow; i++)
@@ -570,13 +570,13 @@ void StationTypeMgr::addStationType()
 	{
 		if (porderspbox->value()<=0)
 		{
-			QMessageBox::information(this,tr("³§Õ¾ÀàĞÍÉèÖÃ"),tr("Ë³ĞòºÅÒª´óÓÚ0£¬ÇëÊäÈë´óÓÚ0Öµ!"));
+			QMessageBox::information(this,tr("å‚ç«™ç±»å‹è®¾ç½®"),tr("é¡ºåºå·è¦å¤§äº0ï¼Œè¯·è¾“å…¥å¤§äº0å€¼!"));
 			return;
 		}
 
 		if (ptypelined->text() == "")
 		{
-			QMessageBox::information(this,tr("³§Õ¾ÀàĞÍÉèÖÃ"),tr("³§Õ¾ÀàĞÍÃû³Æ²»¿ÉÎª¿Õ£¬ÇëÊäÈë³§Õ¾ÀàĞÍÃû³Æ!"));
+			QMessageBox::information(this,tr("å‚ç«™ç±»å‹è®¾ç½®"),tr("å‚ç«™ç±»å‹åç§°ä¸å¯ä¸ºç©ºï¼Œè¯·è¾“å…¥å‚ç«™ç±»å‹åç§°!"));
 			return;
 		}
 
@@ -594,7 +594,7 @@ void StationTypeMgr::addStationType()
 		porderspbox->setEnabled(false);
 		ptypelined->setEnabled(false);
 
-		//Ìí¼ÓÍê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+		//æ·»åŠ å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 		reqStationTypeList();
 	}
 
@@ -603,7 +603,7 @@ void StationTypeMgr::addStationType()
 void StationTypeMgr::delStationType()
 {
 	int ncurrow = ptabwdgStaTypeList->currentRow();
-	//È¡ÓÃ»§ÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÒ»ÁĞÓÃ»§idºÅ
+	//å–ç”¨æˆ·åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—ç”¨æˆ·idå·
 	int nStatypeid = ptabwdgStaTypeList->item(ncurrow,0)->text().toInt();
 
 	QString sql = QString("delete from station_category where id=%1").arg(nStatypeid);
@@ -613,11 +613,11 @@ void StationTypeMgr::delStationType()
 
 	NetClient::instance()->sendData(CMD_STATION_TYPE_DEL,delureq.SerializeAsString().c_str(),delureq.SerializeAsString().length());
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
 
-	//É¾³ıÍê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+	//åˆ é™¤å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 	reqStationTypeList();
 
 	return;
@@ -640,18 +640,18 @@ void StationTypeMgr::mdfStationType()
 	{
 		if (porderspbox->value()<=0)
 		{
-			QMessageBox::information(this,tr("³§Õ¾ÀàĞÍÉèÖÃ"),tr("Ë³ĞòºÅÒª´óÓÚ0£¬ÇëÊäÈë´óÓÚ0Öµ!"));
+			QMessageBox::information(this,tr("å‚ç«™ç±»å‹è®¾ç½®"),tr("é¡ºåºå·è¦å¤§äº0ï¼Œè¯·è¾“å…¥å¤§äº0å€¼!"));
 			return;
 		}
 
 		if (ptypelined->text() == "")
 		{
-			QMessageBox::information(this,tr("³§Õ¾ÀàĞÍÉèÖÃ"),tr("³§Õ¾ÀàĞÍÃû³Æ²»¿ÉÎª¿Õ£¬ÇëÊäÈë³§Õ¾ÀàĞÍÃû³Æ!"));
+			QMessageBox::information(this,tr("å‚ç«™ç±»å‹è®¾ç½®"),tr("å‚ç«™ç±»å‹åç§°ä¸å¯ä¸ºç©ºï¼Œè¯·è¾“å…¥å‚ç«™ç±»å‹åç§°!"));
 			return;
 		}
 
 		int currow = ptabwdgStaTypeList->currentRow();
-		//È¡³§Õ¾ÀàĞÍID(³§Õ¾ÀàĞÍ±íÖ÷¼ü)
+		//å–å‚ç«™ç±»å‹ID(å‚ç«™ç±»å‹è¡¨ä¸»é”®)
 		int nid = ptabwdgStaTypeList->item(currow,0)->text().toInt();
 
 		int norder = porderspbox->value();
@@ -668,7 +668,7 @@ void StationTypeMgr::mdfStationType()
 		porderspbox->setEnabled(false);
 		ptypelined->setEnabled(false);
 
-		//ĞŞ¸ÄÍê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+		//ä¿®æ”¹å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 		reqStationTypeList();
 
 		return;
@@ -677,12 +677,12 @@ void StationTypeMgr::mdfStationType()
 
 
 /**************************************************************************************************************************/
-/*                                                  Õ¾µã±à¼­¹ÜÀíÀà                                                        */
+/*                                                  ç«™ç‚¹ç¼–è¾‘ç®¡ç†ç±»                                                        */
 /**************************************************************************************************************************/
 
 StationEditMgr::StationEditMgr(QWidget *parent)
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(370,400);
@@ -699,19 +699,19 @@ StationEditMgr::StationEditMgr(QWidget *parent)
 	QHBoxLayout *pbtnhlayt = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	//"ID"<<"³§Õ¾ÀàĞÍ"<<"ÀàĞÍÃû³Æ"<<"³§Õ¾CIMID"<<"³§Õ¾Ãû³Æ"<<"³§Õ¾ÃèÊö"<<"³§Õ¾Í¼Ãû";
+	//"ID"<<"å‚ç«™ç±»å‹"<<"ç±»å‹åç§°"<<"å‚ç«™CIMID"<<"å‚ç«™åç§°"<<"å‚ç«™æè¿°"<<"å‚ç«™å›¾å";
 
-	QLabel *pidlab = new QLabel("³§Õ¾ID");
+	QLabel *pidlab = new QLabel("å‚ç«™ID");
 	pidlab->setFixedSize(50,25);
-	QLabel *ptypelab = new QLabel("ÀàĞÍÃû³Æ");
+	QLabel *ptypelab = new QLabel("ç±»å‹åç§°");
 	ptypelab->setFixedSize(50,25);
-	QLabel *pcimidlab = new QLabel("³§Õ¾CIMID");
+	QLabel *pcimidlab = new QLabel("å‚ç«™CIMID");
 	pcimidlab->setFixedSize(55,25);
-	QLabel *pstanamelab = new QLabel("³§Õ¾Ãû³Æ");
+	QLabel *pstanamelab = new QLabel("å‚ç«™åç§°");
 	pstanamelab->setFixedSize(50,25);
-	QLabel *pstadislab = new QLabel("³§Õ¾ÃèÊö");
+	QLabel *pstadislab = new QLabel("å‚ç«™æè¿°");
 	pstadislab->setFixedSize(50,25);
-	QLabel *ppathlab = new QLabel("³§Õ¾Í¼Ãû");
+	QLabel *ppathlab = new QLabel("å‚ç«™å›¾å");
 	ppathlab->setFixedSize(50,25);
 	
 
@@ -727,7 +727,7 @@ StationEditMgr::StationEditMgr(QWidget *parent)
 	pstadisclined->setFixedSize(230,25);
 	ppathcbox = new QComboBox;
 	ppathcbox->setFixedSize(230,25);
-	pbntok = new QPushButton("È·  ÈÏ");
+	pbntok = new QPushButton("ç¡®  è®¤");
 	pbntok->setFixedSize(150,25);
 
 	phlayt1->addWidget(pidlab);
@@ -810,7 +810,7 @@ void StationEditMgr::loadStationEditData()
 	pnamelined->setText(m_station.name);
 	pstadisclined->setText(m_station.curname);
 
-	//Ä¬ÈÏÉèÖÃsvgÑ¡Ôñ¿òÖĞÎªµÚÒ»¸öÏÔÊ¾Öµ
+	//é»˜è®¤è®¾ç½®svgé€‰æ‹©æ¡†ä¸­ä¸ºç¬¬ä¸€ä¸ªæ˜¾ç¤ºå€¼
 	ppathcbox->setCurrentIndex(0);
 
 	for (int i=0;i<ppathcbox->count();i++)
@@ -843,7 +843,7 @@ void StationEditMgr::setStationTypeCbox()
 void StationEditMgr::setStationPathCbox()
 {
 	m_svgflist = ComUtil::instance()->getSvgPathName();
-	//m_svgflist<<"10kV³Ç¹Ø¿ª¹ØÕ¾.fac.svg"<<"35kV°½³Ç±äµçÕ¾.fac.svg"<<"35kV°×ÔÆÉ½µçÕ¾.fac.svg"<<"35kV´ó³å±äµçÕ¾.fac.svg"<<"35kV¸ßÌÁ±äµçÕ¾.fac.svg"<<"35kV¸ßÌÁ±äµçÕ¾1.fac.svg"<<"35kV¹Ì½­±äµçÕ¾.fac.svg"<<"35kVÅÌÌï±äµçÕ¾.fac.svg";
+	//m_svgflist<<"10kVåŸå…³å¼€å…³ç«™.fac.svg"<<"35kVæ•–åŸå˜ç”µç«™.fac.svg"<<"35kVç™½äº‘å±±ç”µç«™.fac.svg"<<"35kVå¤§å†²å˜ç”µç«™.fac.svg"<<"35kVé«˜å¡˜å˜ç”µç«™.fac.svg"<<"35kVé«˜å¡˜å˜ç”µç«™1.fac.svg"<<"35kVå›ºæ±Ÿå˜ç”µç«™.fac.svg"<<"35kVç›˜ç”°å˜ç”µç«™.fac.svg";
 
 	for (int i=0;i<m_svgflist.size();i++)
 	{

@@ -1,4 +1,4 @@
-
+ï»¿
 #include <QTransform>
 #include "svgrenderer.h"
 #include "define.h"
@@ -23,7 +23,7 @@ QString SvgRenderer::initSvgRenderer()
 {
 	if (m_graph != NULL)
 	{
-		// °Ñsymbol±êÇ©×ª³Ég±êÇ©
+		// æŠŠsymbolæ ‡ç­¾è½¬æˆgæ ‡ç­¾
 		QString sxml = m_graph->getDom()->toString();
 		
 		return sxml;
@@ -56,12 +56,12 @@ SvgItem* SvgRenderer::renderById(SvgGraph* graph,BaseDevice* pdev)
 
 void SvgRenderer::drawGraph(SvgGraph* graph)
 {
-	// Çå¿ÕÖ®Ç°±£´æµÄItem
+	// æ¸…ç©ºä¹‹å‰ä¿å­˜çš„Item
 	m_scene->clearItem();
 
 	m_graph = graph;
 
-	// SVGÎÄ¼ş¸ñÊ½×ª»»
+	// SVGæ–‡ä»¶æ ¼å¼è½¬æ¢
 	if (m_renderer != NULL)
 	{
 		delete m_renderer;
@@ -69,13 +69,13 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 	}
 	m_renderer = new QSvgRenderer(initSvgRenderer().toUtf8());
 	
-	// ±³¾°²ã 
+	// èƒŒæ™¯å±‚ 
 	drawHeadLayer();
 
-	// ÎÄ×Ö²ã
+	// æ–‡å­—å±‚
 	drawTextLayer();
 
-	// Éè±¸²ã
+	// è®¾å¤‡å±‚
 	for (int i = 0;i<m_graph->getLayerList().size();i++)
 	{
 		SvgLayer* layer = m_graph->getLayerList().at(i);
@@ -91,7 +91,7 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 				item->setLayerId(layer->getId());
 			}
 
-			// ·ÇÉè±¸²ã£¬ÖÃµ×
+			// éè®¾å¤‡å±‚ï¼Œç½®åº•
 			switch (pdev->getDevType())
 			{
 			case eBREAKER:
@@ -117,7 +117,7 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 
 void SvgRenderer::drawHeadLayer()
 {
-	// ÉèÖÃ³¡¾°±³¾°É«
+	// è®¾ç½®åœºæ™¯èƒŒæ™¯è‰²
 	SvgLayer *player = findLayer(HEAD_LAYER);
 	if (player != NULL)
 	{
@@ -166,16 +166,16 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 	SvgItem* item = makeSvgItem(id);
 	if (item != NULL)
 	{
-		// ÉèÖÃÉú³ÉºóµÄitem³¡¾°×ø±ê
+		// è®¾ç½®ç”Ÿæˆåçš„itemåœºæ™¯åæ ‡
 		setItemPos(item,pdev);
 
-		// ÉèÖÃitem ÀàĞÍ
+		// è®¾ç½®item ç±»å‹
 		item->setType(pdev->getDevType());
 
-		// ÉèÖÃcimid
+		// è®¾ç½®cimid
 		item->setCimId(pdev->getMetaId());
 
-		// ÉèÖÃsvgid
+		// è®¾ç½®svgid
 		item->setSvgId(id);
 
 		m_scene->addItem(item);
@@ -190,24 +190,24 @@ void SvgRenderer::setItemPos(SvgItem* item,BaseDevice* pdev)
 	qreal xp,yp;
 	QRectF rect ;
 
-	// È¡±ß¿ò¾ØĞÎ
+	// å–è¾¹æ¡†çŸ©å½¢
 	rect = m_renderer->boundsOnElement(pdev->getSvgId());
 
-	// È¡viewBox
+	// å–viewBox
 	qreal vx=0,vy=0;
 	QString symbolid = pdev->getSymbolId().right(pdev->getSymbolId().length()-1);
 	m_renderer->getViewBoxOnElement(symbolid,vx,vy);
 
-	// ÅĞ¶ÏÊÇ·ñĞèÒª×ø±ê·´×ª
+	// åˆ¤æ–­æ˜¯å¦éœ€è¦åæ ‡åè½¬
 	int rt =isReverseCoordination(pdev); 
 	
-	// Ğı×ª-180
+	// æ—‹è½¬-180
 	if (rt == 1)
 	{
 		xp = rect.x()+vx;
 		yp = rect.y()+vy;
 	}
-	// Ğı×ª-90
+	// æ—‹è½¬-90
 	else if (rt == 2)
 	{
 		xp = rect.x()-vx;
@@ -236,7 +236,7 @@ SvgItem* SvgRenderer::addItem(QString id,eDeviceType tp /* = eDEFAULT */)
 		qreal yp = rect.y();
 		item->setPos(xp,yp);
 
-		// ÉèÖÃitem ÀàĞÍ
+		// è®¾ç½®item ç±»å‹
 		item->setType(tp);
 
 		m_scene->addItem(item);
@@ -279,7 +279,7 @@ int SvgRenderer::isReverseCoordination(BaseDevice* pdev)
 	}
 	else
 	{
-		// ÅĞ¶ÏÊÇ·ñÓĞrotate -180
+		// åˆ¤æ–­æ˜¯å¦æœ‰rotate -180
 		int idx = trans.indexOf("rotate");
 		if (idx>=0)
 		{

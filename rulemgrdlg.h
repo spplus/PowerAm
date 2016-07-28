@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		¹æÔò±à¼­´°¿Ú
+	DESC:		è§„åˆ™ç¼–è¾‘çª—å£
 	DATE:		2016-06-18
 	AUTHOR:		Abelsky
 */
@@ -25,7 +25,7 @@
 
 
 /************************************************************************/
-/*                         ¹æÔòÀàĞÍ±à¼­¹ÜÀí                             */
+/*                         è§„åˆ™ç±»å‹ç¼–è¾‘ç®¡ç†                             */
 /************************************************************************/
 class RuleTypeMgrdlg : public QDialog
 {
@@ -36,44 +36,44 @@ public:
 	RuleTypeMgrdlg();
 	~RuleTypeMgrdlg();
 
-	void reqRuleList();										    //ÇëÇó¹æÔòÁĞ±í
-	void retRuleManager(int msgtype,const char* msg);			//¹æÔò¹ÜÀí
+	void reqRuleList();										    //è¯·æ±‚è§„åˆ™åˆ—è¡¨
+	void retRuleManager(int msgtype,const char* msg);			//è§„åˆ™ç®¡ç†
 
 private:
 	void setRulelevel();
-	void retRuleList(const char* msg);							//µÃµ½·µ»Ø¹æÔòÁĞ±í
+	void retRuleList(const char* msg);							//å¾—åˆ°è¿”å›è§„åˆ™åˆ—è¡¨
 
 signals:
 
 public slots:
-	void recvdata(int msgtype,const char* msg,int msglength);	// ½ÓÊÕÊı¾İ
-	void getRuleItem(QTableWidgetItem* item);					//Ñ¡ÖĞtab±íÖĞÄ³Ò»ĞĞÏìÓ¦º¯Êı
+	void recvdata(int msgtype,const char* msg,int msglength);	// æ¥æ”¶æ•°æ®
+	void getRuleItem(QTableWidgetItem* item);					//é€‰ä¸­tabè¡¨ä¸­æŸä¸€è¡Œå“åº”å‡½æ•°
 	void addRule();
 	void delRule();
 	void mdfRule();
 
 private:
 
-	QLabel		*pridlab,*plevlab,*prnamelab,*pdesclab;			//±êÇ©:¹æÔòID,·çÏÕµÈ¼¶,¹æÔòÃû³Æ,¹æÔòÃèÊö
-	QSpinBox	*pridpbox;										//ÊäÈë¿ò:¹æÔòID
-	QLineEdit	*pridlied,*prnamelined,*pdescld;				//ÊäÈë¿ò:¹æÔòID,¹æÔòÃû³Æ,¹æÔòÃèÊö
-	QComboBox	*plevcbx;										//·çÏÕµÈ¼¶
+	QLabel		*pridlab,*plevlab,*prnamelab,*pdesclab;			//æ ‡ç­¾:è§„åˆ™ID,é£é™©ç­‰çº§,è§„åˆ™åç§°,è§„åˆ™æè¿°
+	QSpinBox	*pridpbox;										//è¾“å…¥æ¡†:è§„åˆ™ID
+	QLineEdit	*pridlied,*prnamelined,*pdescld;				//è¾“å…¥æ¡†:è§„åˆ™ID,è§„åˆ™åç§°,è§„åˆ™æè¿°
+	QComboBox	*plevcbx;										//é£é™©ç­‰çº§
 
-	QTableWidget *ptabwdgrlist;									//¹æÔòÁĞ±í
-	QPushButton	*pbntadd,*pbntdel,*pbntmdf;						//²Ù×÷°´Å¥:Ìí¼Ó,É¾³ı,ĞŞ¸Ä
+	QTableWidget *ptabwdgrlist;									//è§„åˆ™åˆ—è¡¨
+	QPushButton	*pbntadd,*pbntdel,*pbntmdf;						//æ“ä½œæŒ‰é’®:æ·»åŠ ,åˆ é™¤,ä¿®æ”¹
 
 	static RuleTypeMgrdlg *m_inst;
 
-	bool		m_addflg,m_delflg;								//Ìí¼Ó¹æÔò±êÖ¾£¬É¾³ı¹æÔò±êÖ¾
-	int			m_addrid,m_delrid;								//Ìí¼Ó¹æÔòID£¬É¾³ı¹æÔòID
-	bool		baddflag;										//Ìí¼Ó¹æÔò±êÖ¾
-	bool		bmdfflag;										//ĞŞ¸Ä¹æÔò±êÖ¾
+	bool		m_addflg,m_delflg;								//æ·»åŠ è§„åˆ™æ ‡å¿—ï¼Œåˆ é™¤è§„åˆ™æ ‡å¿—
+	int			m_addrid,m_delrid;								//æ·»åŠ è§„åˆ™IDï¼Œåˆ é™¤è§„åˆ™ID
+	bool		baddflag;										//æ·»åŠ è§„åˆ™æ ‡å¿—
+	bool		bmdfflag;										//ä¿®æ”¹è§„åˆ™æ ‡å¿—
 
 };
 
 
 /************************************************************************/
-/*                           ³§Õ¾¹æÔò¹ØÏµ¹ÜÀí                           */
+/*                           å‚ç«™è§„åˆ™å…³ç³»ç®¡ç†                           */
 /************************************************************************/
 class RuleMgrdlg : public QDialog
 {
@@ -83,57 +83,57 @@ public:
 	RuleMgrdlg(QWidget *parent);
 	~RuleMgrdlg();
 
-	void reqStaionRuleList();										    //ÇëÇóÕ¾µã¹æÔò¹ØÁª¹ØÏµÁĞ±í
-	void retStationRuleManager(int msgtype,const char* msg);			//Õ¾µã¹æÔò¹ØÁª¹ØÏµ¹ÜÀí
+	void reqStaionRuleList();										    //è¯·æ±‚ç«™ç‚¹è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨
+	void retStationRuleManager(int msgtype,const char* msg);			//ç«™ç‚¹è§„åˆ™å…³è”å…³ç³»ç®¡ç†
 
 private:
-	void loadSationList();												//¼ÓÔØ³§Õ¾ÁĞ±íµ½comboxÖĞ
-	void loadRuleTypeList();											//¼ÓÔØ¹æÔòÀàĞÍÁĞ±íµ½comboxÖĞ
-	void retStaionRuleList(const char* msg);							//µÃµ½·µ»Ø¹æÔòÁĞ±í
+	void loadSationList();												//åŠ è½½å‚ç«™åˆ—è¡¨åˆ°comboxä¸­
+	void loadRuleTypeList();											//åŠ è½½è§„åˆ™ç±»å‹åˆ—è¡¨åˆ°comboxä¸­
+	void retStaionRuleList(const char* msg);							//å¾—åˆ°è¿”å›è§„åˆ™åˆ—è¡¨
 
 signals:
 
 public slots:
-	void	checkStachbox();											//µã»÷Ñ¡Ôñ³§Õ¾chbox°´Å¥
-	void	checkRulechbox();											//µã»÷Ñ¡Ôñ¹æÔòchbox°´Å¥
-	void	ChangeStaCbox(int idx);										//ÏÂÀ­Ñ¡Ôñ¾ßÌå³§Õ¾
-	void	ChangeRuleCbox(int idx);									//ÏÂÀ­Ñ¡Ôñ¾ßÌå¹æÔò
-	void	checkStationRuleUse();										//Ñ¡Ôñ°´³§Õ¾ÆôÓÃ
-	void	checkStationRuleNoUse();									//Ñ¡Ôñ°´³§Õ¾½ûÓÃ
-	void	checkRuleUse();												//Ñ¡Ôñ°´¹æÔòÆôÓÃ
-	void	checkRuleNoUse();											//Ñ¡Ôñ°´¹æÔò½ûÓÃ
+	void	checkStachbox();											//ç‚¹å‡»é€‰æ‹©å‚ç«™chboxæŒ‰é’®
+	void	checkRulechbox();											//ç‚¹å‡»é€‰æ‹©è§„åˆ™chboxæŒ‰é’®
+	void	ChangeStaCbox(int idx);										//ä¸‹æ‹‰é€‰æ‹©å…·ä½“å‚ç«™
+	void	ChangeRuleCbox(int idx);									//ä¸‹æ‹‰é€‰æ‹©å…·ä½“è§„åˆ™
+	void	checkStationRuleUse();										//é€‰æ‹©æŒ‰å‚ç«™å¯ç”¨
+	void	checkStationRuleNoUse();									//é€‰æ‹©æŒ‰å‚ç«™ç¦ç”¨
+	void	checkRuleUse();												//é€‰æ‹©æŒ‰è§„åˆ™å¯ç”¨
+	void	checkRuleNoUse();											//é€‰æ‹©æŒ‰è§„åˆ™ç¦ç”¨
 
-	void	cellChangeIsUse(int row, int col);							//Ñ¡ÔñÊÇ·ñÆôÓÃ
+	void	cellChangeIsUse(int row, int col);							//é€‰æ‹©æ˜¯å¦å¯ç”¨
 
-	void	checkAllstachbox();											//µã»÷Ñ¡ÔñÈ«Õ¾ÆôÓÃchbox°´Å¥
-	void	checkCommitchbox();											//µã»÷Ñ¡ÔñÌá½»chbox°´Å¥
-	void	commitStationRule();										//Ìá½»³§Õ¾¹æÔò¹ØÁª¹ØÏµÁĞ±íÖĞÊÇ·ñÆôÓÃ
-	void	allStationRuleUse();										//°´È«Õ¾ÆôÓÃ
-	void	createRuleTypeMgrDlg();										//´´½¨¹æÔòÀàĞÍ¶Ô»°¿ò
+	void	checkAllstachbox();											//ç‚¹å‡»é€‰æ‹©å…¨ç«™å¯ç”¨chboxæŒ‰é’®
+	void	checkCommitchbox();											//ç‚¹å‡»é€‰æ‹©æäº¤chboxæŒ‰é’®
+	void	commitStationRule();										//æäº¤å‚ç«™è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨ä¸­æ˜¯å¦å¯ç”¨
+	void	allStationRuleUse();										//æŒ‰å…¨ç«™å¯ç”¨
+	void	createRuleTypeMgrDlg();										//åˆ›å»ºè§„åˆ™ç±»å‹å¯¹è¯æ¡†
 
 private:
 
-	QCheckBox	*pstachbox,*prulechbox;							//³§Õ¾¸´Ñ¡¿ò£¬¹æÔò¸´Ñ¡¿ò
-	QCheckBox	*pstaallchbox,*pcmitchbox;						//È«Õ¾¹æÔòÆôÓÃ¸´Ñ¡¿ò£¬Ìá½»¸´Ñ¡¿ò
-	QComboBox	*pstacbox,*prulecbox;							//³§Õ¾ÏÂÀ­¿ò£¬¹æÔòÏÂÀ­¿ò
+	QCheckBox	*pstachbox,*prulechbox;							//å‚ç«™å¤é€‰æ¡†ï¼Œè§„åˆ™å¤é€‰æ¡†
+	QCheckBox	*pstaallchbox,*pcmitchbox;						//å…¨ç«™è§„åˆ™å¯ç”¨å¤é€‰æ¡†ï¼Œæäº¤å¤é€‰æ¡†
+	QComboBox	*pstacbox,*prulecbox;							//å‚ç«™ä¸‹æ‹‰æ¡†ï¼Œè§„åˆ™ä¸‹æ‹‰æ¡†
 
-	QPushButton	*pbtnstause,*pbtnstanouse;						//²Ù×÷°´Å¥:°´³§Õ¾ÆôÓÃ£¬½ûÖ¹
-	QPushButton	*pbtnruleuse,*pbtnrulenouse;					//²Ù×÷°´Å¥:°´¹æÔòÆôÓÃ£¬½ûÖ¹
+	QPushButton	*pbtnstause,*pbtnstanouse;						//æ“ä½œæŒ‰é’®:æŒ‰å‚ç«™å¯ç”¨ï¼Œç¦æ­¢
+	QPushButton	*pbtnruleuse,*pbtnrulenouse;					//æ“ä½œæŒ‰é’®:æŒ‰è§„åˆ™å¯ç”¨ï¼Œç¦æ­¢
 
-	QPushButton *pbtnruletype,*pbtnalluse,*pbtncommit;			//¹æÔòÀàĞÍ£¬È«Õ¾¹æÔòÆôÓÃ£¬Ìá½»
-	QTableWidget *ptabwdgsrlist;								//³§Õ¾¹æÔò¹ØÁª¹ØÏµÁĞ±í
+	QPushButton *pbtnruletype,*pbtnalluse,*pbtncommit;			//è§„åˆ™ç±»å‹ï¼Œå…¨ç«™è§„åˆ™å¯ç”¨ï¼Œæäº¤
+	QTableWidget *ptabwdgsrlist;								//å‚ç«™è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨
 
-	vector<Station_S> m_stationvct;										//±£´æ³§Õ¾ÈİÆ÷
-	vector<RuleType_S> m_ruletypevct;									//±£´æ¹æÔòÀàĞÍÈİÆ÷
-	vector<StationRule_S> m_starulevct;							//±£´æ³§Õ¾¹æÔòÁĞ±íÈİÆ÷
-	vector<StationRule_S> m_stationrvct;						//°´³§Õ¾±£´æ³§Õ¾¹æÔòÁĞ±íÈİÆ÷
-	vector<StationRule_S> m_rulestvct;							//°´¹æÔò±£´æ³§Õ¾¹æÔòÁĞ±íÈİÆ÷
-	vector<StationRule_S> m_strulemdfvct;						//³§Õ¾¹æÔò¹ØÁª¹ØÏµĞŞ¸ÄÁĞ±íÈİÆ÷
+	vector<Station_S> m_stationvct;										//ä¿å­˜å‚ç«™å®¹å™¨
+	vector<RuleType_S> m_ruletypevct;									//ä¿å­˜è§„åˆ™ç±»å‹å®¹å™¨
+	vector<StationRule_S> m_starulevct;							//ä¿å­˜å‚ç«™è§„åˆ™åˆ—è¡¨å®¹å™¨
+	vector<StationRule_S> m_stationrvct;						//æŒ‰å‚ç«™ä¿å­˜å‚ç«™è§„åˆ™åˆ—è¡¨å®¹å™¨
+	vector<StationRule_S> m_rulestvct;							//æŒ‰è§„åˆ™ä¿å­˜å‚ç«™è§„åˆ™åˆ—è¡¨å®¹å™¨
+	vector<StationRule_S> m_strulemdfvct;						//å‚ç«™è§„åˆ™å…³è”å…³ç³»ä¿®æ”¹åˆ—è¡¨å®¹å™¨
 
-	QString		m_strstacimid;									//Ñ¡Ôñµ±Ç°³§Õ¾µÄcimid
-	int			m_ruleid;										//Ñ¡Ôñµ±Ç°µÄ¹æÔòID
+	QString		m_strstacimid;									//é€‰æ‹©å½“å‰å‚ç«™çš„cimid
+	int			m_ruleid;										//é€‰æ‹©å½“å‰çš„è§„åˆ™ID
 
-	bool		bcellchageflag;									//ÔªËØ±ä»¯±êÖ¾
+	bool		bcellchageflag;									//å…ƒç´ å˜åŒ–æ ‡å¿—
 	
 };
 

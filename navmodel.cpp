@@ -1,4 +1,4 @@
-
+ï»¿
 #include "navmodel.h"
 #include "comutil.h"
 #include <QFile>
@@ -146,7 +146,7 @@ void NavModel::Collapse( const QModelIndex& index )
 	{
 		QString fileName = node->filePath;
 
-		// ´ò¿ªSVGÎÄ¼þ
+		// æ‰“å¼€SVGæ–‡ä»¶
 		emit openFile(fileName,node->nodeId,true);
 		return;
 	}

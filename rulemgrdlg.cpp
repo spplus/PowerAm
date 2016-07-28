@@ -1,10 +1,10 @@
-#include "rulemgrdlg.h"
+ï»¿#include "rulemgrdlg.h"
 
 
 RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	: QDialog(parent)
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(600,800);
@@ -20,73 +20,73 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QGroupBox *pstalisgbox = new QGroupBox("°´³§Õ¾²ßÂÔ");
+	QGroupBox *pstalisgbox = new QGroupBox("æŒ‰å‚ç«™ç­–ç•¥");
 	pstachbox = new QCheckBox;
 	pstacbox = new QComboBox;
 	pstacbox->setFixedWidth(250);
 	pstacbox->setFixedHeight(25);
-	pbtnstause = new QPushButton("°´³§Õ¾ÆôÓÃ");
+	pbtnstause = new QPushButton("æŒ‰å‚ç«™å¯ç”¨");
 	pbtnstause->setFixedHeight(30);
-	pbtnstanouse = new QPushButton("°´³§Õ¾½ûÓÃ");
+	pbtnstanouse = new QPushButton("æŒ‰å‚ç«™ç¦ç”¨");
 	pbtnstanouse->setFixedHeight(30);
 
-	QGroupBox *prulelisgbox = new QGroupBox("°´¹æÔò²ßÂÔ");
+	QGroupBox *prulelisgbox = new QGroupBox("æŒ‰è§„åˆ™ç­–ç•¥");
 	prulechbox = new QCheckBox;
 	prulecbox = new QComboBox;
 	prulecbox->setFixedWidth(250);
 	prulecbox->setFixedHeight(25);
-	pbtnruleuse = new QPushButton("°´¹æÔòÆôÓÃ");
+	pbtnruleuse = new QPushButton("æŒ‰è§„åˆ™å¯ç”¨");
 	pbtnruleuse->setFixedHeight(30);
-	pbtnrulenouse = new QPushButton("°´¹æÔò½ûÓÃ");
+	pbtnrulenouse = new QPushButton("æŒ‰è§„åˆ™ç¦ç”¨");
 	pbtnrulenouse->setFixedHeight(30);
 
-	QGroupBox *poprgbox = new QGroupBox("²Ù×÷");
+	QGroupBox *poprgbox = new QGroupBox("æ“ä½œ");
 	pstaallchbox = new QCheckBox;
-	pbtnalluse = new QPushButton("È«Õ¾¹æÔòÆôÓÃ");
+	pbtnalluse = new QPushButton("å…¨ç«™è§„åˆ™å¯ç”¨");
 	pbtnalluse->setFixedHeight(30);
 
 	pcmitchbox = new QCheckBox;
-	pbtncommit = new QPushButton("Ìá  ½»");
+	pbtncommit = new QPushButton("æ  äº¤");
 	pbtncommit->setFixedHeight(30);
 
 
-	QGroupBox *psrlisgbox = new QGroupBox("³§Õ¾¹æÔò¹ØÁª¹ØÏµÁĞ±í");
+	QGroupBox *psrlisgbox = new QGroupBox("å‚ç«™è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨");
 	ptabwdgsrlist = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = ptabwdgsrlist->palette();
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	ptabwdgsrlist->setPalette(tabplt);
-	//ÉèÖÃÁĞÊı
+	//è®¾ç½®åˆ—æ•°
 	ptabwdgsrlist->setColumnCount(6);
 	QStringList header;
-	header<<"³§Õ¾CIMID"<<"³§Õ¾Ãû³Æ"<<"¹æÔòID"<<"¹æÔòÃû³Æ"<<"ÊÇ·ñÆôÓÃÖµ"<<"ÊÇ·ñÆôÓÃ";
+	header<<"å‚ç«™CIMID"<<"å‚ç«™åç§°"<<"è§„åˆ™ID"<<"è§„åˆ™åç§°"<<"æ˜¯å¦å¯ç”¨å€¼"<<"æ˜¯å¦å¯ç”¨";
 	ptabwdgsrlist->setHorizontalHeaderLabels(header);
-	//Ê¹ĞĞÁĞÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓĞÁĞÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	ptabwdgsrlist->horizontalHeader()->setResizeMode(QHeaderView::Stretch); //QHeaderView::ResizeToContents QHeaderView::Stretch
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	ptabwdgsrlist->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	ptabwdgsrlist->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	ptabwdgsrlist->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	ptabwdgsrlist->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	//È¥µôÃ¿ĞĞµÄĞĞºÅ
+	//å»æ‰æ¯è¡Œçš„è¡Œå·
 	//QHeaderView *headerView = ptabwdgsrlist->verticalHeader();
 	//headerView->setHidden(true);
 
-	//Òş²ØÕ¾µã¹æÔò¹ØÁª¹ØÏµÁĞ±íµÚÒ»¡¢Èı¡¢ÎåÁĞ
+	//éšè—ç«™ç‚¹è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨ç¬¬ä¸€ã€ä¸‰ã€äº”åˆ—
 	ptabwdgsrlist->setColumnHidden(0,true);
 	ptabwdgsrlist->setColumnHidden(2,true);
 	ptabwdgsrlist->setColumnHidden(4,true);
 
-	pbtnruletype = new QPushButton("¹æÔòÀàĞÍ");
+	pbtnruletype = new QPushButton("è§„åˆ™ç±»å‹");
 	pbtnruletype->setFixedHeight(30);
 
 	
 
-	//°´³§Õ¾²ßÂÔ
+	//æŒ‰å‚ç«™ç­–ç•¥
 	phlyt->addWidget(pstachbox);
 	phlyt->addWidget(pstacbox);
 	phlyt->addSpacing(100);
@@ -94,7 +94,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	phlyt->addWidget(pbtnstanouse);
 	pstalisgbox->setLayout(phlyt);
 
-	//°´¹æÔò²ßÂÔ
+	//æŒ‰è§„åˆ™ç­–ç•¥
 	phlayt->addWidget(prulechbox);
 	phlayt->addWidget(prulecbox);
 	phlayt->addSpacing(100);
@@ -102,7 +102,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	phlayt->addWidget(pbtnrulenouse);
 	prulelisgbox->setLayout(phlayt);
 
-	//²Ù×÷
+	//æ“ä½œ
 	poprlyt1->addWidget(pstaallchbox);
 	poprlyt1->addWidget(pbtnalluse);
 	poprlyt2->addWidget(pcmitchbox);
@@ -115,7 +115,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	poprlyt->addWidget(pbtnruletype);
 	poprgbox->setLayout(poprlyt);
 
-	//³§Õ¾¹æÔò¹ØÁª¹ØÏµÁĞ±í
+	//å‚ç«™è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨
 	psrhlayt->addWidget(ptabwdgsrlist);
 	psrlisgbox->setLayout(psrhlayt);
 
@@ -130,11 +130,11 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 
 	this->setLayout(pmainvlyt);
 
-	//¼ÓÔØ³§Õ¾ÁĞ±íºÍ¹æÔòÀàĞÍÁĞ±í
+	//åŠ è½½å‚ç«™åˆ—è¡¨å’Œè§„åˆ™ç±»å‹åˆ—è¡¨
 	loadSationList();
 	loadRuleTypeList();
 
-	//²Ù×÷°´Å¥ĞÅºÅ²Û¹ØÁª
+	//æ“ä½œæŒ‰é’®ä¿¡å·æ§½å…³è”
 	connect(pstachbox,SIGNAL(clicked()),this,SLOT(checkStachbox()));
 	connect(prulechbox,SIGNAL(clicked()),this,SLOT(checkRulechbox()));
 
@@ -149,7 +149,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 
 	connect(pstaallchbox,SIGNAL(clicked()),this,SLOT(checkAllstachbox()));
 	connect(pcmitchbox,SIGNAL(clicked()),this,SLOT(checkCommitchbox()));
-	//È«Õ¾ÆôÓÃ
+	//å…¨ç«™å¯ç”¨
 	connect(pbtnalluse,SIGNAL(clicked()),this,SLOT(allStationRuleUse()));
 	connect(pbtncommit,SIGNAL(clicked()),this,SLOT(commitStationRule()));
 
@@ -157,7 +157,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	connect(ptabwdgsrlist,SIGNAL(cellChanged(int,int)),this,SLOT(cellChangeIsUse(int,int)));
 	
 
-	//Ä¬ÈÏÑ¡Ôñ°´³§Õ¾ÏÔÊ¾
+	//é»˜è®¤é€‰æ‹©æŒ‰å‚ç«™æ˜¾ç¤º
 	pstachbox->setChecked(true);
 	checkStachbox();
 
@@ -165,7 +165,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 
 	pbtnalluse->setEnabled(false);
 	pbtncommit->setEnabled(false);
-	//³õÊ¼Çå¿ÕÈİÆ÷
+	//åˆå§‹æ¸…ç©ºå®¹å™¨
 	m_strulemdfvct.clear();
 
 	bcellchageflag = false;
@@ -188,7 +188,7 @@ void RuleMgrdlg::checkStachbox()
 		pbtnstause->setEnabled(true);
 		pbtnstanouse->setEnabled(true);
 
-		//°´µ±Ç°ÒÑÉèÖÃµÄ³§Õ¾ÏÔÊ¾ÁĞ±í
+		//æŒ‰å½“å‰å·²è®¾ç½®çš„å‚ç«™æ˜¾ç¤ºåˆ—è¡¨
 		ChangeStaCbox(pstacbox->currentIndex());
 
 
@@ -216,7 +216,7 @@ void RuleMgrdlg::checkStachbox()
 		pbtnruleuse->setEnabled(true);
 		pbtnrulenouse->setEnabled(true);
 
-		//°´µ±Ç°ÉèÖÃµÄ¹æÔòÏÔÊ¾ÁĞ±í
+		//æŒ‰å½“å‰è®¾ç½®çš„è§„åˆ™æ˜¾ç¤ºåˆ—è¡¨
 		ChangeRuleCbox(prulecbox->currentIndex());
 	}
 	
@@ -233,7 +233,7 @@ void RuleMgrdlg::checkRulechbox()
 		pbtnruleuse->setEnabled(true);
 		pbtnrulenouse->setEnabled(true);
 
-		//°´µ±Ç°ÉèÖÃµÄ¹æÔòÏÔÊ¾ÁĞ±í
+		//æŒ‰å½“å‰è®¾ç½®çš„è§„åˆ™æ˜¾ç¤ºåˆ—è¡¨
 		ChangeRuleCbox(prulecbox->currentIndex());
 
 		pstachbox->setChecked(false);
@@ -260,7 +260,7 @@ void RuleMgrdlg::checkRulechbox()
 		pbtnstause->setEnabled(true);
 		pbtnstanouse->setEnabled(true);
 
-		//°´µ±Ç°ÒÑÉèÖÃµÄ³§Õ¾ÏÔÊ¾ÁĞ±í
+		//æŒ‰å½“å‰å·²è®¾ç½®çš„å‚ç«™æ˜¾ç¤ºåˆ—è¡¨
 		ChangeStaCbox(pstacbox->currentIndex());
 	}
 
@@ -272,7 +272,7 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 	m_strstacimid = stacimid;
 	vector<StationRule_S> strulevect;
 
-	if (stacimid == "È«²¿³§Õ¾")
+	if (stacimid == "å…¨éƒ¨å‚ç«™")
 	{
 		ptabwdgsrlist->clearContents();
 		int nrow = m_starulevct.size();
@@ -282,13 +282,13 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 		{
 			StationRule_S strule = m_starulevct.at(i);
 			int nIsUse = strule.isUse.toInt();
-			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strule.stationCim));										//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strule.stationCim));										//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,1,new QTableWidgetItem(strule.stationName));
-			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strule.ruleId)));							//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strule.ruleId)));							//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,3,new QTableWidgetItem(strule.ruleName));
-			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strule.isUse));												//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strule.isUse));												//éšè—åˆ—èµ‹å€¼
 			
-			//ÔÚµÚ6ÁĞÖÖÇ¶Èëcheckbox²¢ÉèÖÃ×´Ì¬Öµ
+			//åœ¨ç¬¬6åˆ—ç§åµŒå…¥checkboxå¹¶è®¾ç½®çŠ¶æ€å€¼
 			QTableWidgetItem *chkitem = new QTableWidgetItem();
 			if (nIsUse == 1)
 			{
@@ -325,9 +325,9 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 
 			/*
 			QComboBox *cboxUse = new QComboBox;
-			cboxUse->insertItem(0,"·ñ",0);
-			cboxUse->insertItem(1,"ÊÇ",1);
-			cboxUse->insertItem(2,"Î´Öª",2);
+			cboxUse->insertItem(0,"å¦",0);
+			cboxUse->insertItem(1,"æ˜¯",1);
+			cboxUse->insertItem(2,"æœªçŸ¥",2);
 
 			cboxUse->setCurrentIndex(nIsUse);
 			if (nIsUse == 1 || nIsUse == 0)
@@ -348,7 +348,7 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 		strulevect = m_starulevct;
 	}
 	
-	if (stacimid != "È«²¿³§Õ¾")
+	if (stacimid != "å…¨éƒ¨å‚ç«™")
 	{
 		ptabwdgsrlist->clearContents();
 
@@ -369,13 +369,13 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 		{
 			StationRule_S strl = strulevect.at(i);
 			int nIsUse = strl.isUse.toInt();
-			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strl.stationCim));											//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strl.stationCim));											//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,1,new QTableWidgetItem(strl.stationName));
-			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strl.ruleId)));							//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strl.ruleId)));							//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,3,new QTableWidgetItem(strl.ruleName));
-			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strl.isUse));												//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strl.isUse));												//éšè—åˆ—èµ‹å€¼
 
-			//ÔÚµÚ6ÁĞÖÖÇ¶Èëcheckbox²¢ÉèÖÃ×´Ì¬Öµ
+			//åœ¨ç¬¬6åˆ—ç§åµŒå…¥checkboxå¹¶è®¾ç½®çŠ¶æ€å€¼
 			QTableWidgetItem *chkitem = new QTableWidgetItem();
 			if (nIsUse == 1)
 			{
@@ -389,7 +389,7 @@ void RuleMgrdlg::ChangeStaCbox(int idx)
 		}
 	}
 
-	//°´³§Õ¾±£´æ³§Õ¾¹æÔò¹ØÏµÁĞ±íÈİÆ÷
+	//æŒ‰å‚ç«™ä¿å­˜å‚ç«™è§„åˆ™å…³ç³»åˆ—è¡¨å®¹å™¨
 	m_stationrvct = strulevect;
 
 }
@@ -410,13 +410,13 @@ void RuleMgrdlg::ChangeRuleCbox(int idx)
 		{
 			StationRule_S strule = m_starulevct.at(i);
 			int nIsUse = strule.isUse.toInt();
-			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strule.stationCim));										//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strule.stationCim));										//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,1,new QTableWidgetItem(strule.stationName));
-			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strule.ruleId)));							//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strule.ruleId)));							//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,3,new QTableWidgetItem(strule.ruleName));
-			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strule.isUse));												//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strule.isUse));												//éšè—åˆ—èµ‹å€¼
 			
-			//ÔÚµÚ6ÁĞÖÖÇ¶Èëcheckbox²¢ÉèÖÃ×´Ì¬Öµ
+			//åœ¨ç¬¬6åˆ—ç§åµŒå…¥checkboxå¹¶è®¾ç½®çŠ¶æ€å€¼
 			QTableWidgetItem *chkitem = new QTableWidgetItem();
 			if (nIsUse == 1)
 			{
@@ -453,13 +453,13 @@ void RuleMgrdlg::ChangeRuleCbox(int idx)
 		{
 			StationRule_S strl = strulevect.at(i);
 			int nIsUse = strl.isUse.toInt();
-			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strl.stationCim));											//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(strl.stationCim));											//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,1,new QTableWidgetItem(strl.stationName));
-			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strl.ruleId)));							//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(QString("%1").arg(strl.ruleId)));							//éšè—åˆ—èµ‹å€¼
 			ptabwdgsrlist->setItem(i,3,new QTableWidgetItem(strl.ruleName));
-			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strl.isUse));												//Òş²ØÁĞ¸³Öµ
+			ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(strl.isUse));												//éšè—åˆ—èµ‹å€¼
 			
-			//ÔÚµÚ6ÁĞÖÖÇ¶Èëcheckbox²¢ÉèÖÃ×´Ì¬Öµ
+			//åœ¨ç¬¬6åˆ—ç§åµŒå…¥checkboxå¹¶è®¾ç½®çŠ¶æ€å€¼
 			QTableWidgetItem *chkitem = new QTableWidgetItem();
 			if (nIsUse == 1)
 			{
@@ -473,7 +473,7 @@ void RuleMgrdlg::ChangeRuleCbox(int idx)
 		}
 	}
 	
-	//°´¹æÔò±£´æ³§Õ¾¹æÔò¹ØÏµÁĞ±íÈİÆ÷
+	//æŒ‰è§„åˆ™ä¿å­˜å‚ç«™è§„åˆ™å…³ç³»åˆ—è¡¨å®¹å™¨
 	m_rulestvct = strulevect;
 }
 
@@ -486,7 +486,7 @@ void RuleMgrdlg::loadSationList()
 
 	int nrow = m_stationvct.size();
 
-	pstacbox->insertItem(0,QString("È«²¿"),QString("È«²¿³§Õ¾"));
+	pstacbox->insertItem(0,QString("å…¨éƒ¨"),QString("å…¨éƒ¨å‚ç«™"));
 
 	for (int i = 0; i < nrow; i++)
 	{
@@ -506,7 +506,7 @@ void RuleMgrdlg::loadRuleTypeList()
 	m_ruletypevct = ComUtil::instance()->getRuleTypeList();
 
 	int nrow = m_ruletypevct.size();
-	prulecbox->insertItem(0,QString("È«²¿"),QString("È«²¿¹æÔò"));
+	prulecbox->insertItem(0,QString("å…¨éƒ¨"),QString("å…¨éƒ¨è§„åˆ™"));
 
 	for (int i=0;i<nrow;i++)
 	{
@@ -524,7 +524,7 @@ void RuleMgrdlg::checkStationRuleUse()
 	reqst.set_reqtype(1);
 
 	QString sql;
-	if (m_strstacimid == "È«²¿³§Õ¾")
+	if (m_strstacimid == "å…¨éƒ¨å‚ç«™")
 	{
 		QString sqltmp = QString("UPDATE station_rule SET IsUse=1 ;");
 		sql = sqltmp;
@@ -536,7 +536,7 @@ void RuleMgrdlg::checkStationRuleUse()
 	}
 	reqst.set_mgrsql(sql.toStdString());
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 	reqStaionRuleList();
@@ -551,7 +551,7 @@ void RuleMgrdlg::checkStationRuleNoUse()
 	reqst.set_reqtype(1);
 
 	QString sql;
-	if (m_strstacimid == "È«²¿³§Õ¾")
+	if (m_strstacimid == "å…¨éƒ¨å‚ç«™")
 	{
 		QString sqltmp = QString("UPDATE station_rule SET IsUse=0 ;");
 		sql = sqltmp;
@@ -563,7 +563,7 @@ void RuleMgrdlg::checkStationRuleNoUse()
 	}
 	reqst.set_mgrsql(sql.toStdString());
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 	reqStaionRuleList();
@@ -577,7 +577,7 @@ void RuleMgrdlg::checkRuleUse()
 	reqst.set_reqtype(1);
 
 	QString sql;
-	if (m_strstacimid == "È«²¿¹æÔò")
+	if (m_strstacimid == "å…¨éƒ¨è§„åˆ™")
 	{
 		QString sqltmp = QString("UPDATE station_rule SET IsUse=1 ;");
 		sql = sqltmp;
@@ -589,7 +589,7 @@ void RuleMgrdlg::checkRuleUse()
 	}
 	reqst.set_mgrsql(sql.toStdString());
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 	reqStaionRuleList();
@@ -603,7 +603,7 @@ void RuleMgrdlg::checkRuleNoUse()
 	reqst.set_reqtype(1);
 
 	QString sql;
-	if (m_strstacimid == "È«²¿¹æÔò")
+	if (m_strstacimid == "å…¨éƒ¨è§„åˆ™")
 	{
 		QString sqltmp = QString("UPDATE station_rule SET IsUse=0 ;");
 		sql = sqltmp;
@@ -615,7 +615,7 @@ void RuleMgrdlg::checkRuleNoUse()
 	}
 	reqst.set_mgrsql(sql.toStdString());
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 	reqStaionRuleList();
@@ -637,7 +637,7 @@ void RuleMgrdlg::checkAllstachbox()
 
 void RuleMgrdlg::allStationRuleUse()
 {
-	if(QMessageBox::question(this,"¹æÔò±à¼­ÌáÊ¾","È·¶¨È«Õ¾¹æÔòÆôÓÃÂğ£¿",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+	if(QMessageBox::question(this,"è§„åˆ™ç¼–è¾‘æç¤º","ç¡®å®šå…¨ç«™è§„åˆ™å¯ç”¨å—ï¼Ÿ",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
 	{
 		PBNS::StationRuleMgrMsg_Request reqst;
 		reqst.set_reqtype(1);
@@ -645,7 +645,7 @@ void RuleMgrdlg::allStationRuleUse()
 
 		reqst.set_mgrsql(sql.toStdString());
 
-		//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+		//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 		NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 		reqStaionRuleList();
@@ -673,7 +673,7 @@ void RuleMgrdlg::reqStaionRuleList()
 
 	srlreq.set_reqdate("1");
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_STATION_RULE_LIST,srlreq.SerializeAsString().c_str(),srlreq.SerializeAsString().length());
 
 	return;
@@ -694,7 +694,7 @@ void RuleMgrdlg::retStationRuleManager(int msgtype,const char* msg)
 
 			if (rep.rescode() > 0)
 			{
-				//Ìí¼ÓÉ¾³ı¹æÔòºó¹ØÁªĞ´Èë³§Õ¾¹æÔò¹ØÁª¹ØÏµ±íÊı¾İ³É¹¦ºó:ÖØĞÂ¼ÓÔØ¹æÔòÀàĞÍºÍ³§Õ¾¹æÔò¹ØÁªÁĞ±íÊı¾İ
+				//æ·»åŠ åˆ é™¤è§„åˆ™åå…³è”å†™å…¥å‚ç«™è§„åˆ™å…³è”å…³ç³»è¡¨æ•°æ®æˆåŠŸå:é‡æ–°åŠ è½½è§„åˆ™ç±»å‹å’Œå‚ç«™è§„åˆ™å…³è”åˆ—è¡¨æ•°æ®
 				loadRuleTypeList();
 
 				reqStaionRuleList();
@@ -714,7 +714,7 @@ void RuleMgrdlg::retStaionRuleList(const char* msg)
 
 	int nrow = resp.starulelist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	//ptabwdgsrlist->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -725,11 +725,11 @@ void RuleMgrdlg::retStaionRuleList(const char* msg)
 		QString rid = QString("%1").arg(srbean.ruleid());
 		//QString isuse = QString("%1").arg(srbean.isuse());
 		/*
-		ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(stcimid));											//Òş²ØÁĞ¸³Öµ
+		ptabwdgsrlist->setItem(i,0,new QTableWidgetItem(stcimid));											//éšè—åˆ—èµ‹å€¼
 		ptabwdgsrlist->setItem(i,1,new QTableWidgetItem(QString::fromStdString(srbean.stationname())));
-		ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(rid));												//Òş²ØÁĞ¸³Öµ
+		ptabwdgsrlist->setItem(i,2,new QTableWidgetItem(rid));												//éšè—åˆ—èµ‹å€¼
 		ptabwdgsrlist->setItem(i,3,new QTableWidgetItem(QString::fromStdString(srbean.rulename())));
-		ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(QString::fromStdString(srbean.isuse())));			//Òş²ØÁĞ¸³Öµ
+		ptabwdgsrlist->setItem(i,4,new QTableWidgetItem(QString::fromStdString(srbean.isuse())));			//éšè—åˆ—èµ‹å€¼
 		ptabwdgsrlist->setItem(i,5,new QTableWidgetItem(QString::fromStdString(srbean.isusename())));
 		*/
 
@@ -745,7 +745,7 @@ void RuleMgrdlg::retStaionRuleList(const char* msg)
 
 	}
 
-	//¸ù¾İ°´Ê²Ã´²ßÂÔÏÔÊ¾Êı¾İ¸üĞÂºó»¹°´Ê²Ã´²ßÂÔÏÔÊ¾
+	//æ ¹æ®æŒ‰ä»€ä¹ˆç­–ç•¥æ˜¾ç¤ºæ•°æ®æ›´æ–°åè¿˜æŒ‰ä»€ä¹ˆç­–ç•¥æ˜¾ç¤º
 	if (pstachbox->isChecked())
 	{
 		int idx = pstacbox->currentIndex();
@@ -765,7 +765,7 @@ void RuleMgrdlg::retStaionRuleList(const char* msg)
 void RuleMgrdlg::createRuleTypeMgrDlg()
 {
 	RuleTypeMgrdlg::instance()->setWindowIcon(QIcon(":images/rolemgr.png"));
-	RuleTypeMgrdlg::instance()->setWindowTitle("¹æÔò¹ÜÀí");
+	RuleTypeMgrdlg::instance()->setWindowTitle("è§„åˆ™ç®¡ç†");
 
 	RuleTypeMgrdlg::instance()->exec();
 
@@ -775,13 +775,13 @@ void RuleMgrdlg::createRuleTypeMgrDlg()
 
 void RuleMgrdlg::cellChangeIsUse(int row, int col)
 {
-	//ÔÚÎ´¹´Ñ¡Ìá½»Ê±ĞŞ¸Ä²»ÉúĞ§
+	//åœ¨æœªå‹¾é€‰æäº¤æ—¶ä¿®æ”¹ä¸ç”Ÿæ•ˆ
 	if (!pcmitchbox->isChecked())
 	{
 		return;
 	}
 
-	//ÔªËØ±ä»¯±êÖ¾²»±ä»¯²»´¦Àí
+	//å…ƒç´ å˜åŒ–æ ‡å¿—ä¸å˜åŒ–ä¸å¤„ç†
 	if (!bcellchageflag)
 	{
 		return;
@@ -801,7 +801,7 @@ void RuleMgrdlg::cellChangeIsUse(int row, int col)
 	strules.ruleId = ptabwdgsrlist->item(row,2)->text().toInt();
 	strules.ruleName = ptabwdgsrlist->item(row,3)->text();
 
-	//µ±Ñ¡ÖĞ±íÊ¾ÆôÓÃ·ñÔò±íÊ¾Î´ÆôÓÃ
+	//å½“é€‰ä¸­è¡¨ç¤ºå¯ç”¨å¦åˆ™è¡¨ç¤ºæœªå¯ç”¨
 	if (ptabwdgsrlist->item(row,5)->checkState() == Qt::Checked)
 	{
 		strules.isUse = QString("%1").arg(1);
@@ -811,13 +811,13 @@ void RuleMgrdlg::cellChangeIsUse(int row, int col)
 		strules.isUse = QString("%1").arg(0);
 	}
 
-	//ÉèÖÃÈİÆ÷ÖĞÊÇ·ñÓĞĞŞ¸ÄµÄ³§Õ¾¹æÔò±êÖ¾
+	//è®¾ç½®å®¹å™¨ä¸­æ˜¯å¦æœ‰ä¿®æ”¹çš„å‚ç«™è§„åˆ™æ ‡å¿—
 	bool bfind = false;
 
-	//±éÀúÈİÆ÷²éÕÒ±à¼­µÄ³§Õ¾¹æÔòÊÇ·ñÒÑ¾­±à¼­¹ı´æ´¢ÔÚÈİÆ÷ÖĞ
+	//éå†å®¹å™¨æŸ¥æ‰¾ç¼–è¾‘çš„å‚ç«™è§„åˆ™æ˜¯å¦å·²ç»ç¼–è¾‘è¿‡å­˜å‚¨åœ¨å®¹å™¨ä¸­
 	for (int i=0;i<m_strulemdfvct.size();i++)
 	{
-		//ÈôÈİÆ÷ÖĞÒÑÓĞ´Ë±à¼­µÄ³§Õ¾¹æÔò£¬ĞèÒª¸üĞÂ³§Õ¾½á¹¹ÌåÖĞÊÇ·ñÆôÓÃÖµÖµ
+		//è‹¥å®¹å™¨ä¸­å·²æœ‰æ­¤ç¼–è¾‘çš„å‚ç«™è§„åˆ™ï¼Œéœ€è¦æ›´æ–°å‚ç«™ç»“æ„ä½“ä¸­æ˜¯å¦å¯ç”¨å€¼å€¼
 		if (strules.stationCim == m_strulemdfvct.at(i).stationCim && strules.ruleId == m_strulemdfvct.at(i).ruleId && strules.isUse != m_strulemdfvct.at(i).isUse)
 		{
 			m_strulemdfvct.at(i).isUse = strules.isUse;
@@ -842,7 +842,7 @@ void RuleMgrdlg::checkCommitchbox()
 	{
 		pbtncommit->setEnabled(true);
 
-		//¸ù¾İ°´Ê²Ã´²ßÂÔÏÔÊ¾Êı¾İ¸üĞÂºó»¹°´Ê²Ã´²ßÂÔÏÔÊ¾
+		//æ ¹æ®æŒ‰ä»€ä¹ˆç­–ç•¥æ˜¾ç¤ºæ•°æ®æ›´æ–°åè¿˜æŒ‰ä»€ä¹ˆç­–ç•¥æ˜¾ç¤º
 		if (pstachbox->isChecked())
 		{
 			int idx = pstacbox->currentIndex();
@@ -870,13 +870,13 @@ void RuleMgrdlg::commitStationRule()
 	int ncount = m_strulemdfvct.size();
 	if (ncount <= 0 )
 	{
-		QMessageBox::information(this,tr("³§Õ¾¹æÔòĞŞ¸Ä"),tr("Î´¶Ô³§Õ¾¹æÔò¹ØÁªĞÅÏ¢½øĞĞĞŞ¸Ä,²»ĞèÌá½»!"));
+		QMessageBox::information(this,tr("å‚ç«™è§„åˆ™ä¿®æ”¹"),tr("æœªå¯¹å‚ç«™è§„åˆ™å…³è”ä¿¡æ¯è¿›è¡Œä¿®æ”¹,ä¸éœ€æäº¤!"));
 		pcmitchbox->setChecked(false);
 		checkCommitchbox();
 		return;
 	}
 
-	//×éºÏÌá½»¾ßÌåĞèÒªÌá½»µÄ³§Õ¾¹ØÁª¹ØÏµÁĞ±íÖĞµÄÊÇ·ñÆôÓÃÏî
+	//ç»„åˆæäº¤å…·ä½“éœ€è¦æäº¤çš„å‚ç«™å…³è”å…³ç³»åˆ—è¡¨ä¸­çš„æ˜¯å¦å¯ç”¨é¡¹
 	PBNS::StationRuleMgrMsg_Request reqst;
 	reqst.set_reqtype(3);
 
@@ -895,7 +895,7 @@ void RuleMgrdlg::commitStationRule()
 	reqst.SerializeToString(&reqstr);
 	NetClient::instance()->sendData(CMD_STATION_RULE_MANAGER,reqstr.c_str(),reqstr.length());
 
-	//Ìá½»Íê³ÉºóÇå¿Õ±£´æĞŞ¸ÄµÄÈİÆ÷
+	//æäº¤å®Œæˆåæ¸…ç©ºä¿å­˜ä¿®æ”¹çš„å®¹å™¨
 	m_strulemdfvct.clear();
 
 	pcmitchbox->setChecked(false);
@@ -908,7 +908,7 @@ void RuleMgrdlg::commitStationRule()
 
 
 /************************************************************************/
-/*                         ¹æÔòÀàĞÍ±à¼­¹ÜÀí                             */
+/*                         è§„åˆ™ç±»å‹ç¼–è¾‘ç®¡ç†                             */
 /************************************************************************/
 RuleTypeMgrdlg* RuleTypeMgrdlg::m_inst = NULL;
 
@@ -925,7 +925,7 @@ RuleTypeMgrdlg* RuleTypeMgrdlg::instance()
 RuleTypeMgrdlg::RuleTypeMgrdlg()
 	: QDialog()
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(520,650);
@@ -940,34 +940,34 @@ RuleTypeMgrdlg::RuleTypeMgrdlg()
 	QVBoxLayout *pmgrvlyt = new QVBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QGroupBox *pulisgbox = new QGroupBox("¹æÔòÁĞ±í");
+	QGroupBox *pulisgbox = new QGroupBox("è§„åˆ™åˆ—è¡¨");
 	ptabwdgrlist = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = ptabwdgrlist->palette();
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	ptabwdgrlist->setPalette(tabplt);
-	//ÉèÖÃÁĞÊı
+	//è®¾ç½®åˆ—æ•°
 	ptabwdgrlist->setColumnCount(5);
 	QStringList header;
-	header<<"¹æÔòID"<<"¹æÔòÃû³Æ"<<"·çÏÕµÈ¼¶ºÅ"<<"·çÏÕµÈ¼¶"<<"¹æÔòÃèÊö";
+	header<<"è§„åˆ™ID"<<"è§„åˆ™åç§°"<<"é£é™©ç­‰çº§å·"<<"é£é™©ç­‰çº§"<<"è§„åˆ™æè¿°";
 	ptabwdgrlist->setHorizontalHeaderLabels(header);
-	//Ê¹ĞĞÁĞÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓĞÁĞÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	ptabwdgrlist->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	ptabwdgrlist->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	ptabwdgrlist->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	ptabwdgrlist->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	ptabwdgrlist->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//È¥µôÃ¿ĞĞµÄĞĞºÅ
+	//å»æ‰æ¯è¡Œçš„è¡Œå·
 	//QHeaderView *headerView = ptabwdgulist->verticalHeader();
 	//headerView->setHidden(true);
 
 
-	QGroupBox *pusgbox = new QGroupBox("¹æÔòÏÔÊ¾");
-	pridlab = new QLabel("  ¹æÔòID");
+	QGroupBox *pusgbox = new QGroupBox("è§„åˆ™æ˜¾ç¤º");
+	pridlab = new QLabel("  è§„åˆ™ID");
 	pridlab->setFixedWidth(50);
 	pridlied = new QLineEdit;
 	pridlied->setFixedWidth(145);
@@ -976,33 +976,33 @@ RuleTypeMgrdlg::RuleTypeMgrdlg()
 	pridpbox->setFixedWidth(145);
 	pridpbox->setFixedHeight(25);
 
-	plevlab = new QLabel("·çÏÕµÈ¼¶");
+	plevlab = new QLabel("é£é™©ç­‰çº§");
 	plevlab->setFixedWidth(50);
 	plevcbx = new QComboBox;
 	plevcbx->setFixedWidth(145);
 	plevcbx->setFixedHeight(25);
 
-	prnamelab = new QLabel("¹æÔòÃû³Æ");
+	prnamelab = new QLabel("è§„åˆ™åç§°");
 	prnamelab->setFixedWidth(50);
 	prnamelined = new QLineEdit;
 	prnamelined->setFixedWidth(145);
 	prnamelined->setFixedHeight(25);
 
-	pdesclab = new QLabel("¹æÔòÃèÊö");
+	pdesclab = new QLabel("è§„åˆ™æè¿°");
 	pdesclab->setFixedWidth(50);
 	pdescld = new QLineEdit;
 	pdescld->setFixedWidth(145);
 	pdescld->setFixedHeight(25);
 
 
-	QGroupBox *poprgbox = new QGroupBox("²Ù×÷");
-	pbntadd = new QPushButton("Ôö ¼Ó");
+	QGroupBox *poprgbox = new QGroupBox("æ“ä½œ");
+	pbntadd = new QPushButton("å¢ åŠ ");
 	pbntadd->setFixedHeight(30);
 
-	pbntdel = new QPushButton("É¾ ³ı");
+	pbntdel = new QPushButton("åˆ  é™¤");
 	pbntdel->setFixedHeight(30);
 
-	pbntmdf = new QPushButton("ĞŞ ¸Ä");
+	pbntmdf = new QPushButton("ä¿® æ”¹");
 	pbntmdf->setFixedHeight(30);
 
 
@@ -1042,36 +1042,36 @@ RuleTypeMgrdlg::RuleTypeMgrdlg()
 
 	this->setLayout(pmainvlyt);
 
-	//Òş²Ø¹æÔò±à¼­ÁĞ±íµÚÈıÁĞ·çÏÕµÈ¼¶ºÅ
+	//éšè—è§„åˆ™ç¼–è¾‘åˆ—è¡¨ç¬¬ä¸‰åˆ—é£é™©ç­‰çº§å·
 	ptabwdgrlist->setColumnHidden(2,true);
 
-	//Ä¬ÈÏÉèÖÃ¹æÔòID,·çÏÕµÈ¼¶,¹æÔòÃû³Æ,¹æÔòÃèÊö¿òÎªÖ»¶Á
+	//é»˜è®¤è®¾ç½®è§„åˆ™ID,é£é™©ç­‰çº§,è§„åˆ™åç§°,è§„åˆ™æè¿°æ¡†ä¸ºåªè¯»
 	pridpbox->setDisabled(true);
 	plevcbx->setDisabled(true);
 	prnamelined->setDisabled(true);
 	pdescld->setDisabled(true);
 
-	//ÉèÖÃÄ¬ÈÏ¹æÔò·çÏÕµÈ¼¶
+	//è®¾ç½®é»˜è®¤è§„åˆ™é£é™©ç­‰çº§
 	plevcbx->clear();
 	setRulelevel();
 
-	//Ä¬ÈÏÉèÖÃ²Ù×÷°´Å¥×´Ì¬£¬Î´Ñ¡ÖĞÓÃ»§ÁĞ±íÊ±Ö»¿ÉÔö¼ÓÓÃ»§,Ôö¼Ó°´Å¥ÓĞĞ§£¬É¾³ıºÍĞŞ¸Ä°´Å¥ÎŞĞ§
+	//é»˜è®¤è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€ï¼Œæœªé€‰ä¸­ç”¨æˆ·åˆ—è¡¨æ—¶åªå¯å¢åŠ ç”¨æˆ·,å¢åŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 	pbntadd->setEnabled(true);
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
 
-	//Ä¬ÈÏÌí¼ÓÓÃ»§±êÖ¾Î»false
+	//é»˜è®¤æ·»åŠ ç”¨æˆ·æ ‡å¿—ä½false
 	m_addflg = false;
 	m_delflg = false;
 	baddflag = false;
 	bmdfflag = false;
 
-	//ÇëÇó¹æÔòÁĞ±í
+	//è¯·æ±‚è§„åˆ™åˆ—è¡¨
 	reqRuleList();
 
-	//µã»÷¹æÔòÁĞ±íÄ³ĞĞĞÅºÅ²Û¹ØÁª
+	//ç‚¹å‡»è§„åˆ™åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 	connect(ptabwdgrlist,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getRuleItem(QTableWidgetItem*)));
-	//²Ù×÷°´Å¥ĞÅºÅ²Û¹ØÁª
+	//æ“ä½œæŒ‰é’®ä¿¡å·æ§½å…³è”
 	connect(pbntadd,SIGNAL(clicked()),this,SLOT(addRule()));
 	connect(pbntdel,SIGNAL(clicked()),this,SLOT(delRule()));
 	connect(pbntmdf,SIGNAL(clicked()),this,SLOT(mdfRule()));
@@ -1091,12 +1091,12 @@ RuleTypeMgrdlg::~RuleTypeMgrdlg()
 
 void RuleTypeMgrdlg::setRulelevel()
 {
-	//ÉèÖÃÄ¬ÈÏÏÔÊ¾¹æÔò·çÏÕµÈ¼¶
+	//è®¾ç½®é»˜è®¤æ˜¾ç¤ºè§„åˆ™é£é™©ç­‰çº§
 	plevcbx->insertItem(0,"",-1);
-	//ÉèÖÃ¹æÔò·çÏÕµÈ¼¶
-	plevcbx->insertItem(1,"µÍ",0);
-	plevcbx->insertItem(2,"ÖĞ",1);
-	plevcbx->insertItem(3,"¸ß",2);
+	//è®¾ç½®è§„åˆ™é£é™©ç­‰çº§
+	plevcbx->insertItem(1,"ä½",0);
+	plevcbx->insertItem(2,"ä¸­",1);
+	plevcbx->insertItem(3,"é«˜",2);
 }
 
 void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
@@ -1111,7 +1111,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 			if (resp.rescode() > 0)
 			{
-				//Ìí¼Ó¹æÔò³É¹¦Ê±ÖØĞÂ¼ÓÔØ¹æÔòÀàĞÍ
+				//æ·»åŠ è§„åˆ™æˆåŠŸæ—¶é‡æ–°åŠ è½½è§„åˆ™ç±»å‹
 				ComUtil::instance()->getRuleType();
 
 				if (m_addflg)
@@ -1123,7 +1123,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 					reqst.set_mgrsql(sql.toStdString());
 
-					//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+					//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 					NetClient::instance()->sendData(CMD_STATION_RULE_MGR,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 					m_addflg = false;
@@ -1141,7 +1141,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 			if (resp.rescode() > 0)
 			{
-				//É¾³ı¹æÔò³É¹¦Ê±ÖØĞÂ¼ÓÔØ¹æÔòÀàĞÍ
+				//åˆ é™¤è§„åˆ™æˆåŠŸæ—¶é‡æ–°åŠ è½½è§„åˆ™ç±»å‹
 				ComUtil::instance()->getRuleType();
 
 				if (m_delflg)
@@ -1153,7 +1153,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 					reqst.set_mgrsql(sql.toStdString());
 
-					//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+					//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 					NetClient::instance()->sendData(CMD_STATION_RULE_MGR,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 
 					m_delflg = false;
@@ -1168,7 +1168,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 			if (resp.rescode() > 0)
 			{
-				//É¾³ı¹æÔò³É¹¦Ê±ÖØĞÂ¼ÓÔØ¹æÔòÀàĞÍ
+				//åˆ é™¤è§„åˆ™æˆåŠŸæ—¶é‡æ–°åŠ è½½è§„åˆ™ç±»å‹
 				ComUtil::instance()->getRuleType();
 
 				PBNS::StationRuleMgrMsg_Request reqst;
@@ -1178,7 +1178,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 
 				reqst.set_mgrsql(sql.toStdString());
 
-				//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+				//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 				NetClient::instance()->sendData(CMD_STATION_RULE_MGR,reqst.SerializeAsString().c_str(),reqst.SerializeAsString().length());
 			}
 		}
@@ -1199,7 +1199,7 @@ void RuleTypeMgrdlg::reqRuleList()
 
 	rlreq.set_reqdate("1");
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_RULE_LIST,rlreq.SerializeAsString().c_str(),rlreq.SerializeAsString().length());
 
 	return;
@@ -1212,7 +1212,7 @@ void RuleTypeMgrdlg::retRuleList(const char* msg)
 
 	int nrow = resp.rulelist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	ptabwdgrlist->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -1225,13 +1225,13 @@ void RuleTypeMgrdlg::retRuleList(const char* msg)
 
 		ptabwdgrlist->setItem(i,0,new QTableWidgetItem(rid));
 		ptabwdgrlist->setItem(i,1,new QTableWidgetItem(QString::fromStdString(rbean.name())));
-		ptabwdgrlist->setItem(i,2,new QTableWidgetItem(QString::fromStdString(rbean.alarmlevel())));		//Òş²ØÁĞ¸³Öµ
+		ptabwdgrlist->setItem(i,2,new QTableWidgetItem(QString::fromStdString(rbean.alarmlevel())));		//éšè—åˆ—èµ‹å€¼
 		ptabwdgrlist->setItem(i,3,new QTableWidgetItem(plevcbx->itemText(rlev+1)));
 		ptabwdgrlist->setItem(i,4,new QTableWidgetItem(QString::fromStdString(rbean.description())));
 
 	}
 
-	//Î´Ñ¡ÖĞ¹æÔòÁĞ±íÊ±Ö»¿ÉÔö¼Ó¹æÔò,Ôö¼Ó°´Å¥ÓĞĞ§£¬É¾³ıºÍĞŞ¸Ä°´Å¥ÎŞĞ§
+	//æœªé€‰ä¸­è§„åˆ™åˆ—è¡¨æ—¶åªå¯å¢åŠ è§„åˆ™,å¢åŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 	pbntadd->setEnabled(true);
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
@@ -1255,7 +1255,7 @@ void RuleTypeMgrdlg::getRuleItem(QTableWidgetItem* item)
 	pdescld->setText(ptabwdgrlist->item(row,4)->text());
 
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	pbntdel->setEnabled(true);
 	pbntmdf->setEnabled(true);
 }
@@ -1276,7 +1276,7 @@ void RuleTypeMgrdlg::addRule()
 		plevcbx->setDisabled(false);
 		pdescld->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		pbntdel->setEnabled(false);
 		pbntmdf->setEnabled(false);
 
@@ -1286,29 +1286,29 @@ void RuleTypeMgrdlg::addRule()
 	{
 		if (pridpbox->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòID²»¿ÉÎª¿Õ,ÇëÊäÈë¹æÔòÃû³Æ!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™IDä¸å¯ä¸ºç©º,è¯·è¾“å…¥è§„åˆ™åç§°!"));
 			return;
 		}
 
 		if (prnamelined->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòÃû³Æ²»¿ÉÎª¿Õ,ÇëÊäÈë¹æÔòÃû³Æ!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™åç§°ä¸å¯ä¸ºç©º,è¯·è¾“å…¥è§„åˆ™åç§°!"));
 			return;
 		}
 
 		if (plevcbx->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòµÈ¼¶²»¿ÉÎª¿Õ,ÇëÑ¡Ôñ¹æÔòµÈ¼¶!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™ç­‰çº§ä¸å¯ä¸ºç©º,è¯·é€‰æ‹©è§„åˆ™ç­‰çº§!"));
 			return;
 		}
 
 		if (pdescld->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòÃèÊö²»¿ÉÎª¿Õ,ÇëÊäÈë¹æÔòÃèÊö!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™æè¿°ä¸å¯ä¸ºç©º,è¯·è¾“å…¥è§„åˆ™æè¿°!"));
 			return;
 		}
 
-		//insert into rules (ID,Name,AlarmLevel,Description) VALUES (1,'¹æÔòtest',3,'¹æÔòtesttest');
+		//insert into rules (ID,Name,AlarmLevel,Description) VALUES (1,'è§„åˆ™test',3,'è§„åˆ™testtest');
 		QString sql = QString("insert into rules (ID,Name,AlarmLevel,Description) VALUES (%1,'%2',%3,'%4');").arg(pridpbox->text()).arg(prnamelined->text()).arg(plevcbx->itemData(plevcbx->currentIndex()).toInt()).arg(pdescld->text());
 
 		PBNS::RuleMgrMsg_Request addrreq;
@@ -1322,11 +1322,11 @@ void RuleTypeMgrdlg::addRule()
 		plevcbx->setDisabled(true);
 		pdescld->setDisabled(true);
 
-		//ÉèÖÃÌí¼Ó¹æÔò±êÖ¾ºÍIDºÅ
+		//è®¾ç½®æ·»åŠ è§„åˆ™æ ‡å¿—å’ŒIDå·
 		m_addflg = true;
 		m_addrid = pridpbox->text().toInt();
 
-		//Ôö¼Ó¹æÔòÍê³Éºó,ÇëÇó¹æÔòÁĞ±í
+		//å¢åŠ è§„åˆ™å®Œæˆå,è¯·æ±‚è§„åˆ™åˆ—è¡¨
 		reqRuleList();
 	}
 }
@@ -1334,7 +1334,7 @@ void RuleTypeMgrdlg::addRule()
 void RuleTypeMgrdlg::delRule()
 {
 	int ncurrow = ptabwdgrlist->currentRow();
-	//È¡¹æÔòÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÒ»ÁĞÓÃ»§idºÅ
+	//å–è§„åˆ™åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—ç”¨æˆ·idå·
 	int nRuleid = ptabwdgrlist->item(ncurrow,0)->text().toInt();
 
 	QString sql = QString("delete from rules where ID=%1").arg(nRuleid);
@@ -1344,15 +1344,15 @@ void RuleTypeMgrdlg::delRule()
 
 	NetClient::instance()->sendData(CMD_RULE_DEL,delrreq.SerializeAsString().c_str(),delrreq.SerializeAsString().length());
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
 
-	//ÉèÖÃÌí¼Ó¹æÔò±êÖ¾ºÍIDºÅ
+	//è®¾ç½®æ·»åŠ è§„åˆ™æ ‡å¿—å’ŒIDå·
 	m_delflg = true;
 	m_delrid = nRuleid;
 
-	//É¾³ı¹æÔòÍê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+	//åˆ é™¤è§„åˆ™å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 	reqRuleList();
 }
 
@@ -1364,7 +1364,7 @@ void RuleTypeMgrdlg::mdfRule()
 		plevcbx->setDisabled(false);
 		pdescld->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		pbntadd->setEnabled(false);
 		pbntdel->setEnabled(false);
 
@@ -1374,27 +1374,27 @@ void RuleTypeMgrdlg::mdfRule()
 	{
 		if (prnamelined->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòÃû³Æ²»¿ÉÎª¿Õ,ÇëÊäÈë¹æÔòÃû³Æ!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™åç§°ä¸å¯ä¸ºç©º,è¯·è¾“å…¥è§„åˆ™åç§°!"));
 			return;
 		}
 
 		if (plevcbx->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòµÈ¼¶²»¿ÉÎª¿Õ,ÇëÑ¡Ôñ¹æÔòµÈ¼¶!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™ç­‰çº§ä¸å¯ä¸ºç©º,è¯·é€‰æ‹©è§„åˆ™ç­‰çº§!"));
 			return;
 		}
 
 		if (pdescld->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó¹æÔòÌáÊ¾:"),tr("¹æÔòÃèÊö²»¿ÉÎª¿Õ,ÇëÊäÈë¹æÔòÃèÊö!"));
+			QMessageBox::information(this,tr("å¢åŠ è§„åˆ™æç¤º:"),tr("è§„åˆ™æè¿°ä¸å¯ä¸ºç©º,è¯·è¾“å…¥è§„åˆ™æè¿°!"));
 			return;
 		}
 
 		int ncurrow = ptabwdgrlist->currentRow();
-		//È¡¹æÔòÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÒ»ÁĞ¹æÔòidºÅ
+		//å–è§„åˆ™åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—è§„åˆ™idå·
 		int nRuleid = ptabwdgrlist->item(ncurrow,0)->text().toInt();
 
-		//UPDATE rules set Name='¹æÔò41',AlarmLevel=3,Description='¹æÔòfour' where id=4
+		//UPDATE rules set Name='è§„åˆ™41',AlarmLevel=3,Description='è§„åˆ™four' where id=4
 		QString sql = QString("UPDATE rules set Name='%1' ,AlarmLevel=%2 ,Description='%3' where ID=%4 ;").arg(prnamelined->text()).arg(plevcbx->itemData(plevcbx->currentIndex()).toInt()).arg(pdescld->text()).arg(nRuleid);
 
 		PBNS::RuleMgrMsg_Request mdfrreq;
@@ -1407,7 +1407,7 @@ void RuleTypeMgrdlg::mdfRule()
 		plevcbx->setDisabled(true);
 		pdescld->setDisabled(true);
 
-		//ĞŞ¸Ä¹æÔòÍê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+		//ä¿®æ”¹è§„åˆ™å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 		reqRuleList();
 
 	}

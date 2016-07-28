@@ -1,7 +1,7 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:			TCP¿Í»§¶ËÊı¾İ×ª·¢²ã£¬ÊµÏÖÒµÎñ²ãÊı¾İºÍTCPÍøÂç²ãÖ®¼äµÄÊı¾İÖĞ×ª
-						Êı¾İµÄ´ò°ü£¬½â°ü.
+	DESC:			TCPå®¢æˆ·ç«¯æ•°æ®è½¬å‘å±‚ï¼Œå®ç°ä¸šåŠ¡å±‚æ•°æ®å’ŒTCPç½‘ç»œå±‚ä¹‹é—´çš„æ•°æ®ä¸­è½¬
+						æ•°æ®çš„æ‰“åŒ…ï¼Œè§£åŒ….
 	DATE:			2016-04-03
 	AUTHOR:		YUANLS
 */
@@ -19,10 +19,10 @@
 #define MSGHEAD "0xff"
 #define MSGTAIL "0x88"
 
-//¶¨ÒåÊı¾İ°ü°üÍ·
+//å®šä¹‰æ•°æ®åŒ…åŒ…å¤´
 const qint32 FRAM_HEAD = 0x11;
 
-//¶¨ÒåÊı¾İ°ü°üÎ´
+//å®šä¹‰æ•°æ®åŒ…åŒ…æœª
 const qint32 FRAM_TAIL = 0x88;
 
 class NetClient :public QObject
@@ -30,19 +30,19 @@ class NetClient :public QObject
 	Q_OBJECT
 public:
 
-	// »ñÈ¡¶ÔÏó
+	// è·å–å¯¹è±¡
 	static NetClient* instance();
 
-	// ³õÊ¼»¯ÍøÂç
+	// åˆå§‹åŒ–ç½‘ç»œ
 	bool	init();
 
-	// Á¬½Ó·şÎñÆ÷
+	// è¿æ¥æœåŠ¡å™¨
 	bool	connectToServer(const QString srvName,quint16 port);
 
-	// Ïò·şÎñÆ÷·¢ËÍÊı¾İ
+	// å‘æœåŠ¡å™¨å‘é€æ•°æ®
 	int		sendData(int msgtype,const char* msg,int msglength);
 
-	// ¹Ø±ÕÁ¬½Ó
+	// å…³é—­è¿æ¥
 	void	close();
 
 private:
@@ -50,60 +50,60 @@ private:
 
 signals:
 	
-	// Á¬½Ó½¨Á¢
+	// è¿æ¥å»ºç«‹
 	void	connected();
 
-	// Á¬½Ó¶Ï¿ª
+	// è¿æ¥æ–­å¼€
 	void	disconnected();
 
-	// ½ÓÊÕÊı¾İÍê³É£¬ÏòÓ¦ÓÃ²ã´«µİ
+	// æ¥æ”¶æ•°æ®å®Œæˆï¼Œå‘åº”ç”¨å±‚ä¼ é€’
 	void	recvdata(int msgtype,const char* msg,int msglength);
 
 public slots:
 
-	// Á¬½Ó½¨Á¢
+	// è¿æ¥å»ºç«‹
 	void		connectOpen();
 
-	// Á¬½Ó¶Ï¿ª
+	// è¿æ¥æ–­å¼€
 	void		connectLost();
 
-	//½ÓÊÕ·şÎñÆ÷Êı¾İ
+	//æ¥æ”¶æœåŠ¡å™¨æ•°æ®
 	void		readMessage();
 
-	//¼à²âÓë·şÎñÆ÷µÄÁ¬½Ó
+	//ç›‘æµ‹ä¸æœåŠ¡å™¨çš„è¿æ¥
 	void		checkConnect();
 
 private:
-	// ´ò°ü
+	// æ‰“åŒ…
 	QByteArray	pack(const char* msg,const int msgtype,const int msglength);
 
-	// ½â°ü 
+	// è§£åŒ… 
 	QByteArray  unpack(QByteArray qByte,int &msgtype,int recvlen);
 
 
 private:
 	static NetClient*	m_inst;
 
-	//Socket¶ÔÏó
+	//Socketå¯¹è±¡
 	QTcpSocket*		m_pTcpScoket;
 
-	//Á¬½Ó¶Ë¿ÚºÅ
+	//è¿æ¥ç«¯å£å·
 	QString			m_Port;
 
-	//Á¬½ÓIPµØÖ·
+	//è¿æ¥IPåœ°å€
 	QString			m_IP;
 
-	//¼ì²âÓë·şÎñÆ÷¶ËÁ¬½ÓÇé¿öµÄ¶¨Ê±Æ÷
+	//æ£€æµ‹ä¸æœåŠ¡å™¨ç«¯è¿æ¥æƒ…å†µçš„å®šæ—¶å™¨
 	QTimer*			m_pTimer;
 
-	//¿Í»§¶ËÁ¬½Ó·şÎñÆ÷±êÖ¾
+	//å®¢æˆ·ç«¯è¿æ¥æœåŠ¡å™¨æ ‡å¿—
 	bool			m_netflag;
 	
-	//½ÓÊÕÊı¾İ
+	//æ¥æ”¶æ•°æ®
 	QByteArray	m_qbarecv;
-	//½ÓÊÕÊı¾İ×Ü³¤¶È
+	//æ¥æ”¶æ•°æ®æ€»é•¿åº¦
 	qint32		m_recvLen;
-	//µÚÒ»´Î½ÓÊÕ±êÖ¾
+	//ç¬¬ä¸€æ¬¡æ¥æ”¶æ ‡å¿—
 	bool		m_brecvflag;
 };
 

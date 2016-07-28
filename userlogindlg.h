@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		ÓÃ»§µÇÂ¼´°¿Ú
+	DESC:		ç”¨æˆ·ç™»å½•çª—å£
 	DATE:		2016-04-30
 	AUTHOR:		Abelsky
 */
@@ -37,52 +37,52 @@ public:
 	~UserLogindlg();
 
 public:
-	bool getCloselgn(){return bcloselgn;}			//·µ»ØµÇÂ¼½çÃæ¹Ø±Õ±êÖ¾
-	QString getLoginUser();							//È¡µÇÂ¼ÓÃ»§Ãû
-	int		getLoginUserId();						//»ñÈ¡µÇÂ¼ÓÃ»§ID
-	int		getLoginRoleId();						//»ñÈ¡µÇÂ¼ÓÃ»§½ÇÉ«ID
-	QString getLoginPasswd();						//»ñÈ¡µÇÂ¼ÓÃ»§ÃÜÂë
-	QString getLoginRoleName();						//»ñÈ¡µÇÂ¼½ÇÉ«Ãû³Æ
-	QString getLoginRealName();						//»ñÈ¡µÇÂ¼ÓÃ»§ÕæÊµĞÕÃû
-	void setNetflag(bool bNet){bnetflag = bNet;};	//Ğ´ÍøÂçÁ¬½Ó³É¹¦±êÖ¾
-	void	setLoginPasswd(QString pwd){passwd = pwd;};	//ÉèÖÃĞŞ¸Ä¹ıºóµÄĞÂÃÜÂë
+	bool getCloselgn(){return bcloselgn;}			//è¿”å›ç™»å½•ç•Œé¢å…³é—­æ ‡å¿—
+	QString getLoginUser();							//å–ç™»å½•ç”¨æˆ·å
+	int		getLoginUserId();						//è·å–ç™»å½•ç”¨æˆ·ID
+	int		getLoginRoleId();						//è·å–ç™»å½•ç”¨æˆ·è§’è‰²ID
+	QString getLoginPasswd();						//è·å–ç™»å½•ç”¨æˆ·å¯†ç 
+	QString getLoginRoleName();						//è·å–ç™»å½•è§’è‰²åç§°
+	QString getLoginRealName();						//è·å–ç™»å½•ç”¨æˆ·çœŸå®å§“å
+	void setNetflag(bool bNet){bnetflag = bNet;};	//å†™ç½‘ç»œè¿æ¥æˆåŠŸæ ‡å¿—
+	void	setLoginPasswd(QString pwd){passwd = pwd;};	//è®¾ç½®ä¿®æ”¹è¿‡åçš„æ–°å¯†ç 
 	
 
 signals:
 
 public slots:
-	void recvdata(int msgtype,const char* msg,int msglength);			// ½ÓÊÕÊı¾İ
-	void closedlg();								//¹Ø±Õ
-	void login();									//ÓÃ»§µÇÂ¼
+	void recvdata(int msgtype,const char* msg,int msglength);			// æ¥æ”¶æ•°æ®
+	void closedlg();								//å…³é—­
+	void login();									//ç”¨æˆ·ç™»å½•
 
 protected:
-	void mousePressEvent(QMouseEvent *event);		//Êó±êµã»÷ÏìÓ¦ÊÂ¼ş
-	void mouseReleaseEvent(QMouseEvent *event);		//Êó±êÊÍ·ÅÏìÓ¦ÊÂ¼ş
-	void mouseMoveEvent(QMouseEvent *event);		//Êó±êÒÆ¶¯ÏìÓ¦ÊÂ¼ş
+	void mousePressEvent(QMouseEvent *event);		//é¼ æ ‡ç‚¹å‡»å“åº”äº‹ä»¶
+	void mouseReleaseEvent(QMouseEvent *event);		//é¼ æ ‡é‡Šæ”¾å“åº”äº‹ä»¶
+	void mouseMoveEvent(QMouseEvent *event);		//é¼ æ ‡ç§»åŠ¨å“åº”äº‹ä»¶
 
 private:
 
-	QWidget		*loginwidget;						//µÇÂ¼½çÃæ
-	QWidget		*plgntitel_widget;					//µÇÂ¼±êÌâwidget
-	QLabel		*ploginbklab;						//µÇÂ¼±³¾°Ê±Ê¹ÓÃ
-	//QComboBox	*pusercobx;							//ÓÃ»§
-	QLineEdit	*puserlined;						//ÓÃ»§
-	QLineEdit	*ppwdlined;							//ÃÜÂë¿ò
-	QPushButton	*ploginbtn;							//µÇÂ¼°´Å¥
-	PushButton	*close_button;						//½çÃæÓÒÉÏ½Ç¹Ø±Õ°´Å¥
+	QWidget		*loginwidget;						//ç™»å½•ç•Œé¢
+	QWidget		*plgntitel_widget;					//ç™»å½•æ ‡é¢˜widget
+	QLabel		*ploginbklab;						//ç™»å½•èƒŒæ™¯æ—¶ä½¿ç”¨
+	//QComboBox	*pusercobx;							//ç”¨æˆ·
+	QLineEdit	*puserlined;						//ç”¨æˆ·
+	QLineEdit	*ppwdlined;							//å¯†ç æ¡†
+	QPushButton	*ploginbtn;							//ç™»å½•æŒ‰é’®
+	PushButton	*close_button;						//ç•Œé¢å³ä¸Šè§’å…³é—­æŒ‰é’®
 
-	QPoint move_point;								//ÒÆ¶¯µÄ¾àÀë
-	bool mouse_press;								//°´ÏÂÊó±ê×ó¼ü
+	QPoint move_point;								//ç§»åŠ¨çš„è·ç¦»
+	bool mouse_press;								//æŒ‰ä¸‹é¼ æ ‡å·¦é”®
 
-	bool bcloselgn;									//µÇÂ¼½çÃæ¹Ø±Õ±êÖ¾
-	bool bnetflag;									//ÍøÂçÁ¬½Ó³É¹¦±êÖ¾
+	bool bcloselgn;									//ç™»å½•ç•Œé¢å…³é—­æ ‡å¿—
+	bool bnetflag;									//ç½‘ç»œè¿æ¥æˆåŠŸæ ‡å¿—
 
-	int		userid;									//ÓÃ»§ID
-	QString uname;									//ÓÃ»§Ãû³Æ
-	QString passwd;									//ÓÃ»§µÇÂ¼ÃÜÂë
-	int		roleid;									//½ÇÉ«ID
-	QString rolename;								//½ÇÉ«Ãû³Æ
-	QString realname;								//ÓÃ»§ÕæÊµĞÕÃû
+	int		userid;									//ç”¨æˆ·ID
+	QString uname;									//ç”¨æˆ·åç§°
+	QString passwd;									//ç”¨æˆ·ç™»å½•å¯†ç 
+	int		roleid;									//è§’è‰²ID
+	QString rolename;								//è§’è‰²åç§°
+	QString realname;								//ç”¨æˆ·çœŸå®å§“å
 
 
 	static UserLogindlg*	m_inst;

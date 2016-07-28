@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		³§Õ¾¹ÜÀíºÍ³§Õ¾ÀàĞÍ¹ÜÀí
+	DESC:		å‚ç«™ç®¡ç†å’Œå‚ç«™ç±»å‹ç®¡ç†
 	DATE:		2016-05-21
 	AUTHOR:		Abelsky
 */
@@ -24,7 +24,7 @@
 #include "netclient.h"
 
 /************************************************************************/
-/*                           Õ¾µãÀàĞÍ¹ÜÀí                               */
+/*                           ç«™ç‚¹ç±»å‹ç®¡ç†                               */
 /************************************************************************/
 class StationTypeMgr : public QDialog
 {
@@ -37,26 +37,26 @@ public:
 	~StationTypeMgr();
 
 public slots:
-	void	recvdata(int msgtype,const char* msg,int msglength);		// ½ÓÊÕÊı¾İ
-	void	getStationTypeItem(QTableWidgetItem *item);					//µÃµ½³§Õ¾ÀàĞÍÁĞ±íÖĞITEM¶ÔÓ¦Öµ
-	void	addStationType();											//Ìí¼Ó³§Õ¾ÀàĞÍ
-	void	delStationType();											//É¾³ı³§Õ¾ÀàĞÍ
-	void	mdfStationType();											//ĞŞ¸Ä³§Õ¾ÀàĞÍ
+	void	recvdata(int msgtype,const char* msg,int msglength);		// æ¥æ”¶æ•°æ®
+	void	getStationTypeItem(QTableWidgetItem *item);					//å¾—åˆ°å‚ç«™ç±»å‹åˆ—è¡¨ä¸­ITEMå¯¹åº”å€¼
+	void	addStationType();											//æ·»åŠ å‚ç«™ç±»å‹
+	void	delStationType();											//åˆ é™¤å‚ç«™ç±»å‹
+	void	mdfStationType();											//ä¿®æ”¹å‚ç«™ç±»å‹
 
 private:
-	void		loadStationTypeList();									//¼ÓÔØ³§Õ¾ÀàĞÍÁĞ±í
-	void		reqStationTypeList();									//ÇëÇó³§Õ¾ÀàĞÍÁĞ±í
-	void		retStationTypeList(int msgtype,const char* msg);		//½ÓÊÕ³§Õ¾ÀàĞÍÁĞ±í
+	void		loadStationTypeList();									//åŠ è½½å‚ç«™ç±»å‹åˆ—è¡¨
+	void		reqStationTypeList();									//è¯·æ±‚å‚ç«™ç±»å‹åˆ—è¡¨
+	void		retStationTypeList(int msgtype,const char* msg);		//æ¥æ”¶å‚ç«™ç±»å‹åˆ—è¡¨
 
 private:
-	QTableWidget	*ptabwdgStaTypeList;								//Õ¾µãÁĞ±í
-	QLabel			*porderlab,*ptypelab;								//±êÇ©:³§Õ¾Ë³Ğò,³§Õ¾ÀàĞÍÃû³Æ
-	QLineEdit		*porderlined,*ptypelined;							//ÊäÈë¿ò:³§Õ¾Ë³Ğò,³§Õ¾ÀàĞÍÃû³Æ
-	QSpinBox		*porderspbox;										//ÊäÈë¿ò:³§Õ¾Ë³Ğò
-	QPushButton		*pbntadd,*pbntdel,*pbntmdf;							//²Ù×÷°´Å¥:Ìí¼Ó,É¾³ı,ĞŞ¸Ä
-	bool			bflgadd,bflgmdf;									//Ôö¼Ó£¬ĞŞ¸Ä±êÖ¾
+	QTableWidget	*ptabwdgStaTypeList;								//ç«™ç‚¹åˆ—è¡¨
+	QLabel			*porderlab,*ptypelab;								//æ ‡ç­¾:å‚ç«™é¡ºåº,å‚ç«™ç±»å‹åç§°
+	QLineEdit		*porderlined,*ptypelined;							//è¾“å…¥æ¡†:å‚ç«™é¡ºåº,å‚ç«™ç±»å‹åç§°
+	QSpinBox		*porderspbox;										//è¾“å…¥æ¡†:å‚ç«™é¡ºåº
+	QPushButton		*pbntadd,*pbntdel,*pbntmdf;							//æ“ä½œæŒ‰é’®:æ·»åŠ ,åˆ é™¤,ä¿®æ”¹
+	bool			bflgadd,bflgmdf;									//å¢åŠ ï¼Œä¿®æ”¹æ ‡å¿—
 
-	vector<StationType_S> m_stationtype;								//±£´æ³§Õ¾ÀàĞÍÈİÆ÷
+	vector<StationType_S> m_stationtype;								//ä¿å­˜å‚ç«™ç±»å‹å®¹å™¨
 
 	static StationTypeMgr *m_inst;
 
@@ -64,7 +64,7 @@ private:
 
 
 /************************************************************************/
-/*                          Õ¾µã±à¼­¹ÜÀíÀà                              */
+/*                          ç«™ç‚¹ç¼–è¾‘ç®¡ç†ç±»                              */
 /************************************************************************/
 class StationEditMgr : public QDialog
 {
@@ -74,41 +74,41 @@ public:
 	StationEditMgr(QWidget *parent);
 	~StationEditMgr();
 
-	//ÉèÖÃµ±Ç°Ñ¡ÖĞµÄÕ¾µãÖµ
+	//è®¾ç½®å½“å‰é€‰ä¸­çš„ç«™ç‚¹å€¼
 	void		setStationSelectVal(Station_S& sta){m_station = sta;};
-	Station_S	getStationSelectVal(){return m_station;};					//µÃµ½Ñ¡ÔñĞŞ¸Ä³§Õ¾
-	void		loadStationEditData();										//¼ÓÔØ³§Õ¾±à¼­Êı¾İ
-	bool		getConfirmStationFlag();									//µÃµ½È·ÈÏ³§Õ¾±êÖ¾
+	Station_S	getStationSelectVal(){return m_station;};					//å¾—åˆ°é€‰æ‹©ä¿®æ”¹å‚ç«™
+	void		loadStationEditData();										//åŠ è½½å‚ç«™ç¼–è¾‘æ•°æ®
+	bool		getConfirmStationFlag();									//å¾—åˆ°ç¡®è®¤å‚ç«™æ ‡å¿—
 
 private:
-	void		setStationTypeCbox();										//ÉèÖÃ³§Õ¾ÀàĞÍ
-	void		setStationPathCbox();										//ÉèÖÃ³§Õ¾svgÎÄ¼şÃû³ÆÀàĞÍ
+	void		setStationTypeCbox();										//è®¾ç½®å‚ç«™ç±»å‹
+	void		setStationPathCbox();										//è®¾ç½®å‚ç«™svgæ–‡ä»¶åç§°ç±»å‹
 
 public slots:
-	void		confirmStation();											//È·ÈÏĞŞ¸Ä³§Õ¾
+	void		confirmStation();											//ç¡®è®¤ä¿®æ”¹å‚ç«™
 
 
 private:
 
-	QComboBox		*pstatypecbox,*ppathcbox;								//³§Õ¾ÀàĞÍ£¬³§Õ¾¶ÔÓÚsvgÎÄ¼şÃû
-	QLineEdit		*pidlined,*pcimidlined,*pnamelined;						//ÊäÈë¿ò:ID,CIMDID,³§Õ¾Ãû³Æ£¬³§Õ¾ÃèÊö£¬³§Õ¾¶ÔÓÚsvgÎÄ¼şÃû
-	QLineEdit		*pstadisclined,*ppathlined;								//ÊäÈë¿ò:³§Õ¾ÃèÊö£¬³§Õ¾¶ÔÓÚsvgÎÄ¼şÃû
-	QPushButton		*pbntok;												//È·ÈÏ°´Å¥
+	QComboBox		*pstatypecbox,*ppathcbox;								//å‚ç«™ç±»å‹ï¼Œå‚ç«™å¯¹äºsvgæ–‡ä»¶å
+	QLineEdit		*pidlined,*pcimidlined,*pnamelined;						//è¾“å…¥æ¡†:ID,CIMDID,å‚ç«™åç§°ï¼Œå‚ç«™æè¿°ï¼Œå‚ç«™å¯¹äºsvgæ–‡ä»¶å
+	QLineEdit		*pstadisclined,*ppathlined;								//è¾“å…¥æ¡†:å‚ç«™æè¿°ï¼Œå‚ç«™å¯¹äºsvgæ–‡ä»¶å
+	QPushButton		*pbntok;												//ç¡®è®¤æŒ‰é’®
 
-	Station_S		m_station;												//³§Õ¾½á¹¹Ìå
+	Station_S		m_station;												//å‚ç«™ç»“æ„ä½“
 
-	vector<StationType_S> m_stationtype;									//±£´æ³§Õ¾ÀàĞÍÈİÆ÷
+	vector<StationType_S> m_stationtype;									//ä¿å­˜å‚ç«™ç±»å‹å®¹å™¨
 
-	QList<QString>	m_svgflist;												//FTPÖĞsvgÃû³ÆÁĞ±í
+	QList<QString>	m_svgflist;												//FTPä¸­svgåç§°åˆ—è¡¨
 
-	bool			bcfmflag;												//ĞŞ¸ÄÈ·ÈÏ±êÖ¾
+	bool			bcfmflag;												//ä¿®æ”¹ç¡®è®¤æ ‡å¿—
 
 };
 
 
 
 /************************************************************************/
-/*                            Õ¾µã¹ÜÀíÀà                                */
+/*                            ç«™ç‚¹ç®¡ç†ç±»                                */
 /************************************************************************/
 class StationMgr : public QDialog
 {
@@ -119,25 +119,25 @@ public:
 	~StationMgr();
 
 	
-	void		retStationMgr(int msgtype,const char* msg);				//³§Õ¾¹ÜÀí·µ»Ø
+	void		retStationMgr(int msgtype,const char* msg);				//å‚ç«™ç®¡ç†è¿”å›
 private:
-	void		loadStationList();										//¼ÓÔØ³§Õ¾ÁĞ±í
-	void		setStationStruct(QTableWidgetItem * item);				//ÉèÖÃ³§Õ¾½á¹¹ÌåÖµ
+	void		loadStationList();										//åŠ è½½å‚ç«™åˆ—è¡¨
+	void		setStationStruct(QTableWidgetItem * item);				//è®¾ç½®å‚ç«™ç»“æ„ä½“å€¼
 
 public slots:
-	void	createStaTypeMgrDlg();										//´´½¨³§Õ¾ÀàĞÍ±à¼­¶Ô»°¿ò
-	void	createStationMgrDlg(QTableWidgetItem * item);				//´´½¨³§Õ¾±à¼­¶Ô»°¿ò
-	void	commitStation();											//Ìá½»ĞŞ¸Ä³§Õ¾
+	void	createStaTypeMgrDlg();										//åˆ›å»ºå‚ç«™ç±»å‹ç¼–è¾‘å¯¹è¯æ¡†
+	void	createStationMgrDlg(QTableWidgetItem * item);				//åˆ›å»ºå‚ç«™ç¼–è¾‘å¯¹è¯æ¡†
+	void	commitStation();											//æäº¤ä¿®æ”¹å‚ç«™
 
 
 private:
-	QTableWidget	*ptabwdgStaList;									//Õ¾µãÁĞ±í
-	QPushButton		*pbntStaType,*pbnCommit;							//²Ù×÷°´Å¥:³§Õ¾ÀàĞÍ,È·ÈÏÌá½»
-	vector<Station_S> m_stationvct;										//±£´æ³§Õ¾ÈİÆ÷
-	vector<Station_S> m_stationmdfvct;									//´æ·ÅĞŞ¸Ä³§Õ¾ÈİÆ÷
-	Station_S		m_station;											//³§Õ¾
+	QTableWidget	*ptabwdgStaList;									//ç«™ç‚¹åˆ—è¡¨
+	QPushButton		*pbntStaType,*pbnCommit;							//æ“ä½œæŒ‰é’®:å‚ç«™ç±»å‹,ç¡®è®¤æäº¤
+	vector<Station_S> m_stationvct;										//ä¿å­˜å‚ç«™å®¹å™¨
+	vector<Station_S> m_stationmdfvct;									//å­˜æ”¾ä¿®æ”¹å‚ç«™å®¹å™¨
+	Station_S		m_station;											//å‚ç«™
 
-	StationEditMgr	*pStationEditMgrDlg;								//³§Õ¾¹ÜÀí±à¼­ÀàÖ¸Õë
+	StationEditMgr	*pStationEditMgrDlg;								//å‚ç«™ç®¡ç†ç¼–è¾‘ç±»æŒ‡é’ˆ
 
 	StationTypeMgr	*pStaTypeMgrDlg;
 

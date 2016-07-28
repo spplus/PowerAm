@@ -1,4 +1,4 @@
-
+ï»¿
 #include <QSettings>
 #include <QCoreApplication>
 #include <QMessageBox>
@@ -19,13 +19,13 @@ NetClient::NetClient()
 
 	m_pTcpScoket = new QTcpSocket(this);
 
-	//¿Í»§¶ËÁ¬½ÓĞÅºÅ
+	//å®¢æˆ·ç«¯è¿æ¥ä¿¡å·
 	connect(m_pTcpScoket,SIGNAL(connected()),this,SLOT(connectOpen()));
 
-	//¿Í»§¶Ë¶Ï¿ªĞÅºÅ
+	//å®¢æˆ·ç«¯æ–­å¼€ä¿¡å·
 	connect(m_pTcpScoket,SIGNAL(disconnected()),this,SLOT(connectLost()));
 
-	//¿Í»§¶Ë½ÓÊÕ·şÎñÆ÷¶ËµÄÊı¾İÏìÓ¦
+	//å®¢æˆ·ç«¯æ¥æ”¶æœåŠ¡å™¨ç«¯çš„æ•°æ®å“åº”
 	connect(m_pTcpScoket,SIGNAL(readyRead()),this,SLOT(readMessage()));
 
 }
@@ -46,27 +46,27 @@ bool NetClient::init()
 	QString strIP = ComUtil::instance()->getSvrAddr();
 	QString strPort = ComUtil::instance()->getSvrPort();
 
-	//¸³Öµ
+	//èµ‹å€¼
 	m_IP = strIP;
 	m_Port = strPort;
 
-	//ÅĞ¶Ï¶ÁÈ¡INIÅäÖÃÎÄ¼şÊÇ·ñÕıÈ·
+	//åˆ¤æ–­è¯»å–INIé…ç½®æ–‡ä»¶æ˜¯å¦æ­£ç¡®
 	if(m_IP=="" || m_Port=="")
 	{
-		QMessageBox::information(NULL,tr("¶ÁÈ¡ÅäÖÃÎÄ¼şÌáÊ¾:"),tr("Çë¼ì²éÅäÖÃÎÄ¼şÄÚÈİÊÇ·ñÕıÈ·»òÎÄ¼şÊÇ·ñ´æÔÚ!"));
+		QMessageBox::information(NULL,tr("è¯»å–é…ç½®æ–‡ä»¶æç¤º:"),tr("è¯·æ£€æŸ¥é…ç½®æ–‡ä»¶å†…å®¹æ˜¯å¦æ­£ç¡®æˆ–æ–‡ä»¶æ˜¯å¦å­˜åœ¨!"));
 		return false;
 	}
 
-	//½¨Á¢ÍøÂçÁ¬½ÓÀàÓëµ±Ç°ÀàµÄĞÅºÅÓë²ÛµÄ¹ØÏµ
+	//å»ºç«‹ç½‘ç»œè¿æ¥ç±»ä¸å½“å‰ç±»çš„ä¿¡å·ä¸æ§½çš„å…³ç³»
 	connect(this,SIGNAL(recvdata(int,const char* ,int)),MsgRouter::instance(),SLOT(recvdata(int,const char* ,int)));
 
-	//¶¨Ê±Æ÷
+	//å®šæ—¶å™¨
 	m_pTimer = new QTimer(this);
 	m_pTimer->setInterval(1);
 
 	connect(m_pTimer,SIGNAL(timeout()),this,SLOT(checkConnect()));
 
-	//Á¬½ÓÖ¸¶¨IPºÍ¶Ë¿ÚµÄ·şÎñÆ÷
+	//è¿æ¥æŒ‡å®šIPå’Œç«¯å£çš„æœåŠ¡å™¨
 	connectToServer(m_IP,m_Port.toUInt());
 	m_pTcpScoket->waitForConnected();
 
@@ -79,10 +79,10 @@ bool NetClient::init()
 
 void NetClient::checkConnect()
 {
-	//¶¨Ê±¼ì²âÁ¬½Ó·şÎñ¶ËÊÇ·ñÕı³££¬²»Õı³£½øĞĞÖØÁ¬
+	//å®šæ—¶æ£€æµ‹è¿æ¥æœåŠ¡ç«¯æ˜¯å¦æ­£å¸¸ï¼Œä¸æ­£å¸¸è¿›è¡Œé‡è¿
 	if(!m_netflag)
 	{
-		//ÖØĞÂÁ¬½ÓÖ¸¶¨IPºÍ¶Ë¿ÚµÄ·şÎñÆ÷
+		//é‡æ–°è¿æ¥æŒ‡å®šIPå’Œç«¯å£çš„æœåŠ¡å™¨
 		connectToServer(m_IP,m_Port.toUInt());
 	}
 }
@@ -92,7 +92,7 @@ void NetClient::connectOpen()
 	m_netflag = true;
 	m_pTimer->stop();
 
-	// ·¢ËÍÁ¬½Ó½¨Á¢ÏûÏ¢
+	// å‘é€è¿æ¥å»ºç«‹æ¶ˆæ¯
 	emit recvdata(CMD_CONNECTED,0,0);
 }
 
@@ -105,16 +105,16 @@ void NetClient::connectLost()
 bool NetClient::connectToServer(const QString srvName,quint16 port)
 {
 	
-	//È¡ÏûÒÑÓĞµÄÁ¬½Ó
+	//å–æ¶ˆå·²æœ‰çš„è¿æ¥
 	m_pTcpScoket->abort();
 
-	//Á¬½Ó·şÎñÆ÷
+	//è¿æ¥æœåŠ¡å™¨
 	m_pTcpScoket->connectToHost(srvName,port);
 
-	//µÈ´ı¿Í»§¶ËÊÇ·ñÕæÕıÁ¬ÉÏ·şÎñ¶Ë
+	//ç­‰å¾…å®¢æˆ·ç«¯æ˜¯å¦çœŸæ­£è¿ä¸ŠæœåŠ¡ç«¯
 	/*if(!m_pTcpScoket->waitForConnected(1000))
 	{
-		qDebug("¿Í»§¶ËÁ¬½Ó·şÎñÆ÷Ê§°Ü");
+		qDebug("å®¢æˆ·ç«¯è¿æ¥æœåŠ¡å™¨å¤±è´¥");
 		return false;
 	}*/
 
@@ -129,7 +129,7 @@ void NetClient::close()
 	m_pTcpScoket->disconnectFromHost();
 	if (!m_pTcpScoket->waitForDisconnected(1000))
 	{
-		qDebug("¿Í»§¶Ë¶Ï¿ª·şÎñÆ÷Ê§°Ü");
+		qDebug("å®¢æˆ·ç«¯æ–­å¼€æœåŠ¡å™¨å¤±è´¥");
 	}
 }
 
@@ -152,10 +152,10 @@ void NetClient::readMessage()
 	{
 		m_qbarecv.append(m_pTcpScoket->readAll());
 
-		//½«µÚÒ»´Î½ÓÊÕµÄÊı¾İÖĞµÄ³¤¶ÈÌáÈ¡³öÀ´£¬ÎªÒÔºó½ÓÊÕ´óÁ¿Êı¾İ¼ÆËã³¤¶È
+		//å°†ç¬¬ä¸€æ¬¡æ¥æ”¶çš„æ•°æ®ä¸­çš„é•¿åº¦æå–å‡ºæ¥ï¼Œä¸ºä»¥åæ¥æ”¶å¤§é‡æ•°æ®è®¡ç®—é•¿åº¦
 		if (m_brecvflag)
 		{
-			//È¡³öÏûÏ¢ÖĞµÄÇ°4¸ö×Ö½Ú£ºÏûÏ¢×Ü³¤¶È
+			//å–å‡ºæ¶ˆæ¯ä¸­çš„å‰4ä¸ªå­—èŠ‚ï¼šæ¶ˆæ¯æ€»é•¿åº¦
 			qint32 msgLen = m_qbarecv[0] & 0x000000FF;    
 			msgLen |= ((m_qbarecv[1] << 8) & 0x0000FF00);    
 			msgLen |= ((m_qbarecv[2] << 16) & 0x00FF0000);    
@@ -166,20 +166,20 @@ void NetClient::readMessage()
 			m_brecvflag = false;
 		}
 
-		//µ±½ÓÊÕ³¤¶ÈĞ¡ÓÚ×îĞ¡Ö¡³¤Ê±Ö±½Ó·µ»Ø
+		//å½“æ¥æ”¶é•¿åº¦å°äºæœ€å°å¸§é•¿æ—¶ç›´æ¥è¿”å›
 		if (m_qbarecv.length() < 12)
 		{
-			qDebug("½ÓÊÕÊı¾İ³¤¶ÈĞ¡ÓÚ×îĞ¡Ö¡³¤¶È");
+			qDebug("æ¥æ”¶æ•°æ®é•¿åº¦å°äºæœ€å°å¸§é•¿åº¦");
 			return;
 		}
 
-		//µ±½ÓÊÕÊı¾İ³¤¶ÈÏàµÈÊ±Ìø³öÑ­»·
+		//å½“æ¥æ”¶æ•°æ®é•¿åº¦ç›¸ç­‰æ—¶è·³å‡ºå¾ªç¯
 		if (m_qbarecv.length() == m_recvLen)
 		{
 			break;
 		}
 
-		//µÈ´ı·şÎñ¶ËÃ¿´Î·¢ËÍÊı¾İ
+		//ç­‰å¾…æœåŠ¡ç«¯æ¯æ¬¡å‘é€æ•°æ®
 		if(!(m_pTcpScoket->waitForReadyRead(20000)))
 		{
 			qDebug()<<"m_pTcpScoket->errorString()2: "<< m_pTcpScoket->errorString();
@@ -188,24 +188,24 @@ void NetClient::readMessage()
 
 	}
 	
-	QString recstr = QString("½ÓÊÕĞÅÏ¢:");
+	QString recstr = QString("æ¥æ”¶ä¿¡æ¯:");
 	qDebug()<<recstr;
 	QString strrecv=QVariant(m_qbarecv).toString();
 	qDebug()<<strrecv;
 
 	if (m_qbarecv.length() < 12)
 	{
-		qDebug("½ÓÊÕÊı¾İ³¤¶ÈĞ¡ÓÚ×îĞ¡Ö¡³¤¶È");
+		qDebug("æ¥æ”¶æ•°æ®é•¿åº¦å°äºæœ€å°å¸§é•¿åº¦");
 		return;
 	}
 
 	int nmsgty = 0;
 
 	QByteArray qBymsg = unpack(m_qbarecv,nmsgty,m_qbarecv.length());
-	//Êı¾İ½â°ü
+	//æ•°æ®è§£åŒ…
 	const char* msg = qBymsg.data();
 
-	//ÏòÓ¦ÓÃ²ã·¢ĞÅºÅ
+	//å‘åº”ç”¨å±‚å‘ä¿¡å·
 	emit recvdata(nmsgty,msg,m_qbarecv.length());
 	
 	m_brecvflag = true;
@@ -221,21 +221,21 @@ QByteArray NetClient::pack(const char* msg,const int msgtype,const int msglength
 
 	QByteArray bpack;
 
-	//ÏûÏ¢³¤¶È		 ÏûÏ¢Í·		 ÏûÏ¢ÀàĞÍ		 Êı¾İÇøÄÚÈİ		 ÏûÏ¢½áÎ²
-	// 4¸ö×Ö½Ú	  2×Ö½Ú(0x11)	  4¸ö×Ö½Ú						2×Ö½Ú(0x88)
-	//¼ÆËãÏûÏ¢Çø³¤¶È
+	//æ¶ˆæ¯é•¿åº¦		 æ¶ˆæ¯å¤´		 æ¶ˆæ¯ç±»å‹		 æ•°æ®åŒºå†…å®¹		 æ¶ˆæ¯ç»“å°¾
+	// 4ä¸ªå­—èŠ‚	  2å­—èŠ‚(0x11)	  4ä¸ªå­—èŠ‚						2å­—èŠ‚(0x88)
+	//è®¡ç®—æ¶ˆæ¯åŒºé•¿åº¦
 	quint32 len = 2 + 4 + msglength + 2;
 
-	//Ğ´ÈëÏûÏ¢³¤¶È
+	//å†™å…¥æ¶ˆæ¯é•¿åº¦
 	bpack.append(reinterpret_cast<const char*>(&len),4);
-	//ÏûÏ¢Í·
+	//æ¶ˆæ¯å¤´
 	quint32 nhead = 0x11;
 	bpack.append(reinterpret_cast<const char*>(&FRAM_HEAD),2);
-	//ÏûÏ¢ÀàĞÍ
+	//æ¶ˆæ¯ç±»å‹
 	bpack.append(reinterpret_cast<const char*>(&msgtype),4);
-	//Êı¾İÌå
+	//æ•°æ®ä½“
 	bpack.append(msg,msglength);
-	//ÏûÏ¢Î²
+	//æ¶ˆæ¯å°¾
 	quint32 ntail = 0x88;
 	bpack.append(reinterpret_cast<const char*>(&FRAM_TAIL),2);
 
@@ -248,40 +248,40 @@ QByteArray NetClient::unpack(QByteArray qByte,int &msgtype,int recvlen)
 {
 	if (qByte.length() < 12)
 	{
-		qDebug("½ÓÊÕÊı¾İ³¤¶ÈĞ¡ÓÚ×îĞ¡Ö¡³¤¶È");
+		qDebug("æ¥æ”¶æ•°æ®é•¿åº¦å°äºæœ€å°å¸§é•¿åº¦");
 		return 0;
 	}
 
-	//ÏûÏ¢³¤¶È		 ÏûÏ¢Í·		 ÏûÏ¢ÀàĞÍ		 Êı¾İÇøÄÚÈİ		 ÏûÏ¢½áÎ²
-	// 4¸ö×Ö½Ú	  2×Ö½Ú(0x11)	  4¸ö×Ö½Ú						2×Ö½Ú(0x88)
+	//æ¶ˆæ¯é•¿åº¦		 æ¶ˆæ¯å¤´		 æ¶ˆæ¯ç±»å‹		 æ•°æ®åŒºå†…å®¹		 æ¶ˆæ¯ç»“å°¾
+	// 4ä¸ªå­—èŠ‚	  2å­—èŠ‚(0x11)	  4ä¸ªå­—èŠ‚						2å­—èŠ‚(0x88)
 
-	//È¡³öÏûÏ¢ÖĞµÄÇ°4¸ö×Ö½Ú£ºÏûÏ¢×Ü³¤¶È
+	//å–å‡ºæ¶ˆæ¯ä¸­çš„å‰4ä¸ªå­—èŠ‚ï¼šæ¶ˆæ¯æ€»é•¿åº¦
 	qint32 msgLen = qByte[0] & 0x000000FF;    
 	msgLen |= ((qByte[1] << 8) & 0x0000FF00);    
 	msgLen |= ((qByte[2] << 16) & 0x00FF0000);    
 	msgLen |= ((qByte[3] << 24) & 0xFF000000);
 
-	//ÏûÏ¢Í·
+	//æ¶ˆæ¯å¤´
 	qint16 msgHead = *reinterpret_cast<qint16*>(qByte.mid(4, 2).data());
 	if (msgHead != FRAM_HEAD)
 	{
-		qDebug("½ÓÊÕÊı¾İÖ¡ÖĞÏûÏ¢Í·¹Ø¼ü×ÖÎ´ÕÒµ½");
+		qDebug("æ¥æ”¶æ•°æ®å¸§ä¸­æ¶ˆæ¯å¤´å…³é”®å­—æœªæ‰¾åˆ°");
 		return 0;
 	}
 
-	//ÏûÏ¢Î²
+	//æ¶ˆæ¯å°¾
 	qint16 msgTail = *reinterpret_cast<qint16*>(qByte.mid(recvlen-2, 2).data());
 	if (msgTail != FRAM_TAIL)
 	{
-		qDebug("½ÓÊÕÊı¾İÖ¡ÖĞÏûÏ¢Î²¹Ø¼ü×ÖÎ´ÕÒµ½");
+		qDebug("æ¥æ”¶æ•°æ®å¸§ä¸­æ¶ˆæ¯å°¾å…³é”®å­—æœªæ‰¾åˆ°");
 		return 0;
 	}
 
-	//ÏûÏ¢ÀàĞÍ
+	//æ¶ˆæ¯ç±»å‹
 	qint32 msgType = *reinterpret_cast<qint32*>(qByte.mid(4+2, 4).data());
 	msgtype = msgType;
 
-	//ÏûÏ¢Ìå
+	//æ¶ˆæ¯ä½“
 	QByteArray qData = qByte.mid(4+2+4,recvlen-12);
 
 	return qData;

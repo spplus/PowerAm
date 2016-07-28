@@ -1,4 +1,4 @@
-#include "openthread.h"
+﻿#include "openthread.h"
 
 OpenThread::OpenThread(GraphicsScene* scene)
 {

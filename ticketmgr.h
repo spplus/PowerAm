@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-		DESC:	²Ù×÷Æ±ÈÎÎñ¹ÜÀí.
+		DESC:	æ“ä½œç¥¨ä»»åŠ¡ç®¡ç†.
 		DATE:	2016-07-09
 		AUTHOR:	YUANLS
 */
@@ -14,7 +14,7 @@
 #include "structs.h"
 
 /************************************************************************/
-/*                           ²Ù×÷Æ±Ã÷Ï¸                                 */
+/*                           æ“ä½œç¥¨æ˜ç»†                                 */
 /************************************************************************/
 class TicketActionsMgr	:public QDialog
 {
@@ -26,90 +26,90 @@ public:
 	//~TicketActionsMgr();
 
 	//static void deleteInstance();
-	//ÉèÖÃ²Ù×÷ÈÎÎñ
+	//è®¾ç½®æ“ä½œä»»åŠ¡
 	void setTicketMsion(TicketMsion_S& tketMsion){m_tketMsion = tketMsion;}
 
-	//ÉèÖÃ²Ù×÷ÈÎÎñ
+	//è®¾ç½®æ“ä½œä»»åŠ¡
 	void setTicket(Ticket_S& tket){m_tket = tket;}
 
-	//ÉèÖÃÏÔÊ¾ÀàĞÍ
+	//è®¾ç½®æ˜¾ç¤ºç±»å‹
 	void setViewType(int nType){m_viewType = nType;}
 
-	//»ñÈ¡²Ù×÷ÀàĞÍ
+	//è·å–æ“ä½œç±»å‹
 	QString getActionsType();
 
-	//»ñÈ¡²Ù×÷Æ±ĞÅÏ¢
+	//è·å–æ“ä½œç¥¨ä¿¡æ¯
 	Ticket_S getTicketInfo();
 
-	//»ñÈ¡²Ù×÷Ã÷Ï¸ÁĞ±í
+	//è·å–æ“ä½œæ˜ç»†åˆ—è¡¨
 	vector<TicketActions_S> getTicketActions();
 
-	//³õÊ¼»¯Êı¾İ
+	//åˆå§‹åŒ–æ•°æ®
 	void		initDataByTicketMsion();
-	//³õÊ¼»¯Êı¾İ
+	//åˆå§‹åŒ–æ•°æ®
 	void		initDataByTicket();
-	//½ÓÊÕ²Ù×÷Æ±ÁĞ±í
+	//æ¥æ”¶æ“ä½œç¥¨åˆ—è¡¨
 	void retTicketActionsList(const char* msg,int msglength);
 
-	//ÉèÖÃ²Ù×÷ÀàĞÍ
+	//è®¾ç½®æ“ä½œç±»å‹
 	void		setActionsType();
 
-	//ÉèÖÃ¾ßÌå²Ù×÷
+	//è®¾ç½®å…·ä½“æ“ä½œ
 	void setTicketActions(QString strActions);
 	
 signals:
-	//ÏòÉÏ²ã´«µİ´°¿Ú¹Ø±Õ
+	//å‘ä¸Šå±‚ä¼ é€’çª—å£å…³é—­
 	void sendCloseTicketActionsMgr();
 
 private slots:
-	//tableÁĞ±íÖĞµÄÃèÊöĞÅÏ¢
+	//tableåˆ—è¡¨ä¸­çš„æè¿°ä¿¡æ¯
 	void setDesc(QTableWidgetItem* item);
 
 private:
-	//´´½¨²Ù×÷Æ±½çÃæ
+	//åˆ›å»ºæ“ä½œç¥¨ç•Œé¢
 	void		initUi_Operator();
 
-	//ÇëÇó²Ù×÷Æ±ÁĞ±í
+	//è¯·æ±‚æ“ä½œç¥¨åˆ—è¡¨
 	void reqTicketActionsList();
-	//Ìí¼Ó²Ù×÷µ½ÁĞ±íÖĞ
+	//æ·»åŠ æ“ä½œåˆ°åˆ—è¡¨ä¸­
 	void addTicketActionsToTable(QString strAct);
 	
-	//¹Ø±ÕÊÂ¼ş
+	//å…³é—­äº‹ä»¶
 	void closeEvent(QCloseEvent *event);  
 
 private:
 
-	QLineEdit*		m_companyLied;								//µ¥Î»Ãû³Æ
-	QLineEdit*		m_noLied;									//µ¥Î»±àºÅ
-	QLineEdit*		m_createLied;								//·¢ÁîÈË
-	QLineEdit*		m_actLied;									//ÊÜÁîÈË
-	QLineEdit*		m_missionLied;								//²Ù×÷ÈÎÎñ
-	QLineEdit*		m_remarksLied;								//±¸×¢
-	QLineEdit*		m_operatorLied;								//²Ù×÷ÈË
-	QLineEdit*		m_guardianLied;								//¼à»¤ÈË
-	QLineEdit*		m_watcherLied;								//Öµ°à¸ºÔğÈË
+	QLineEdit*		m_companyLied;								//å•ä½åç§°
+	QLineEdit*		m_noLied;									//å•ä½ç¼–å·
+	QLineEdit*		m_createLied;								//å‘ä»¤äºº
+	QLineEdit*		m_actLied;									//å—ä»¤äºº
+	QLineEdit*		m_missionLied;								//æ“ä½œä»»åŠ¡
+	QLineEdit*		m_remarksLied;								//å¤‡æ³¨
+	QLineEdit*		m_operatorLied;								//æ“ä½œäºº
+	QLineEdit*		m_guardianLied;								//ç›‘æŠ¤äºº
+	QLineEdit*		m_watcherLied;								//å€¼ç­è´Ÿè´£äºº
 
-	QCheckBox*		m_guardianChbox;							//¼à»¤ÏÂ²Ù×÷
-	QCheckBox*		m_onerChbox;								//µ¥ÈË²Ù×÷
-	QCheckBox*		m_overhaulChbox;							//¼ìĞŞÈËÔ±²Ù×÷
+	QCheckBox*		m_guardianChbox;							//ç›‘æŠ¤ä¸‹æ“ä½œ
+	QCheckBox*		m_onerChbox;								//å•äººæ“ä½œ
+	QCheckBox*		m_overhaulChbox;							//æ£€ä¿®äººå‘˜æ“ä½œ
 
-	QDateTimeEdit*	m_createrTime;								//´´½¨²Ù×÷Æ±Ê±¼ä
-	QDateTimeEdit*	m_opstartTime;								//²Ù×÷¿ªÊ¼Ê±¼ä
-	QDateTimeEdit*	m_opendTime;								//²Ù×÷½áÊøÊ±¼ä
+	QDateTimeEdit*	m_createrTime;								//åˆ›å»ºæ“ä½œç¥¨æ—¶é—´
+	QDateTimeEdit*	m_opstartTime;								//æ“ä½œå¼€å§‹æ—¶é—´
+	QDateTimeEdit*	m_opendTime;								//æ“ä½œç»“æŸæ—¶é—´
 
-	QTableWidget*	m_ticketActTable;							//²Ù×÷Æ±Ã÷Ï¸ÁĞ±í
+	QTableWidget*	m_ticketActTable;							//æ“ä½œç¥¨æ˜ç»†åˆ—è¡¨
 
 
-	TicketMsion_S	m_tketMsion;								//²Ù×÷ÈÎÎñ
-	Ticket_S		m_tket;										//²Ù×÷Æ±
-	Ticket_S		m_tketReturn;								//·µ»ØµÄ²Ù×÷Æ±
-	int		m_Msionid;											//²Ù×÷ÈÎÎñID
-	QString m_strGuandian;										//¼à»¤ÏÂ²Ù×÷
-	QString m_strOner;											//µ¥ÈË²Ù×÷
-	QString m_strOverhaul;										//¼ìĞŞÈËÔ±²Ù×÷
-	QString m_strActType;										//²Ù×÷ÀàĞÍ
-	int		m_viewType;											//ÏÔÊ¾ÀàĞÍ1±íÊ¾´´½¨£¬2±íÊ¾²éÑ¯
-	vector<TicketActions_S> m_tketActions;						//±£´æ²Ù×÷Ã÷Ï¸ÁĞ±í
+	TicketMsion_S	m_tketMsion;								//æ“ä½œä»»åŠ¡
+	Ticket_S		m_tket;										//æ“ä½œç¥¨
+	Ticket_S		m_tketReturn;								//è¿”å›çš„æ“ä½œç¥¨
+	int		m_Msionid;											//æ“ä½œä»»åŠ¡ID
+	QString m_strGuandian;										//ç›‘æŠ¤ä¸‹æ“ä½œ
+	QString m_strOner;											//å•äººæ“ä½œ
+	QString m_strOverhaul;										//æ£€ä¿®äººå‘˜æ“ä½œ
+	QString m_strActType;										//æ“ä½œç±»å‹
+	int		m_viewType;											//æ˜¾ç¤ºç±»å‹1è¡¨ç¤ºåˆ›å»ºï¼Œ2è¡¨ç¤ºæŸ¥è¯¢
+	vector<TicketActions_S> m_tketActions;						//ä¿å­˜æ“ä½œæ˜ç»†åˆ—è¡¨
 
 	static TicketActionsMgr *m_inst;
 
@@ -117,7 +117,7 @@ private:
 
 
 /************************************************************************/
-/*                           ²Ù×÷Æ±                                     */
+/*                           æ“ä½œç¥¨                                     */
 /************************************************************************/
 class TicketMgr	:public QDialog
 {
@@ -126,87 +126,87 @@ class TicketMgr	:public QDialog
 public:
 	TicketMgr(QWidget* parent = NULL);
 
-	//ÇëÇó²Ù×÷Æ±ÈÎÎñÁĞ±í
+	//è¯·æ±‚æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨
 	void reqTicketMsionList();
 
-	//½ÓÊÕ²Ù×÷Æ±ÈÎÎñÁĞ±í
+	//æ¥æ”¶æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨
 	void retTicketMsionList(const char* msg,int msglength);
 
-	//ÇëÇó²Ù×÷Æ±ÁĞ±í
+	//è¯·æ±‚æ“ä½œç¥¨åˆ—è¡¨
 	void reqTicketList();
 
-	//½ÓÊÕ²Ù×÷Æ±ÁĞ±í
+	//æ¥æ”¶æ“ä½œç¥¨åˆ—è¡¨
 	void retTicketList(const char* msg,int msglength);
 
-	// ½ÓÊÕÊı¾İ
+	// æ¥æ”¶æ•°æ®
 	void recvdata(int msgtype,const char* msg,int msglength);
 
 signals:
 	
 
 private slots:
-	void getTicketMsionItem(QTableWidgetItem* item);					//Ñ¡ÖĞtab±íÖĞÄ³Ò»ĞĞÏìÓ¦º¯Êı
-	void getTicketItem(QTableWidgetItem* item);							//Ñ¡ÖĞ²Ù×÷Æ±tab±íÖĞÄ³Ò»ĞĞÏìÓ¦º¯Êı
-	// ´´½¨²Ù×÷Æ±
+	void getTicketMsionItem(QTableWidgetItem* item);					//é€‰ä¸­tabè¡¨ä¸­æŸä¸€è¡Œå“åº”å‡½æ•°
+	void getTicketItem(QTableWidgetItem* item);							//é€‰ä¸­æ“ä½œç¥¨tabè¡¨ä¸­æŸä¸€è¡Œå“åº”å‡½æ•°
+	// åˆ›å»ºæ“ä½œç¥¨
 	void		onCreateActions();
-	//Ìá½»²Ù×÷Æ±
+	//æäº¤æ“ä½œç¥¨
 	void		onCommitActions();
-	//²éÑ¯²Ù×÷Æ±
+	//æŸ¥è¯¢æ“ä½œç¥¨
 	void		onQueryActions();
-	//Ôö¼ÓÉ¾³ıĞŞ¸Ä
+	//å¢åŠ åˆ é™¤ä¿®æ”¹
 	void		onMdf();
 	void		onAdd();
 	void		onDel();
-	//×Ó´°¿Ú¹Ø±ÕÊÂ¼ş
+	//å­çª—å£å…³é—­äº‹ä»¶
 	void		closeTicketActionsMgr();
 
 private:
-	// µ÷¶ÈÔ±´´½¨ÃüÁî½çÃæ
+	// è°ƒåº¦å‘˜åˆ›å»ºå‘½ä»¤ç•Œé¢
 	void		initUi_Mission();
 
-	// ²Ù×÷Ô±½çÃæ
+	// æ“ä½œå‘˜ç•Œé¢
 	void		initUi_Action();
 
-	//´´½¨²Ù×÷Æ±½çÃæ
+	//åˆ›å»ºæ“ä½œç¥¨ç•Œé¢
 	void		initUi_Operator();
 
 	void		initSlots();
 
 	void		initData();
 
-	//ÉèÖÃÖ´ĞĞÈËÖĞµÄÖµÏÂÀ­ÁĞ±í
+	//è®¾ç½®æ‰§è¡Œäººä¸­çš„å€¼ä¸‹æ‹‰åˆ—è¡¨
 	void setUserCombox();
 
 private:
-	QComboBox*		m_userBox;									//Ö´ĞĞÈËÓÃ»§ÏÂÀ­ÁĞ±í
-	QLineEdit*		m_nameLied;									//²Ù×÷ÈÎÎñÃû³Æ
-	QTableWidget*	m_missionTable;								//²Ù×÷ÈÎÎñÁĞ±í
-	QDateTimeEdit*	m_crateTime;								//´´½¨²Ù×÷Æ±Ê±¼ä
-	QPushButton*		m_mdfBtn;								//ĞŞ¸Ä²Ù×÷ÈÎÎñ
-	QPushButton*		m_addBtn;								//Ôö¼Ó²Ù×÷ÈÎÎñ
-	QPushButton*		m_delBtu;								//É¾³ı²Ù×÷ÈÎÎñ
+	QComboBox*		m_userBox;									//æ‰§è¡Œäººç”¨æˆ·ä¸‹æ‹‰åˆ—è¡¨
+	QLineEdit*		m_nameLied;									//æ“ä½œä»»åŠ¡åç§°
+	QTableWidget*	m_missionTable;								//æ“ä½œä»»åŠ¡åˆ—è¡¨
+	QDateTimeEdit*	m_crateTime;								//åˆ›å»ºæ“ä½œç¥¨æ—¶é—´
+	QPushButton*		m_mdfBtn;								//ä¿®æ”¹æ“ä½œä»»åŠ¡
+	QPushButton*		m_addBtn;								//å¢åŠ æ“ä½œä»»åŠ¡
+	QPushButton*		m_delBtu;								//åˆ é™¤æ“ä½œä»»åŠ¡
 
-	QPushButton*		m_createBtn;							//´´½¨²Ù×÷Æ±
-	QPushButton*		m_comitBtn;								//Ìá½»²Ù×÷Æ±
-	QPushButton*		m_queryBtn;								//²éÑ¯²Ù×÷Æ±
+	QPushButton*		m_createBtn;							//åˆ›å»ºæ“ä½œç¥¨
+	QPushButton*		m_comitBtn;								//æäº¤æ“ä½œç¥¨
+	QPushButton*		m_queryBtn;								//æŸ¥è¯¢æ“ä½œç¥¨
 
-	QTableWidget*	m_ticketTable;								//²Ù×÷Æ±ÁĞ±í
+	QTableWidget*	m_ticketTable;								//æ“ä½œç¥¨åˆ—è¡¨
 
-	//ÓÃ»§ÁĞ±í
+	//ç”¨æˆ·åˆ—è¡¨
 	vector<UserInfo_S>	m_userList;
-	TicketMsion_S	m_ticketMsion;								//²Ù×÷ÈÎÎñ
-	Ticket_S		m_ticket;									//²Ù×÷Æ±
-	bool		baddflag;										//Ìí¼Ó±êÖ¾
-	bool		bmdfflag;										//ĞŞ¸Ä±êÖ¾
+	TicketMsion_S	m_ticketMsion;								//æ“ä½œä»»åŠ¡
+	Ticket_S		m_ticket;									//æ“ä½œç¥¨
+	bool		baddflag;										//æ·»åŠ æ ‡å¿—
+	bool		bmdfflag;										//ä¿®æ”¹æ ‡å¿—
 
-	//²Ù×÷Æ±Ã÷Ï¸¶ÔÏó
+	//æ“ä½œç¥¨æ˜ç»†å¯¹è±¡
 	TicketActionsMgr	*m_tktActmgr;
-	bool				m_bcomitflag;							//Ìá½»±êÖ¾
-	bool				m_bdlgflag;								//ÊÇ·ñÒÑ¾­´´½¨²Ù×÷Æ±Ã÷Ï¸¶Ô»°¿ò
-	bool				m_bcloseflag;							//²Ù×÷Æ±Ã÷Ï¸¶Ô»°¿ò(ÊÇ·ñ¹Ø±Õ)±êÖ¾
-	bool				m_bcreateflag;							//´´½¨±êÖ¾
-	bool				m_bqueryflag;							//²éÑ¯±êÖ¾
-	QString m_strActType;										//²Ù×÷ÀàĞÍ
+	bool				m_bcomitflag;							//æäº¤æ ‡å¿—
+	bool				m_bdlgflag;								//æ˜¯å¦å·²ç»åˆ›å»ºæ“ä½œç¥¨æ˜ç»†å¯¹è¯æ¡†
+	bool				m_bcloseflag;							//æ“ä½œç¥¨æ˜ç»†å¯¹è¯æ¡†(æ˜¯å¦å…³é—­)æ ‡å¿—
+	bool				m_bcreateflag;							//åˆ›å»ºæ ‡å¿—
+	bool				m_bqueryflag;							//æŸ¥è¯¢æ ‡å¿—
+	QString m_strActType;										//æ“ä½œç±»å‹
 
 };
 

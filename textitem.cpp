@@ -1,4 +1,4 @@
-#include <QMatrix>
+Ôªø#include <QMatrix>
 #include "textitem.h"
 
 TextItem::TextItem( TextSvg& tg)
@@ -31,7 +31,7 @@ void TextItem::parserMatrix(TextSvg& tg)
 		tg.m_y = mplist.at(5).toDouble();
 	}
 
-	// Ω‚Œˆtranslate
+	// Ëß£Êûêtranslate
 	idx1= mtx.lastIndexOf("(");
 	idx2 = mtx.lastIndexOf(")");
 

@@ -1,4 +1,4 @@
-#ifndef NAVVIEW_H
+﻿#ifndef NAVVIEW_H
 #define NAVVIEW_H
 
 #include <QListView>

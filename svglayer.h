@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		¶¨ÒåSVGÍ¼²ã.
+	DESC:		å®šä¹‰SVGå›¾å±‚.
 	DATE:		2016-03-31
 	AUTHOR:		YUANLS
 */
@@ -49,13 +49,13 @@ public:
 	int					getY(){return m_y;}
 	void				setY(int y){m_y = y;}
 
-	// »ñÈ¡Éè±¸ÁĞ±íµÄÒıÓÃ
+	// è·å–è®¾å¤‡åˆ—è¡¨çš„å¼•ç”¨
 	QList<BaseDevice*> & getDevList(){return m_devList;}
 
 	QList<TextSvg*>&			getTextList(){return m_textList;}
 
 private:
-	// Í¼²ãID
+	// å›¾å±‚ID
 	QString				m_id;
 
 	// x
@@ -64,19 +64,19 @@ private:
 	// y
 	int					m_y;
 
-	// ¿í
+	// å®½
 	int					m_width;
 
-	// ¸ß
+	// é«˜
 	int					m_height;
 
-	// ±³¾°
+	// èƒŒæ™¯
 	QString				m_fill;
 
-	// Éè±¸ÁĞ±í
+	// è®¾å¤‡åˆ—è¡¨
 	QList<BaseDevice*>	m_devList;
 
-	// ÎÄ±¾Í¼ÔªÁĞ±í
+	// æ–‡æœ¬å›¾å…ƒåˆ—è¡¨
 	QList<TextSvg*>	m_textList;
 };
 

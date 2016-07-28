@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:	Ö÷Ò³±êÌâ´°¿ÚÀà.
+	DESC:	ä¸»é¡µæ ‡é¢˜çª—å£ç±».
 	DATE:	2016-05-09
 	AUTHOR:	YUANLS
 */
@@ -26,16 +26,16 @@ public:
 
 	void setUserName(QString userName);
 
-	//ÓÃ»§µÇÂ¼¹ÜÀí·µ»Ø
+	//ç”¨æˆ·ç™»å½•ç®¡ç†è¿”å›
 	void		retUserMgr(int msgtype,const char* msg,int msglength);
 
-	//¹æÔò±à¼­¹ÜÀí·µ»Ø
+	//è§„åˆ™ç¼–è¾‘ç®¡ç†è¿”å›
 	void		retRuleMgr(int msgtype,const char* msg);
 
-	//³§Õ¾¹ÜÀí·µ»Ø
+	//å‚ç«™ç®¡ç†è¿”å›
 	void		retStationMgr(int msgtype,const char* msg);
 
-	//ÃÜÂëĞŞ¸Ä·µ»Ø
+	//å¯†ç ä¿®æ”¹è¿”å›
 	void		retpasswdMgr(int msgtype,const char* msg);
 
 signals:
@@ -43,19 +43,19 @@ signals:
 
 private slots:
 
-	// ÓÃ»§¹ÜÀí
+	// ç”¨æˆ·ç®¡ç†
 	void	userMgr();
 
-	// µçÕ¾·ÖÀà¹ÜÀí
+	// ç”µç«™åˆ†ç±»ç®¡ç†
 	void	typeMgr();
 
-	// µçÕ¾±à¼­
+	// ç”µç«™ç¼–è¾‘
 	void	stationMgr();
 
-	// ¹æÔò¿â±à¼­
+	// è§„åˆ™åº“ç¼–è¾‘
 	void	roleMgr();
 
-	//ÓÃ»§ÃÜÂëÖØÖÃ¹ÜÀí
+	//ç”¨æˆ·å¯†ç é‡ç½®ç®¡ç†
 	void	passwdMgr();
 
 
@@ -76,13 +76,13 @@ private:
 	QToolButton*	m_setting;
 	QToolButton*	m_userpwd;
 
-	//ÓÃ»§¹ÜÀí
+	//ç”¨æˆ·ç®¡ç†
 	UserMgrdlg		*m_pUserMgrdlg;
-	//µÇÂ¼ÓÃ»§ÃÜÂë¹ÜÀí
+	//ç™»å½•ç”¨æˆ·å¯†ç ç®¡ç†
 	UserPasswdReset *m_pUserPwddlg;
-	//³§Õ¾¹ÜÀí
+	//å‚ç«™ç®¡ç†
 	StationMgr		*m_pStationMgrdlg;
-	//¹æÔò±à¼­¹ÜÀí
+	//è§„åˆ™ç¼–è¾‘ç®¡ç†
 	RuleMgrdlg		*m_pRuleMgrdlg;
 
 	PBNS::StationTypeMsg_Response	m_stationList;

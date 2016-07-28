@@ -1,4 +1,4 @@
-#include "rulecheckwidget.h"
+ï»¿#include "rulecheckwidget.h"
 
 RuleCheckWidget::RuleCheckWidget(QWidget* parent /* = NULL */)
 	:QDialog(parent)
@@ -21,8 +21,8 @@ void RuleCheckWidget::initUi()
 
 	hbox->addWidget(m_saveList);
 	QHBoxLayout* hbox2 = new QHBoxLayout;
-	m_okBtn = new QPushButton(tr("Ö´ÐÐ"));
-	m_cancelBtn = new QPushButton(tr("È¡Ïû"));
+	m_okBtn = new QPushButton(tr("æ‰§è¡Œ"));
+	m_cancelBtn = new QPushButton(tr("å–æ¶ˆ"));
 
 	hbox2->addStretch();
 	hbox2->addWidget(m_okBtn);
@@ -35,7 +35,7 @@ void RuleCheckWidget::initUi()
 	setLayout(vbox);
 	setFixedSize(450,350);
 	setWindowFlags(Qt::WindowCloseButtonHint);
-	setWindowTitle(tr("¹æÔòÐ£Ñé"));
+	setWindowTitle(tr("è§„åˆ™æ ¡éªŒ"));
 
 }
 
@@ -73,7 +73,7 @@ void RuleCheckWidget::initData()
 		m_saveList->setItem(i,1,itemLevel);
 		m_saveList->setItem(i,2,itemDesc);
 
-		//½«´¥·¢µÄ¹æÔò¼ÇÂ¼ÏÂÀ´±£´æµ½ÁÐ±íÖÐ
+		//å°†è§¦å‘çš„è§„åˆ™è®°å½•ä¸‹æ¥ä¿å­˜åˆ°åˆ—è¡¨ä¸­
 		if (ComUtil::instance()->getActionFlag())
 		{
 			m_rulelist.push_back(bean.name().c_str());
@@ -90,9 +90,9 @@ void RuleCheckWidget::initTable()
 		return;
 	}
 	QStringList heads;
-	heads.append("Ãû³Æ");
-	heads.append("¸æ¾¯µÈ¼¶");
-	heads.append("ÃèÊö");
+	heads.append("åç§°");
+	heads.append("å‘Šè­¦ç­‰çº§");
+	heads.append("æè¿°");
 	m_saveList->setColumnCount(3);
 	m_saveList->setHorizontalHeaderLabels(heads);
 }

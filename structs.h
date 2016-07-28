@@ -1,7 +1,7 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
 
-	DESC:	¶¨ÒåÍ¼ĞÎÏà¹ØÊı¾İ½á¹¹. 
+	DESC:	å®šä¹‰å›¾å½¢ç›¸å…³æ•°æ®ç»“æ„. 
 	DATE:	2016-03-24
 	AUTHOR:	YUANLS
 	
@@ -44,7 +44,7 @@ struct ListNode
 	TreeNode* treeNode;
 };
 
-// FTP·şÎñÆ÷ĞÅÏ¢
+// FTPæœåŠ¡å™¨ä¿¡æ¯
 
 struct FtpConfig
 {
@@ -55,7 +55,7 @@ struct FtpConfig
 	QString				m_ftpDir;
 };
 
-//³§Õ¾ÀàĞÍ
+//å‚ç«™ç±»å‹
 struct StationType_S
 {
 	int id;
@@ -63,7 +63,7 @@ struct StationType_S
 	QString name;
 };
 
-//³§Õ¾ĞÅÏ¢
+//å‚ç«™ä¿¡æ¯
 struct Station_S
 {
 	int id;
@@ -75,7 +75,7 @@ struct Station_S
 	QString path;
 };
 
-//¹æÔòÀàĞÍ
+//è§„åˆ™ç±»å‹
 struct RuleType_S
 {
 	int ruleid;
@@ -84,7 +84,7 @@ struct RuleType_S
 	QString ruledescrip;
 };
 
-//³§Õ¾¹ØÁª¹æÔòĞÅÏ¢
+//å‚ç«™å…³è”è§„åˆ™ä¿¡æ¯
 struct StationRule_S
 {
 	QString stationCim;
@@ -95,7 +95,7 @@ struct StationRule_S
 	QString isUseName;
 };
 
-//ÓÃ»§ĞÅÏ¢
+//ç”¨æˆ·ä¿¡æ¯
 struct UserInfo_S
 {
 	int userid;
@@ -107,7 +107,7 @@ struct UserInfo_S
 
 };
 
-//²Ù×÷ÈÎÎñ
+//æ“ä½œä»»åŠ¡
 struct TicketMsion_S
 {
 	int id;
@@ -119,7 +119,7 @@ struct TicketMsion_S
 	QString publishtime;
 };
 
-// ²Ù×÷Æ±
+// æ“ä½œç¥¨
 struct Ticket_S
 {
 	int id;

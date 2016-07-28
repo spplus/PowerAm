@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:	Ö÷Ò³´°¿Ú.
+	DESC:	ä¸»é¡µçª—å£.
 	DATE:	2016-05-07
 	AUTHOR:	YUANLS	
 */
@@ -29,16 +29,16 @@ public:
 	void	show();
 
 public slots:
-	// ×¢ÏúµÇÂ¼
+	// æ³¨é”€ç™»å½•
 	void	logout();
 
-	// ¸ù¾İÕ¾µãÀà±ğ¼ÓÔØÕ¾µã
+	// æ ¹æ®ç«™ç‚¹ç±»åˆ«åŠ è½½ç«™ç‚¹
 	void	loadStationsById(int id,QString tname);
 
-	// ´ò¿ªÍ¼ĞÎÎÄ¼ş
+	// æ‰“å¼€å›¾å½¢æ–‡ä»¶
 	void	openFile(PBNS::StationBean& bean);
 
-	// ½ÓÊÕÊı¾İ
+	// æ¥æ”¶æ•°æ®
 	void		recvdata(int msgtype,const char* msg,int msglength);
 
 private:
@@ -50,10 +50,10 @@ private:
 
 	QWidget*	initBottomWidget();
 
-	// ³õÊ¼»¯ĞÅºÅ²Û
+	// åˆå§‹åŒ–ä¿¡å·æ§½
 	void		initConnections();
 
-	//ÓÃ»§µÇÂ¼¹ÜÀí·µ»Ø
+	//ç”¨æˆ·ç™»å½•ç®¡ç†è¿”å›
 	void		retUserMgr(int msgtype,const char* msg,int msglength);
 private:
 

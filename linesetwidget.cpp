@@ -1,4 +1,4 @@
-#include "linesetwidget.h"
+ï»¿#include "linesetwidget.h"
 #include "comutil.h"
 LineSetWidget::LineSetWidget(QWidget *parent /* = 0 */)
 	:QDialog(parent)
@@ -16,7 +16,7 @@ void LineSetWidget::initUi()
 	QHBoxLayout*		hbox3 = new QHBoxLayout;
 
 	QLabel* plabelOne = new QLabel;
-	plabelOne->setText(tr("Õ¾µã1"));
+	plabelOne->setText(tr("ç«™ç‚¹1"));
 	m_stationOneBox = new QComboBox;
 	hbox1->addStretch();
 	hbox1->addWidget(plabelOne);
@@ -24,15 +24,15 @@ void LineSetWidget::initUi()
 	hbox1->addStretch();
 
 	QLabel* plabelOhr = new QLabel;
-	plabelOhr->setText(tr("Õ¾µã2"));
+	plabelOhr->setText(tr("ç«™ç‚¹2"));
 	m_stationOhrBox = new QComboBox;
 	hbox2->addStretch();
 	hbox2->addWidget(plabelOhr);
 	hbox2->addWidget(m_stationOhrBox);
 	hbox2->addStretch();
 
-	m_okBtn = new QPushButton(tr("È·¶¨"));
-	m_cancelBtn = new QPushButton(tr("È¡Ïû"));
+	m_okBtn = new QPushButton(tr("ç¡®å®š"));
+	m_cancelBtn = new QPushButton(tr("å–æ¶ˆ"));
 
 	hbox3->addStretch();
 	hbox3->addWidget(m_okBtn);
@@ -47,7 +47,7 @@ void LineSetWidget::initUi()
 
 	setFixedSize(500,300);
 	setWindowFlags(Qt::WindowCloseButtonHint);
-	setWindowTitle(tr("ÉèÖÃ½ø³öÏß"));
+	setWindowTitle(tr("è®¾ç½®è¿›å‡ºçº¿"));
 }
 
 void LineSetWidget::initConnections()

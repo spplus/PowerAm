@@ -1,11 +1,11 @@
-#include <string>
+ï»¿#include <string>
 #include "usermgrdlg.h"
 
 using namespace std;
 UserMgrdlg::UserMgrdlg(QWidget *parent)
 	: QDialog(parent)
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(600,650);
@@ -20,68 +20,68 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 	QVBoxLayout *pmgrvlyt = new QVBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QGroupBox *pulisgbox = new QGroupBox("ÓÃ»§ÁĞ±í");
+	QGroupBox *pulisgbox = new QGroupBox("ç”¨æˆ·åˆ—è¡¨");
 	ptabwdgulist = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = ptabwdgulist->palette();
-	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//ÉèÖÃÍ¸Ã÷
+	//tabplt.setBrush(QPalette::Base,QBrush(QColor(255,255,255,0)));//è®¾ç½®é€æ˜
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	ptabwdgulist->setPalette(tabplt);
-	//ÉèÖÃÁĞÊı
+	//è®¾ç½®åˆ—æ•°
 	ptabwdgulist->setColumnCount(6);
 	QStringList header;
-	header<<"ÓÃ»§ID"<<"ÓÃ»§Ãû"<<"ÃÜÂë"<<"½ÇÉ«ID"<<"½ÇÉ«Ãû³Æ"<<"ÕæÊµÃû³Æ";
+	header<<"ç”¨æˆ·ID"<<"ç”¨æˆ·å"<<"å¯†ç "<<"è§’è‰²ID"<<"è§’è‰²åç§°"<<"çœŸå®åç§°";
 	ptabwdgulist->setHorizontalHeaderLabels(header);
-	//Ê¹ĞĞÁĞÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓĞÁĞÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	ptabwdgulist->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ĞĞ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	ptabwdgulist->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ĞĞÄÚÈİ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	ptabwdgulist->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ĞĞ£¬²»ÄÜÑ¡Ôñ¶àĞĞ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	ptabwdgulist->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ĞĞ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	ptabwdgulist->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//È¥µôÃ¿ĞĞµÄĞĞºÅ
+	//å»æ‰æ¯è¡Œçš„è¡Œå·
 	//QHeaderView *headerView = ptabwdgulist->verticalHeader();
 	//headerView->setHidden(true);
 
 
-	QGroupBox *pusgbox = new QGroupBox("ÓÃ»§ÏÔÊ¾");
-	pnamelab = new QLabel("ÓÃ»§Ãû");
+	QGroupBox *pusgbox = new QGroupBox("ç”¨æˆ·æ˜¾ç¤º");
+	pnamelab = new QLabel("ç”¨æˆ·å");
 	pnamelab->setFixedWidth(50);
 	pnamelied = new QLineEdit;
 	pnamelied->setFixedWidth(135);
 	pnamelied->setFixedHeight(25);
 
-	prolelab = new QLabel("  ½Ç  É«");
+	prolelab = new QLabel("  è§’  è‰²");
 	prolelab->setFixedWidth(60);
 	prolecbx = new QComboBox;
 	prolecbx->setFixedWidth(135);
 	prolecbx->setFixedHeight(25);
 
-	ppwdlab = new QLabel("ÃÜ  Âë");
+	ppwdlab = new QLabel("å¯†  ç ");
 	ppwdlab->setFixedWidth(50);
 	ppwdlined = new QLineEdit;
 	ppwdlined->setEchoMode(QLineEdit::Password);
 	ppwdlined->setFixedWidth(135);
 	ppwdlined->setFixedHeight(25);
 
-	prealnamelab = new QLabel("ÕæÊµĞÕÃû");
+	prealnamelab = new QLabel("çœŸå®å§“å");
 	prealnamelab->setFixedWidth(60);
 	prealnameld = new QLineEdit;
 	prealnameld->setFixedWidth(135);
 	prealnameld->setFixedHeight(25);
 
 
-	QGroupBox *poprgbox = new QGroupBox("²Ù×÷");
-	pbntadd = new QPushButton("Ôö ¼Ó");
+	QGroupBox *poprgbox = new QGroupBox("æ“ä½œ");
+	pbntadd = new QPushButton("å¢ åŠ ");
 	pbntadd->setFixedHeight(30);
 
-	pbntdel = new QPushButton("É¾ ³ı");
+	pbntdel = new QPushButton("åˆ  é™¤");
 	pbntdel->setFixedHeight(30);
 
-	pbntmdf = new QPushButton("ĞŞ ¸Ä");
+	pbntmdf = new QPushButton("ä¿® æ”¹");
 	pbntmdf->setFixedHeight(30);
 
 
@@ -121,29 +121,29 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 
 	this->setLayout(pmainvlyt);
 
-	//Òş²ØÓÃ»§ÁĞ±íµÚÈıÁĞÓÃ»§ÃÜÂë,µÚËÄÁĞ½ÇÉ«ID
+	//éšè—ç”¨æˆ·åˆ—è¡¨ç¬¬ä¸‰åˆ—ç”¨æˆ·å¯†ç ,ç¬¬å››åˆ—è§’è‰²ID
 	ptabwdgulist->setColumnHidden(2,true);
 	ptabwdgulist->setColumnHidden(3,true);
 
-	//Ä¬ÈÏÉèÖÃÓÃ»§Ãû,ÃÜÂë,½ÇÉ«,ÕæÊµĞÕÃû¿òÎªÖ»¶Á
+	//é»˜è®¤è®¾ç½®ç”¨æˆ·å,å¯†ç ,è§’è‰²,çœŸå®å§“åæ¡†ä¸ºåªè¯»
 	pnamelied->setDisabled(true);
 	ppwdlined->setDisabled(true);
 	prolecbx->setDisabled(true);
 	prealnameld->setDisabled(true);
 
-	//Ä¬ÈÏÉèÖÃ²Ù×÷°´Å¥×´Ì¬£¬Î´Ñ¡ÖĞÓÃ»§ÁĞ±íÊ±Ö»¿ÉÔö¼ÓÓÃ»§,Ôö¼Ó°´Å¥ÓĞĞ§£¬É¾³ıºÍĞŞ¸Ä°´Å¥ÎŞĞ§
+	//é»˜è®¤è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€ï¼Œæœªé€‰ä¸­ç”¨æˆ·åˆ—è¡¨æ—¶åªå¯å¢åŠ ç”¨æˆ·,å¢åŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 	pbntadd->setEnabled(true);
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
 
-	//Ä¬ÈÏÌí¼ÓÓÃ»§±êÖ¾Î»false
+	//é»˜è®¤æ·»åŠ ç”¨æˆ·æ ‡å¿—ä½false
 	baddflag = false;
 	bmdfflag = false;
 	bfst = false;
 
-	//µã»÷ÓÃ»§ÁĞ±íÄ³ĞĞĞÅºÅ²Û¹ØÁª
+	//ç‚¹å‡»ç”¨æˆ·åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 	connect(ptabwdgulist,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getUserItem(QTableWidgetItem*)));
-	//²Ù×÷°´Å¥ĞÅºÅ²Û¹ØÁª
+	//æ“ä½œæŒ‰é’®ä¿¡å·æ§½å…³è”
 	connect(pbntadd,SIGNAL(clicked()),this,SLOT(addUser()));
 	connect(pbntdel,SIGNAL(clicked()),this,SLOT(delUser()));
 	connect(pbntmdf,SIGNAL(clicked()),this,SLOT(mdfUser()));
@@ -165,7 +165,7 @@ void UserMgrdlg::reqUserRoleList()
 
 	string sdata = urlreq.SerializeAsString();
 
-	//·¢ÉäÇëÇóÓÃ»§½ÇÉ«ÁĞ±í
+	//å‘å°„è¯·æ±‚ç”¨æˆ·è§’è‰²åˆ—è¡¨
 	NetClient::instance()->sendData(CMD_USER_ROLE,sdata.c_str(),sdata.length());
 
 	return;
@@ -180,7 +180,7 @@ void UserMgrdlg::retUserRoleList(const char* msg)
 
 	prolecbx->clear();
 
-	//ÔÚÄ¬ÈÏÏÔÊ¾µÄÒ»ĞĞÌí¼ÓÏÔÊ¾ÖµÎª¿Õ
+	//åœ¨é»˜è®¤æ˜¾ç¤ºçš„ä¸€è¡Œæ·»åŠ æ˜¾ç¤ºå€¼ä¸ºç©º
 	prolecbx->insertItem(0,"");
 
 	for (int i = 0; i < resp.userrolelist_size();i++)
@@ -206,7 +206,7 @@ void UserMgrdlg::retUserRoleList(const char* msg)
 
 void UserMgrdlg::reqUserList()
 {
-	//ÏÈÇëÇóÓÃ»§½ÇÉ«ÁĞ±í
+	//å…ˆè¯·æ±‚ç”¨æˆ·è§’è‰²åˆ—è¡¨
 	reqUserRoleList();
 	
 	PBNS::UserListMsg_Request ulreq;
@@ -216,7 +216,7 @@ void UserMgrdlg::reqUserList()
 
 	ulreq.set_reqdate("1");
 
-	//·¢Éä·¢ËÍÊı¾İÇëÇóÏûÏ¢ĞÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_USER_MANAGER,ulreq.SerializeAsString().c_str(),ulreq.SerializeAsString().length());
 
 	return;
@@ -229,7 +229,7 @@ void UserMgrdlg::retUserList(const char* msg)
 
 	int nrow = resp.userlist_size();
 
-	//ÉèÖÃĞĞÊı
+	//è®¾ç½®è¡Œæ•°
 	ptabwdgulist->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -242,14 +242,14 @@ void UserMgrdlg::retUserList(const char* msg)
 
 		ptabwdgulist->setItem(i,0,new QTableWidgetItem(uid));
 		ptabwdgulist->setItem(i,1,new QTableWidgetItem(QString::fromStdString(ubean.username())));
-		ptabwdgulist->setItem(i,2,new QTableWidgetItem(QString::fromStdString(ubean.userpwd())));	//Òş²ØÁĞ¸³Öµ
-		ptabwdgulist->setItem(i,3,new QTableWidgetItem(QString::fromStdString(ubean.userrole())));	//Òş²ØÁĞ¸³Öµ
+		ptabwdgulist->setItem(i,2,new QTableWidgetItem(QString::fromStdString(ubean.userpwd())));	//éšè—åˆ—èµ‹å€¼
+		ptabwdgulist->setItem(i,3,new QTableWidgetItem(QString::fromStdString(ubean.userrole())));	//éšè—åˆ—èµ‹å€¼
 		ptabwdgulist->setItem(i,4,new QTableWidgetItem(QString::fromStdString(ubean.rolename())));
 		ptabwdgulist->setItem(i,5,new QTableWidgetItem(QString::fromStdString(ubean.realname())));
 
 	}
 
-	//Î´Ñ¡ÖĞÓÃ»§ÁĞ±íÊ±Ö»¿ÉÔö¼ÓÓÃ»§,Ôö¼Ó°´Å¥ÓĞĞ§£¬É¾³ıºÍĞŞ¸Ä°´Å¥ÎŞĞ§
+	//æœªé€‰ä¸­ç”¨æˆ·åˆ—è¡¨æ—¶åªå¯å¢åŠ ç”¨æˆ·,å¢åŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 	pbntadd->setEnabled(true);
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
@@ -289,7 +289,7 @@ void UserMgrdlg::getUserItem(QTableWidgetItem* item)
 	prealnameld->setText(ptabwdgulist->item(row,5)->text());
 	
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	pbntdel->setEnabled(true);
 	pbntmdf->setEnabled(true);
 }
@@ -309,7 +309,7 @@ void UserMgrdlg::addUser()
 		prolecbx->setDisabled(false);
 		prealnameld->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		pbntdel->setEnabled(false);
 		pbntmdf->setEnabled(false);
 
@@ -319,30 +319,30 @@ void UserMgrdlg::addUser()
 	{
 		if (pnamelied->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÓÃ»§Ãû²»¿ÉÎª¿Õ,ÇëÊäÈëÓÃ»§Ãû!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("ç”¨æˆ·åä¸å¯ä¸ºç©º,è¯·è¾“å…¥ç”¨æˆ·å!"));
 			return;
 		}
 
 		if (ppwdlined->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÃÜÂë²»¿ÉÎª¿Õ,ÇëÊäÈëÃÜÂë!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("å¯†ç ä¸å¯ä¸ºç©º,è¯·è¾“å…¥å¯†ç !"));
 			return;
 		}
 
 		if (prolecbx->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("½ÇÉ«²»¿ÉÎª¿Õ,ÇëÑ¡ÔñÓÃ»§½ÇÉ«!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("è§’è‰²ä¸å¯ä¸ºç©º,è¯·é€‰æ‹©ç”¨æˆ·è§’è‰²!"));
 			return;
 		}
 
 		if (prealnameld->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÕæÊµĞÕÃû²»¿ÉÎª¿Õ,ÇëÊäÈëÕæÊµĞÕÃû!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("çœŸå®å§“åä¸å¯ä¸ºç©º,è¯·è¾“å…¥çœŸå®å§“å!"));
 			return;
 		}
 
 		QString strpwd = ppwdlined->text();
-		//¶ÔÊäÈëÃÜÂëÖµ½øĞĞMd5¼ÓÃÜ
+		//å¯¹è¾“å…¥å¯†ç å€¼è¿›è¡ŒMd5åŠ å¯†
 		QByteArray byte_array;
 		byte_array.append(strpwd);
 		QByteArray hash_byte_array = QCryptographicHash::hash(byte_array, QCryptographicHash::Md5);
@@ -364,7 +364,7 @@ void UserMgrdlg::addUser()
 		prolecbx->setDisabled(true);
 		prealnameld->setDisabled(true);
 
-		//Ôö¼ÓÓÃ»§Íê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+		//å¢åŠ ç”¨æˆ·å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 		reqUserList();
 	}
 
@@ -373,7 +373,7 @@ void UserMgrdlg::addUser()
 void UserMgrdlg::delUser()
 {
 	int ncurrow = ptabwdgulist->currentRow();
-	//È¡ÓÃ»§ÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÒ»ÁĞÓÃ»§idºÅ
+	//å–ç”¨æˆ·åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—ç”¨æˆ·idå·
 	int nUserid = ptabwdgulist->item(ncurrow,0)->text().toInt();
 
 	QString sql = QString("delete from users where id=%1").arg(nUserid);
@@ -385,11 +385,11 @@ void UserMgrdlg::delUser()
 
 	NetClient::instance()->sendData(CMD_USER_DEL,sdata.c_str(),sdata.length());
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	pbntdel->setEnabled(false);
 	pbntmdf->setEnabled(false);
 
-	//É¾³ıÓÃ»§Íê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+	//åˆ é™¤ç”¨æˆ·å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 	reqUserList();
 }
 
@@ -402,7 +402,7 @@ void UserMgrdlg::mdfUser()
 		prolecbx->setDisabled(false);
 		prealnameld->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		pbntadd->setEnabled(false);
 		pbntdel->setEnabled(false);
 
@@ -412,49 +412,49 @@ void UserMgrdlg::mdfUser()
 	{
 		if (pnamelied->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÓÃ»§Ãû²»¿ÉÎª¿Õ,ÇëÊäÈëÓÃ»§Ãû!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("ç”¨æˆ·åä¸å¯ä¸ºç©º,è¯·è¾“å…¥ç”¨æˆ·å!"));
 			return;
 		}
 
 		if (ppwdlined->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÃÜÂë²»¿ÉÎª¿Õ,ÇëÊäÈëÃÜÂë!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("å¯†ç ä¸å¯ä¸ºç©º,è¯·è¾“å…¥å¯†ç !"));
 			return;
 		}
 
 		if (prolecbx->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("½ÇÉ«²»¿ÉÎª¿Õ,ÇëÑ¡ÔñÓÃ»§½ÇÉ«!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("è§’è‰²ä¸å¯ä¸ºç©º,è¯·é€‰æ‹©ç”¨æˆ·è§’è‰²!"));
 			return;
 		}
 
 		if (prealnameld->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼ÓÓÃ»§ÌáÊ¾:"),tr("ÕæÊµĞÕÃû²»¿ÉÎª¿Õ,ÇëÊäÈëÕæÊµĞÕÃû!"));
+			QMessageBox::information(this,tr("å¢åŠ ç”¨æˆ·æç¤º:"),tr("çœŸå®å§“åä¸å¯ä¸ºç©º,è¯·è¾“å…¥çœŸå®å§“å!"));
 			return;
 		}
 
 		int ncurrow = ptabwdgulist->currentRow();
-		//È¡ÓÃ»§ÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÒ»ÁĞÓÃ»§idºÅ
+		//å–ç”¨æˆ·åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—ç”¨æˆ·idå·
 		int nUserid = ptabwdgulist->item(ncurrow,0)->text().toInt();
-		//È¡ÓÃ»§ÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚÈıÁĞÓÃ»§ÃÜÂë
+		//å–ç”¨æˆ·åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸‰åˆ—ç”¨æˆ·å¯†ç 
 		QString strpwditem = ptabwdgulist->item(ncurrow,2)->text();
-		//È¡ÓÃ»§ÁĞ±íÖĞÑ¡ÖĞĞĞµÄµÚËÄÁĞÓÃ»§idºÅ
+		//å–ç”¨æˆ·åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬å››åˆ—ç”¨æˆ·idå·
 		int nRoleid = ptabwdgulist->item(ncurrow,3)->text().toInt();
 
-		//»ñµÃµ±Ç°ÃÜÂëÊäÈë¿òÖĞµÄÃÜÂëÖµ(Ä¬ÈÏÎª:123456)
+		//è·å¾—å½“å‰å¯†ç è¾“å…¥æ¡†ä¸­çš„å¯†ç å€¼(é»˜è®¤ä¸º:123456)
 		QString strpwd = ppwdlined->text();
 
 		QString strpwdmd5;
 
-		//µ±ÃÜÂëÎªÄ¬ÈÏÉèÖÃµÄÃÜÂëÖµÊ±£¬ËµÃ÷ÃÜÂëÎ´×öĞŞ¸ÄÖ±½ÓÈ¡´ËÓÃ»§ID¶ÔÓ¦µÄÃÜÂë¸üĞÂÊı¾İ,·ñÔò¾ÍÊÇÊäÈëÁËĞÂµÄÃÜÂëÖØĞÂ¶ÔĞÂÃÜÂë½øĞĞ¼ÓÃÜ
+		//å½“å¯†ç ä¸ºé»˜è®¤è®¾ç½®çš„å¯†ç å€¼æ—¶ï¼Œè¯´æ˜å¯†ç æœªåšä¿®æ”¹ç›´æ¥å–æ­¤ç”¨æˆ·IDå¯¹åº”çš„å¯†ç æ›´æ–°æ•°æ®,å¦åˆ™å°±æ˜¯è¾“å…¥äº†æ–°çš„å¯†ç é‡æ–°å¯¹æ–°å¯†ç è¿›è¡ŒåŠ å¯†
 		if (strpwd == "123456")
 		{
 			strpwdmd5 = strpwditem;
 		}
 		else
 		{
-			//¶ÔÊäÈëÃÜÂëÖµ½øĞĞMd5¼ÓÃÜ
+			//å¯¹è¾“å…¥å¯†ç å€¼è¿›è¡ŒMd5åŠ å¯†
 			QByteArray byte_array;
 			byte_array.append(strpwd);
 			QByteArray hash_byte_array = QCryptographicHash::hash(byte_array, QCryptographicHash::Md5);
@@ -476,7 +476,7 @@ void UserMgrdlg::mdfUser()
 		prolecbx->setDisabled(true);
 		prealnameld->setDisabled(true);
 
-		//ĞŞ¸ÄÓÃ»§Íê³Éºó,ÇëÇóÓÃ»§ÁĞ±í
+		//ä¿®æ”¹ç”¨æˆ·å®Œæˆå,è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 		reqUserList();
 
 	}

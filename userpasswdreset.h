@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		µÇÂ¼ÓÃ»§ÃÜÂëÖØÖÃ
+	DESC:		ç™»å½•ç”¨æˆ·å¯†ç é‡ç½®
 	DATE:		2016-05-29
 	AUTHOR:		Abelsky
 */
@@ -30,19 +30,19 @@ public:
 	UserPasswdReset(QWidget *parent);
 	~UserPasswdReset();
 
-	//ÃÜÂëĞŞ¸Ä·µ»Ø
+	//å¯†ç ä¿®æ”¹è¿”å›
 	void	retpasswdMgr(int msgtype,const char* msg);
 signals:
 
 private slots:
 
-	//È·ÈÏĞŞ¸ÄÃÜÂë
+	//ç¡®è®¤ä¿®æ”¹å¯†ç 
 	void	commitPwd();
 
 private:
-	QLineEdit	*poldpwd,*pnewpwd,*pnewagpwd;				//ÓÃ»§Ô­ÃÜÂë£¬ĞÂÃÜÂë£¬ÔÙ´ÎĞÂÃÜÂë
-	QPushButton	*pbntpwdok;									//ĞŞ¸ÄÃÜÂëÈ·ÈÏ
-	QString		qstrpwdmd5;									//±£´æĞŞ¸ÄºóµÄÃÜÂë
+	QLineEdit	*poldpwd,*pnewpwd,*pnewagpwd;				//ç”¨æˆ·åŸå¯†ç ï¼Œæ–°å¯†ç ï¼Œå†æ¬¡æ–°å¯†ç 
+	QPushButton	*pbntpwdok;									//ä¿®æ”¹å¯†ç ç¡®è®¤
+	QString		qstrpwdmd5;									//ä¿å­˜ä¿®æ”¹åçš„å¯†ç 
 	
 };
 

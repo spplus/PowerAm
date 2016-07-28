@@ -1,4 +1,4 @@
-#include "waitwidget.h"
+﻿#include "waitwidget.h"
 WaitWidget::WaitWidget(QWidget*parent /* = NULL */)
 	:QDialog  (parent)
 {

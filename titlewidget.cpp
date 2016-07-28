@@ -1,4 +1,4 @@
-#include "titlewidget.h"
+ï»¿#include "titlewidget.h"
 #include "comutil.h"
 
 TitleWidget::TitleWidget(QWidget *parent /* = 0 */)
@@ -25,7 +25,7 @@ void TitleWidget::initUi()
 	
 	ptime->setStyleSheet("color:#006A6A");
 	QLabel* pwelcome = new QLabel;
-	pwelcome->setText("»¶Ó­Äú,");
+	pwelcome->setText("æ¬¢è¿Žæ‚¨,");
 	pwelcome->setStyleSheet("color:white");
 
 	m_userName = new QLabel;
@@ -35,20 +35,20 @@ void TitleWidget::initUi()
 	m_logout->setAutoRaise(true);
 	m_logout->setObjectName("logout");
 	
-	m_logout->setText(tr("×¢Ïú"));
+	m_logout->setText(tr("æ³¨é”€"));
 	m_logout->setIcon(QIcon(":images/logout.png"));
 	m_logout->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
 	m_userpwd = new QToolButton;
 	m_userpwd->setAutoRaise(true);
 	m_userpwd->setObjectName("logout");
-	m_userpwd->setText(tr("ÃÜÂëÖØÖÃ"));
+	m_userpwd->setText(tr("å¯†ç é‡ç½®"));
 	m_userpwd->setIcon(QIcon(":images/typemgr.png"));
 	m_userpwd->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
 	m_setting = new QToolButton();
 
-	m_setting->setText(tr("ÉèÖÃ"));
+	m_setting->setText(tr("è®¾ç½®"));
 	m_setting->setObjectName("logout");
 	m_setting->setAutoRaise(true);
 	
@@ -64,7 +64,7 @@ void TitleWidget::initUi()
 	hbox->addWidget(pwelcome);
 	hbox->addWidget(m_userName);
 
-	//Ö»ÓÐ³¬¹Ü½ÇÉ«ÏÔÊ¾ÉèÖÃÏî
+	//åªæœ‰è¶…ç®¡è§’è‰²æ˜¾ç¤ºè®¾ç½®é¡¹
 	if (UserLogindlg::instance()->getLoginRoleId() == 1)
 	{
 		hbox->addWidget(m_setting);
@@ -81,7 +81,7 @@ void TitleWidget::initUi()
 	QLabel *title = new QLabel;
 	title->setObjectName("titleText");
 	title->setText(ComUtil::instance()->getSysName());
-	title->setStyleSheet("font-size:30px;color:white;font-family:Î¢ÈíÑÅºÚ,ËÎÌå;font-weight:bold;");
+	title->setStyleSheet("font-size:30px;color:white;font-family:å¾®è½¯é›…é»‘,å®‹ä½“;font-weight:bold;");
 
 	QLabel* logo = new QLabel;
 	logo->setPixmap(QPixmap(":/images/logo.png"));
@@ -106,10 +106,10 @@ void TitleWidget::initUi()
 void TitleWidget::createMenu()
 {
 	m_menu = new QMenu;
-	m_userAction = new QAction(QIcon(":images/usermgr.png"),tr("ÓÃ»§¹ÜÀí"),this);
-	m_typeAction= new QAction(QIcon(":images/typemgr.png"),tr("Àà±ð¹ÜÀí"),this);
-	m_stationAction= new QAction(QIcon(":images/stationmgr.png"),tr("Õ¾µã¹ÜÀí"),this);
-	m_roleAction= new QAction(QIcon(":images/rolemgr.png"),tr("¹æÔò±à¼­"),this);
+	m_userAction = new QAction(QIcon(":images/usermgr.png"),tr("ç”¨æˆ·ç®¡ç†"),this);
+	m_typeAction= new QAction(QIcon(":images/typemgr.png"),tr("ç±»åˆ«ç®¡ç†"),this);
+	m_stationAction= new QAction(QIcon(":images/stationmgr.png"),tr("ç«™ç‚¹ç®¡ç†"),this);
+	m_roleAction= new QAction(QIcon(":images/rolemgr.png"),tr("è§„åˆ™ç¼–è¾‘"),this);
 	m_menu->addAction(m_userAction);
 	//m_menu->addAction(m_typeAction);
 	m_menu->addAction(m_stationAction);
@@ -137,42 +137,42 @@ QString TitleWidget::getDate()
 	switch (date.dayOfWeek())
 	{
 	case Qt::Monday:
-		week = tr("ÐÇÆÚÒ»");
+		week = tr("æ˜ŸæœŸä¸€");
 		break;
 	case Qt::Tuesday:
-		week = tr("ÐÇÆÚ¶þ");
+		week = tr("æ˜ŸæœŸäºŒ");
 		break;
 	case Qt::Wednesday:
-		week = tr("ÐÇÆÚÈý");
+		week = tr("æ˜ŸæœŸä¸‰");
 		break;
 	case Qt::Thursday:
-		week = tr("ÐÇÆÚËÄ");
+		week = tr("æ˜ŸæœŸå››");
 		break;
 	case Qt::Friday:
-		week = tr("ÐÇÆÚÎå");
+		week = tr("æ˜ŸæœŸäº”");
 		break;
 	case Qt::Saturday:
-		week = tr("ÐÇÆÚÁù");
+		week = tr("æ˜ŸæœŸå…­");
 		break;
 	case Qt::Sunday:
-		week = tr("ÐÇÆÚÌì");
+		week = tr("æ˜ŸæœŸå¤©");
 		break;
 	default:
 		week = tr("UN KNOWN");
 		break;
 	}
-	return tr("½ñÌìÊÇ:%1Äê%2ÔÂ%3ÈÕ %4").arg(year).arg(month).arg(day).arg(week);
+	return tr("ä»Šå¤©æ˜¯:%1å¹´%2æœˆ%3æ—¥ %4").arg(year).arg(month).arg(day).arg(week);
 }
 
 void TitleWidget::userMgr()
 {
 	m_pUserMgrdlg = new UserMgrdlg(this);
 
-	//ÇëÇóÓÃ»§ÁÐ±í
+	//è¯·æ±‚ç”¨æˆ·åˆ—è¡¨
 	m_pUserMgrdlg->reqUserList();
 
 	m_pUserMgrdlg->setWindowIcon(QIcon(":images/usermgr.png"));
-	m_pUserMgrdlg->setWindowTitle("ÓÃ»§¹ÜÀí");
+	m_pUserMgrdlg->setWindowTitle("ç”¨æˆ·ç®¡ç†");
 
 	m_pUserMgrdlg->exec();
 
@@ -197,7 +197,7 @@ void TitleWidget::stationMgr()
 	m_pStationMgrdlg = new StationMgr(this);
 
 	m_pStationMgrdlg->setWindowIcon(QIcon(":images/stationmgr.png"));
-	m_pStationMgrdlg->setWindowTitle("³§Õ¾¹ÜÀí");
+	m_pStationMgrdlg->setWindowTitle("åŽ‚ç«™ç®¡ç†");
 
 	m_pStationMgrdlg->exec();
 
@@ -223,7 +223,7 @@ void TitleWidget::passwdMgr()
 {
 	m_pUserPwddlg = new UserPasswdReset(this);
 	m_pUserPwddlg->setWindowIcon(QIcon(":images/typemgr.png"));
-	m_pUserPwddlg->setWindowTitle("ÃÜÂëÖØÖÃ");
+	m_pUserPwddlg->setWindowTitle("å¯†ç é‡ç½®");
 
 	m_pUserPwddlg->exec();
 
@@ -241,11 +241,11 @@ void TitleWidget::roleMgr()
 {
 	m_pRuleMgrdlg = new RuleMgrdlg(this);
 
-	//ÇëÇóÕ¾µã¹æÔò¹ØÁª¹ØÏµÁÐ±í
+	//è¯·æ±‚ç«™ç‚¹è§„åˆ™å…³è”å…³ç³»åˆ—è¡¨
 	m_pRuleMgrdlg->reqStaionRuleList();
 
 	m_pRuleMgrdlg->setWindowIcon(QIcon(":images/rolemgr.png"));
-	m_pRuleMgrdlg->setWindowTitle("¹æÔò±à¼­");
+	m_pRuleMgrdlg->setWindowTitle("è§„åˆ™ç¼–è¾‘");
 
 	m_pRuleMgrdlg->exec();
 

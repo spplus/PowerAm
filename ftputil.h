@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		FTPÏÂÔØSVGÎÄ¼ş.
+	DESC:		FTPä¸‹è½½SVGæ–‡ä»¶.
 	DATE:		2016-04-19
 	AUTHOR:		YUANLS
 */
@@ -30,13 +30,13 @@ signals:
 	void		downloaded(QString fname,QString stationId = "",bool needRoot=true);
 
 public slots:
-	// ÏÂÔØÈ«²¿ÎÄ¼ş
+	// ä¸‹è½½å…¨éƒ¨æ–‡ä»¶
 	void		getAll();
 
-	// ÏÂÔØÖ¸¶¨ÎÄ¼ş
+	// ä¸‹è½½æŒ‡å®šæ–‡ä»¶
 	void		getFile(QString fname,QString stationcim);
 
-	// »ñÈ¡ÎÄ¼şÁĞ±í
+	// è·å–æ–‡ä»¶åˆ—è¡¨
 	QList<QString>	getFileList();
 
 private:
@@ -56,28 +56,28 @@ private slots:
 private:
 	static FtpUtil*		m_inst;
 
-	// ÒÑÏÂÔØÊıÁ¿
+	// å·²ä¸‹è½½æ•°é‡
 	int			m_downCount;
 	// ftp
 	QFtp*		m_ftp;	
 
-	// ftpµØÖ·
+	// ftpåœ°å€
 	QString		m_host;
 
 	QLabel*		m_statusLabel;
 	QLabel*		m_msgLabel;
 	QProgressBar*	m_progressBar;
 	
-	// µ±Ç°Õ¾µãCIM
+	// å½“å‰ç«™ç‚¹CIM
 	QString		m_stationCim;
 
-	// µ±Ç°Â·¾¶
+	// å½“å‰è·¯å¾„
 	QString		m_currentPath;
 
-	// ÎÄ¼şÁĞ±í
+	// æ–‡ä»¶åˆ—è¡¨
 	QList<QString>		m_flist;
 
-	// ÎÄ¼şÁĞ±í
+	// æ–‡ä»¶åˆ—è¡¨
 	QHash<QString, bool> m_isDirectory;
 };
 

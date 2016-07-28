@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-		DESC:	¹«¹²·½·¨Àà.
+		DESC:	å…¬å…±æ–¹æ³•ç±».
 		DATE:	2016-05-10
 		AUTHOR:	YUANLS	
 */
@@ -26,98 +26,98 @@ class ComUtil
 
 public:
 	
-	// »ñÈ¡µ±Ç°ÊµÀı¶ÔÏó
+	// è·å–å½“å‰å®ä¾‹å¯¹è±¡
 	static ComUtil*		instance();
 
-	// ¼ÓÔØÅäÖÃÎÄ¼ş
+	// åŠ è½½é…ç½®æ–‡ä»¶
 	bool					initConfig();
 	
-	// »ñÈ¡µ±Ç°ÔËĞĞÄ¿Â¼
+	// è·å–å½“å‰è¿è¡Œç›®å½•
 	QString				getAppPath();
 
-	//  »ñÈ¡ÏµÍ³Ãû³Æ
+	//  è·å–ç³»ç»Ÿåç§°
 	QString				getSysName();
 
-	// »ñÈ¡·şÎñÆ÷IP
+	// è·å–æœåŠ¡å™¨IP
 	QString				getSvrAddr();
 
-	// »ñÈ¡·şÎñÆ÷¶Ë¿Ú
+	// è·å–æœåŠ¡å™¨ç«¯å£
 	QString				getSvrPort();
 
-	//»ñÈ¡¹«Ë¾Ãû³Æ
+	//è·å–å…¬å¸åç§°
 	QString				getCompanyName();
 
-	// »ñÈ¡SVGÎÄ¼ş±£´æÄ¿Â¼
+	// è·å–SVGæ–‡ä»¶ä¿å­˜ç›®å½•
 	QString				getSvgRoot();
 
 	FtpConfig			getFtpConfig();
 	
-	// ¼ÓÔØ·ÖÀàÁĞ±í
+	// åŠ è½½åˆ†ç±»åˆ—è¡¨
 	void				getStationType();
 
-	// ±£´æÕ¾µãÁĞ±í
+	// ä¿å­˜ç«™ç‚¹åˆ—è¡¨
 	void				saveStationList(PBNS::StationTypeMsg_Response& res);
 
 
-	//ÉèÖÃ»ñÈ¡ftpÂ·¾¶ÏÂµÄsvgÎÄ¼şÁĞ±í
+	//è®¾ç½®è·å–ftpè·¯å¾„ä¸‹çš„svgæ–‡ä»¶åˆ—è¡¨
 	void				saveSvgPathName();
 
-	//»ñÈ¡ftpÂ·¾¶ÏÂµÄsvgÎÄ¼şÁĞ±í
+	//è·å–ftpè·¯å¾„ä¸‹çš„svgæ–‡ä»¶åˆ—è¡¨
 	QList<QString>		getSvgPathName();
 
-	//¼ÓÔØ³§Õ¾ÁĞ±í
+	//åŠ è½½å‚ç«™åˆ—è¡¨
 	void				getStation();
-	//±£´æ´¿³§Õ¾ÁĞ±í
+	//ä¿å­˜çº¯å‚ç«™åˆ—è¡¨
 	void				saveStationListonly(PBNS::StationListMsg_Response& res);
-	//±£´æ´¿³§Õ¾ÀàĞÍÁĞ±í
+	//ä¿å­˜çº¯å‚ç«™ç±»å‹åˆ—è¡¨
 	void				saveStationTypeList(PBNS::StationTypeMsg_Response& res);
 
-	//¼ÓÔØ¹æÔòÀàĞÍÁĞ±í
+	//åŠ è½½è§„åˆ™ç±»å‹åˆ—è¡¨
 	void				getRuleType();
-	//±£´æ¹æÔòÀàĞÍÁĞ±í
+	//ä¿å­˜è§„åˆ™ç±»å‹åˆ—è¡¨
 	void				saveRuleTypeList(PBNS::RuleListMsg_Response& res);
 
-	//»ñÈ¡¹æÔòÀàĞÍÁĞ±í
+	//è·å–è§„åˆ™ç±»å‹åˆ—è¡¨
 	vector<RuleType_S> getRuleTypeList();
 
-	//»ñÈ¡³§Õ¾ÀàĞÍÁĞ±í
+	//è·å–å‚ç«™ç±»å‹åˆ—è¡¨
 	vector<StationType_S> getStationTypeMgrList();
 
-	//»ñÈ¡³§Õ¾ÁĞ±í
+	//è·å–å‚ç«™åˆ—è¡¨
 	vector<Station_S>	getStationMgrList();
 
 	void				setStationTypeRushflag(bool brush){m_bStatype = brush;};
 	bool				getStationTypeRushflag(){return m_bStatype;};
 
-	// »ñÈ¡Õ¾µãÁĞ±í
+	// è·å–ç«™ç‚¹åˆ—è¡¨
 	QVector<TreeNode*>	getStationList();
 
-	// ¼ÓÔØÑÕÉ«¹æÔò
+	// åŠ è½½é¢œè‰²è§„åˆ™
 	bool				loadColorRule();
 
-	// »ñÈ¡ÑÕÉ«¹æÔò
+	// è·å–é¢œè‰²è§„åˆ™
 	QMap<QString,QString>&	getStyleMap();
 
-	// »ñÈ¡µ±Ç°ÓÃ»§µÄ½ÇÉ«
+	// è·å–å½“å‰ç”¨æˆ·çš„è§’è‰²
 	int				getCurUserRole();
 	void			setCurUserRole(int roleid);
 
-	// »ñÈ¡µ±Ç°ÓÃ»§ID
+	// è·å–å½“å‰ç”¨æˆ·ID
 	int				getCurUserId();
 	void			setCurUserId(int userid);
 
-	//»ñÈ¡²Ù×÷Ã÷Ï¸±êÖ¾
+	//è·å–æ“ä½œæ˜ç»†æ ‡å¿—
 	bool			getActionFlag();
 	void			setActionFlag(bool bflag);
 
-	//»ñÈ¡ÓÃ»§ÁĞ±í
+	//è·å–ç”¨æˆ·åˆ—è¡¨
 	void			getAllUserList();
-	//±£´æÓÃ»§ÁĞ±í
+	//ä¿å­˜ç”¨æˆ·åˆ—è¡¨
 	void			saveAllUserList(PBNS::UserListMsg_Response& res);
 
-	//µ±ÓÃ»§±à¼­Ê±¸üĞÂÓÃ»§ÁĞ±í
+	//å½“ç”¨æˆ·ç¼–è¾‘æ—¶æ›´æ–°ç”¨æˆ·åˆ—è¡¨
 	void			setUserList(vector<UserInfo_S> vctUlist){m_userlist = vctUlist;};
-	//È¡ÓÃ»§ÁĞ±íĞÅÏ¢
+	//å–ç”¨æˆ·åˆ—è¡¨ä¿¡æ¯
 	vector<UserInfo_S>	getUserList(){return m_userlist;};
 
 	QString		now();
@@ -130,13 +130,13 @@ private:
 	int					m_curUserId;
 	int					m_curUserRole;
 
-	// µ±Ç°ÔËĞĞÄ¿Â¼
+	// å½“å‰è¿è¡Œç›®å½•
 	QString				m_appPath;
 
-	// µ±Ç°¶ÔÏóÊµÀı
+	// å½“å‰å¯¹è±¡å®ä¾‹
 	static	ComUtil*		m_inst;
 
-	// ·şÎñÆ÷µØÖ·
+	// æœåŠ¡å™¨åœ°å€
 	QString				m_svrAddr;
 	QString				m_svrPort;
 	QString				m_sysName;
@@ -144,32 +144,32 @@ private:
 	QString				m_svgRoot;
 	FtpConfig			m_ftpConfig;
 
-	// ÑÕÉ«¹æÔòÒşÉä
+	// é¢œè‰²è§„åˆ™éšå°„
 	QMap<QString,QString>		m_styleMap;
 
-	// Õ¾µãÁĞ±í
+	// ç«™ç‚¹åˆ—è¡¨
 	QVector<TreeNode*>			m_stationList;
 
 
-	//³§Õ¾ÀàĞÍÁĞ±í
+	//å‚ç«™ç±»å‹åˆ—è¡¨
 	vector<StationType_S>		m_stationtypelist;
 
-	//³§Õ¾ÁĞ±í
+	//å‚ç«™åˆ—è¡¨
 	vector<Station_S>			m_staList;
 
-	//¹æÔòÀàĞÍÁĞ±í
+	//è§„åˆ™ç±»å‹åˆ—è¡¨
 	vector<RuleType_S>			m_rulelist;
 
-	// ÎÄ¼şÁĞ±í
+	// æ–‡ä»¶åˆ—è¡¨
 	QList<QString>				m_svgflist;
 
-	//±£´æ³§Õ¾Ë¢ĞÂ±êÖ¾
+	//ä¿å­˜å‚ç«™åˆ·æ–°æ ‡å¿—
 	bool						m_bStatype;
 
-	//²Ù×÷Æ±Ã÷Ï¸´°¿ÚÊÇ·ñ´æÔÚ
+	//æ“ä½œç¥¨æ˜ç»†çª—å£æ˜¯å¦å­˜åœ¨
 	bool						m_bActiondlg;
 
-	//ÓÃ»§ÁĞ±í
+	//ç”¨æˆ·åˆ—è¡¨
 	vector<UserInfo_S>			m_userlist;
 
 };

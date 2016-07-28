@@ -1,4 +1,4 @@
-
+ï»¿
 #include <QFile>
 #include <QUuid>
 #include <QMessageBox>
@@ -24,16 +24,16 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 
 	if (!xmlFile->open(QIODevice::ReadOnly)){
 
-		QString title = QString("´ò¿ª%1ÎÄ¼ş").arg(fileName);
-		QString text  = QString("´ò¿ª%1ÎÄ¼ş,¿ÉÄÜ²»´æÔÚ¸ÃÎÄ¼ş!").arg(fileName);
+		QString title = QString("æ‰“å¼€%1æ–‡ä»¶").arg(fileName);
+		QString text  = QString("æ‰“å¼€%1æ–‡ä»¶,å¯èƒ½ä¸å­˜åœ¨è¯¥æ–‡ä»¶!").arg(fileName);
 		//QMessageBox::warning(NULL,title,text);
 		return false;
 	}
 	
 	if (!doc->setContent(xmlFile)) {
 
-		QString title = QString("×°ÔØ%1ÎÄ¼ş").arg(fileName);
-		QString text  = QString("×°ÔØ%1ÎÄ¼ş,¿ÉÄÜ¸ÃSVGÎÄ¼şÓĞ´íÎó!").arg(fileName);
+		QString title = QString("è£…è½½%1æ–‡ä»¶").arg(fileName);
+		QString text  = QString("è£…è½½%1æ–‡ä»¶,å¯èƒ½è¯¥SVGæ–‡ä»¶æœ‰é”™è¯¯!").arg(fileName);
 		//QMessageBox::warning(NULL,title,text);
 
 		xmlFile->close();
@@ -47,19 +47,19 @@ bool SvgParser::openSvg(QString fileName,QDomDocument* doc)
 
 void SvgParser::convertSvg(SvgGraph* pgraph)
 {
-	// °Ñsymbol±êÇ©×ª³Ég±êÇ©
+	// æŠŠsymbolæ ‡ç­¾è½¬æˆgæ ‡ç­¾
 	QString sxml = pgraph->getDom()->toString();
 
-	// Ìæ»»classÊôĞÔÎªstyleÊôĞÔ
+	// æ›¿æ¢classå±æ€§ä¸ºstyleå±æ€§
 	sxml = sxml.replace("class","style");
 
-	// Ìæ»»Open Îª 0
+	// æ›¿æ¢Open ä¸º 0
 	sxml = sxml.replace("Open","0");
 
-	// Ìæ»»Close Îª 1
+	// æ›¿æ¢Close ä¸º 1
 	sxml = sxml.replace("Close","1");
 	
-	// ¸ù¾İ×Ô¶¨ÒåÑÕÉ«½øĞĞ×ÅÉ«
+	// æ ¹æ®è‡ªå®šä¹‰é¢œè‰²è¿›è¡Œç€è‰²
 	QMap<QString, QString>::const_iterator iter = ComUtil::instance()->getStyleMap().constBegin();//m_graph->getStyleMap().constBegin();
 	while (iter != ComUtil::instance()->getStyleMap().constEnd()) 
 	{
@@ -70,7 +70,7 @@ void SvgParser::convertSvg(SvgGraph* pgraph)
 		iter ++;
 	}
 	
-	// ¶ÔÓÚÃ»ÓĞ¶¨ÒåµÄµçÑ¹µÈ¼¶£¬°´SVGÖĞ¶¨ÒåµÄÑÕÉ«½øĞĞ×ÅÉ«
+	// å¯¹äºæ²¡æœ‰å®šä¹‰çš„ç”µå‹ç­‰çº§ï¼ŒæŒ‰SVGä¸­å®šä¹‰çš„é¢œè‰²è¿›è¡Œç€è‰²
 	QMap<QString, QString>::const_iterator fiter;
 	iter = pgraph->getStyleMap().constBegin();
 	while (iter != pgraph->getStyleMap().constEnd()) 
@@ -87,7 +87,7 @@ void SvgParser::convertSvg(SvgGraph* pgraph)
 		iter ++;
 	}
 
-	// °Ñ×ª»»ºóµÄÖØĞÂ¸³Öµ¸ødom¶ÔÏó
+	// æŠŠè½¬æ¢åçš„é‡æ–°èµ‹å€¼ç»™domå¯¹è±¡
 	pgraph->getDom()->setContent(sxml);
 }
 
@@ -100,7 +100,7 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 		return NULL;
 		delete pgraph;
 	}
-	// ±£´æÎÄ¼şÃû³Æ
+	// ä¿å­˜æ–‡ä»¶åç§°
 	pgraph->setFilePath(filename);
 
 	QDomNodeList rootList = pgraph->getDom()->elementsByTagName(TAG_SVG);
@@ -115,7 +115,7 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 		{
 			QDomNode node = childList.at(i);
 
-			// ½âÎöÉè±¸²ã
+			// è§£æè®¾å¤‡å±‚
 			if (node.nodeName() == TAG_G)
 			{
 				QString sid = getAttribute(node,ATTR_ID);
@@ -165,12 +165,12 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 				{
 					parserMeasure(pgraph,node);
 				}
-				else								// ¹«¹²use Éè±¸Í¼Ôª
+				else								// å…¬å…±use è®¾å¤‡å›¾å…ƒ
 				{
 					parserComDev(pgraph,node);
 				}
 			}
-			else if (node.nodeName() == TAG_DEFS)			// ½âÎöÄ£°å¶¨Òå
+			else if (node.nodeName() == TAG_DEFS)			// è§£ææ¨¡æ¿å®šä¹‰
 			{
 				QDomNodeList cnodes = node.childNodes();
 				for(int i = 0;i<cnodes.count();i++)
@@ -178,10 +178,10 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 					QDomNode fnode = cnodes.at(i);
 					QString nodename = fnode.nodeName();
 
-					// ½âÎöCSS
+					// è§£æCSS
 					if (nodename == TAG_STYLE)
 					{
-						// ¹æÔòÍ³Ò»ÔÚ³õÊ¼»¯µØ·½¼ÓÔØ×Ô¶¨ÒåÑÕÉ«
+						// è§„åˆ™ç»Ÿä¸€åœ¨åˆå§‹åŒ–åœ°æ–¹åŠ è½½è‡ªå®šä¹‰é¢œè‰²
 						parserStyle(fnode,pgraph->getStyleMap());
 					}
 				}
@@ -190,7 +190,7 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 		}
 	}
 	
-	// ×ª»¯svgÖĞµÄcss,Í¼ÔªÄ£°å
+	// è½¬åŒ–svgä¸­çš„css,å›¾å…ƒæ¨¡æ¿
 	convertSvg(pgraph);
 	
 	return pgraph;
@@ -378,7 +378,7 @@ void SvgParser::parserMetaData(const QDomNode& ccnode,BaseDevice* pdev)
 	{
 		if (ccnode.hasChildNodes())
 		{
-			// Éè±¸Ä£ĞÍ
+			// è®¾å¤‡æ¨¡å‹
 			QDomNode cccnode = ccnode.firstChild();
 			if (cccnode.nodeName() == TAG_PSR)
 			{
@@ -386,14 +386,14 @@ void SvgParser::parserMetaData(const QDomNode& ccnode,BaseDevice* pdev)
 				pdev->setMetaName( getAttribute(cccnode,ATTR_OBJECT_NAME));
 			}
 
-			// Á¿²âÄ£ĞÍ
+			// é‡æµ‹æ¨¡å‹
 			cccnode = cccnode.nextSibling();
 			if (cccnode.nodeName() == TAG_MEAS)
 			{
 				pdev->setMeasId( getAttribute(cccnode,ATTR_OBJECT_ID));
 			}
 
-			// link ²ãÄ£ĞÍÊı¾İ£¬ÔÚ´Ë½âÎö
+			// link å±‚æ¨¡å‹æ•°æ®ï¼Œåœ¨æ­¤è§£æ
 			// ...
 
 		}
@@ -475,11 +475,11 @@ BaseDevice* SvgParser::parserOriginal(const QDomNode& cnode)
 	{
 		QDomNode ccnode = cnode.firstChild();
 
-		// ½âÎöÉè±¸Í¼ĞÎĞÅÏ¢
+		// è§£æè®¾å¤‡å›¾å½¢ä¿¡æ¯
 		parserUse(ccnode,pdev);
 		ccnode = ccnode.nextSibling();
 		
-		// ½âÎöÉè±¸Ä£ĞÍ
+		// è§£æè®¾å¤‡æ¨¡å‹
 		parserMetaData(ccnode,pdev);
 	}
 	return pdev;
@@ -501,11 +501,11 @@ BaseDevice* SvgParser::parserTemplate(const QDomNode& cnode)
 		BaseDevice *pdev = new BaseDevice;
 		pdev->setSvgId(getAttribute(cnode,ATTR_ID));
 
-		// ½âÎöÉè±¸Í¼ĞÎĞÅÏ¢
+		// è§£æè®¾å¤‡å›¾å½¢ä¿¡æ¯
 		parserUse(ccnode,pdev);
 		ccnode = ccnode.nextSibling();
 
-		// ½âÎöÉè±¸Ä£ĞÍ
+		// è§£æè®¾å¤‡æ¨¡å‹
 		parserMetaData(ccnode,pdev);
 
 		return pdev;
@@ -521,13 +521,13 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 
 	ptrans->setSvgId(getAttribute(node,ATTR_ID));
 
-	// ½âÎöÈÆ×é
+	// è§£æç»•ç»„
 	QDomNodeList cnodelist = node.childNodes();
 	for (int i = 0;i<cnodelist.size();i++)
 	{
 		QDomNode cnode = cnodelist.at(i);
 		
-		// kelong ±äÑ¹Æ÷Ã»ÓĞÈÆ×é£¬ÊÇÕûÌå
+		// kelong å˜å‹å™¨æ²¡æœ‰ç»•ç»„ï¼Œæ˜¯æ•´ä½“
 		parserUse(cnode,ptrans);
 
 		ptrans->getWindList().push_back(parserTemplate(cnode));
@@ -538,7 +538,7 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 
 void SvgParser::checkIdAttr(const QDomNode& node)
 {
-	// ÓÉÓÚ²»Í¬µÄ³§¼ÒÍ¼ĞÎÖĞµÄID±È½Ï»ìÂÒ£¬ÏÖÔÚÍ³Ò»ÖØĞÂÉú³É
+	// ç”±äºä¸åŒçš„å‚å®¶å›¾å½¢ä¸­çš„IDæ¯”è¾ƒæ··ä¹±ï¼Œç°åœ¨ç»Ÿä¸€é‡æ–°ç”Ÿæˆ
 	//QString id = getAttribute(node,ATTR_ID);
 	//if (id == "0" || id.length() == 0)
 	

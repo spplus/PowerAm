@@ -1,4 +1,4 @@
-#include <QUrl>
+ï»¿#include <QUrl>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -49,7 +49,7 @@ QList<QString> FtpUtil::getFileList()
 	QHash<QString,bool>::iterator iter = m_isDirectory.begin();
 	for (;iter!=m_isDirectory.end();iter++)
 	{
-		// Ìø¹ıÄ¿Â¼
+		// è·³è¿‡ç›®å½•
 		if (iter.value())
 		{
 			continue;
@@ -64,11 +64,11 @@ QList<QString> FtpUtil::getFileList()
 void FtpUtil::getAll()
 {
 	m_downCount = 0;
-	// ±éÀúÎÄ¼şÁĞ±í£¬ÏÂÔØÈ«²¿ÎÄ¼ş
+	// éå†æ–‡ä»¶åˆ—è¡¨ï¼Œä¸‹è½½å…¨éƒ¨æ–‡ä»¶
 	QHash<QString,bool>::iterator iter = m_isDirectory.begin();
 	for (;iter!=m_isDirectory.end();iter++)
 	{
-		// Ìø¹ıÄ¿Â¼
+		// è·³è¿‡ç›®å½•
 		if (iter.value())
 		{
 			continue;
@@ -85,7 +85,7 @@ void FtpUtil::getFile(QString fname,QString stationcim)
 	QString fpath = ComUtil::instance()->getSvgRoot()+"/"+fname;
 	QFile *file = new QFile(fpath);
 	
-	// ±£´æÎÄ¼şÃû³Æ£¬²»°üº¬Â·¾¶
+	// ä¿å­˜æ–‡ä»¶åç§°ï¼Œä¸åŒ…å«è·¯å¾„
 	file->setProperty("fname",fname);
 
 	if (!file->open(QIODevice::WriteOnly)) 
@@ -96,10 +96,10 @@ void FtpUtil::getFile(QString fname,QString stationcim)
 		return;
 	}
 
-	// Í¨¹ıFTPÏÂÔØ
+	// é€šè¿‡FTPä¸‹è½½
 	m_ftp->get(_ToSpecialEncoding(fname), file);
 
-	m_msgLabel->setText(tr("ÕıÔÚÏÂÔØ%1...").arg(fname));
+	m_msgLabel->setText(tr("æ­£åœ¨ä¸‹è½½%1...").arg(fname));
 }
 
 void FtpUtil::initUi()
@@ -115,7 +115,7 @@ void FtpUtil::initUi()
 	hbox3->addWidget(m_statusLabel);
 	
 
-	//QPushButton* downBtn = new QPushButton(tr("ÏÂÔØ"));
+	//QPushButton* downBtn = new QPushButton(tr("ä¸‹è½½"));
 	//connect(downBtn,SIGNAL(pressed()),this,SLOT(getAll()));
 
 	QHBoxLayout* hbox = new QHBoxLayout;
@@ -228,7 +228,7 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 		}
 		else
 		{
-			m_statusLabel->setText("Á¬½ÓFTP³É¹¦:"+m_host);
+			m_statusLabel->setText("è¿æ¥FTPæˆåŠŸ:"+m_host);
 		}
 		return;
 	}
@@ -238,7 +238,7 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 		QString ftpdir = ComUtil::instance()->getFtpConfig().m_ftpDir;
 		if (ftpdir.length()<=0)
 		{
-			QMessageBox::warning(this,"ÏµÍ³ÌáÊ¾","Î´ÉèÖÃÎÄ¼şÔÚFTP·şÎñÆ÷ÉÏµÄÄ¿Â¼");
+			QMessageBox::warning(this,"ç³»ç»Ÿæç¤º","æœªè®¾ç½®æ–‡ä»¶åœ¨FTPæœåŠ¡å™¨ä¸Šçš„ç›®å½•");
 			accept();
 		}
 		m_ftp->cd(ftpdir);
@@ -249,11 +249,11 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 		QFile* file = (QFile*)m_ftp->currentDevice();
 		if (error) 
 		{
-			QString msg = QString("ÏÂÔØÎÄ¼şÊ§°Ü %1,%2.").arg(file->fileName()).arg(m_ftp->errorString());
+			QString msg = QString("ä¸‹è½½æ–‡ä»¶å¤±è´¥ %1,%2.").arg(file->fileName()).arg(m_ftp->errorString());
 			m_statusLabel->setText(msg);
 			file->close();
 			file->remove();
-			QMessageBox::warning(this,"ÏµÍ³ÌáÊ¾",msg);
+			QMessageBox::warning(this,"ç³»ç»Ÿæç¤º",msg);
 			accept();
 		} 
 		else 
@@ -262,16 +262,16 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 
 			QString fname = file->fileName();
 			
-			QString msg = QString("ÏÂÔØ %1 Íê³É.").arg(fname);
+			QString msg = QString("ä¸‹è½½ %1 å®Œæˆ.").arg(fname);
 			m_statusLabel->setText(msg);
 			file->close();
 
-			// »ñÈ¡ÎÄ¼şÃû³Æ
+			// è·å–æ–‡ä»¶åç§°
 			fname = file->property("fname").toString();
 
 			emit downloaded(fname,m_stationCim);
 
-			// ¹Ø±Õ´°¿Ú
+			// å…³é—­çª—å£
 			this->accept();
 		}
 		
@@ -279,7 +279,7 @@ void FtpUtil::ftpCommandFinished(int, bool error)
 	} 
 	else if (m_ftp->currentCommand() == QFtp::List) 
 	{
-		// ÎÄ¼şÁĞ±í
+		// æ–‡ä»¶åˆ—è¡¨
 		showListInfo();
 	}
 }
@@ -293,7 +293,7 @@ void FtpUtil::addToList(const QUrlInfo &urlInfo)
 
 void FtpUtil::showListInfo()
 {
-	m_msgLabel->setText(tr("¹²ÓĞ·¢ÏÖÎÄ¼ş%1¸ö").arg(m_isDirectory.count()));
+	m_msgLabel->setText(tr("å…±æœ‰å‘ç°æ–‡ä»¶%1ä¸ª").arg(m_isDirectory.count()));
 }
 
 QString FtpUtil::_FromSpecialEncoding(const QString &InputStr)

@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-			DESC:		×Ô¶¨Òåscene.
+			DESC:		è‡ªå®šä¹‰scene.
 			DATE:		2016-04-03
 			AUTHOR:	YUANLS
 */
@@ -26,148 +26,148 @@ public:
 	GraphicsScene(QObject* parant,QMenu* cntmenu);
 	~GraphicsScene();
 
-	// ½âÎöSVGÎÄ¼ş
+	// è§£æSVGæ–‡ä»¶
 	SvgGraph*	parserSvg(QString filename);
 
-	// ´ò¿ªÍ¼ĞÎÎÄ¼ş
+	// æ‰“å¼€å›¾å½¢æ–‡ä»¶
 	void			openSvgFile(QString filename);
 
-	// ÏÔÊ¾Éè±¸×´Ì¬ĞÅÏ¢
+	// æ˜¾ç¤ºè®¾å¤‡çŠ¶æ€ä¿¡æ¯
 	void			showDevState(const char* msg,int length);
 
-	// ÏÔÊ¾´æµµÁĞ±í
+	// æ˜¾ç¤ºå­˜æ¡£åˆ—è¡¨
 	void			showSavingList(const char* msg,int msglength);
 
-	// ·µ»Øµ±Ç°µÄsaveid
+	// è¿”å›å½“å‰çš„saveid
 	int			getSaveId(){return m_saveId;}
 
-	// ·¢ËÍÇëÇóÉè±¸×´Ì¬ÇëÇó
+	// å‘é€è¯·æ±‚è®¾å¤‡çŠ¶æ€è¯·æ±‚
 	void			reqUnitState(QString stationCim);
 
-	// ÏÔÊ¾´¥·¢µÄ¹æÔòÁĞ±í
+	// æ˜¾ç¤ºè§¦å‘çš„è§„åˆ™åˆ—è¡¨
 	void			showRuleList(const char* msg,int length);
 
-	// ¿ª¹Ø±äÎ»ºóÌ¨½á¹û·µ»Ø
+	// å¼€å…³å˜ä½åå°ç»“æœè¿”å›
 	void			recvBreakerOpRes(const char* msg,int length);
 
 	void			putItem(SvgItem* item);
 	void			clearItem();
 public slots:
 
-	// Ç°½ø
+	// å‰è¿›
 	void			goNext();
 
-	// ºóÍË
+	// åé€€
 	void			goPrev();
 
-	// ÖÃ·Ö
+	// ç½®åˆ†
 	void			setOpen();		
 
-	// ÖÃºÏ
+	// ç½®åˆ
 	void			setClose();
 
-	// ÉèÖÃµçÔ´µã
+	// è®¾ç½®ç”µæºç‚¹
 	void			setPower();
 
-	// ÉèÖÃ½ø³öÏß
+	// è®¾ç½®è¿›å‡ºçº¿
 	void			setLine();
 
-	// ¹ÒÅÆ
+	// æŒ‚ç‰Œ
 	void			tagOn();
 
-	// ÕªÅÆ
+	// æ‘˜ç‰Œ
 	void			tagOff();
 	
-	// ´ò¿ª´æµµ
+	// æ‰“å¼€å­˜æ¡£
 	void			readSaving();
 
-	// ±£´æ´æµµ
+	// ä¿å­˜å­˜æ¡£
 	void			writeSaving();
 
-	// ²âÊÔ¶¯»­
+	// æµ‹è¯•åŠ¨ç”»
 	void			startAnimation();
 
-	// °Ñ½âÎöºóµÄ¶ÔÏóÉú³ÉSVGÍ¼Ôª
+	// æŠŠè§£æåçš„å¯¹è±¡ç”ŸæˆSVGå›¾å…ƒ
 	void			drawSvgGraph(SvgGraph* graph);
 
-	// ÉèÖÃÏµÍ³×´Ì¬
+	// è®¾ç½®ç³»ç»ŸçŠ¶æ€
 	void			setSysState(eSysState st);
 
 protected:
 
-	// ĞŞ¸ÄdomÖĞ¿ª¹Ø×´Ì¬
+	// ä¿®æ”¹domä¸­å¼€å…³çŠ¶æ€
 	void			setBreakState(SvgGraph* graph,BaseDevice* pdev,eBreakerState state);
 	void			setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state);
 
-	// ĞŞ¸ÄdomÖĞµÄstyleÊôĞÔ
+	// ä¿®æ”¹domä¸­çš„styleå±æ€§
 	bool			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
 
-	// ĞŞ¸ÄÉè±¸×´Ì¬ÁĞ±íÖĞµÄÉè±¸×´Ì¬
+	// ä¿®æ”¹è®¾å¤‡çŠ¶æ€åˆ—è¡¨ä¸­çš„è®¾å¤‡çŠ¶æ€
 	void			setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
 	void			setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
 
-	// ÉèÖÃ¹ØÁªÉè±¸µÄÑÕÉ«£¬¿ª¹ØÉè±¸³ıÍâ£¬ÒòÎª¿ª¹ØÉè±¸ÓĞ×ÅÉ«¹ı³Ì
+	// è®¾ç½®å…³è”è®¾å¤‡çš„é¢œè‰²ï¼Œå¼€å…³è®¾å¤‡é™¤å¤–ï¼Œå› ä¸ºå¼€å…³è®¾å¤‡æœ‰ç€è‰²è¿‡ç¨‹
 	void			setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);
 
-	// ¸ù¾İsvgid²éÕÒsvgItem
+	// æ ¹æ®svgidæŸ¥æ‰¾svgItem
 	SvgItem*		findSvgItemById(QString id);
 	SvgItem*		findSvgItemByCim(QString cimid);
 
-	// ¸ù¾İcimid²éÕÒÉè±¸¶ÔÏó
+	// æ ¹æ®cimidæŸ¥æ‰¾è®¾å¤‡å¯¹è±¡
 	bool				findUnitBeanByCimId(QString cimid,PBNS::StateBean & bean);
 
-	// ·¢ËÍ¹ÒÅÆ²Ù×÷ÇëÇó
+	// å‘é€æŒ‚ç‰Œæ“ä½œè¯·æ±‚
 	void				sendTagReq(eTagState type);
 
-	// ·¢ËÍ¿ª¹Ø±äÎ»ÇëÇó
+	// å‘é€å¼€å…³å˜ä½è¯·æ±‚
 	void				sendBreakOpReq(eBreakerState state,bool ischeck);
 
-	// ¿ª¹Ø±äÎ»
+	// å¼€å…³å˜ä½
 	void					switchChange(int state);
 	QString				getNewSymbolId(QString oldid,int state);
 	void					mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
 	virtual void			contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
-	// buff ×ªlist
+	// buff è½¬list
 	QList<PBNS::StateBean>	getStateBeanList(PBNS::DevStateMsg_Response& res);
 	QList<PBNS::StateBean>	getStateBeanList(PBNS::OprationMsg_Response& res);
 
-	// Éè±¸×ÅÉ«£¬±äÎ»
+	// è®¾å¤‡ç€è‰²ï¼Œå˜ä½
 	void						drawDev(QList<PBNS::StateBean>  devList);
 
-	// ¹ØÁª×ÅÉ«
+	// å…³è”ç€è‰²
 	void						colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &bean,QString color);
 	void						colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color);
 
-	// ¸ù¾İCIM²éÕÒÒÑ²Ù×÷µÄÉè±¸
+	// æ ¹æ®CIMæŸ¥æ‰¾å·²æ“ä½œçš„è®¾å¤‡
 	int						findDevByCim(QString cim,PBNS::StateBean & sbean);
 
-	// ¼ÓÈë±¾µØ²Ù×÷µÄÉè±¸µ½ÁĞ±í
+	// åŠ å…¥æœ¬åœ°æ“ä½œçš„è®¾å¤‡åˆ°åˆ—è¡¨
 	void						putDev2OpList(QString cim,int state);
 
 private:
-	// µ±Ç°²Ù×÷ÊÇ·ñÒÑ¾­Íê³É
+	// å½“å‰æ“ä½œæ˜¯å¦å·²ç»å®Œæˆ
 	bool						m_isOpFinished;
 
-	// µ±Ç°µÄÏµÍ³×´Ì¬
+	// å½“å‰çš„ç³»ç»ŸçŠ¶æ€
 	eSysState				m_sysState;
 
 	QMutex				m_mutex;
 	QList<SvgItem*>		m_itemList;
 
-	// µ±Ç°´ò¿ªµÄ´æµµID
+	// å½“å‰æ‰“å¼€çš„å­˜æ¡£ID
 	int					m_saveId;
 
-	// µ±Ç°´ò¿ªµÄÕ¾µãID
+	// å½“å‰æ‰“å¼€çš„ç«™ç‚¹ID
 	QString				m_stationCim;
 
-	// µ±Ç°´ò¿ªµÄÍ¼ĞÎĞòºÅ
+	// å½“å‰æ‰“å¼€çš„å›¾å½¢åºå·
 	int					m_curIndex;
 
-	// µ±Ç°´æµµµÄ±äÎ»¼ÇÂ¼
+	// å½“å‰å­˜æ¡£çš„å˜ä½è®°å½•
 	QList<PBNS::StateBean>	m_opDevList;
 
-	// µ±Ç°Ñ¡ÖĞµÄitem
+	// å½“å‰é€‰ä¸­çš„item
 	SvgItem*				m_curItem;
 	QMenu*				m_cntMenu;
 	SvgParser			m_svgParser;
@@ -177,7 +177,7 @@ private:
 
 	PBNS::DevStateMsg_Response m_devList;
 
-	//´¥·¢¹æÔòºóÊÇ·ñÖ´ĞĞ±êÖ¾
+	//è§¦å‘è§„åˆ™åæ˜¯å¦æ‰§è¡Œæ ‡å¿—
 	bool	m_boprflag;
 };
 

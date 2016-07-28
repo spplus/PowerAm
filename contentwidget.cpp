@@ -1,6 +1,6 @@
-#include "contentwidget.h"
+ï»¿#include "contentwidget.h"
 
-// ¶¨Òå±£´æ°´Å¥ÊôĞÔµÄ¼üÖµ
+// å®šä¹‰ä¿å­˜æŒ‰é’®å±æ€§çš„é”®å€¼
 #define KEY_STATION		"STATION"
 
 ContentWidget::ContentWidget(QWidget* parent/* = NULL */)
@@ -40,7 +40,7 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 	m_gbox->setVerticalSpacing(15);
 	m_widget->setLayout(m_gbox);
 
-	// ²éÕÒ¸ÃÀà±ğµÄÕ¾µãÁĞ±í
+	// æŸ¥æ‰¾è¯¥ç±»åˆ«çš„ç«™ç‚¹åˆ—è¡¨
 	PBNS::StationTypeBean typebean;
 	for (int i = 0;i<res.typelist_size();i++)
 	{
@@ -58,7 +58,7 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 	{
 		row++;
 	}
-	// ¼ÓÔØ°´Å¥
+	// åŠ è½½æŒ‰é’®
 
 	for (int i = 1;i<=row;i++)
 	{
@@ -78,7 +78,7 @@ void ContentWidget::loadData(PBNS::StationTypeMsg_Response& res,int tpid)
 			QVariant val;
 			val.setValue(bean);
 
-			// ±£´æÕ¾µãbean
+			// ä¿å­˜ç«™ç‚¹bean
 			btn->setProperty(KEY_STATION,val);
 
 			//btn->setProperty("sname",btn->text());
@@ -101,6 +101,6 @@ void ContentWidget::btnPressed()
 	QVariant val = sd->property(KEY_STATION);
 	PBNS::StationBean bean = val.value<PBNS::StationBean>();
 
-	// ·¢ËÍ´ò¿ªÎÄ¼şĞÅºÅ
+	// å‘é€æ‰“å¼€æ–‡ä»¶ä¿¡å·
 	emit openfile(bean);
 }

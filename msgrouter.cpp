@@ -1,4 +1,4 @@
-#include "msgrouter.h"
+﻿#include "msgrouter.h"
 #include "mainwindow.h"
 #include "homewindow.h"
 #include "userlogindlg.h"

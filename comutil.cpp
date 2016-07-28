@@ -1,4 +1,4 @@
-#include <QTextCodec>
+ï»¿#include <QTextCodec>
 #include <QCoreApplication>
 #include <QFile>
 #include <QMessageBox>
@@ -117,7 +117,7 @@ void ComUtil::getAllUserList()
 
 	ulreq.set_reqdate(strcurUserid.toStdString().c_str());
 
-	//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_ROLE_USER_LIST,ulreq.SerializeAsString().c_str(),ulreq.SerializeAsString().length());
 
 }
@@ -296,16 +296,16 @@ bool ComUtil::openFile(QString fname,QDomDocument &doc)
 
 	if (!xmlFile->open(QIODevice::ReadOnly)){
 
-		QString title = QString("´ò¿ª%1ÎÄ¼þ").arg(fname);
-		QString text  = QString("´ò¿ª%1ÎÄ¼þ,¿ÉÄÜ²»´æÔÚ¸ÃÎÄ¼þ!").arg(xmlFile->fileName());
+		QString title = QString("æ‰“å¼€%1æ–‡ä»¶").arg(fname);
+		QString text  = QString("æ‰“å¼€%1æ–‡ä»¶,å¯èƒ½ä¸å­˜åœ¨è¯¥æ–‡ä»¶!").arg(xmlFile->fileName());
 		QMessageBox::warning(NULL,title,text);
 		return false;
 	}
 
 	if (!doc.setContent(xmlFile)) {
 
-		QString title = QString("×°ÔØ%1ÎÄ¼þ").arg(fname);
-		QString text  = QString("×°ÔØ%1ÎÄ¼þ,¿ÉÄÜ¸ÃÎÄ¼þÓÐ´íÎó!").arg(xmlFile->fileName());
+		QString title = QString("è£…è½½%1æ–‡ä»¶").arg(fname);
+		QString text  = QString("è£…è½½%1æ–‡ä»¶,å¯èƒ½è¯¥æ–‡ä»¶æœ‰é”™è¯¯!").arg(xmlFile->fileName());
 		QMessageBox::warning(NULL,title,text);
 
 		xmlFile->close();
@@ -323,7 +323,7 @@ bool ComUtil::loadColorRule()
 		return false;
 	}
 
-	// ½âÎöÑÕÉ«¹æÔò
+	// è§£æžé¢œè‰²è§„åˆ™
 	QDomNodeList rootNodes = doc.elementsByTagName("voltagedefine");
 	if (rootNodes.count()>0)
 	{
@@ -348,7 +348,7 @@ bool ComUtil::initConfig()
 		return false;
 	}
 
-	// ·þÎñÆ÷ÅäÖÃ
+	// æœåŠ¡å™¨é…ç½®
 	QDomNodeList svrNodes = doc.elementsByTagName("server");
 	if (svrNodes.count()>0)
 	{
@@ -362,7 +362,7 @@ bool ComUtil::initConfig()
 		return false;
 	}
 	
-	// FTP ÅäÖÃ
+	// FTP é…ç½®
 	QDomNodeList ftpNodes = doc.elementsByTagName("ftp");
 	if (ftpNodes.count()>0)
 	{
@@ -379,7 +379,7 @@ bool ComUtil::initConfig()
 		return false;
 	}
 
-	// ÏµÍ³Ãû³Æ
+	// ç³»ç»Ÿåç§°
 	QDomNodeList titleNodes = doc.elementsByTagName("title");
 	if (titleNodes.count()>0)
 	{
@@ -391,7 +391,7 @@ bool ComUtil::initConfig()
 		return false;
 	}
 
-	// ¹«Ë¾Ãû³Æ
+	// å…¬å¸åç§°
 	QDomNodeList companyNodes = doc.elementsByTagName("company");
 	if (companyNodes.count()>0)
 	{
@@ -403,7 +403,7 @@ bool ComUtil::initConfig()
 		return false;
 	}
 
-	// svgÎÄ¼þÄ¿Â¼
+	// svgæ–‡ä»¶ç›®å½•
 	QDomNodeList svgNodes = doc.elementsByTagName("svgroot");
 	if (svgNodes.count()>0)
 	{

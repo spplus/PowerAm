@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		±äÑ¹Æ÷.
+	DESC:		å˜å‹å™¨.
 	DATE:		2016-03-31
 	AUTHOR:		YUANLS	
 */
@@ -28,10 +28,10 @@ public:
 	void				setTransType(eTransType ttype){m_transType = ttype;}
 	QList<BaseDevice*>&	getWindList(){return m_windingList;}
 private:
-	// ±äÑ¹Æ÷ÀàĞÍ
+	// å˜å‹å™¨ç±»å‹
 	eTransType			m_transType;
 
-	// ÈÆ×éÁĞ±í
+	// ç»•ç»„åˆ—è¡¨
 	QList<BaseDevice*>	m_windingList;
 };
 

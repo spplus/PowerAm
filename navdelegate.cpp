@@ -1,4 +1,4 @@
-
+﻿
 #include "navdelegate.h"
 
 #include "navmodel.h"

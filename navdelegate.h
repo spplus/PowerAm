@@ -1,4 +1,4 @@
-#ifndef NAVDELEGATE_H
+﻿#ifndef NAVDELEGATE_H
 #define NAVDELEGATE_H
 
 #include <QStyledItemDelegate>

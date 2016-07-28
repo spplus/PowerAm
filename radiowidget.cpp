@@ -1,4 +1,4 @@
-
+﻿
 #include "radiowidget.h"
 
 RadioWidget::RadioWidget(QWidget* parent/* = NULL */)
@@ -12,12 +12,12 @@ void RadioWidget::initUi()
 	QHBoxLayout* hbox = new QHBoxLayout;
 	
 	char* pname = "ID";
-	m_realtimeBtn = new QRadioButton(tr("ʵʱ̬"));
+	m_realtimeBtn = new QRadioButton(tr("实时态"));
 
-	m_analogBtn = new QRadioButton(tr("ģ��̬"));
+	m_analogBtn = new QRadioButton(tr("模拟态"));
 	m_analogBtn->setChecked(true);
 
-	m_ticketBtn = new QRadioButton(tr("��Ʊ̬"));
+	m_ticketBtn = new QRadioButton(tr("拟票态"));
 
 	m_realtimeBtn->setIcon(QIcon(ICON_REALTIME));
 	m_analogBtn->setIcon(QIcon(ICON_ANALOG));

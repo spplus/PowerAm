@@ -1,10 +1,10 @@
-#include "ticketmgr.h"
+ï»¿#include "ticketmgr.h"
 //#include "comutil.h"
 //#include "define.h"
 
 TicketMgr::TicketMgr(QWidget* parent /* = NULL */)
 {
-	//µ±µÇÂ¼½ÇÉ«ÎªÔËÎ¬ÈËÔ±Ê±,¶Ô»°¿òÊÇ·ÇÄ£Ì¬µÄ£¬ÉèÖÃ¹Ø±Õ´°¿Ú×Ô¶¯ÊÍ·Å
+	//å½“ç™»å½•è§’è‰²ä¸ºè¿ç»´äººå‘˜æ—¶,å¯¹è¯æ¡†æ˜¯éžæ¨¡æ€çš„ï¼Œè®¾ç½®å…³é—­çª—å£è‡ªåŠ¨é‡Šæ”¾
 	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
 	{
 		setAttribute (Qt::WA_DeleteOnClose);
@@ -19,15 +19,15 @@ TicketMgr::TicketMgr(QWidget* parent /* = NULL */)
 
 	switch (ComUtil::instance()->getCurUserRole())
 	{
-	case eManager://¹ÜÀíÔ±
+	case eManager://ç®¡ç†å‘˜
 		initUi_Mission();
 		break;
-	case eDispatcher://µ÷¶È
+	case eDispatcher://è°ƒåº¦
 		initUi_Mission();
 		break;
-	case eAutomater://×Ô¶¯»¯
+	case eAutomater://è‡ªåŠ¨åŒ–
 		break;
-	case eMaintainers://ÔËÎ¬
+	case eMaintainers://è¿ç»´
 		initUi_Action();
 		break;
 	default:
@@ -41,33 +41,33 @@ TicketMgr::TicketMgr(QWidget* parent /* = NULL */)
 
 void TicketMgr::initUi_Mission()
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	QVBoxLayout*		vbox = new QVBoxLayout;
 	QGroupBox* gbox = new QGroupBox;
-	gbox->setTitle(tr("²Ù×÷ÈÎÎñ"));
+	gbox->setTitle(tr("æ“ä½œä»»åŠ¡"));
 	m_missionTable = new QTableWidget;
 	QHBoxLayout* hbox0 = new QHBoxLayout;
 	hbox0->addWidget(m_missionTable);
 	gbox->setLayout(hbox0);
-	//Ê¹ÐÐÁÐÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓÐÁÐÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	m_missionTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ÐÐ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_missionTable->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_missionTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_missionTable->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_missionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 	QHBoxLayout* hbox1 = new QHBoxLayout;
-	QLabel* doUser = new QLabel(tr("Ö´ÐÐÈË"));
+	QLabel* doUser = new QLabel(tr("æ‰§è¡Œäºº"));
 	m_userBox = new QComboBox;
-	QLabel* doName = new QLabel(tr("²Ù×÷ÈÎÎñÃû³Æ"));
+	QLabel* doName = new QLabel(tr("æ“ä½œä»»åŠ¡åç§°"));
 	m_nameLied = new QLineEdit;
-	QLabel* doTime = new QLabel(tr("·¢²¼Ê±¼ä"));
+	QLabel* doTime = new QLabel(tr("å‘å¸ƒæ—¶é—´"));
 	m_crateTime = new QDateTimeEdit;
 	m_crateTime->setCalendarPopup(true);
 	hbox1->addStretch();
@@ -80,9 +80,9 @@ void TicketMgr::initUi_Mission()
 	hbox1->addStretch();
 
 	QHBoxLayout* hbox2 = new QHBoxLayout;
-	m_addBtn = new QPushButton(tr("ÐÂÔö"));
-	m_mdfBtn = new QPushButton(tr("ÐÞ¸Ä"));
-	m_delBtu = new QPushButton(tr("É¾³ý"));
+	m_addBtn = new QPushButton(tr("æ–°å¢ž"));
+	m_mdfBtn = new QPushButton(tr("ä¿®æ”¹"));
+	m_delBtu = new QPushButton(tr("åˆ é™¤"));
 
 	hbox2->addWidget(m_addBtn);
 	hbox2->addWidget(m_delBtu);
@@ -96,20 +96,20 @@ void TicketMgr::initUi_Mission()
 	connect(m_addBtn,SIGNAL(pressed()),this,SLOT(onAdd()));
 	connect(m_delBtu,SIGNAL(pressed()),this,SLOT(onDel()));
 
-	//µã»÷ÁÐ±íÄ³ÐÐÐÅºÅ²Û¹ØÁª
+	//ç‚¹å‡»åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 	connect(m_missionTable,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getTicketMsionItem(QTableWidgetItem*)));
 
-	//Ä¬ÈÏÉèÖÃÓÃ»§Ãû,ÃÜÂë,½ÇÉ«,ÕæÊµÐÕÃû¿òÎªÖ»¶Á
+	//é»˜è®¤è®¾ç½®ç”¨æˆ·å,å¯†ç ,è§’è‰²,çœŸå®žå§“åæ¡†ä¸ºåªè¯»
 	m_userBox->setDisabled(true);
 	m_nameLied->setDisabled(true);
 	m_crateTime->setDisabled(true);
 
-	//Ä¬ÈÏÉèÖÃ²Ù×÷°´Å¥×´Ì¬£¬Î´Ñ¡ÖÐÓÃ»§ÁÐ±íÊ±Ö»¿ÉÔö¼ÓÓÃ»§,Ôö¼Ó°´Å¥ÓÐÐ§£¬É¾³ýºÍÐÞ¸Ä°´Å¥ÎÞÐ§
+	//é»˜è®¤è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€ï¼Œæœªé€‰ä¸­ç”¨æˆ·åˆ—è¡¨æ—¶åªå¯å¢žåŠ ç”¨æˆ·,å¢žåŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 	m_addBtn->setEnabled(true);
 	m_delBtu->setEnabled(false);
 	m_mdfBtn->setEnabled(false);
 
-	//Ä¬ÈÏÌí¼ÓÓÃ»§±êÖ¾Î»false
+	//é»˜è®¤æ·»åŠ ç”¨æˆ·æ ‡å¿—ä½false
 	baddflag = false;
 	bmdfflag = false;
 
@@ -118,7 +118,7 @@ void TicketMgr::initUi_Mission()
 
 void TicketMgr::initUi_Action()
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->setFixedWidth(680);
@@ -126,7 +126,7 @@ void TicketMgr::initUi_Action()
 
 	QVBoxLayout*		vbox = new QVBoxLayout;
 	QGroupBox* gbox = new QGroupBox;
-	gbox->setTitle(tr("²Ù×÷ÈÎÎñ"));
+	gbox->setTitle(tr("æ“ä½œä»»åŠ¡"));
 	m_missionTable = new QTableWidget;
 	QHBoxLayout* hbox0 = new QHBoxLayout;
 	hbox0->addWidget(m_missionTable);
@@ -135,24 +135,24 @@ void TicketMgr::initUi_Action()
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 	
 	QGroupBox* gbox2 = new QGroupBox;
-	gbox2->setTitle(tr("²Ù×÷Æ±"));
+	gbox2->setTitle(tr("æ“ä½œç¥¨"));
 	m_ticketTable = new QTableWidget;
 	hbox1->addWidget(m_ticketTable);
 	gbox2->setLayout(hbox1);
-	//ÐÐ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_ticketTable->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	m_ticketTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_ticketTable->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	m_ticketTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
 	QHBoxLayout* hbox2 = new QHBoxLayout;
-	m_createBtn = new QPushButton(tr("´´½¨²Ù×÷Æ±"));
-	m_comitBtn = new QPushButton(tr("Ìá ½»"));
-	m_queryBtn = new QPushButton(tr(("²éÑ¯²Ù×÷Æ±")));
+	m_createBtn = new QPushButton(tr("åˆ›å»ºæ“ä½œç¥¨"));
+	m_comitBtn = new QPushButton(tr("æ äº¤"));
+	m_queryBtn = new QPushButton(tr(("æŸ¥è¯¢æ“ä½œç¥¨")));
 	//hbox2->addWidget(gbox);
 	hbox2->addWidget(m_createBtn);
 	hbox2->addWidget(m_comitBtn);
@@ -189,7 +189,7 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 		{
 			PBNS::TicketMgrMsg_Response resp;
 			resp.ParseFromArray(msg,msglength);
-			//Ìá½»³É¹¦Ê±£¬ÖØÐÂ²éÑ¯²Ù×÷Æ±ÁÐ±í
+			//æäº¤æˆåŠŸæ—¶ï¼Œé‡æ–°æŸ¥è¯¢æ“ä½œç¥¨åˆ—è¡¨
 			if (resp.rescode())
 			{
 				reqTicketList();
@@ -204,7 +204,7 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 		{
 			PBNS::TicketActMgrMsg_Response resp;
 			resp.ParseFromArray(msg,msglength);
-			//Ìá½»³É¹¦Ê±£¬ÖØÐÂ²éÑ¯²Ù×÷Æ±ÁÐ±í
+			//æäº¤æˆåŠŸæ—¶ï¼Œé‡æ–°æŸ¥è¯¢æ“ä½œç¥¨åˆ—è¡¨
 			if (resp.rescode())
 			{
 				reqTicketList();
@@ -216,7 +216,7 @@ void TicketMgr::recvdata(int msgtype,const char* msg,int msglength)
 
 void TicketMgr::reqTicketMsionList()
 {
-	//·Çµ÷¹ÜÀíÔ±¡¢¶ÈÔ±½ÇÉ«¡¢ÔËÎ¬Ô±²»ÇëÇó²éÑ¯²Ù×÷ÈÎÎñ
+	//éžè°ƒç®¡ç†å‘˜ã€åº¦å‘˜è§’è‰²ã€è¿ç»´å‘˜ä¸è¯·æ±‚æŸ¥è¯¢æ“ä½œä»»åŠ¡
 	if (!(ComUtil::instance()->getCurUserRole() == eDispatcher || ComUtil::instance()->getCurUserRole() == eManager || ComUtil::instance()->getCurUserRole() == eMaintainers))
 	{
 		return;
@@ -227,7 +227,7 @@ void TicketMgr::reqTicketMsionList()
 	tkmsreq.set_userid(ComUtil::instance()->getCurUserId());
 	tkmsreq.set_roleid(ComUtil::instance()->getCurUserRole());
 
-	//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_TICKETMS_LIST,tkmsreq.SerializeAsString().c_str(),tkmsreq.SerializeAsString().length());
 
 	return;
@@ -240,7 +240,7 @@ void TicketMgr::retTicketMsionList(const char* msg,int msglength)
 
 	int nrow = resp.tktmsionlist_size();
 
-	//ÉèÖÃÐÐÊý
+	//è®¾ç½®è¡Œæ•°
 	m_missionTable->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -262,10 +262,10 @@ void TicketMgr::retTicketMsionList(const char* msg,int msglength)
 
 	}
 
-	//µ÷¹ÜÀíÔ±¡¢¶ÈÔ±½ÇÉ«ÓÐÐ§
+	//è°ƒç®¡ç†å‘˜ã€åº¦å‘˜è§’è‰²æœ‰æ•ˆ
 	if (ComUtil::instance()->getCurUserRole() == eDispatcher || ComUtil::instance()->getCurUserRole() == eManager)
 	{
-		//Î´Ñ¡ÖÐÁÐ±íÊ±Ö»¿ÉÔö¼ÓÓÃ»§,Ôö¼Ó°´Å¥ÓÐÐ§£¬É¾³ýºÍÐÞ¸Ä°´Å¥ÎÞÐ§
+		//æœªé€‰ä¸­åˆ—è¡¨æ—¶åªå¯å¢žåŠ ç”¨æˆ·,å¢žåŠ æŒ‰é’®æœ‰æ•ˆï¼Œåˆ é™¤å’Œä¿®æ”¹æŒ‰é’®æ— æ•ˆ
 		m_addBtn->setEnabled(true);
 		m_delBtu->setEnabled(false);
 		m_mdfBtn->setEnabled(false);
@@ -281,7 +281,7 @@ void TicketMgr::reqTicketList()
 	tkreq.set_reqtype(1);
 	tkreq.set_reqid(ComUtil::instance()->getCurUserId());
 
-	//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_TICKET_LIST,tkreq.SerializeAsString().c_str(),tkreq.SerializeAsString().length());
 }
 
@@ -292,7 +292,7 @@ void TicketMgr::retTicketList(const char* msg,int msglength)
 
 	int nrow = resp.ticketlist_size();
 
-	//ÉèÖÃÐÐÊý
+	//è®¾ç½®è¡Œæ•°
 	m_ticketTable->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -328,7 +328,7 @@ void TicketMgr::getTicketMsionItem(QTableWidgetItem* item)
 {
 	int itemrow = item->row();
 
-	//µ÷¹ÜÀíÔ±¡¢¶ÈÔ±½ÇÉ«ÓÐÐ§
+	//è°ƒç®¡ç†å‘˜ã€åº¦å‘˜è§’è‰²æœ‰æ•ˆ
 	if (ComUtil::instance()->getCurUserRole() == eDispatcher || ComUtil::instance()->getCurUserRole() == eManager)
 	{
 		int nActusrid = m_missionTable->item(itemrow,3)->text().toInt();
@@ -354,22 +354,22 @@ void TicketMgr::getTicketMsionItem(QTableWidgetItem* item)
 	}
 
 
-	//ÔËÎ¬½ÇÉ«ÓÐÐ§
+	//è¿ç»´è§’è‰²æœ‰æ•ˆ
 	if (ComUtil::instance()->getCurUserRole() == eMaintainers)
 	{
-		//×Ó´°¿ÚÎ´¹Ø±Õ£¬Ö±½Ó·µ»Ø
+		//å­çª—å£æœªå…³é—­ï¼Œç›´æŽ¥è¿”å›ž
 		if (!m_bcloseflag)
 		{
 			return;
 		}
 
-		//ÒÑ¾­Ìá½»×´Ì¬Ê±ÏàÓ¦µã»÷¸üÐÂÊý¾Ý£¬·ñÔò²»¸üÐÂÊý¾Ý
+		//å·²ç»æäº¤çŠ¶æ€æ—¶ç›¸åº”ç‚¹å‡»æ›´æ–°æ•°æ®ï¼Œå¦åˆ™ä¸æ›´æ–°æ•°æ®
 		if (m_bcomitflag)
 		{
-			//ÉèÖÃ´´½¨²Ù×÷Æ±°´Å¥¿É²Ù×÷
+			//è®¾ç½®åˆ›å»ºæ“ä½œç¥¨æŒ‰é’®å¯æ“ä½œ
 			m_createBtn->setEnabled(true);
 
-			//²Ù×÷ÈÎÎñID
+			//æ“ä½œä»»åŠ¡ID
 			m_ticketMsion.id = m_missionTable->item(itemrow,0)->text().toInt();
 			m_ticketMsion.userid = m_missionTable->item(itemrow,1)->text().toInt();
 			m_ticketMsion.username = m_missionTable->item(itemrow,2)->text();
@@ -389,7 +389,7 @@ void TicketMgr::getTicketMsionItem(QTableWidgetItem* item)
 
 void TicketMgr::getTicketItem(QTableWidgetItem* item)
 {
-	//×Ó´°¿ÚÎ´¹Ø±Õ£¬Ö±½Ó·µ»Ø
+	//å­çª—å£æœªå…³é—­ï¼Œç›´æŽ¥è¿”å›ž
 	if (!m_bcloseflag)
 	{
 		return;
@@ -444,7 +444,7 @@ void TicketMgr::onMdf()
 		m_nameLied->setDisabled(false);
 		m_crateTime->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		m_addBtn->setEnabled(false);
 		m_delBtu->setEnabled(false);
 
@@ -454,28 +454,28 @@ void TicketMgr::onMdf()
 	{
 		if (m_nameLied->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó²Ù×÷Æ±ÈÎÎñÌáÊ¾:"),tr("²Ù×÷Æ±ÈÎÎñÃû²»¿ÉÎª¿Õ³Æ,ÇëÊäÈë²Ù×÷Æ±ÈÎÎñÃû³Æ!"));
+			QMessageBox::information(this,tr("å¢žåŠ æ“ä½œç¥¨ä»»åŠ¡æç¤º:"),tr("æ“ä½œç¥¨ä»»åŠ¡åä¸å¯ä¸ºç©ºç§°,è¯·è¾“å…¥æ“ä½œç¥¨ä»»åŠ¡åç§°!"));
 			return;
 		}
 
 		if (m_userBox->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó²Ù×÷Æ±ÈÎÎñÌáÊ¾:"),tr("Ö´ÐÐÈË²»¿ÉÎª¿Õ,ÇëÑ¡ÔñÖ´ÐÐÈË!"));
+			QMessageBox::information(this,tr("å¢žåŠ æ“ä½œç¥¨ä»»åŠ¡æç¤º:"),tr("æ‰§è¡Œäººä¸å¯ä¸ºç©º,è¯·é€‰æ‹©æ‰§è¡Œäºº!"));
 			return;
 		}
 
 
 		int ncurrow = m_missionTable->currentRow();
-		//È¡²Ù×÷Æ±ÈÎÎñÁÐ±íÖÐÑ¡ÖÐÐÐµÄµÚÒ»ÁÐ²Ù×÷Æ±ÈÎÎñidºÅ
+		//å–æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—æ“ä½œç¥¨ä»»åŠ¡idå·
 		int nTktMsid = m_missionTable->item(ncurrow,0)->text().toInt();
 
-		//È¡²Ù×÷Æ±ÈÎÎñÁÐ±íÖÐÑ¡ÖÐÐÐµÄµÚËÄÁÐ²Ù×÷Æ±ÈÎÎñÖ´ÐÐÈËID
+		//å–æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬å››åˆ—æ“ä½œç¥¨ä»»åŠ¡æ‰§è¡ŒäººID
 		int nActUserid = m_userBox->itemData(m_userBox->currentIndex()).toInt();
 
-		//È¡µ±Ç°ÉèÖÃµÄ´´½¨Ê±¼ä
+		//å–å½“å‰è®¾ç½®çš„åˆ›å»ºæ—¶é—´
 		QString strCrtTime = m_crateTime->dateTime().toString("yyyy-MM-dd hh:mm:ss");  
 
-		//UPDATE ticket_missions SET ActionUserId=13 , Name='²Ù×÷Æ±ÈÎÎñ²âÊÔ11' , PublishTime='2016-07-10 17:20:33' where ID=1
+		//UPDATE ticket_missions SET ActionUserId=13 , Name='æ“ä½œç¥¨ä»»åŠ¡æµ‹è¯•11' , PublishTime='2016-07-10 17:20:33' where ID=1
 		QString sql = QString("UPDATE ticket_missions SET ActionUserId=%1 , Name='%2' , PublishTime='%3' where ID=%4 ;").arg(nActUserid).arg(m_nameLied->text()).arg(strCrtTime).arg(nTktMsid);
 
 		PBNS::TicketMgrMsg_Request mdfreq;
@@ -489,7 +489,7 @@ void TicketMgr::onMdf()
 		m_nameLied->setDisabled(true);
 		m_crateTime->setDisabled(true);
 
-		//ÐÞ¸Ä²Ù×÷Æ±ÈÎÎñÍê³Éºó,ÇëÇó²Ù×÷Æ±ÈÎÎñÁÐ±í
+		//ä¿®æ”¹æ“ä½œç¥¨ä»»åŠ¡å®ŒæˆåŽ,è¯·æ±‚æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨
 		reqTicketMsionList();
 
 	}
@@ -509,7 +509,7 @@ void TicketMgr::onAdd()
 		m_crateTime->setDisabled(false);
 		m_userBox->setDisabled(false);
 
-		//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+		//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 		m_delBtu->setEnabled(false);
 		m_mdfBtn->setEnabled(false);
 
@@ -519,21 +519,21 @@ void TicketMgr::onAdd()
 	{
 		if (m_nameLied->text()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó²Ù×÷Æ±ÈÎÎñÌáÊ¾:"),tr("²Ù×÷Æ±ÈÎÎñÃû²»¿ÉÎª¿Õ³Æ,ÇëÊäÈë²Ù×÷Æ±ÈÎÎñÃû³Æ!"));
+			QMessageBox::information(this,tr("å¢žåŠ æ“ä½œç¥¨ä»»åŠ¡æç¤º:"),tr("æ“ä½œç¥¨ä»»åŠ¡åä¸å¯ä¸ºç©ºç§°,è¯·è¾“å…¥æ“ä½œç¥¨ä»»åŠ¡åç§°!"));
 			return;
 		}
 
 		if (m_userBox->currentText()=="")
 		{
-			QMessageBox::information(this,tr("Ôö¼Ó²Ù×÷Æ±ÈÎÎñÌáÊ¾:"),tr("Ö´ÐÐÈË²»¿ÉÎª¿Õ,ÇëÑ¡ÔñÖ´ÐÐÈË!"));
+			QMessageBox::information(this,tr("å¢žåŠ æ“ä½œç¥¨ä»»åŠ¡æç¤º:"),tr("æ‰§è¡Œäººä¸å¯ä¸ºç©º,è¯·é€‰æ‹©æ‰§è¡Œäºº!"));
 			return;
 		}
 
 		int nActUserid = m_userBox->itemData(m_userBox->currentIndex()).toInt();
 
-		//È¡µ±Ç°ÉèÖÃµÄ´´½¨Ê±¼ä
+		//å–å½“å‰è®¾ç½®çš„åˆ›å»ºæ—¶é—´
 		QString strCrtTime = m_crateTime->dateTime().toString("yyyy-MM-dd hh:mm:ss");  
-		//»ñÈ¡µ±Ç°µÇÂ¼ÓÃ»§Id
+		//èŽ·å–å½“å‰ç™»å½•ç”¨æˆ·Id
 		int nUserid = ComUtil::instance()->getCurUserId();
 		
 		QString sql = QString("insert into ticket_missions (UserId,ActionUserId,Name,PublishTime) VALUES ('%1','%2','%3','%4');").arg(nUserid).arg(nActUserid).arg(m_nameLied->text()).arg(strCrtTime);
@@ -550,7 +550,7 @@ void TicketMgr::onAdd()
 		m_crateTime->setDisabled(true);
 		m_userBox->setDisabled(true);
 
-		//Ôö¼Ó²Ù×÷Æ±ÈÎÎñÍê³Éºó,ÇëÇó²Ù×÷Æ±ÈÎÎñÁÐ±í
+		//å¢žåŠ æ“ä½œç¥¨ä»»åŠ¡å®ŒæˆåŽ,è¯·æ±‚æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨
 		reqTicketMsionList();
 	}
 }
@@ -559,7 +559,7 @@ void TicketMgr::onDel()
 {
 	int ncurrow = m_missionTable->currentRow();
 
-	//È¡²Ù×÷Æ±ÈÎÎñÁÐ±íÖÐÑ¡ÖÐÐÐµÄµÚÒ»ÁÐ²Ù×÷Æ±ÈÎÎñidºÅ
+	//å–æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨ä¸­é€‰ä¸­è¡Œçš„ç¬¬ä¸€åˆ—æ“ä½œç¥¨ä»»åŠ¡idå·
 	int nTktMsid = m_missionTable->item(ncurrow,0)->text().toInt();
 
 	QString sql = QString("delete from ticket_missions where id=%1").arg(nTktMsid);
@@ -571,11 +571,11 @@ void TicketMgr::onDel()
 
 	NetClient::instance()->sendData(CMD_TICKETMS_DEL,sdata.c_str(),sdata.length());
 
-	//ÉèÖÃ²Ù×÷°´Å¥×´Ì¬
+	//è®¾ç½®æ“ä½œæŒ‰é’®çŠ¶æ€
 	m_delBtu->setEnabled(false);
 	m_mdfBtn->setEnabled(false);
 
-	//É¾³ý²Ù×÷Æ±ÈÎÎñÍê³Éºó,ÇëÇó²Ù×÷Æ±ÈÎÎñÁÐ±í
+	//åˆ é™¤æ“ä½œç¥¨ä»»åŠ¡å®ŒæˆåŽ,è¯·æ±‚æ“ä½œç¥¨ä»»åŠ¡åˆ—è¡¨
 	reqTicketMsionList();
 }
 
@@ -587,21 +587,21 @@ void TicketMgr::initData()
 		m_ticketTable->setColumnCount(16);
 		m_ticketTable->resizeColumnsToContents();
 		QStringList tickets ;
-		//tickets<<"±àºÅ"<<"²Ù×÷ÀàÐÍ"<<"²Ù×÷ÈË"<<"¼à»¤ÈË"<<"Öµ°à¸ºÔðÈË"<<"²Ù×÷¿ªÊ¼Ê±¼ä"<<"²Ù×÷½áÊøÊ±¼ä"<<"±¸×¢";
-		tickets<<"²Ù×÷Æ±ID"<<"´´½¨ÈËID"<<"´´½¨ÈË"<<"Ö´ÐÐÈËID"<<"Ö´ÐÐÈË"<<"²Ù×÷ÈÎÎñID"<<"ÈÎÎñÃû³Æ"<<"±àºÅ"<<"²Ù×÷ÀàÐÍ"<<"±¸×¢"<<"²Ù×÷ÈË"<<"¼à»¤ÈË"<<"Öµ°à¸ºÔðÈË"<<"²Ù×÷¿ªÊ¼Ê±¼ä"<<"²Ù×÷½áÊøÊ±¼ä"<<"·¢²¼Ê±¼ä";
+		//tickets<<"ç¼–å·"<<"æ“ä½œç±»åž‹"<<"æ“ä½œäºº"<<"ç›‘æŠ¤äºº"<<"å€¼ç­è´Ÿè´£äºº"<<"æ“ä½œå¼€å§‹æ—¶é—´"<<"æ“ä½œç»“æŸæ—¶é—´"<<"å¤‡æ³¨";
+		tickets<<"æ“ä½œç¥¨ID"<<"åˆ›å»ºäººID"<<"åˆ›å»ºäºº"<<"æ‰§è¡ŒäººID"<<"æ‰§è¡Œäºº"<<"æ“ä½œä»»åŠ¡ID"<<"ä»»åŠ¡åç§°"<<"ç¼–å·"<<"æ“ä½œç±»åž‹"<<"å¤‡æ³¨"<<"æ“ä½œäºº"<<"ç›‘æŠ¤äºº"<<"å€¼ç­è´Ÿè´£äºº"<<"æ“ä½œå¼€å§‹æ—¶é—´"<<"æ“ä½œç»“æŸæ—¶é—´"<<"å‘å¸ƒæ—¶é—´";
 		m_ticketTable->setHorizontalHeaderLabels(tickets);
-		//Ê¹ÐÐÁÐÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓÐÁÐÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+		//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 		m_ticketTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-		//ÐÐ±³¾°ÑÕÉ«±ä»¯
+		//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 		m_ticketTable->setAlternatingRowColors(true);
-		//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+		//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 		m_ticketTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+		//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 		m_ticketTable->setSelectionMode(QAbstractItemView::SingleSelection);
-		//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+		//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 		m_ticketTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 		
-		//Òþ²ØÁÐ
+		//éšè—åˆ—
 		m_ticketTable->setColumnHidden(0,true);
 		m_ticketTable->setColumnHidden(1,true);
 		m_ticketTable->setColumnHidden(3,true);
@@ -613,7 +613,7 @@ void TicketMgr::initData()
 		m_ticketTable->setColumnHidden(13,true);
 		m_ticketTable->setColumnHidden(14,true);
 
-		//µã»÷ÁÐ±íÄ³ÐÐÐÅºÅ²Û¹ØÁª
+		//ç‚¹å‡»åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 		connect(m_ticketTable,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getTicketItem(QTableWidgetItem*)));
 		
 
@@ -623,26 +623,26 @@ void TicketMgr::initData()
 
 	if (m_missionTable != NULL)
 	{
-		//¹ÜÀíÔ±»òµ÷¶ÈÔ±½ÇÉ«
+		//ç®¡ç†å‘˜æˆ–è°ƒåº¦å‘˜è§’è‰²
 		if (ComUtil::instance()->getCurUserRole()==eManager || ComUtil::instance()->getCurUserRole()==eDispatcher )
 		{
 			m_missionTable->setColumnCount(7);
 			m_missionTable->resizeColumnsToContents();
 			QStringList missions;
-			missions<<"²Ù×÷ÈÎÎñID"<<"´´½¨ÈËID"<<"´´½¨ÈË"<<"Ö´ÐÐÈËID"<<"Ö´ÐÐÈË"<<"ÈÎÎñÃû³Æ"<<"·¢²¼Ê±¼ä";
+			missions<<"æ“ä½œä»»åŠ¡ID"<<"åˆ›å»ºäººID"<<"åˆ›å»ºäºº"<<"æ‰§è¡ŒäººID"<<"æ‰§è¡Œäºº"<<"ä»»åŠ¡åç§°"<<"å‘å¸ƒæ—¶é—´";
 			m_missionTable->setHorizontalHeaderLabels(missions);
-			//Ê¹ÐÐÁÐÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓÐÁÐÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+			//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 			m_missionTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-			//ÐÐ±³¾°ÑÕÉ«±ä»¯
+			//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 			m_missionTable->setAlternatingRowColors(true);
-			//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+			//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 			m_missionTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-			//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+			//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 			m_missionTable->setSelectionMode(QAbstractItemView::SingleSelection);
-			//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+			//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 			m_missionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-			//Òþ²ØµÚÒ»¶þËÄÁÐ
+			//éšè—ç¬¬ä¸€äºŒå››åˆ—
 			m_missionTable->setColumnHidden(0,true);
 			m_missionTable->setColumnHidden(1,true);
 			m_missionTable->setColumnHidden(3,true);
@@ -651,32 +651,32 @@ void TicketMgr::initData()
 			reqTicketMsionList();
 		}
 
-		//ÔËÎ¬½ÇÉ«
+		//è¿ç»´è§’è‰²
 		if (ComUtil::instance()->getCurUserRole()==eMaintainers)
 		{
 			m_missionTable->setColumnCount(7);
 			m_missionTable->resizeColumnsToContents();
 			QStringList missions;
-			//missions<<"Ö´ÐÐÈË"<<"·¢ÁîÊ±¼ä";
-			missions<<"²Ù×÷ÈÎÎñID"<<"´´½¨ÈËID"<<"´´½¨ÈË"<<"Ö´ÐÐÈËID"<<"Ö´ÐÐÈË"<<"ÈÎÎñÃû³Æ"<<"·¢²¼Ê±¼ä";
+			//missions<<"æ‰§è¡Œäºº"<<"å‘ä»¤æ—¶é—´";
+			missions<<"æ“ä½œä»»åŠ¡ID"<<"åˆ›å»ºäººID"<<"åˆ›å»ºäºº"<<"æ‰§è¡ŒäººID"<<"æ‰§è¡Œäºº"<<"ä»»åŠ¡åç§°"<<"å‘å¸ƒæ—¶é—´";
 			m_missionTable->setHorizontalHeaderLabels(missions);
-			//Ê¹ÐÐÁÐÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓÐÁÐÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+			//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 			m_missionTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-			//ÐÐ±³¾°ÑÕÉ«±ä»¯
+			//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 			m_missionTable->setAlternatingRowColors(true);
-			//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+			//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 			m_missionTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-			//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+			//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 			m_missionTable->setSelectionMode(QAbstractItemView::SingleSelection);
-			//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+			//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 			m_missionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-			//Òþ²ØµÚÒ»¶þËÄÁÐ
+			//éšè—ç¬¬ä¸€äºŒå››åˆ—
 			m_missionTable->setColumnHidden(0,true);
 			m_missionTable->setColumnHidden(1,true);
 			m_missionTable->setColumnHidden(3,true);
 
-			//µã»÷ÁÐ±íÄ³ÐÐÐÅºÅ²Û¹ØÁª
+			//ç‚¹å‡»åˆ—è¡¨æŸè¡Œä¿¡å·æ§½å…³è”
 			connect(m_missionTable,SIGNAL(itemPressed(QTableWidgetItem*)),this,SLOT(getTicketMsionItem(QTableWidgetItem*)));
 
 			connect(m_createBtn,SIGNAL(pressed()),this,SLOT(onCreateActions()));
@@ -687,7 +687,7 @@ void TicketMgr::initData()
 			m_comitBtn->setEnabled(false);
 			m_queryBtn->setEnabled(false);
 
-			//ÒÑ¾­Ìá½»×´Ì¬
+			//å·²ç»æäº¤çŠ¶æ€
 			m_bcomitflag = true;
 
 			reqTicketMsionList();
@@ -704,17 +704,17 @@ void TicketMgr::initData()
 
 void TicketMgr::closeTicketActionsMgr()
 {
-	//×Ó´°¿Ú¹Ø±Õ×´Ì¬ÉèÖÃÎªtrue
+	//å­çª—å£å…³é—­çŠ¶æ€è®¾ç½®ä¸ºtrue
 	m_bcloseflag = true;
-	//Ìá½»°´Å¥ÉèÎª»Ò
+	//æäº¤æŒ‰é’®è®¾ä¸ºç°
 	m_comitBtn->setEnabled(false);
-	//Ìá½»±ê×¼ÉèÎªtrue
+	//æäº¤æ ‡å‡†è®¾ä¸ºtrue
 	m_bcomitflag = true;
 }
 
 void TicketMgr::onCreateActions()
 {
-	//×Ó´°¿ÚÎ´¹Ø±Õ£¬Ö±½Ó·µ»Ø
+	//å­çª—å£æœªå…³é—­ï¼Œç›´æŽ¥è¿”å›ž
 	if (!m_bcloseflag)
 	{
 		return;
@@ -722,21 +722,21 @@ void TicketMgr::onCreateActions()
 
 /*	
 	m_tktActmgr = new TicketActionsMgr(this);
-	m_tktActmgr->setWindowTitle(tr("²Ù×÷Æ±"));
+	m_tktActmgr->setWindowTitle(tr("æ“ä½œç¥¨"));
 	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
 	connect(m_tktActmgr,SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
 
 	m_tktActmgr->setTicketMsion(m_ticketMsion);
 	m_tktActmgr->initDataByTicketMsion();
-	QString strTest1 = QString(tr("¿ª¹Ø1±äÎ»ÓÉ·Öµ½ºÏ"));
-	QString strTest2 = QString(tr("¿ª¹Ø2±äÎ»ÓÉ·Öµ½ºÏ"));
+	QString strTest1 = QString(tr("å¼€å…³1å˜ä½ç”±åˆ†åˆ°åˆ"));
+	QString strTest2 = QString(tr("å¼€å…³2å˜ä½ç”±åˆ†åˆ°åˆ"));
 	m_tktActmgr->setTicketActions(strTest1);
 	m_tktActmgr->setTicketActions(strTest2);
 	m_tktActmgr->setModal(false);
 	m_tktActmgr->show();
 */	
 
-	m_tktActmgr->instance()->setWindowTitle(tr("²Ù×÷Æ±"));
+	m_tktActmgr->instance()->setWindowTitle(tr("æ“ä½œç¥¨"));
 	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
 	connect(m_tktActmgr->instance(),SIGNAL(sendCloseTicketActionsMgr()),this,SLOT(closeTicketActionsMgr()));
 
@@ -760,7 +760,7 @@ void TicketMgr::onCreateActions()
 
 void TicketMgr::onCommitActions()
 {
-	//×Ó´°¿ÚÎ´¹Ø±ÕÊ±Ìá½»²ÅÓÐÐ§
+	//å­çª—å£æœªå…³é—­æ—¶æäº¤æ‰æœ‰æ•ˆ
 	if (!m_bcloseflag)
 	{
 		if (m_bqueryflag)
@@ -774,7 +774,7 @@ void TicketMgr::onCommitActions()
 			PBNS::TicketMgrMsg_Request req;
 			req.set_mgrsql(sql.toStdString());
 
-			//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+			//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 			NetClient::instance()->sendData(CMD_TICKET_COMMIT,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		}
@@ -810,7 +810,7 @@ void TicketMgr::onCommitActions()
 				tketactbean->set_content(tketActionvect.at(i).Content.toStdString());
 			}
 
-			//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+			//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 			NetClient::instance()->sendData(CMD_TICKET_CREATE,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 
 		}
@@ -823,7 +823,7 @@ void TicketMgr::onCommitActions()
 
 void TicketMgr::onQueryActions()
 {
-	//×Ó´°¿ÚÎ´¹Ø±Õ£¬Ö±½Ó·µ»Ø
+	//å­çª—å£æœªå…³é—­ï¼Œç›´æŽ¥è¿”å›ž
 	if (!m_bcloseflag)
 	{
 		return;
@@ -831,7 +831,7 @@ void TicketMgr::onQueryActions()
 
 	/*
 	m_tktActmgr = new TicketActionsMgr(this);
-	m_tktActmgr->setWindowTitle(tr("²Ù×÷Æ±²éÑ¯"));
+	m_tktActmgr->setWindowTitle(tr("æ“ä½œç¥¨æŸ¥è¯¢"));
 	m_tktActmgr->setAttribute(Qt::WA_DeleteOnClose);
 	connect(m_tktActmgr,SIGNAL(destroyed()),this,SLOT(closeTicketActionsMgr()));
 
@@ -842,7 +842,7 @@ void TicketMgr::onQueryActions()
 	m_tktActmgr->show();
 */
 
-	m_tktActmgr->instance()->setWindowTitle(tr("²Ù×÷Æ±²éÑ¯"));
+	m_tktActmgr->instance()->setWindowTitle(tr("æ“ä½œç¥¨æŸ¥è¯¢"));
 	//m_tktActmgr->instance()->setAttribute(Qt::WA_DeleteOnClose);
 	connect(m_tktActmgr->instance(),SIGNAL(sendCloseTicketActionsMgr()),this,SLOT(closeTicketActionsMgr()));
 
@@ -863,7 +863,7 @@ void TicketMgr::onQueryActions()
 
 
 /************************************************************************/
-/*                           ²Ù×÷Æ±Ã÷Ï¸                                 */
+/*                           æ“ä½œç¥¨æ˜Žç»†                                 */
 /************************************************************************/
 /**/
 TicketActionsMgr* TicketActionsMgr::m_inst = NULL;
@@ -908,7 +908,7 @@ void TicketActionsMgr::deleteInstance()
 
 void TicketActionsMgr::initUi_Operator()
 {
-	//Ö»ÏÔÊ¾¹Ø±Õ°´Å¥
+	//åªæ˜¾ç¤ºå…³é—­æŒ‰é’®
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
 	this->resize(680,780);
@@ -924,9 +924,9 @@ void TicketActionsMgr::initUi_Operator()
 	QHBoxLayout *hbox9 = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
-	QLabel *companylab = new QLabel(tr("µ¥Î»:"));
+	QLabel *companylab = new QLabel(tr("å•ä½:"));
 	companylab->setFixedSize(30,25);
-	QLabel *nolab = new QLabel(tr("±àºÅ:"));
+	QLabel *nolab = new QLabel(tr("ç¼–å·:"));
 	nolab->setFixedSize(30,25);
 	m_companyLied = new QLineEdit;
 	m_companyLied->setFixedSize(300,25);
@@ -940,11 +940,11 @@ void TicketActionsMgr::initUi_Operator()
 	hbox1->addWidget(m_noLied);
 	hbox1->addStretch();
 
-	QLabel *crtlab = new QLabel(tr("·¢ÁîÈË:"));
+	QLabel *crtlab = new QLabel(tr("å‘ä»¤äºº:"));
 	crtlab->setFixedSize(40,25);
-	QLabel *actlab = new QLabel(tr("ÊÜÁîÈË:"));
+	QLabel *actlab = new QLabel(tr("å—ä»¤äºº:"));
 	actlab->setFixedSize(40,25);
-	QLabel *crttimelab = new QLabel(tr("    ·¢ÁîÊ±¼ä:"));
+	QLabel *crttimelab = new QLabel(tr("    å‘ä»¤æ—¶é—´:"));
 	crttimelab->setFixedSize(80,25);
 	m_createLied = new QLineEdit;
 	m_createLied->setFixedSize(100,25);
@@ -964,9 +964,9 @@ void TicketActionsMgr::initUi_Operator()
 	hbox2->addWidget(m_createrTime);
 
 
-	QLabel *oprstalab = new QLabel(tr("²Ù×÷¿ªÊ¼Ê±¼ä:"));
+	QLabel *oprstalab = new QLabel(tr("æ“ä½œå¼€å§‹æ—¶é—´:"));
 	oprstalab->setFixedSize(80,25);
-	QLabel *oprendlab = new QLabel(tr("²Ù×÷½áÊøÊ±¼ä:"));
+	QLabel *oprendlab = new QLabel(tr("æ“ä½œç»“æŸæ—¶é—´:"));
 	oprendlab->setFixedSize(80,25);
 	m_opstartTime = new QDateTimeEdit;
 	m_opstartTime->setFixedSize(180,25);
@@ -987,9 +987,9 @@ void TicketActionsMgr::initUi_Operator()
 	QLabel *r1lab = new QLabel(tr(" )"));
 	QLabel *r2lab = new QLabel(tr(" )"));
 	QLabel *r3lab = new QLabel(tr(" )"));
-	QLabel *gndlab = new QLabel(tr("¼à»¤ÏÂ²Ù×÷"));
-	QLabel *onelab = new QLabel(tr("µ¥ÈË²Ù×÷"));
-	QLabel *ohlab = new QLabel(tr("¼ìÐÞÈËÔ±²Ù×÷"));
+	QLabel *gndlab = new QLabel(tr("ç›‘æŠ¤ä¸‹æ“ä½œ"));
+	QLabel *onelab = new QLabel(tr("å•äººæ“ä½œ"));
+	QLabel *ohlab = new QLabel(tr("æ£€ä¿®äººå‘˜æ“ä½œ"));
 	m_guardianChbox = new QCheckBox;
 	m_onerChbox = new QCheckBox;
 	m_overhaulChbox = new QCheckBox;
@@ -1010,7 +1010,7 @@ void TicketActionsMgr::initUi_Operator()
 	hbox4->addWidget(ohlab);
 	hbox4->addStretch();
 
-	QLabel *mslab = new QLabel(tr("²Ù×÷ÈÎÎñ"));
+	QLabel *mslab = new QLabel(tr("æ“ä½œä»»åŠ¡"));
 	mslab->setFixedSize(50,25);
 	m_missionLied = new QLineEdit;
 	m_missionLied->setFixedSize(600,25);
@@ -1020,25 +1020,25 @@ void TicketActionsMgr::initUi_Operator()
 
 
 	m_ticketActTable = new QTableWidget();
-	//ÉèÖÃ±³¾°É«Îª°×É«
+	//è®¾ç½®èƒŒæ™¯è‰²ä¸ºç™½è‰²
 	QPalette tabplt = m_ticketActTable->palette();
 	tabplt.setBrush(QPalette::Background,QBrush(QColor(255,255,255,255)));
 	m_ticketActTable->setPalette(tabplt);
 
-	//Ê¹ÐÐÁÐÍ·×ÔÊÊÓ¦¿í¶È£¬ËùÓÐÁÐÆ½¾ù·ÖÀ´Ìî³ä¿Õ°×²¿·Ö
+	//ä½¿è¡Œåˆ—å¤´è‡ªé€‚åº”å®½åº¦ï¼Œæ‰€æœ‰åˆ—å¹³å‡åˆ†æ¥å¡«å……ç©ºç™½éƒ¨åˆ†
 	//ptabwdgStaList->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
-	//ÐÐ±³¾°ÑÕÉ«±ä»¯
+	//è¡ŒèƒŒæ™¯é¢œè‰²å˜åŒ–
 	m_ticketActTable->setAlternatingRowColors(true);
-	//ÉèÖÃÃ¿ÐÐÄÚÈÝ²»¿É±à¼­
+	//è®¾ç½®æ¯è¡Œå†…å®¹ä¸å¯ç¼–è¾‘
 	//m_ticketActTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ÉèÖÃÖ»ÄÜÑ¡ÔñÒ»ÐÐ£¬²»ÄÜÑ¡Ôñ¶àÐÐ
+	//è®¾ç½®åªèƒ½é€‰æ‹©ä¸€è¡Œï¼Œä¸èƒ½é€‰æ‹©å¤šè¡Œ
 	m_ticketActTable->setSelectionMode(QAbstractItemView::SingleSelection);
-	//ÉèÖÃµ¥»÷Ñ¡ÔñÒ»ÐÐ
+	//è®¾ç½®å•å‡»é€‰æ‹©ä¸€è¡Œ
 	//m_ticketActTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	hbox6->addWidget(m_ticketActTable);
 
 
-	QLabel *remklab = new QLabel(tr("±¸×¢:"));
+	QLabel *remklab = new QLabel(tr("å¤‡æ³¨:"));
 	hbox7->addWidget(remklab);
 	hbox7->addStretch();
 
@@ -1047,9 +1047,9 @@ void TicketActionsMgr::initUi_Operator()
 	hbox8->addWidget(m_remarksLied);
 
 
-	QLabel *oprlab = new QLabel(tr("²Ù×÷ÈË:"));
-	QLabel *gdlab = new QLabel(tr("¼à»¤ÈË:"));
-	QLabel *ohalab = new QLabel(tr("Öµ°à¸ºÔðÈË:"));
+	QLabel *oprlab = new QLabel(tr("æ“ä½œäºº:"));
+	QLabel *gdlab = new QLabel(tr("ç›‘æŠ¤äºº:"));
+	QLabel *ohalab = new QLabel(tr("å€¼ç­è´Ÿè´£äºº:"));
 	m_operatorLied = new QLineEdit;
 	m_operatorLied->setFixedSize(100,25);
 	m_guardianLied = new QLineEdit;
@@ -1093,78 +1093,78 @@ void TicketActionsMgr::initUi_Operator()
 
 void TicketActionsMgr::initDataByTicketMsion()
 {
-	//ÉèÖÃ¹«Ë¾Ãû³Æ:Ã¿¸öµØÊÐ¹Ì¶¨£¬ÔÚÅäÖÃÎÄ¼þÖÐÅäÖÃ
+	//è®¾ç½®å…¬å¸åç§°:æ¯ä¸ªåœ°å¸‚å›ºå®šï¼Œåœ¨é…ç½®æ–‡ä»¶ä¸­é…ç½®
 	m_companyLied->setText(ComUtil::instance()->getCompanyName());
-	//²Ù×÷ÈÎÎñID
+	//æ“ä½œä»»åŠ¡ID
 	m_Msionid = m_tketMsion.id;
-	//·¢ÁîÈË
+	//å‘ä»¤äºº
 	m_createLied->setText(m_tketMsion.username);
-	//ÊÜÁîÈË
+	//å—ä»¤äºº
 	m_actLied->setText(m_tketMsion.actusername);
-	//·¢ÁîÊ±¼ä
+	//å‘ä»¤æ—¶é—´
 	QString crteTime = m_tketMsion.publishtime;
 	QDateTime time;
 	time = QDateTime::fromString(crteTime, "yyyy-MM-dd hh:mm:ss");
 	m_createrTime->setDateTime(time);
-	//²Ù×÷¿ªÊ¼Ê±¼ä
+	//æ“ä½œå¼€å§‹æ—¶é—´
 	m_opstartTime->setDateTime(QDateTime::currentDateTime());
-	//²Ù×÷½áÊøÊ±¼ä
+	//æ“ä½œç»“æŸæ—¶é—´
 	m_opendTime->setDateTime(QDateTime::currentDateTime());
-	//²Ù×÷ÈÎÎñ
+	//æ“ä½œä»»åŠ¡
 	m_missionLied->setText(m_tketMsion.name);
 
-	//ÉèÖÃÁÐÊý
+	//è®¾ç½®åˆ—æ•°
 	m_ticketActTable->setColumnCount(6);
 	QStringList header;
-	header<<"²Ù×÷Æ±ID"<<"Ë³Ðò"<<"²Ù×÷ÏîÄ¿(ÏµÍ³)"<<"²Ù×÷ÏîÄ¿(ÃèÊö)"<<"¡Ì"<<"Ê±¼ä";
+	header<<"æ“ä½œç¥¨ID"<<"é¡ºåº"<<"æ“ä½œé¡¹ç›®(ç³»ç»Ÿ)"<<"æ“ä½œé¡¹ç›®(æè¿°)"<<"âˆš"<<"æ—¶é—´";
 	m_ticketActTable->setHorizontalHeaderLabels(header);
 
-	//Òþ²ØµÚÒ»ÁÐ:²Ù×÷Æ±ID
+	//éšè—ç¬¬ä¸€åˆ—:æ“ä½œç¥¨ID
 	m_ticketActTable->setColumnHidden(0,true);
 
 }
 
 void TicketActionsMgr::initDataByTicket()
 {
-	//ÉèÖÃ¹«Ë¾Ãû³Æ:Ã¿¸öµØÊÐ¹Ì¶¨£¬ÔÚÅäÖÃÎÄ¼þÖÐÅäÖÃ
+	//è®¾ç½®å…¬å¸åç§°:æ¯ä¸ªåœ°å¸‚å›ºå®šï¼Œåœ¨é…ç½®æ–‡ä»¶ä¸­é…ç½®
 	m_companyLied->setText(ComUtil::instance()->getCompanyName());
-	//±àºÅ
+	//ç¼–å·
 	m_noLied->setText(m_tket.No);
-	//²Ù×÷ÈÎÎñID
+	//æ“ä½œä»»åŠ¡ID
 	m_Msionid = m_tket.MissionId;
-	//·¢ÁîÈË
+	//å‘ä»¤äºº
 	m_createLied->setText(m_tket.CuserName);
-	//ÊÜÁîÈË
+	//å—ä»¤äºº
 	m_actLied->setText(m_tket.AuserName);
-	//·¢ÁîÊ±¼ä
+	//å‘ä»¤æ—¶é—´
 	QString crteTime = m_tket.PublishTime;
 	QDateTime time;
 	time = QDateTime::fromString(crteTime, "yyyy-MM-dd hh:mm:ss");
 	m_createrTime->setDateTime(time);
-	//²Ù×÷¿ªÊ¼Ê±¼ä
+	//æ“ä½œå¼€å§‹æ—¶é—´
 	m_opstartTime->setDateTime(QDateTime::fromString(m_tket.StartTime, "yyyy-MM-dd hh:mm:ss"));
-	//²Ù×÷½áÊøÊ±¼ä
+	//æ“ä½œç»“æŸæ—¶é—´
 	m_opendTime->setDateTime(QDateTime::fromString(m_tket.EndTime, "yyyy-MM-dd hh:mm:ss"));
-	//²Ù×÷ÀàÐÍ
+	//æ“ä½œç±»åž‹
 	setActionsType();
-	//²Ù×÷ÈÎÎñ
+	//æ“ä½œä»»åŠ¡
 	m_missionLied->setText(m_tket.MissionName);
-	//±¸×¢
+	//å¤‡æ³¨
 	m_remarksLied->setText(m_tket.info);
-	//²Ù×÷ÈË
+	//æ“ä½œäºº
 	m_operatorLied->setText(m_tket.ActionPerson);
-	//¼à»¤ÈË
+	//ç›‘æŠ¤äºº
 	m_guardianLied->setText(m_tket.ProtectPerson);
-	//Öµ°à¸ºÔðÈË
+	//å€¼ç­è´Ÿè´£äºº
 	m_watcherLied->setText(m_tket.ChargePerson);
 
-	//ÉèÖÃÁÐÊý
+	//è®¾ç½®åˆ—æ•°
 	m_ticketActTable->setColumnCount(5);
 	QStringList header;
-	header<<"²Ù×÷Æ±ID"<<"Ë³Ðò"<<"²Ù×÷ÏîÄ¿"<<"¡Ì"<<"Ê±¼ä";
+	header<<"æ“ä½œç¥¨ID"<<"é¡ºåº"<<"æ“ä½œé¡¹ç›®"<<"âˆš"<<"æ—¶é—´";
 	m_ticketActTable->setHorizontalHeaderLabels(header);
 
-	//Òþ²ØµÚÒ»ÁÐ:²Ù×÷Æ±ID
+	//éšè—ç¬¬ä¸€åˆ—:æ“ä½œç¥¨ID
 	m_ticketActTable->setColumnHidden(0,true);
 
 	m_companyLied->setEnabled(false);
@@ -1175,7 +1175,7 @@ void TicketActionsMgr::initDataByTicket()
 	m_guardianLied->setEnabled(false);
 	m_watcherLied->setEnabled(false);
 
-	//ÇëÇó²éÑ¯²Ù×÷Æ±Ã÷Ï¸ÁÐ±í
+	//è¯·æ±‚æŸ¥è¯¢æ“ä½œç¥¨æ˜Žç»†åˆ—è¡¨
 	reqTicketActionsList();
 
 }
@@ -1185,7 +1185,7 @@ void TicketActionsMgr::reqTicketActionsList()
 	PBNS::TicketActListMsg_Request req;
 	req.set_reqid(m_tket.id);
 
-	//·¢Éä·¢ËÍÊý¾ÝÇëÇóÏûÏ¢ÐÅºÅ
+	//å‘å°„å‘é€æ•°æ®è¯·æ±‚æ¶ˆæ¯ä¿¡å·
 	NetClient::instance()->sendData(CMD_TICKET_QUERY,req.SerializeAsString().c_str(),req.SerializeAsString().length());
 }
 
@@ -1196,7 +1196,7 @@ void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 
 	int nrow = resp.ticketactlist_size();
 
-	//ÉèÖÃÐÐÊý
+	//è®¾ç½®è¡Œæ•°
 	m_ticketActTable->setRowCount(nrow);
 
 	for (int i = 0; i < nrow; i++)
@@ -1216,7 +1216,7 @@ void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 		m_ticketActTable->setItem(i,3,new QTableWidgetItem(strGou));
 		m_ticketActTable->setItem(i,4,new QTableWidgetItem(strTime));
 
-		//Ä¬ÈÏÊÇÈ«²¿¿É±à¼­ÏÖÉèÖÃÎª²»¿É±à¼­
+		//é»˜è®¤æ˜¯å…¨éƒ¨å¯ç¼–è¾‘çŽ°è®¾ç½®ä¸ºä¸å¯ç¼–è¾‘
 		m_ticketActTable->item(i,0)->setFlags(Qt::NoItemFlags);
 		m_ticketActTable->item(i,1)->setFlags(Qt::NoItemFlags);
 		m_ticketActTable->item(i,2)->setFlags(Qt::NoItemFlags);
@@ -1229,22 +1229,22 @@ void TicketActionsMgr::retTicketActionsList(const char* msg,int msglength)
 void TicketActionsMgr::setTicketActions(QString strActions)
 {
 
-	//ÔÚÃ÷Ï¸ÁÐ±íÖÐÌí¼ÓÄÚÈÝ
+	//åœ¨æ˜Žç»†åˆ—è¡¨ä¸­æ·»åŠ å†…å®¹
 	addTicketActionsToTable(strActions);
 
 }
 
 void TicketActionsMgr::addTicketActionsToTable(QString strAct)
 {
-	//µ±Ç°ÁÐ±í¼ÇÂ¼Êý
+	//å½“å‰åˆ—è¡¨è®°å½•æ•°
 	int tktRow = m_ticketActTable->rowCount();
-	//ÉèÖÃ²Ù×÷Ã÷Ï¸ÁÐ±íÐÐÊý
+	//è®¾ç½®æ“ä½œæ˜Žç»†åˆ—è¡¨è¡Œæ•°
 	m_ticketActTable->setRowCount(tktRow+1);
 	
-	//²Ù×÷Æ±ID»¹Î´Ìá½»ÔÝÊ±µÃ²»µ½£¬ÏÖÔÚÄ¬ÈÏÎª0£¬ºóÃæ¸üÐÂ
-	QString strTktid = QString(tr("0"));					//²Ù×÷Æ±ID
-	QString strNum = QString(tr("%1")).arg(tktRow+1);			//Ë³ÐòºÅ
-	QString strDesc = QString(tr(""));						//ÏîÄ¿ÃèÊö
+	//æ“ä½œç¥¨IDè¿˜æœªæäº¤æš‚æ—¶å¾—ä¸åˆ°ï¼ŒçŽ°åœ¨é»˜è®¤ä¸º0ï¼ŒåŽé¢æ›´æ–°
+	QString strTktid = QString(tr("0"));					//æ“ä½œç¥¨ID
+	QString strNum = QString(tr("%1")).arg(tktRow+1);			//é¡ºåºå·
+	QString strDesc = QString(tr(""));						//é¡¹ç›®æè¿°
 	QString strGou = QString(tr(""));
 	QString strTime = QString(tr(""));
 
@@ -1255,7 +1255,7 @@ void TicketActionsMgr::addTicketActionsToTable(QString strAct)
 	m_ticketActTable->setItem(tktRow,4,new QTableWidgetItem(strGou));
 	m_ticketActTable->setItem(tktRow,5,new QTableWidgetItem(strTime));
 
-	//Ä¬ÈÏÊÇÈ«²¿¿É±à¼­ÏÖÉèÖÃÎª²»¿É±à¼­
+	//é»˜è®¤æ˜¯å…¨éƒ¨å¯ç¼–è¾‘çŽ°è®¾ç½®ä¸ºä¸å¯ç¼–è¾‘
 	m_ticketActTable->item(tktRow,0)->setFlags(Qt::NoItemFlags);
 	m_ticketActTable->item(tktRow,1)->setFlags(Qt::NoItemFlags);
 	m_ticketActTable->item(tktRow,2)->setFlags(Qt::NoItemFlags);
@@ -1315,7 +1315,7 @@ void TicketActionsMgr::setActionsType()
 
 	if (strType.length()>0)
 	{
-		//¼à»¤ÈË²Ù×÷ÀàÐÍ
+		//ç›‘æŠ¤äººæ“ä½œç±»åž‹
 		QString strGuandian = strType.left(1);
 		int nGuandian = atoi(strGuandian.toStdString().c_str());
 		if (nGuandian == 1)
@@ -1327,7 +1327,7 @@ void TicketActionsMgr::setActionsType()
 			m_guardianChbox->setChecked(false);
 		}
 
-		//µ¥ÈË²Ù×÷ÀàÐÍ
+		//å•äººæ“ä½œç±»åž‹
 		QString strOner = strType.mid(1,1);
 		int nOner = atoi(strOner.toStdString().c_str());
 		if (nOner == 1)
@@ -1339,7 +1339,7 @@ void TicketActionsMgr::setActionsType()
 			m_onerChbox->setChecked(false);
 		}
 
-		//¼ìÐÞÈËÔ±²Ù×÷ÀàÐÍ
+		//æ£€ä¿®äººå‘˜æ“ä½œç±»åž‹
 		QString strOverhaul = strType.right(1);
 		int nOverhaul = atoi(strOverhaul.toStdString().c_str());
 		if (nOverhaul == 1)
@@ -1413,7 +1413,7 @@ Ticket_S TicketActionsMgr::getTicketInfo()
 
 void TicketActionsMgr::closeEvent(QCloseEvent *event)
 {
-	//ÒòÎªÊÇÈ«¾Ö¾²Ì¬ÀàËùÒÔ¹Ø±ÕÊ±Çå¿ÕËùÓÐ±äÁ¿ºÍ»¹Ô­ËùÓÐ¿Ø¼þ×´Ì¬
+	//å› ä¸ºæ˜¯å…¨å±€é™æ€ç±»æ‰€ä»¥å…³é—­æ—¶æ¸…ç©ºæ‰€æœ‰å˜é‡å’Œè¿˜åŽŸæ‰€æœ‰æŽ§ä»¶çŠ¶æ€
 	m_companyLied->setEnabled(true);
 	m_guardianChbox->setEnabled(true);
 	m_onerChbox->setEnabled(true);

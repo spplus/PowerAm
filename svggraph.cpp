@@ -1,4 +1,4 @@
-#include "svggraph.h"
+ï»¿#include "svggraph.h"
 
 SvgGraph::SvgGraph()
 {
@@ -123,7 +123,7 @@ bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 		qDebug("setAttribute failed! nodeid %s,attr:%s,val:%s",nodeid.toStdString().c_str(),attr.toStdString().c_str(),val.toStdString().c_str());
 		return false;
 	}
-	// Í¼Ôª½ÚµãµÄµÚÒ»¸ö×Ó½Úµã£¬±ÈÈçÉè±¸Í¼ÔªµÄuse½Úµã£¬Ä¸ÏßÍ¼ÔªµÄpath½ÚµãµÈ
+	// å›¾å…ƒèŠ‚ç‚¹çš„ç¬¬ä¸€ä¸ªå­èŠ‚ç‚¹ï¼Œæ¯”å¦‚è®¾å¤‡å›¾å…ƒçš„useèŠ‚ç‚¹ï¼Œæ¯çº¿å›¾å…ƒçš„pathèŠ‚ç‚¹ç­‰
 	QDomNode cn = cnode.firstChild();
 	//if (cn.nodeName() == TAG_USE)
 	{
@@ -142,7 +142,7 @@ QString SvgGraph::getAttribute(QString nodeid,QString attr)
 	QDomNode cnode = getElementById(nodeid);
 	if (cnode.isNull())
 	{
-		//qDebug()<<"²éÕÒdom½ÚµãÊ§°Ü:"<<nodeid;
+		//qDebug()<<"æŸ¥æ‰¾domèŠ‚ç‚¹å¤±è´¥:"<<nodeid;
 		return "";
 	}
 

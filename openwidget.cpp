@@ -1,4 +1,4 @@
-#include "openwidget.h"
+ï»¿#include "openwidget.h"
 OpenWidget::OpenWidget(QWidget* parent /* = NULL */)
 	:QDialog(parent)
 {
@@ -22,8 +22,8 @@ void OpenWidget::initUi()
 
 	hbox->addWidget(m_saveList);
 	QHBoxLayout* hbox2 = new QHBoxLayout;
-	m_okBtn = new QPushButton(tr("È·¶¨"));
-	m_cancelBtn = new QPushButton(tr("È¡Ïû"));
+	m_okBtn = new QPushButton(tr("ç¡®å®š"));
+	m_cancelBtn = new QPushButton(tr("å–æ¶ˆ"));
 	
 	hbox2->addStretch();
 	hbox2->addWidget(m_okBtn);
@@ -36,7 +36,7 @@ void OpenWidget::initUi()
 	setLayout(vbox);
 	setFixedSize(400,350);
 	setWindowFlags(Qt::WindowCloseButtonHint);
-	setWindowTitle(tr("Ñ¡Ôñ´æµµ"));
+	setWindowTitle(tr("é€‰æ‹©å­˜æ¡£"));
 
 }
 
@@ -57,7 +57,7 @@ void OpenWidget::onOk()
 	}
 	else
 	{
-		QMessageBox::warning(this,MSG_TITLE,"ÇëÑ¡ÔñÒ»Ìõ´æµµ¼ÇÂ¼");
+		QMessageBox::warning(this,MSG_TITLE,"è¯·é€‰æ‹©ä¸€æ¡å­˜æ¡£è®°å½•");
 	}
 }
 
@@ -93,8 +93,8 @@ void OpenWidget::initTable()
 		return;
 	}
 	QStringList heads;
-	heads.append("´æµµÃû³Æ");
-	heads.append("´æµµÊ±¼ä");
+	heads.append("å­˜æ¡£åç§°");
+	heads.append("å­˜æ¡£æ—¶é—´");
 	m_saveList->setColumnCount(2);
 	m_saveList->setHorizontalHeaderLabels(heads);
 	m_saveList->setSelectionBehavior(QAbstractItemView::SelectRows); 

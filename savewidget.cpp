@@ -1,4 +1,4 @@
-#include "savewidget.h"
+ï»¿#include "savewidget.h"
 #include "define.h"
 
 SaveWidget::SaveWidget(QWidget* parent/* =NULL */)
@@ -13,7 +13,7 @@ void SaveWidget::initUi()
 	QHBoxLayout* hbox1 = new QHBoxLayout;
 	QHBoxLayout* hbox2 = new QHBoxLayout;
 	QLabel* pName = new QLabel;
-	pName->setText(tr("´æµµÃû³Æ"));
+	pName->setText(tr("å­˜æ¡£åç§°"));
 	m_saveName = new QLineEdit;
 
 	hbox1->addStretch();
@@ -21,8 +21,8 @@ void SaveWidget::initUi()
 	hbox1->addWidget(m_saveName);
 	hbox1->addStretch();
 
-	QPushButton* okbtn = new QPushButton(tr("È·¶¨"));
-	QPushButton* cancelbtn = new QPushButton(tr("È¡Ïû"));
+	QPushButton* okbtn = new QPushButton(tr("ç¡®å®š"));
+	QPushButton* cancelbtn = new QPushButton(tr("å–æ¶ˆ"));
 	connect(okbtn,SIGNAL(pressed()),this,SLOT(onOk()));
 	connect(cancelbtn,SIGNAL(pressed()),this,SLOT(reject()));
 	hbox2->addStretch();
@@ -39,7 +39,7 @@ void SaveWidget::initUi()
 
 	setFixedSize(300,150);
 	setWindowFlags(Qt::WindowCloseButtonHint);
-	setWindowTitle(tr("±£´æ´æµµ"));
+	setWindowTitle(tr("ä¿å­˜å­˜æ¡£"));
 
 }
 
@@ -52,7 +52,7 @@ void SaveWidget::onOk()
 {
 	if (m_saveName->text().length()<=0)
 	{
-		QMessageBox::warning(this,MSG_TITLE,"´æµµÃû³Æ²»¿ÉÒÔÎª¿Õ");
+		QMessageBox::warning(this,MSG_TITLE,"å­˜æ¡£åç§°ä¸å¯ä»¥ä¸ºç©º");
 		return;
 	}
 	else

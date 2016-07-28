@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:	½âÎöSVGÎÄ¼ş£¬Éú³ÉÍ¼ĞÎ¶ÔÏó.
+	DESC:	è§£æSVGæ–‡ä»¶ï¼Œç”Ÿæˆå›¾å½¢å¯¹è±¡.
 	DATE:	2016-03-24
 	AUTHOR:	YUANLS
 */
@@ -37,43 +37,43 @@ private:
 	void			parserComDev(SvgGraph*grahp,QDomNode &node);
 	void			parserMeasure(SvgGraph* graph,QDomNode& node);
 
-	// »ñÈ¡ÊôĞÔ
+	// è·å–å±æ€§
 	QString			getAttribute(const QDomNode &node,QString attrname);
 
-	// ½âÎömetadata
+	// è§£æmetadata
 	void			parserMetaData(const QDomNode& node,BaseDevice* pdev);
 
-	// ½âÎöÉè±¸Ä£ĞÍ
+	// è§£æè®¾å¤‡æ¨¡å‹
 	void			parserUse(const QDomNode& node,BaseDevice* pdev);
 
-	// ½âÎöÉè±¸ÁĞ±í
+	// è§£æè®¾å¤‡åˆ—è¡¨
 	void			parserSvgLayer(SvgGraph* graph,const QDomNode & node,eDeviceType type);
 
-	// ´ò¿ªÎÄ¼ş
+	// æ‰“å¼€æ–‡ä»¶
 	bool			openSvg(QString filename,QDomDocument* doc);
 
-	// ½âÎöCSS
+	// è§£æCSS
 	void			parserStyle(QDomNode& node,QMap<QString,QString>& sMap);
 
-	// ½âÎörgb 
+	// è§£ærgb 
 	QColor		rgb2Qcolor(QString rgb);
 
-	// ½âÎöÎÄ±¾Í¼Ôª
+	// è§£ææ–‡æœ¬å›¾å…ƒ
 	TextSvg*	parserSvgText(QDomNode& node);
 
-	// ½âÎöno useÍ¼Ôª
+	// è§£æno useå›¾å…ƒ
 	BaseDevice*		parserOriginal(const QDomNode& node);
 
-	// ½âÎöuse Í¼Ôª
+	// è§£æuse å›¾å…ƒ
 	BaseDevice*		parserTemplate(const QDomNode& node);
 
-	// ½âÎö±äÑ¹Æ÷
+	// è§£æå˜å‹å™¨
 	BaseDevice*		parserTransformer(const QDomNode& node);
 
-	// ¼ì²éÊÇ·ñÓĞIDÊôĞÔ£¬Èç¹ûÃ»ÓĞÔò×Ô¶¯Éú³ÉÒ»¸öÄ¬ÈÏµÄID
+	// æ£€æŸ¥æ˜¯å¦æœ‰IDå±æ€§ï¼Œå¦‚æœæ²¡æœ‰åˆ™è‡ªåŠ¨ç”Ÿæˆä¸€ä¸ªé»˜è®¤çš„ID
 	void			checkIdAttr(const QDomNode& node);
 
-	// ×ª»¯svg¸ñÊ½
+	// è½¬åŒ–svgæ ¼å¼
 	void			convertSvg(SvgGraph* pgraph);
 };
 

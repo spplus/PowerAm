@@ -1,6 +1,6 @@
-/************************************************************************/
+ï»¿/************************************************************************/
 /* 
-	DESC:		×Ô¶¨ÒåÎÄ±¾item.
+	DESC:		è‡ªå®šä¹‰æ–‡æœ¬item.
 	DATE:		2016-04-01
 	AUTHOR:		YUANLS
 */
@@ -22,7 +22,7 @@ class TextItem	:public QGraphicsItem
 public:
 	TextItem( TextSvg& tg);
 
-	//ÓÉÓÚQGraphicsItemÊÇ³éÏó»ùÀà£¬ËùÒÔÖÁÉÙÒªÊµÏÖÁ½¸ö´¿Ğéº¯Êıboundingrect,paint
+	//ç”±äºQGraphicsItemæ˜¯æŠ½è±¡åŸºç±»ï¼Œæ‰€ä»¥è‡³å°‘è¦å®ç°ä¸¤ä¸ªçº¯è™šå‡½æ•°boundingrect,paint
 	QRectF		boundingRect() const;
 	void		paint(QPainter *painter, const QStyleOptionGraphicsItem *option,QWidget *widget);
 

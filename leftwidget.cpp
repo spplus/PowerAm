@@ -1,4 +1,4 @@
-#include "leftwidget.h"
+ï»¿#include "leftwidget.h"
 #include "define.h"
 
 LeftWidget::LeftWidget(QWidget* parent/* =NULL */)
@@ -44,7 +44,7 @@ void LeftWidget::loadData(PBNS::StationTypeMsg_Response& res)
 			item->setSelected(true);
 		}
 	}
-	// ¼ÓÔØµÚÒ»¸öÀà±ðµÄÕ¾µã
+	// åŠ è½½ç¬¬ä¸€ä¸ªç±»åˆ«çš„ç«™ç‚¹
 	if (res.typelist_size() > 0)
 	{
 		PBNS::StationTypeBean bean = res.typelist(0);
@@ -63,7 +63,7 @@ TreeNode* LeftWidget::makeNode(PBNS::StationTypeBean & bean,int count)
 
 void LeftWidget::currentItemChange(QListWidgetItem * current, QListWidgetItem * previous)
 {
-	// »ñÈ¡µ±Ç°Ñ¡ÖÐµÄÕ¾µãÀàÐÍ
+	// èŽ·å–å½“å‰é€‰ä¸­çš„ç«™ç‚¹ç±»åž‹
 	int id = current->data(Qt::UserRole).toInt();
 	QString tname = current->text();
 	emit loadStations(id,tname);

@@ -1,4 +1,4 @@
-#ifndef NAVMODEL_H
+﻿#ifndef NAVMODEL_H
 #define NAVMODEL_H
 
 #include <QAbstractListModel>
