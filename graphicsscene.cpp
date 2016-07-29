@@ -68,7 +68,7 @@ void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 
 void GraphicsScene::openSvgFile(QString filename)
 {
-
+	m_opDevList.clear();
 	SvgGraph *pgrahp = m_svgParser.parserSvg(filename);
 	if (pgrahp != NULL)
 	{
