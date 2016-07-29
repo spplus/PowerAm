@@ -53,6 +53,7 @@ SvgGraph* GraphicsScene::parserSvg(QString filename)
 
 void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 {
+	m_opDevList.clear();
 	if (pgrahp != NULL)
 	{
 		m_curItem = NULL;
