@@ -301,7 +301,7 @@ QString FtpUtil::_FromSpecialEncoding(const QString &InputStr)
 #ifdef Q_OS_WIN
 	return  QString::fromLocal8Bit(InputStr.toLatin1());
 #else
-	QTextCodec *codec = QTextCodec::codecForName("gbk");
+	QTextCodec *codec = QTextCodec::codecForName("utf8");
 	if (codec)
 	{
 		return codec->toUnicode(InputStr.toLatin1());
@@ -319,7 +319,7 @@ QString FtpUtil::_ToSpecialEncoding(const QString &InputStr)
 #ifdef Q_OS_WIN
 	return QString::fromLatin1(InputStr.toLocal8Bit());
 #else
-	QTextCodec *codec= QTextCodec::codecForName("gbk");
+	QTextCodec *codec= QTextCodec::codecForName("utf8");
 	if (codec)
 	{
 		return QString::fromLatin1(codec->fromUnicode(InputStr));

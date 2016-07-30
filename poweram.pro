@@ -14,14 +14,7 @@ QMAKE_RCC=$$(QTDIR)/bin/rcc.exe
 
 LIBS += -llibprotobufd -L$$(PB_ROOT)/lib
 } else {
-QMAKE_INCDIR_QT=$$(QTDIR)/include 
-QMAKE_LIBDIR_QT=$$(QTDIR)/lib 
-QMAKE_MOC=$$replace(QMAKE_MOC, $$dirname(QMAKE_MOC), $$(QTDIR)/bin)) 
-QMAKE_UIC=$$replace(QMAKE_UIC, $$dirname(QMAKE_UIC), $$(QTDIR)/bin/) 
-QMAKE_IDC=$$replace(QMAKE_IDC, $$dirname(QMAKE_IDC), $$(QTDIR)/bin/) 
-QMAKE_RCC=$$replace(QMAKE_RCC, $$dirname(QMAKE_RCC), $$(QTDIR)/bin/)
-
-LIBS += $$(PB_ROOT)/lib/protobufd
+LIBS += /usr/local/lib/libprotobuf.so
 }
 
 
