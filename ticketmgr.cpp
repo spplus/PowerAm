@@ -44,6 +44,8 @@ void TicketMgr::initUi_Mission()
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
+	this->setFixedWidth(1000);
+
 	QVBoxLayout*		vbox = new QVBoxLayout;
 	QGroupBox* gbox = new QGroupBox;
 	gbox->setTitle(tr("操作任务"));
@@ -121,7 +123,7 @@ void TicketMgr::initUi_Action()
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	this->setFixedWidth(680);
+	this->setFixedWidth(1000);
 	//this->resize(650,430);
 
 	QVBoxLayout*		vbox = new QVBoxLayout;
@@ -429,7 +431,10 @@ void TicketMgr::setUserCombox()
 		UserInfo_S userinfo = m_userList.at(i);
 
 		QString strid = QString("%1").arg(userinfo.userid);
-		QString strname = userinfo.username;
+
+		//下拉列表显示真实姓名，为空则显示用户名
+		QString strname;
+		userinfo.realname == "" ? strname = userinfo.username:strname = userinfo.realname;
 
 		m_userBox->insertItem(i,strname,userinfo.userid);
 	}
@@ -911,7 +916,7 @@ void TicketActionsMgr::initUi_Operator()
 	//只显示关闭按钮
 	setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);
 
-	this->resize(680,780);
+	this->resize(1000,780);
 
 	QHBoxLayout *hbox1 = new QHBoxLayout;
 	QHBoxLayout *hbox2 = new QHBoxLayout;
@@ -941,21 +946,21 @@ void TicketActionsMgr::initUi_Operator()
 	hbox1->addStretch();
 
 	QLabel *crtlab = new QLabel(tr("发令人:"));
-	crtlab->setFixedSize(40,25);
+	crtlab->setFixedSize(50,25);
 	QLabel *actlab = new QLabel(tr("受令人:"));
-	actlab->setFixedSize(40,25);
-	QLabel *crttimelab = new QLabel(tr("    发令时间:"));
-	crttimelab->setFixedSize(80,25);
+	actlab->setFixedSize(50,25);
+	QLabel *crttimelab = new QLabel(tr("   发令时间:"));
+	crttimelab->setFixedSize(100,25);
 	m_createLied = new QLineEdit;
-	m_createLied->setFixedSize(100,25);
+	m_createLied->setFixedSize(110,25);
 	m_actLied = new QLineEdit;
-	m_actLied->setFixedSize(100,25);
+	m_actLied->setFixedSize(110,25);
 	m_createrTime = new QDateTimeEdit;
-	m_createrTime->setFixedSize(180,25);
+	m_createrTime->setFixedSize(190,25);
 	m_createrTime->setCalendarPopup(true);
 	hbox2->addWidget(crtlab);
 	hbox2->addWidget(m_createLied);
-	hbox2->addSpacing(20);
+	hbox2->addSpacing(50);
 	hbox2->addWidget(actlab);
 	hbox2->addWidget(m_actLied);
 	hbox2->addSpacing(50);
@@ -965,14 +970,14 @@ void TicketActionsMgr::initUi_Operator()
 
 
 	QLabel *oprstalab = new QLabel(tr("操作开始时间:"));
-	oprstalab->setFixedSize(80,25);
+	oprstalab->setFixedSize(100,25);
 	QLabel *oprendlab = new QLabel(tr("操作结束时间:"));
-	oprendlab->setFixedSize(80,25);
+	oprendlab->setFixedSize(100,25);
 	m_opstartTime = new QDateTimeEdit;
-	m_opstartTime->setFixedSize(180,25);
+	m_opstartTime->setFixedSize(190,25);
 	m_opstartTime->setCalendarPopup(true);
 	m_opendTime = new QDateTimeEdit;
-	m_opendTime->setFixedSize(180,25);
+	m_opendTime->setFixedSize(190,25);
 	m_opendTime->setCalendarPopup(true);
 	hbox3->addWidget(oprstalab);
 	hbox3->addWidget(m_opstartTime);
@@ -1010,10 +1015,10 @@ void TicketActionsMgr::initUi_Operator()
 	hbox4->addWidget(ohlab);
 	hbox4->addStretch();
 
-	QLabel *mslab = new QLabel(tr("操作任务"));
-	mslab->setFixedSize(50,25);
+	QLabel *mslab = new QLabel(tr("操作任务:"));
+	mslab->setFixedSize(70,25);
 	m_missionLied = new QLineEdit;
-	m_missionLied->setFixedSize(600,25);
+	m_missionLied->setFixedSize(800,25);
 	hbox5->addWidget(mslab);
 	hbox5->addWidget(m_missionLied);
 	hbox5->addStretch();
@@ -1026,7 +1031,7 @@ void TicketActionsMgr::initUi_Operator()
 	m_ticketActTable->setPalette(tabplt);
 
 	//使行列头自适应宽度，所有列平均分来填充空白部分
-	//ptabwdgStaList->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+	m_ticketActTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 	//行背景颜色变化
 	m_ticketActTable->setAlternatingRowColors(true);
 	//设置每行内容不可编辑
@@ -1043,7 +1048,7 @@ void TicketActionsMgr::initUi_Operator()
 	hbox7->addStretch();
 
 	m_remarksLied = new QLineEdit;
-	m_remarksLied->setFixedSize(650,75);
+	m_remarksLied->setFixedSize(850,75);
 	hbox8->addWidget(m_remarksLied);
 
 
@@ -1051,11 +1056,11 @@ void TicketActionsMgr::initUi_Operator()
 	QLabel *gdlab = new QLabel(tr("监护人:"));
 	QLabel *ohalab = new QLabel(tr("值班负责人:"));
 	m_operatorLied = new QLineEdit;
-	m_operatorLied->setFixedSize(100,25);
+	m_operatorLied->setFixedSize(120,25);
 	m_guardianLied = new QLineEdit;
-	m_guardianLied->setFixedSize(100,25);
+	m_guardianLied->setFixedSize(120,25);
 	m_watcherLied = new QLineEdit;
-	m_watcherLied->setFixedSize(100,25);
+	m_watcherLied->setFixedSize(120,25);
 	hbox9->addStretch();
 	hbox9->addWidget(oprlab);
 	hbox9->addWidget(m_operatorLied);

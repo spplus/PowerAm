@@ -1,6 +1,8 @@
 ﻿#include <string>
 #include "userlogindlg.h"
 #include "comutil.h"
+#include "homewindow.h"
+
 UserLogindlg* UserLogindlg::m_inst = NULL;
 using namespace std;
 UserLogindlg* UserLogindlg::instance()
@@ -40,7 +42,8 @@ UserLogindlg::UserLogindlg()
 	plgntitel_widget->setFixedHeight(137);
 	//button_widget->setFixedHeight(30);
 	//设置widget圆角和背景图片border:1px groove gray;border-radius:5px;padding:2px 4px;
-	plgntitel_widget->setStyleSheet("background-image:url(:stgirdicon);");
+	plgntitel_widget->setStyleSheet("background-image:url(images/stategridicon);");
+
 
 	plgntitel_widget->setAutoFillBackground(true);
 
@@ -174,6 +177,13 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 					ubean = userep.userlist(i);
 				}
 
+				//服务端连接失败时会返回非空但无用户属性的集合
+				if(ubean.userid().empty())
+				{
+					QMessageBox::information(this,tr("用户登录提示:"),tr("服务器端连接数据库失败，请联系管理员进一步处理"));
+					return;
+				}
+
 				//设置用户相关信息
 				userid  = atoi(ubean.userid().c_str());
 				uname   = QString::fromStdString(ubean.username());
@@ -211,6 +221,9 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 				{
 					QMessageBox::information(this,tr("CIM文件更新"),tr("CIM文件有更新，请点击电路图界面 ‘刷新’按钮进行更新CIM!"));
 				}
+
+				HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
+				HomeWindow::instance()->show();
 			}
 			else
 			{

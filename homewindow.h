@@ -27,6 +27,8 @@ public:
 	~HomeWindow();
 	void	setUserName(QString username);
 	void	show();
+	//重写窗体关闭事件，关闭弹出提示
+	void		closeEvent(QCloseEvent *event);
 
 public slots:
 	// 注销登录

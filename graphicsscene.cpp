@@ -82,10 +82,10 @@ void GraphicsScene::openSvgFile(QString filename)
 
 void GraphicsScene::goNext()
 {
-	m_curItem = NULL;
-	clear();
 	if (++m_curIndex < m_graphList.size() )
 	{
+		m_curItem = NULL;
+		clear();
 		SvgGraph* pgraph = m_graphList.at(m_curIndex);
 		m_svgRender->drawGraph(pgraph);
 	}
@@ -98,10 +98,10 @@ void GraphicsScene::goNext()
 
 void GraphicsScene::goPrev()
 {
-	m_curItem = NULL;
-	clear();
 	if (--m_curIndex >= 0 )
 	{
+		m_curItem = NULL;
+		clear();
 		SvgGraph* pgraph = m_graphList.at(m_curIndex);
 		m_svgRender->drawGraph(pgraph);
 	}

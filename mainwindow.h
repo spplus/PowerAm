@@ -1,4 +1,4 @@
-﻿#ifndef MAINWINDOW_H
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -36,6 +36,8 @@ public:
 	void		show();
 	void		addContextMenuAction(eDeviceType type);
 	bool		getIsCheck(){return m_isCheck;};
+	//重写窗体关闭事件，关闭回到首页
+	void		closeEvent(QCloseEvent *event);
 
 public slots:
 	
@@ -46,36 +48,36 @@ public slots:
 	void		showDownSvg();
 	void		onToolButton();
 	void		openOk();
-	// 鎺ユ敹鏁版嵁
+	// 接收数据
 	void		recvdata(int msgtype,const char* msg,int msglength);
 
-	// 璁剧疆鎺у埗寮€鍏?
+	// 设置控制开关
 	void		setControlEnable();
 
-	// 璁剧疆澹伴煶鎶ヨ
+	// 设置声音报警
 	void		setAlarmEnable();
 
-	// 璁剧疆鏍￠獙
+	// 设置校验
 	void		setCheckEnable();
 	
-	//鏄剧ず鐜矾鏌ヨDockwidget
+	//显示环路查询Dockwidget
 	void		showCircleQueryDockwdg();
-	//鏄剧ず鎸傜墝鏌ヨDockwidget
+	//显示挂牌查询Dockwidget
 	void		showSignQueryDockwdg();
-	//鏄剧ず鎺ュ湴鏌ヨDockwidget
+	//显示接地查询Dockwidget
 	void		showGswitchQueryDockwdg();
-	//鏄剧ず浜哄伐璁剧疆鏌ヨDockwidget
+	//显示人工设置查询Dockwidget
 	void		showMsetQueryDockwdg();
-	//鏄剧ず浜嬩欢鏌ヨDockwidget
+	//显示事件查询Dockwidget
 	void		showEventQueryDockwdg();
 
-	// 鏁寸珯鎷撴墤
+	// 整站拓扑
 	void		topoEntire();
 
-	// 鎷熺エ鎬?
+	// 拟票态
 	void		ticketShow();
 
-	// 璁剧疆鎷熺エ鎬?
+	// 设置拟票态
 	void			setRealState();
 	void			setAnalogState();
 	void			setTicketState();
@@ -95,100 +97,100 @@ private:
 	void		updateModel();
 	void		cleanScene();
 
-	// 鏄剧ず鎿嶄綔缁撴灉
+	// 显示操作结果
 	void		showLineSetResult(const char* msg,int msglength);
 	void		showPowerSetResult(const char* msg,int msglength);
 	void		showTagOpResult(const char* msg,int msglength);
 	void		showWriteSavingResult(const char* msg,int msglength);
 
-	// 璁剧疆缃戠粶鐘舵€佹樉绀?
+	// 设置网络状态显示
 	void		setNetWorkStatus(int type);
 
-	// 娑堟伅鎻愮ず妗?
+	// 消息提示框
 	void		showMsg(QString msg);
 
-	//鍒涘缓鐜矾鏌ヨDockwidget
+	//创建环路查询Dockwidget
 	void	createCircleQueryDockwdg();
-	//鏄剧ず鐜矾鏌ヨ缁撴灉
+	//显示环路查询结果
 	void	showCircleQueryResult(const char* msg,int msglength);
-	//鍒涘缓鎸傜墝鏌ヨDockwidget
+	//创建挂牌查询Dockwidget
 	void	createSignQueryDockwdg();
-	//鏄剧ず鎸傜墝鏌ヨ缁撴灉
+	//显示挂牌查询结果
 	void	showSignQueryResult(const char* msg,int msglength);
-	//鍒涘缓鎺ュ湴鏌ヨDockwidget
+	//创建接地查询Dockwidget
 	void	createGswitchQueryDockwdg();
-	//鏄剧ず鎺ュ湴鏌ヨ缁撴灉
+	//显示接地查询结果
 	void	showGswitchQueryResult(const char* msg,int msglength);
-	//鍒涘缓浜哄伐璁剧疆鏌ヨDockwidget
+	//创建人工设置查询Dockwidget
 	void	createMsetQueryDockwdg();
-	//鏄剧ず浜哄伐璁剧疆鏌ヨ缁撴灉
+	//显示人工设置查询结果
 	void	showMsetQueryResult(const char* msg,int msglength);
-	//鍒涘缓浜嬩欢鏌ヨDockwidget
+	//创建事件查询Dockwidget
 	void	createEventQueryDockwdg();
-	//鏄剧ず浜嬩欢鏌ヨ缁撴灉
+	//显示事件查询结果
 	void	showEventQueryResult(const char* msg,int msglength);
 
 private:
 
-	// 鏄惁鍏佽鎺у埗
+	// 是否允许控制
 	bool						m_isControl;
 
-	// 鏄惁鍏佽澹伴煶鍛婅
+	// 是否允许声音告警
 	bool						m_isAlarm;
 
-	// 鏄惁鍏佽鏍￠獙
+	// 是否允许校验
 	bool						m_isCheck;
 
 	QMenu*						m_sysMenu;
 	QMenu*						m_editMenu;
 	QMenu*						m_queryMenu;
-	QMenu*						m_contextMenu;             //鍙抽敭鑿滃崟
+	QMenu*						m_contextMenu;             //右键菜单
     QToolBar*					m_toolBar;
-	QToolButton*					m_drawerBtn;				// 鎶藉眽鎸夐挳
-	QAction*						m_homeAction;			// 杩斿洖涓婚〉
-	QAction *					m_openAction;			// 鎵撳紑鍥惧舰鏂囦欢
-	QAction*						m_nextAction;				// 鍓嶈繘
-	QAction*						m_prevAction;				// 鍚庨€€
-	QAction*						m_refreshAction;			// 鍒锋柊鏁版嵁
-	QAction*						m_saveAction;				// 淇濆瓨
-	QAction*						m_readAction;				// 璇诲彇
-	QAction*						m_controlAction;			// 鎺у埗锛堢姝㈡帶鍒讹紝鍏佽鎺у埗锛?
-	QAction*						m_chekAction;				// 鏍￠獙 锛堢姝㈡牎楠岋紝杩愯鏍￠獙锛?
-	QAction*						m_netAction;				// 缃戠粶鐘舵€?
-	QAction*						m_soundAction;			// 澹伴煶鍛婅
-	//QAction*						m_roleAction;				// 璁剧疆瑙勫垯
-	QAction*						m_circleQueryAction;	// 鐜矾鏌ヨ
-	QAction*						m_signQueryAction;	// 鎸傜墝鏌ヨ
-	QAction*						m_gswitchQueryAction;		// 鎺ュ湴鏌ヨ
-	//QAction*						m_opQueryAction;				// 鎿嶄綔鏌ヨ
-	QAction*						m_eventQueryAction;			// 浜嬩欢鏌ヨ
+	QToolButton*					m_drawerBtn;				// 抽屉按钮
+	QAction*						m_homeAction;			// 返回主页
+	QAction *					m_openAction;			// 打开图形文件
+	QAction*						m_nextAction;				// 前进
+	QAction*						m_prevAction;				// 后退
+	QAction*						m_refreshAction;			// 刷新数据
+	QAction*						m_saveAction;				// 保存
+	QAction*						m_readAction;				// 读取
+	QAction*						m_controlAction;			// 控制（禁止控制，允许控制）
+	QAction*						m_chekAction;				// 校验 （禁止校验，运行校验）
+	QAction*						m_netAction;				// 网络状态
+	QAction*						m_soundAction;			// 声音告警
+	//QAction*						m_roleAction;				// 设置规则
+	QAction*						m_circleQueryAction;	// 环路查询
+	QAction*						m_signQueryAction;	// 挂牌查询
+	QAction*						m_gswitchQueryAction;		// 接地查询
+	//QAction*						m_opQueryAction;				// 操作查询
+	QAction*						m_eventQueryAction;			// 事件查询
 
-	QAction*						m_zoutAction;				// 鏀惧ぇ
-	QAction*						m_zinAction;				// 缂╁皬
-	QAction*						m_originalAction;		// 鍘熷澶у皬
-	QAction*						m_modelAction;			// 鐘舵€侊紝瀹炴椂鎬侊紝妯℃嫙鎬?
+	QAction*						m_zoutAction;				// 放大
+	QAction*						m_zinAction;				// 缩小
+	QAction*						m_originalAction;		// 原始大小
+	QAction*						m_modelAction;			// 状态，实时态，模拟态
 	
-	QAction*						m_msetQueryAction;			// 浜哄伐璁剧疆鏌ヨ
-	QAction*						m_cutQueryAction;				// 鐢佃矾鎴潰鏌ヨ
+	QAction*						m_msetQueryAction;			// 人工设置查询
+	QAction*						m_cutQueryAction;				// 电路截面查询
 
-	QAction*						m_roleQueryAction;			// 鏍￠獙瑙勫垯
-	QAction*						m_topoQueryAction;			// 鎷撴墤淇℃伅鏌ヨ
-	QAction*						m_intervalQueryAction;		// 闂撮殧鏌ヨ
-	QAction*						m_scadaLogQueryAction;		// scada鏃ュ織鏌ヨ
+	QAction*						m_roleQueryAction;			// 校验规则
+	QAction*						m_topoQueryAction;			// 拓扑信息查询
+	QAction*						m_intervalQueryAction;		// 间隔查询
+	QAction*						m_scadaLogQueryAction;		// scada日志查询
 
-	QAction*						m_onAction;						// 缃悎鎿嶄綔
-	QAction*						m_offAction;					// 缃垎鎿嶄綔
-	QAction*						m_signOnAction;					// 鎸傜墝
-	QAction*						m_signOffAction;				// 鎽樼墝
-	QAction*						m_powerSetAction;				// 璁剧疆鐢垫簮鐐?
-	QAction*						m_inLineSetAction;				// 璁剧疆杩涘嚭绾?
-	QAction*						m_viewModelAction;				// 璁剧疆瑙嗗浘閫夋嫨绫诲瀷
+	QAction*						m_onAction;						// 置合操作
+	QAction*						m_offAction;					// 置分操作
+	QAction*						m_signOnAction;					// 挂牌
+	QAction*						m_signOffAction;				// 摘牌
+	QAction*						m_powerSetAction;				// 设置电源点
+	QAction*						m_inLineSetAction;				// 设置进出线
+	QAction*						m_viewModelAction;				// 设置视图选择类型
 
 
-	//鐘舵€佹爮鏍囩
+	//状态栏标签
 	QLabel*						m_pConnLabel;
 
-	// 褰撳墠鎵撳紑绔欑偣鐨凜IMID
+	// 当前打开站点的CIMID
 	QString						m_curStationId;
 
 	NavView*					m_navview;
@@ -201,35 +203,35 @@ private:
 	OpenThread*				m_openThread;
 	static		MainWindow*		m_inst;
 
-	//鎿嶄綔绁ㄧ鐞嗙晫闈?
+	//操作票管理界面
 	TicketMgr*				m_TcktMgr;
 
-	// 宸ュ叿鏍忔寜閽獥鍙?
+	// 工具栏按钮窗口
 	RadioWidget*			m_radioWidget;
 
-	//璁剧疆鐜矾鏌ヨQDockWidget
+	//设置环路查询QDockWidget
 	QDockWidget*		m_pCircleQueryDockwdg;
-	//璁剧疆鐜矾鏌ヨ鐨凞OC涓殑tableWidget
+	//设置环路查询的DOC中的tableWidget
 	QTableWidget*		m_pCircleQueryTabWdgt;
 
-	//璁剧疆鎸傜墝鏌ヨQDockWidget
+	//设置挂牌查询QDockWidget
 	QDockWidget*		m_pSignQueryDockwdg;
-	//璁剧疆鎸傜墝鏌ヨ鐨凞OC涓殑tableWidget
+	//设置挂牌查询的DOC中的tableWidget
 	QTableWidget*		m_pSignQueryTabWdgt;
 
-	//璁剧疆鎺ュ湴鏌ヨQDockWidget
+	//设置接地查询QDockWidget
 	QDockWidget*		m_pGswitchQueryDockwdg;
-	//璁剧疆鎺ュ湴鏌ヨ鐨凞OC涓殑tableWidget
+	//设置接地查询的DOC中的tableWidget
 	QTableWidget*		m_pGswitchQueryTabWdgt;
 
-	//浜哄伐璁剧疆鏌ヨQDockWidget
+	//人工设置查询QDockWidget
 	QDockWidget*		m_pMsetQueryDockwdg;
-	//浜哄伐璁剧疆鏌ヨ鐨凞OC涓殑tableWidget
+	//人工设置查询的DOC中的tableWidget
 	QTableWidget*		m_pMsetQueryTabWdgt;
 
-	//浜嬩欢鏌ヨQDockWidget
+	//事件查询QDockWidget
 	QDockWidget*		m_pEventQueryDockwdg;
-	//浜嬩欢鏌ヨ鐨凞OC涓殑tableWidget
+	//事件查询的DOC中的tableWidget
 	QTableWidget*		m_pEventQueryTabWdgt;
 
 };

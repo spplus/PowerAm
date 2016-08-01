@@ -74,8 +74,8 @@ int main(int argc, char *argv[])
 	ComUtil::instance()->getAllUserList();
 
 	//设置登录用户名
-	HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
-	HomeWindow::instance()->show();
+	/*HomeWindow::instance()->setUserName(UserLogindlg::instance()->getLoginUser());
+	HomeWindow::instance()->show();*/
 	
 	//MainWindow::instance()->show();
 

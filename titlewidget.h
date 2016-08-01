@@ -37,6 +37,7 @@ public:
 
 	//密码修改返回
 	void		retpasswdMgr(int msgtype,const char* msg);
+	void		setLogoutAutoRaise();
 
 signals:
 	void	logout();

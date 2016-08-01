@@ -52,6 +52,7 @@ void HomeWindow::show()
 {
 	QMainWindow::show();
 	activateWindow();
+	m_titleWidget->setLogoutAutoRaise();
 }
 
 void HomeWindow::initUi()
@@ -187,9 +188,11 @@ void HomeWindow::openFile(PBNS::StationBean& bean)
 
 void HomeWindow::logout()
 {
-	if(QMessageBox::question(this,"系统提示","确定退出系统吗？",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
+	if(QMessageBox::question(this,"系统提示","确定注销用户吗？",QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes)
 	{
-		exit(0);
+		//exit(-1);
+		this->hide();
+		UserLogindlg::instance()->exec();
 	}
 }
 
@@ -253,4 +256,20 @@ QWidget* HomeWindow::initBottomWidget()
 	bottomWidget->setStyleSheet("#bottom {border-image:url(:images/bottom.png);}");
 	bottomWidget->setLayout(hbox);
 	return bottomWidget;
+}
+
+ void HomeWindow::closeEvent(QCloseEvent *event)  
+{  
+    QMessageBox::StandardButton button;  
+    button = QMessageBox::question(this, tr("系统提示"),  
+        QString(tr("是否确定退出系统?")),  
+        QMessageBox::Yes | QMessageBox::No);  
+  
+    if (button == QMessageBox::No) {  
+        event->ignore();  //忽略退出信号，程序继续运行
+    }  
+    else if (button == QMessageBox::Yes) {  
+        event->accept();  //接受退出信号，程序退出
+
+    }  
 }

@@ -84,7 +84,7 @@ void TitleWidget::initUi()
 	title->setStyleSheet("font-size:30px;color:white;font-family:微软雅黑,宋体;font-weight:bold;");
 
 	QLabel* logo = new QLabel;
-	logo->setPixmap(QPixmap(":/images/logo.png"));
+	logo->setPixmap(QPixmap("images/logo.png"));
 
 	hbox1->addWidget(logo);
 	hbox1->addSpacing(10);
@@ -102,7 +102,13 @@ void TitleWidget::initUi()
 	connect(m_logout,SIGNAL(pressed()),this,SIGNAL(logout()));
 	connect(m_userpwd,SIGNAL(pressed()),this,SLOT(passwdMgr()));
 }
-
+void TitleWidget::setLogoutAutoRaise()
+{
+	if (m_logout != NULL)
+	{
+		m_logout->setAutoRaise(true);
+	}
+}
 void TitleWidget::createMenu()
 {
 	m_menu = new QMenu;

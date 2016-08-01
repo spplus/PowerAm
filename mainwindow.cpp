@@ -276,7 +276,7 @@ void MainWindow::initActions()
 	m_offAction = new QAction(QIcon(ICON_SWITCH_OFF),tr(MSG_TIP_SWITCH_OFF),this);
 	m_signOnAction = new QAction(QIcon(ICON_TAG_ON),tr(MSG_TIP_TAG_ON),this);
 	m_signOffAction = new QAction(QIcon(ICON_TAG_OFF),tr(MSG_TIP_TAG_OFF),this);
-	m_viewModelAction = new QAction(QIcon(ICON_POINTER),tr(MSG_TIP_POINTER),this);
+	m_viewModelAction = new QAction(QIcon(ICON_HAND),"手掌",this);
 	m_originalAction = new QAction(QIcon(ICON_ZOOM_ORG),tr(MSG_TIP_ZOOM_ORG),this);
 
 	m_roleQueryAction = new QAction(QIcon(ICON_ROLE),tr(MSG_TIP_RUN_ANALOG),this);
@@ -286,8 +286,9 @@ void MainWindow::initActions()
 	m_powerSetAction = new QAction(QIcon(ICON_POWERSET),tr(MSG_TIP_POWERSET),this);
 	m_inLineSetAction = new QAction(QIcon(ICON_LINESET),tr(MSG_TIP_LINESET),this);
 
-	// 1 指针 2 手掌
-	m_viewModelAction->setData(QVariant(QGraphicsView::ScrollHandDrag));
+	// 1 指针 2 手掌 默认设为手掌
+	m_viewModelAction->setData(QGraphicsView::ScrollHandDrag);
+	m_view->setDragMode(QGraphicsView::ScrollHandDrag);
 
 }
 
@@ -364,7 +365,7 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	QString tempName = fileName;
 	if (fileName.length()== 0)
 	{
-		QMessageBox::warning(this,MSG_TITLE,"文件名称为空");
+		//QMessageBox::warning(this,MSG_TITLE,"文件名称为空");
 		return;
 	}
 	// 保存当前站点ID
@@ -433,11 +434,13 @@ void MainWindow::setViewModel()
 	{
 		md = QGraphicsView::ScrollHandDrag;
 		m_viewModelAction->setIcon(QIcon(ICON_HAND));
+		m_viewModelAction->setToolTip("手掌");
 	}
 	else
 	{
 		md = QGraphicsView::NoDrag;
 		m_viewModelAction->setIcon(QIcon(ICON_POINTER));
+		m_viewModelAction->setToolTip(MSG_TIP_POINTER);
 	}
 	m_viewModelAction->setData(md);
 	m_view->setDragMode(md);
@@ -1090,4 +1093,9 @@ void MainWindow::setTicketState()
 	m_contextMenu->clear();
 	m_modelAction->setEnabled(true);
 	m_sence->setSysState(eTICKET);
+}
+
+ void MainWindow::closeEvent(QCloseEvent *event)  
+{  
+    goHome();  
 }
