@@ -472,7 +472,6 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 
 void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
 {
-	QString dom = graph->getDom()->toString();
 
 	for (int i = 0;i<devlist.size();i++)
 	{
@@ -480,7 +479,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 		
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_BusbarSection_hmk10BUSⅠ";
+		QString cim = "_PowerTransformer_xdzXF2#";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
