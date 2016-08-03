@@ -607,6 +607,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				|| devtype == eLINE
 				|| devtype == eDEFAULT
 				|| devtype > eDEFAULT
+				|| devtype == eTRANSFORMER
 				|| coitem->getSvgId().length()==0)
 			{
 				continue;
