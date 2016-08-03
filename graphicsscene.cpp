@@ -341,7 +341,7 @@ void GraphicsScene::showDevState(const char* msg,int length)
 
 bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 {
-	QString color= tr("stroke:%1").arg(style);
+	QString color= tr("stroke:%1;fill:none").arg(style);
 	if (graph != NULL)
 	{
 		return graph->setAttribute(svgId,ATTR_STYLE,color);
@@ -1029,6 +1029,7 @@ void GraphicsScene::putItem(SvgItem* item)
 void GraphicsScene::clearItem()
 {
 	m_itemList.clear();
+	this->clear();
 }
 
 void GraphicsScene::putDev2OpList(QString cim,int state)

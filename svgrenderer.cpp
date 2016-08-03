@@ -106,6 +106,7 @@ void SvgRenderer::drawGraph(SvgGraph* graph)
 			case eLINE:
 				item->setZValue(4);
 				break;
+			
 			default:
 				item->setZValue(-1);
 				break;
@@ -264,7 +265,7 @@ SvgItem* SvgRenderer::makeSvgItem(QString id)
 {
 
 	SvgItem* item = new SvgItem();
-	item->setFlags( QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable|QGraphicsItem::ItemIsMovable);
+	item->setFlag(QGraphicsItem::ItemIsSelectable);
 	item->setSharedRenderer(m_renderer);
 	item->setElementId(id.toLatin1());
 	return item;
