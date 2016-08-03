@@ -521,6 +521,8 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 
 	ptrans->setSvgId(getAttribute(node,ATTR_ID));
 
+	
+
 	// 解析绕组
 	QDomNodeList cnodelist = node.childNodes();
 	for (int i = 0;i<cnodelist.size();i++)
@@ -529,6 +531,9 @@ BaseDevice* SvgParser::parserTransformer(const QDomNode& node)
 		
 		// kelong 变压器没有绕组，是整体
 		parserUse(cnode,ptrans);
+
+		// 解析设备模型
+		parserMetaData(cnode,ptrans);
 
 		ptrans->getWindList().push_back(parserTemplate(cnode));
 	}
