@@ -115,6 +115,9 @@ const	QString		TAG_PATH				= "path";
 const	QString		TAG_POLYLINE			= "polyline";
 const	QString		TAG_STYLE				= "style";
 const	QString		TAG_TEXT				= "text";
+const	QString		TAG_SYMBOL				= "symbol";
+const	QString		TAG_ELLIPSE				= "ellipse";
+const	QString		TAG_A					= "a";
 
 // 配置文件名称
 const	QString		CONFIG		=		"client.conf";

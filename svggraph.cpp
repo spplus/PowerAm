@@ -73,6 +73,8 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 			|| layerid== LINK_LAYER
 			|| layerid == ACLINE_LAYER
 			|| layerid == CONNECTNODE_LAYER
+			|| layerid == TRANS2_LAYER
+			|| layerid == TRANS3_LAYER
 			)
 		{
 			QDomNodeList cnodelist = node.childNodes();
@@ -115,12 +117,50 @@ BaseDevice* SvgGraph::getDevById(QString svgid)
 	return NULL;
 }
 
+bool SvgGraph::setTransAttr(QString nodeid,QString symbid,QString attr,QString val)
+{
+	if (symbid.length()>0)
+	{
+		symbid = symbid.right(symbid.length()-1);
+	}
+	
+	// 先删除symbol中的stroke
+	QDomDocument *doc = this->getDom();
+
+	QDomNodeList nodelist = doc->elementsByTagName(TAG_SYMBOL);
+	for (int i = 0;i<nodelist.count();i++)
+	{
+		QDomNode cnode = nodelist.at(i);
+		QString id = cnode.toElement().attribute(ATTR_ID);
+		if (id == symbid )
+		{
+			QDomNodeList cnodelist = cnode.childNodes();
+			for (int j = 0;j<cnodelist.count();j++)
+			{
+				QDomNode ccnode = cnodelist.at(j);
+				if (ccnode.nodeName() == TAG_A)
+				{
+					QDomNode cccnode = ccnode.firstChild();
+					cccnode.toElement().removeAttribute("stroke");
+				}
+				else if (ccnode.nodeName() == TAG_ELLIPSE)
+				{
+					ccnode.toElement().removeAttribute("stroke");
+				}
+			}
+		}
+	}
+
+	return setAttribute(nodeid,attr,val);
+
+}
+
 bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)
 {
 	QDomNode cnode = getElementById(nodeid);
 	if (cnode.isNull())
 	{
-		qDebug("setAttribute failed! nodeid %s,attr:%s,val:%s",nodeid.toStdString().c_str(),attr.toStdString().c_str(),val.toStdString().c_str());
+		//qDebug("setAttribute failed! nodeid %s,attr:%s,val:%s",nodeid.toStdString().c_str(),attr.toStdString().c_str(),val.toStdString().c_str());
 		return false;
 	}
 	// 图元节点的第一个子节点，比如设备图元的use节点，母线图元的path节点等

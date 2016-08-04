@@ -29,6 +29,8 @@ public:
 	bool				getIsColor();
 	void				setColor(QString color);
 	QString			getColor();
+	void		setSymbolId(QString symid);
+	QString		getSymbolId();
 
 private:
 
@@ -38,6 +40,7 @@ private:
 	QString			m_cimId;
 	QString			m_layerId;
 	QString			m_color;
+	QString			m_symbolId;
 	eDeviceType		m_type;
 
 };

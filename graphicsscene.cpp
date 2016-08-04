@@ -339,7 +339,7 @@ void GraphicsScene::showDevState(const char* msg,int length)
 	// 保存当前站点设备列表
 	m_devList = res;
 
-	qDebug()<<ComUtil::instance()->now()<<"记录数："<<m_devList.devstate_size();
+	//qDebug()<<ComUtil::instance()->now()<<"记录数："<<m_devList.devstate_size();
 
 	// 着色，变位
 	drawDev(getStateBeanList(res));
@@ -352,6 +352,16 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 	{
 		return graph->setAttribute(svgId,ATTR_STYLE,color);
 	}
+	return false;
+}
+
+bool GraphicsScene::setTransColor(SvgGraph* graph,SvgItem* item,QString style)
+{
+	QString color= tr("stroke:%1;fill:none").arg(style);
+
+	// 删除symbol中的stroke属性
+	graph->setTransAttr(item->getSvgId(),item->getSymbolId(),ATTR_STYLE,color);
+
 	return false;
 }
 
@@ -429,6 +439,12 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 			item->setIsColor(true);
 			item->setColor(color);
 		}
+		else if (dtype == eTRANSFORMER)
+		{
+			setTransColor(graph,item,color);
+			item->setIsColor(true);
+			item->setColor(color);
+		}
 		else
 		{
 			// 本设备着色
@@ -444,7 +460,7 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 		return;
 	}
 	
-	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
+	//qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<item->getCimId();
 
 	// 查找关联设备进行着色
 	setConnectedDevColor(graph,item);
@@ -469,23 +485,22 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 		return;
 	}
 
-	qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<pdev->getMetaId();
+	//qDebug()<<ComUtil::instance()->now()<<"colorDev cim="<<pdev->getMetaId();
 
 
 	// 查找关联设备进行着色
 	setConnectedDevColor(graph,item);
 }
 
-void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
+void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph)
 {
-
+	
 	for (int i = 0;i<devlist.size();i++)
 	{
-		qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
-		
+
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_PowerTransformer_xdzXF2#";
+		QString cim = "_PowerTransformer_hmkXF1#";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
@@ -502,10 +517,12 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,
 			item->setType(eLINE);
 		}
 
+		eDeviceType unitType = item->getType();
+
 		// 开关变位
-		if (bean.unittype() == eSWITCH
-			|| bean.unittype() == eBREAKER
-			|| bean.unittype() == eGROUNDSWITCH)
+		if (unitType == eSWITCH
+			|| unitType == eBREAKER
+			|| unitType == eGROUNDSWITCH)
 		{
 	
 			PBNS::StateBean opbean ;
@@ -545,7 +562,7 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 {
 	for (int i = 0;i<devlist.size();i++)
 	{
-		qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
+		//qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
 
 		PBNS::StateBean bean = devlist.at(i);
 		
@@ -554,7 +571,7 @@ void GraphicsScene::setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,Ba
 		
 		if (bean.cimid().c_str() == pdev->getMetaId())
 		{
-			qDebug()<<ComUtil::instance()->now()<<"find dev cim="<<pdev->getMetaId();
+			//qDebug()<<ComUtil::instance()->now()<<"find dev cim="<<pdev->getMetaId();
 
 			// 进出线在SVG中没有类型，通过unit表中的类型更新图元类型
 			if (bean.unittype() == eLINE)
@@ -601,7 +618,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 		for (int i = 0;i<colist.count();i++)
 		{
 
-			qDebug()<<ComUtil::instance()->now()<<"setConnectedDevColor find ="<<colist.count()<<" i="<<i;
+			//qDebug()<<ComUtil::instance()->now()<<"setConnectedDevColor find ="<<colist.count()<<" i="<<i;
 
 			SvgItem* coitem = (SvgItem*)colist.at(i);
 			
@@ -1020,10 +1037,11 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean>  stateList)
 	}
 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
 
-	setDevStateEx(stateList,pgraph,NULL);
+	setDevStateEx(stateList,pgraph);
 
 	// 重新加载图形
 	this->clear();
+	//QString doms = pgraph->getDom()->toString();
 
 	m_svgRender->drawGraph(pgraph);
 }
