@@ -51,6 +51,28 @@ SvgGraph* GraphicsScene::parserSvg(QString filename)
 	return  m_svgParser.parserSvg(filename);
 }
 
+bool GraphicsScene::isOpened(QString fileName)
+{
+	// 判断是否已经打开过
+	for (int i = 0;i<m_graphList.size();i++)
+	{
+		SvgGraph *pgraph = m_graphList.at(i);
+		if (pgraph == NULL)
+		{
+			continue;
+		}
+		QString gname = pgraph->getFilePath();
+		gname = gname.right(gname.length() - gname.indexOf("/")-1);
+
+		if (gname == fileName)
+		{
+			m_svgRender->drawGraph(pgraph);
+			return true;
+		}
+	}
+	return false;
+}
+
 void GraphicsScene::drawSvgGraph(SvgGraph* pgrahp)
 {
 	m_opDevList.clear();
@@ -500,7 +522,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph)
 
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_PowerTransformer_hmkXF1#";
+		QString cim = "_EnergyConsumer_xdz10LD9109";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
@@ -628,6 +650,7 @@ void GraphicsScene::setConnectedDevColor(SvgGraph* pgraph,SvgItem* item)
 				|| devtype == eGROUNDSWITCH
 				|| devtype == eBUS
 				|| devtype == eLINE
+				|| devtype == eLOAD
 				|| devtype == eDEFAULT
 				|| devtype > eDEFAULT
 				|| devtype == eTRANSFORMER

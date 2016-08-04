@@ -27,7 +27,7 @@ public:
 	~GraphicsScene();
 
 	// 解析SVG文件
-	SvgGraph*	parserSvg(QString filename);
+	SvgGraph*		parserSvg(QString filename);
 
 	// 打开图形文件
 	void			openSvgFile(QString filename);
@@ -39,7 +39,7 @@ public:
 	void			showSavingList(const char* msg,int msglength);
 
 	// 返回当前的saveid
-	int			getSaveId(){return m_saveId;}
+	int				getSaveId(){return m_saveId;}
 
 	// 发送请求设备状态请求
 	void			reqUnitState(QString stationCim);
@@ -52,6 +52,10 @@ public:
 
 	void			putItem(SvgItem* item);
 	void			clearItem();
+
+	// 是否已经打开过
+	bool			isOpened(QString fileName);
+
 public slots:
 
 	// 前进

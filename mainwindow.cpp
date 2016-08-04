@@ -365,11 +365,18 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	QString tempName = fileName;
 	if (fileName.length()== 0)
 	{
-		//QMessageBox::warning(this,MSG_TITLE,"文件名称为空");
 		return;
 	}
+	
 	// 保存当前站点ID
 	m_curStationId = stationId;
+
+	// 判断是否被打开过
+	if (m_sence->isOpened(fileName))
+	{
+		setTitle();
+		return;
+	}
 
 	// 标志是否打开默认目录下的文件
 	if (needRoot)
@@ -406,10 +413,11 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 
 	//m_sence->openSvgFile(fileName);
 
-	int idx = fileName.lastIndexOf("/");
-	fileName = fileName.right(fileName.length()-idx-1);
-	fileName = m_title+"-"+fileName;
+	setTitle();
+}
 
+void MainWindow::setTitle()
+{
 	QString titleName;
 	vector<Station_S> stationList = ComUtil::instance()->getStationMgrList();
 	for (int i = 0;i<stationList.size();i++)
@@ -423,7 +431,6 @@ void MainWindow::openFile(QString fileName,QString stationId /* = 0 */,bool need
 	}
 
 	this->setWindowTitle(titleName);
-
 }
 
 void MainWindow::setViewModel()

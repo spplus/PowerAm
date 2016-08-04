@@ -187,11 +187,8 @@ void NetClient::readMessage()
 		}
 
 	}
-	
-	QString recstr = QString("接收信息:");
-	qDebug()<<recstr;
+
 	QString strrecv=QVariant(m_qbarecv).toString();
-	qDebug()<<strrecv;
 
 	if (m_qbarecv.length() < 12)
 	{

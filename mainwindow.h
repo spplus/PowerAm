@@ -81,6 +81,7 @@ public slots:
 	void			setRealState();
 	void			setAnalogState();
 	void			setTicketState();
+	void			setTitle();
 
 private:
 

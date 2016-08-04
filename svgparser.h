@@ -29,6 +29,7 @@ private:
 	void			parserBus(SvgGraph*grahp,QDomNode &node);
 	void			parserBreaker(SvgGraph*grahp,QDomNode &node);
 	void			parserLink(SvgGraph*grahp,QDomNode &node);
+	void			parserLoad(SvgGraph*grahp,QDomNode &node);
 	void			parserACLine(SvgGraph*grahp,QDomNode &node);
 	void			parserText(SvgGraph*grahp,QDomNode &node);
 	void			parserDisconnector(SvgGraph*grahp,QDomNode &node);

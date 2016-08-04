@@ -145,10 +145,13 @@ SvgGraph* SvgParser::parserSvg(QString filename)
 					parserACLine(pgraph,node);
 				}
 				else if (sid == LINK_LAYER 
-					|| sid == LOAD_LAYER
 					|| sid == CONNECTNODE_LAYER)
 				{
 					parserLink(pgraph,node);
+				}
+				else if (sid == LOAD_LAYER)
+				{
+					parserLoad(pgraph,node);
 				}
 				else if (sid == TRANS2_LAYER 
 					|| sid == TRANS3_LAYER)
@@ -267,6 +270,11 @@ void SvgParser::parserGroundDisconnector(SvgGraph*grahp,QDomNode &node)
 void SvgParser::parserLink(SvgGraph*grahp,QDomNode &node)
 {
 	parserSvgLayer(grahp,node,eLINK);
+}
+
+void SvgParser::parserLoad(SvgGraph*grahp,QDomNode &node)
+{
+	parserSvgLayer(grahp,node,eLOAD);
 }
 
 void SvgParser::parserACLine(SvgGraph*grahp,QDomNode &node)

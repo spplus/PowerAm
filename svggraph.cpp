@@ -75,6 +75,7 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 			|| layerid == CONNECTNODE_LAYER
 			|| layerid == TRANS2_LAYER
 			|| layerid == TRANS3_LAYER
+			|| layerid == LOAD_LAYER
 			)
 		{
 			QDomNodeList cnodelist = node.childNodes();
