@@ -179,17 +179,29 @@ void NetClient::readMessage()
 			break;
 		}
 
+		//当接收数据长度大于初始接收计算接收长度时跳出循环
+		if (m_qbarecv.length() > m_recvLen)
+		{
+			qDebug()<<"m_qbarecv.length(): "<<m_qbarecv.length()<<"   m_recvLen: "<<m_recvLen;
+			break;
+		}
+
 		//等待服务端每次发送数据
 		if(!(m_pTcpScoket->waitForReadyRead(20000)))
 		{
 			qDebug()<<"m_pTcpScoket->errorString()2: "<< m_pTcpScoket->errorString();
-			//return;
+			qDebug()<<"m_pTcpScoket->errorString()2: m_qbarecv.length(): "<<m_qbarecv.length()<<"   m_recvLen: "<<m_recvLen;
+
+			m_brecvflag = true;
+			m_recvLen = 0;
+			m_qbarecv.clear();
+			return;
 		}
 
 	}
-
+	
 	QString strrecv=QVariant(m_qbarecv).toString();
-
+	
 	if (m_qbarecv.length() < 12)
 	{
 		qDebug("接收数据长度小于最小帧长度");
