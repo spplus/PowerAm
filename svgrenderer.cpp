@@ -179,8 +179,6 @@ SvgItem* SvgRenderer::addItem(BaseDevice* pdev)
 		// 设置svgid
 		item->setSvgId(id);
 
-		item->setSymbolId(pdev->getSymbolId());
-
 		m_scene->addItem(item);
 		m_scene->putItem(item);
 	}

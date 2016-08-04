@@ -71,13 +71,3 @@ QString SvgItem::getColor()
 {
 	return m_color;
 }
-
-QString SvgItem::getSymbolId()
-{
-	return m_symbolId;
-}
-
-void SvgItem::setSymbolId(QString symid)
-{
-	m_symbolId = symid;
-}

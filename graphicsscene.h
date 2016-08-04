@@ -101,11 +101,10 @@ protected:
 
 	// 修改dom中的style属性
 	bool			setSvgStyle(SvgGraph* graph,QString svgid,QString style);
-	bool			setTransColor(SvgGraph* graph,SvgItem* item,QString style);
 
 	// 修改设备状态列表中的设备状态
 	void			setDevState(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
-	void			setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph);
+	void			setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev);
 
 	// 设置关联设备的颜色，开关设备除外，因为开关设备有着色过程
 	void			setConnectedDevColor(SvgGraph* pgraph,SvgItem* item);

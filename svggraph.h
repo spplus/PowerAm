@@ -36,7 +36,6 @@ public:
 
 	// 设置DOM节点属性
 	bool			setAttribute(QString nodeid,QString attr,QString val);
-	bool			setTransAttr(QString nodeid,QString symbid,QString attr,QString val);
 
 	// 获取DOM节点属性
 	QString			getAttribute(QString nodeid,QString attr);

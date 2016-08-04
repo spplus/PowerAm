@@ -73,8 +73,6 @@ QDomNode SvgGraph::getElementById(QString nodeid)
 			|| layerid== LINK_LAYER
 			|| layerid == ACLINE_LAYER
 			|| layerid == CONNECTNODE_LAYER
-			|| layerid == TRANS2_LAYER
-			|| layerid == TRANS3_LAYER
 			)
 		{
 			QDomNodeList cnodelist = node.childNodes();
@@ -115,38 +113,6 @@ BaseDevice* SvgGraph::getDevById(QString svgid)
 	}
 
 	return NULL;
-}
-
-bool SvgGraph::setTransAttr(QString nodeid,QString symbid,QString attr,QString val)
-{
-	// 先删除symbol中的stroke
-	QDomDocument *doc = this->getDom();
-
-	QDomNodeList nodelist = doc->elementsByTagName(TAG_SYMBOL);
-	for (int i = 0;i<nodelist.count();i++)
-	{
-		QDomNode cnode = nodelist.at(i);
-		if (cnode.toElement().attribute(ATTR_ID) == symbid )
-		{
-			QDomNodeList cnodelist = cnode.childNodes();
-			for (int j = 0;j<cnodelist.count();j++)
-			{
-				QDomNode ccnode = cnodelist.at(j);
-				if (ccnode.nodeName() == TAG_A)
-				{
-					QDomNode cccnode = ccnode.firstChild();
-					cccnode.toElement().removeAttribute("stroke");
-				}
-				else if (ccnode.nodeName() == TAG_ELLIPSE)
-				{
-					ccnode.toElement().removeAttribute("stroke");
-				}
-			}
-		}
-	}
-
-	return setAttribute(nodeid,attr,val);
-
 }
 
 bool SvgGraph::setAttribute(QString nodeid,QString attr,QString val)

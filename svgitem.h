@@ -29,18 +29,15 @@ public:
 	bool				getIsColor();
 	void				setColor(QString color);
 	QString			getColor();
-	void		setSymbolId(QString symid);
-	QString		getSymbolId();
 
 private:
 
 	// 是否设置过颜色
-	bool			m_isColor;
+	bool				m_isColor;
 	QString			m_svgId;
 	QString			m_cimId;
 	QString			m_layerId;
 	QString			m_color;
-	QString			m_symbolId;
 	eDeviceType		m_type;
 
 };

@@ -355,16 +355,6 @@ bool GraphicsScene::setSvgStyle(SvgGraph* graph,QString svgId,QString style)
 	return false;
 }
 
-bool GraphicsScene::setTransColor(SvgGraph* graph,SvgItem* item,QString style)
-{
-	QString color= tr("stroke:%1;fill:none").arg(style);
-
-	// 删除symbol中的stroke属性
-	graph->setTransAttr(item->getSvgId(),item->getSymbolId(),ATTR_STYLE,color);
-
-	return false;
-}
-
 void GraphicsScene::setBreakStateEx(SvgGraph* graph,QString svgid,QString cimid,eBreakerState state)
 {
 	//PBNS::StateBean bean;
@@ -439,10 +429,6 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 			item->setIsColor(true);
 			item->setColor(color);
 		}
-		else if (dtype == eTRANSFORMER)
-		{
-			//setTransColor(graph,item,color);
-		}
 		else
 		{
 			// 本设备着色
@@ -490,16 +476,16 @@ void GraphicsScene::colorDev(SvgGraph* graph,BaseDevice* pdev,PBNS::StateBean &b
 	setConnectedDevColor(graph,item);
 }
 
-void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph)
+void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph,BaseDevice* pdev)
 {
-	
+
 	for (int i = 0;i<devlist.size();i++)
 	{
 		qDebug()<<ComUtil::instance()->now()<<"setDevState i="<<i<<"devlist size="<<devlist.size();
 		
 		PBNS::StateBean bean = devlist.at(i);
 
-		QString cim = "_PowerTransformer_xdzXF1#";
+		QString cim = "_PowerTransformer_xdzXF2#";
 		
 		int ck = cim.compare(bean.cimid().c_str());
 
@@ -1034,11 +1020,11 @@ void GraphicsScene::drawDev(QList<PBNS::StateBean>  stateList)
 	}
 	SvgGraph* pgraph = m_graphList.at(m_curIndex);
 
-	setDevStateEx(stateList,pgraph);
+	setDevStateEx(stateList,pgraph,NULL);
 
 	// 重新加载图形
 	this->clear();
-	//QString doms = pgraph->getDom()->toString();
+
 	m_svgRender->drawGraph(pgraph);
 }
 
