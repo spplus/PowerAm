@@ -34,7 +34,7 @@ public:
 
 public:
 	void		show();
-	void		addContextMenuAction(eDeviceType type);
+	void		addContextMenuAction(PBNS::StateBean bean);
 	bool		getIsCheck(){return m_isCheck;};
 	//重写窗体关闭事件，关闭回到首页
 	void		closeEvent(QCloseEvent *event);

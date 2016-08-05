@@ -217,9 +217,12 @@ void MainWindow::initMenu()
 
 }
 
-void MainWindow::addContextMenuAction(eDeviceType type)
+void MainWindow::addContextMenuAction(PBNS::StateBean bean)
 {
 	m_contextMenu->clear();
+	int type = bean.unittype();
+	int state = bean.state();
+	int isboard = bean.isboard();
 	switch (type)
 	{
 	
@@ -228,10 +231,30 @@ void MainWindow::addContextMenuAction(eDeviceType type)
 	case eGROUNDSWITCH:
 		if (m_isControl)
 		{
+			if (state == eON )
+			{
+				m_onAction->setEnabled(false);
+				m_offAction->setEnabled(true);
+			}
+			else
+			{
+				m_offAction->setEnabled(false);
+				m_onAction->setEnabled(true);
+			}
+			
 			m_contextMenu->addAction(m_onAction);
 			m_contextMenu->addAction(m_offAction);
 		}
-		
+		if (isboard == 1)
+		{
+			m_signOnAction->setEnabled(false);
+			m_signOffAction->setEnabled(true);
+		}
+		else
+		{
+			m_signOnAction->setEnabled(true);
+			m_signOffAction->setEnabled(false);
+		}
 		m_contextMenu->addAction(m_signOnAction);
 		m_contextMenu->addAction(m_signOffAction);
 		

@@ -162,7 +162,7 @@ void GraphicsScene::mousePressEvent( QGraphicsSceneMouseEvent * mouseEvent )
 			if (findUnitBeanByCimId(item1->getCimId(),bean))
 			{
 				// 根据类型，创建菜单项
-				MainWindow::instance()->addContextMenuAction((eDeviceType)bean.unittype());
+				MainWindow::instance()->addContextMenuAction(bean);
 
 				// 保存当前选中的item；
 				m_curItem = item1;
@@ -723,6 +723,14 @@ SvgItem* GraphicsScene::findSvgItemById(QString id)
 
 bool GraphicsScene::findUnitBeanByCimId(QString cimid,PBNS::StateBean & bean)
 {
+	for (int i = 0;i<m_opDevList.size();i++)
+	{
+		bean = m_opDevList.at(i);
+		if (bean.cimid().c_str() == cimid)
+		{
+			return true;
+		}
+	}
 	for(int i = 0;i<m_devList.devstate_size();i++)
 	{
 		bean = m_devList.devstate(i);
