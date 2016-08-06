@@ -16,7 +16,7 @@ RuleMgrdlg::RuleMgrdlg(QWidget *parent)
 	QHBoxLayout *poprlyt2 = new QHBoxLayout;
 	QHBoxLayout *poprlyt = new QHBoxLayout;
 	QHBoxLayout *psrhlayt = new QHBoxLayout;
-	QHBoxLayout *poprhlayt = new QHBoxLayout;
+	//QHBoxLayout *poprhlayt = new QHBoxLayout;
 
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
@@ -792,7 +792,7 @@ void RuleMgrdlg::cellChangeIsUse(int row, int col)
 		return;
 	}
 	
-	int nrow = ptabwdgsrlist->currentRow();
+	//int nrow = ptabwdgsrlist->currentRow();
 
 	StationRule_S strules;
 
@@ -845,7 +845,7 @@ void RuleMgrdlg::checkCommitchbox()
 		//根据按什么策略显示数据更新后还按什么策略显示
 		if (pstachbox->isChecked())
 		{
-			int idx = pstacbox->currentIndex();
+		//	int idx = pstacbox->currentIndex();
 			pstacbox->setCurrentIndex(pstacbox->currentIndex());
 			ChangeStaCbox(pstacbox->currentIndex());
 		}
@@ -930,13 +930,13 @@ RuleTypeMgrdlg::RuleTypeMgrdlg()
 
 	this->resize(520,650);
 
-	QGridLayout *pglyt = new QGridLayout;
+	//QGridLayout *pglyt = new QGridLayout;
 
 	QHBoxLayout *phlyt = new QHBoxLayout;
 	QHBoxLayout *phlayt = new QHBoxLayout;
 	QHBoxLayout *puhlayt = new QHBoxLayout;
 	QHBoxLayout *poprhlayt = new QHBoxLayout;
-	QVBoxLayout *pvlyt = new QVBoxLayout;
+	//QVBoxLayout *pvlyt = new QVBoxLayout;
 	QVBoxLayout *pmgrvlyt = new QVBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
@@ -1107,7 +1107,7 @@ void RuleTypeMgrdlg::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_RULE_ADD:
 		{
 			PBNS::RuleMgrMsg_Response resp;
-			resp.ParseFromString(msg);
+			resp.ParseFromArray(msg,msglength);
 
 			if (resp.rescode() > 0)
 			{
@@ -1240,10 +1240,10 @@ void RuleTypeMgrdlg::retRuleList(const char* msg)
 
 void RuleTypeMgrdlg::getRuleItem(QTableWidgetItem* item)
 {
-	int col = item->column();
+	//int col = item->column();
 	int row = item->row();
 
-	int nruleid = ptabwdgrlist->item(row,0)->text().toInt();
+	//int nruleid = ptabwdgrlist->item(row,0)->text().toInt();
 
 	//pridlied->setText(ptabwdgrlist->item(row,0)->text());
 	pridpbox->setValue(ptabwdgrlist->item(row,0)->text().toInt());

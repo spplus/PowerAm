@@ -185,7 +185,7 @@ const	QString		SVG_PATH				= "F:\\QtProject\\SVG\\";
 #define			ICON_ANALOG		":images/analog.png"
 #define			ICON_REALTIME		":images/realtime.png"
 #define			ICON_TICKET			":images/ticket.png"
-
+#define			ICON_LOGO			":images/logo.ico"
 // 定义提示信息
 #define			MSG_TITLE				"系统提示"
 #define			MSG_TIP_NETWORK_ON		"成功连接服务器"

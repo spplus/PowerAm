@@ -10,13 +10,13 @@ UserMgrdlg::UserMgrdlg(QWidget *parent)
 
 	this->resize(600,650);
 
-	QGridLayout *pglyt = new QGridLayout;
+	//QGridLayout *pglyt = new QGridLayout;
 
 	QHBoxLayout *phlyt = new QHBoxLayout;
 	QHBoxLayout *phlayt = new QHBoxLayout;
 	QHBoxLayout *puhlayt = new QHBoxLayout;
 	QHBoxLayout *poprhlayt = new QHBoxLayout;
-	QVBoxLayout *pvlyt = new QVBoxLayout;
+	//QVBoxLayout *pvlyt = new QVBoxLayout;
 	QVBoxLayout *pmgrvlyt = new QVBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
@@ -275,10 +275,10 @@ void UserMgrdlg::retUserManager(int msgtype,const char* msg)
 
 void UserMgrdlg::getUserItem(QTableWidgetItem* item)
 {
-	int col = item->column();
+	//int col = item->column();
 	int row = item->row();
 
-	int nuserid = ptabwdgulist->item(row,0)->text().toInt();
+	//int nuserid = ptabwdgulist->item(row,0)->text().toInt();
 
 	pnamelied->setText(ptabwdgulist->item(row,1)->text());
 

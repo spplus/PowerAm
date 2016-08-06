@@ -973,7 +973,7 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 			{
 				QString strRule = rulelist.at(i);
 				QString strAct = QString(tr("触发规则:%1")).arg(strRule);
-				TicketActionsMgr::instance()->setTicketActions(strAct);
+				///TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
 	}
@@ -990,7 +990,7 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 			{
 				QString strAct = QString(tr("触发规则后继续执行"));
-				TicketActionsMgr::instance()->setTicketActions(strAct);
+				///TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
 		m_boprflag = true;
@@ -1010,7 +1010,7 @@ void GraphicsScene::showRuleList(const char* msg,int length)
 			if (m_curItem->getType() == eBREAKER || m_curItem->getType() == eSWITCH)
 			{
 				QString strAct = QString(tr("触发规则后取消操作"));
-				TicketActionsMgr::instance()->setTicketActions(strAct);
+				///TicketActionsMgr::instance()->setTicketActions(strAct);
 			}
 		}
 	}

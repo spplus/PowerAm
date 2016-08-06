@@ -166,7 +166,7 @@ void UserLogindlg::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_USER_LONGIN:
 		{
 			PBNS::UserLoginMsg_Response userep;
-			userep.ParseFromString(msg);
+			userep.ParseFromArray(msg,msglength);
 			PBNS::UserBean ubean;
 
 			//得到对应用户名密码的用户信息,登陆成功，关闭登陆界面

@@ -80,6 +80,6 @@ int main(int argc, char *argv[])
 	//MainWindow::instance()->show();
 
 	a.setStyle(new QPlastiqueStyle);
-
+	a.setWindowIcon(QIcon(ICON_LOGO));
     return a.exec();
 }

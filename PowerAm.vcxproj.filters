@@ -67,10 +67,10 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\buff\msgbean.pb.cc">
+    <ClCompile Include="..\..\AM\common\buff\msgbean.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\buff\msgbody.pb.cc">
+    <ClCompile Include="..\..\AM\common\buff\msgbody.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="msgrouter.cpp">
@@ -189,10 +189,10 @@
     <CustomBuild Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\common\buff\msgbean.pb.h">
+    <ClInclude Include="..\..\AM\common\buff\msgbean.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\buff\msgbody.pb.h">
+    <ClInclude Include="..\..\AM\common\buff\msgbody.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <CustomBuild Include="msgrouter.h">
@@ -679,5 +679,8 @@
     <None Include="images\zoom_out.png">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="poweram.rc" />
   </ItemGroup>
 </Project>

@@ -432,7 +432,7 @@ void StationTypeMgr::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_STATION_TYPE_MODIFY:
 		{
 			PBNS::StationTypeMgrMsg_Response rep;
-			rep.ParseFromString(msg);
+			rep.ParseFromArray(msg,msglength);
 
 			if (rep.rescode()>0)
 			{
@@ -696,7 +696,7 @@ StationEditMgr::StationEditMgr(QWidget *parent)
 	QHBoxLayout *phlayt6 = new QHBoxLayout;
 	QHBoxLayout *phlayt7 = new QHBoxLayout;
 
-	QHBoxLayout *pbtnhlayt = new QHBoxLayout;
+//	QHBoxLayout *pbtnhlayt = new QHBoxLayout;
 	QVBoxLayout *pmainvlyt = new QVBoxLayout;
 
 	//"ID"<<"厂站类型"<<"类型名称"<<"厂站CIMID"<<"厂站名称"<<"厂站描述"<<"厂站图名";

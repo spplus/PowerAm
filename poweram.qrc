@@ -61,7 +61,8 @@
         <file>images/lineset.png</file>
          <file>images/analog.png</file>
         <file>images/realtime.png</file>
-        <file>images/ticket.png</file> 
+        <file>images/ticket.png</file>
+        <file>images/logo.ico</file>
         <file alias="close">images/titel/close.png</file>
         <file alias="close_hover">images/titel/close_hover.png</file>
         <file alias="close_pressed">images/titel/close_pressed.png</file>

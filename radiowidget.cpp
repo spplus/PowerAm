@@ -11,7 +11,7 @@ void RadioWidget::initUi()
 {
 	QHBoxLayout* hbox = new QHBoxLayout;
 	
-	char* pname = "ID";
+	//char* pname = "ID";
 	m_realtimeBtn = new QRadioButton(tr("实时态"));
 
 	m_analogBtn = new QRadioButton(tr("模拟态"));

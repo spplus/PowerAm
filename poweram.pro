@@ -15,17 +15,19 @@ QMAKE_RCC=$$(QTDIR)/bin/rcc.exe
 LIBS += -llibprotobufd -L$$(PB_ROOT)/lib
 } else {
 LIBS += /usr/local/lib/libprotobuf.so
+
 }
 
-
+RC_FILE=poweram.rc
 
 QT += core gui svg widgets xml network
 
 CONFIG += console
 
-TARGET = PowerAm
+TARGET = ../../common/bin/PowerAm
 TEMPLATE = app
 RESOURCES = poweram.qrc
+
 
 INCLUDEPATH += $$(AM_ROOT)
 INCLUDEPATH += $$(PB_ROOT)/include
