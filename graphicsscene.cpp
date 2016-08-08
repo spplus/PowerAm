@@ -818,7 +818,8 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	req.set_unitcim(m_curItem->getCimId().toStdString());
 	req.set_unittype(m_curItem->getType());
 	req.set_ischeck(ischeck);
-	
+	req.set_stationcim(m_stationCim.toStdString());
+
 	// 设置操作设备列表
 	
 	for (int i = 0;i<m_opDevList.size();i++)
@@ -1025,7 +1026,6 @@ void GraphicsScene::reqUnitState(QString stationCim)
 	// 加载设备状态数据
 	PBNS::DevStateMsg_Request req;
 
-	// 注意！！！！！！站点ID和saveId，需要根据打开的图形传过来！！！
 	req.set_saveid(m_saveId);
 	req.set_stationcim(stationCim.toStdString());
 	string reqstr;
