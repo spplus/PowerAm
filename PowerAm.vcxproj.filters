@@ -67,10 +67,10 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\AM\common\buff\msgbean.pb.cc">
+    <ClCompile Include="..\common\buff\msgbean.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\AM\common\buff\msgbody.pb.cc">
+    <ClCompile Include="..\common\buff\msgbody.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="msgrouter.cpp">
@@ -189,10 +189,10 @@
     <CustomBuild Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="..\..\AM\common\buff\msgbean.pb.h">
+    <ClInclude Include="..\common\buff\msgbean.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\AM\common\buff\msgbody.pb.h">
+    <ClInclude Include="..\common\buff\msgbody.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <CustomBuild Include="msgrouter.h">
@@ -530,6 +530,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\loginmainbk.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\logo.ico">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="images\logo.png">

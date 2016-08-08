@@ -145,10 +145,15 @@ protected:
 	void						colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &bean,QString color);
 
 	// 根据CIM查找已操作的设备
-	int						findDevByCim(QString cim,PBNS::StateBean & sbean);
+	int						findDevByCim(QList<PBNS::StateBean>dlist,QString cim,PBNS::StateBean & sbean);
 
 	// 加入本地操作的设备到列表
 	void						putDev2OpList(QString cim,int state);
+	void						putLine2List(PBNS::StateBean bean);
+	void						getDevOpList(PBNS::OprationMsg_Request& req);
+	void						getLineList(PBNS::OprationMsg_Request& req);
+	void						putResList2OpList(PBNS::OprationMsg_Response res);
+	void						putResList2OpLine(PBNS::OprationMsg_Response res);
 
 private:
 	// 当前操作是否已经完成
@@ -171,6 +176,9 @@ private:
 
 	// 当前存档的变位记录
 	QList<PBNS::StateBean>	m_opDevList;
+	
+	// 当前电源点列表
+	QList<PBNS::StateBean>	m_lineList;
 
 	// 当前选中的item
 	SvgItem*				m_curItem;
@@ -180,10 +188,10 @@ private:
 	QList<SvgGraph*>		m_graphList;
 	QPropertyAnimation	m_animation;
 
-	PBNS::DevStateMsg_Response m_devList;
+	PBNS::OprationMsg_Response m_devList;
 
 	//触发规则后是否执行标志
-	bool	m_boprflag;
+	bool		m_boprflag;
 };
 
 #endif

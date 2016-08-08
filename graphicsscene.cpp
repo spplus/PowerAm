@@ -211,11 +211,10 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 	putDev2OpList(m_curItem->getCimId(),res.optype());
 
 	// 把服务器端自动设置的设备加入到操作设备列表
-	for (int i = 0;i<res.oplist_size();i++)
-	{
-		PBNS::StateBean bean = res.oplist(i);
-		putDev2OpList(bean.cimid().c_str(),bean.state());
-	}
+	putResList2OpList(res);
+
+	// 把服务器端返回的进出线列表加入到本地列表中
+	putResList2OpLine(res);
 
 	if (ComUtil::instance()->getActionFlag())
 	{
@@ -258,6 +257,24 @@ void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 
 	m_isOpFinished = true;
 }
+
+void GraphicsScene::putResList2OpLine(PBNS::OprationMsg_Response res)
+{
+	for (int i = 0;i<res.linelist_size();i++)
+	{
+		putLine2List(res.linelist(i));
+	}
+}
+
+void GraphicsScene::putResList2OpList(PBNS::OprationMsg_Response res)
+{
+	for (int i = 0;i<res.oplist_size();i++)
+	{
+		PBNS::StateBean bean = res.oplist(i);
+		putDev2OpList(bean.cimid().c_str(),bean.state());
+	}
+}
+
 
 void GraphicsScene::switchChange(int state)
 {
@@ -355,13 +372,17 @@ void GraphicsScene::startAnimation()
 
 void GraphicsScene::showDevState(const char* msg,int length)
 {
-	PBNS::DevStateMsg_Response res;
+	PBNS::OprationMsg_Response res;
 	res.ParseFromArray(msg,length);
 
 	// 保存当前站点设备列表
 	m_devList = res;
 
-	//qDebug()<<ComUtil::instance()->now()<<"记录数："<<m_devList.devstate_size();
+	// 把服务器端自动设置的设备加入到操作设备列表
+	putResList2OpList(res);
+
+	// 把服务器端返回的进出线列表加入到本地列表中
+	putResList2OpLine(res);
 
 	// 着色，变位
 	drawDev(getStateBeanList(res));
@@ -440,7 +461,7 @@ void GraphicsScene::colorDevEx(SvgGraph* graph,SvgItem* item,PBNS::StateBean &be
 			|| dtype == eGROUNDSWITCH) 
 		{
 			PBNS::StateBean sbean;
-			int idx = findDevByCim(item->getCimId(),sbean);
+			int idx = findDevByCim(m_opDevList,item->getCimId(),sbean);
 			int state = 0;
 			if (idx >=0)
 			{
@@ -548,7 +569,7 @@ void GraphicsScene::setDevStateEx(QList<PBNS::StateBean>devlist,SvgGraph* graph)
 		{
 	
 			PBNS::StateBean opbean ;
-			int idx = findDevByCim(item->getCimId(),opbean);
+			int idx = findDevByCim(m_opDevList,item->getCimId(),opbean);
 
 			// 如果该元件在已操作列表，且不是本次操作的元件，则用操作列表中保持的状态进行显示
 			if (idx >= 0 && m_curItem != NULL 
@@ -821,13 +842,11 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 	req.set_stationcim(m_stationCim.toStdString());
 
 	// 设置操作设备列表
-	
-	for (int i = 0;i<m_opDevList.size();i++)
-	{
-		 PBNS::StateBean* opbean = req.add_opdevlist();
-		 opbean->CopyFrom(m_opDevList.at(i));
-	}
+	getDevOpList(req);
 
+	// 设置进出线列表
+	getLineList(req);
+	
 	if (ComUtil::instance()->getActionFlag())
 	{
 		m_curItem->getCimId();
@@ -865,6 +884,24 @@ void GraphicsScene::sendBreakOpReq(eBreakerState state,bool ischeck)
 
 	string data = req.SerializeAsString();
 	NetClient::instance()->sendData(CMD_TOPO_BREAKER_CHANGE,data.c_str(),data.length());
+}
+
+void GraphicsScene::getDevOpList(PBNS::OprationMsg_Request& req)
+{
+	for (int i = 0;i<m_opDevList.size();i++)
+	{
+		PBNS::StateBean* opbean = req.add_opdevlist();
+		opbean->CopyFrom(m_opDevList.at(i));
+	}
+}
+
+void GraphicsScene::getLineList(PBNS::OprationMsg_Request& req)
+{
+	for (int i = 0;i<m_lineList.size();i++)
+	{
+		PBNS::StateBean* opbean = req.add_linelist();
+		opbean->CopyFrom(m_lineList.at(i));
+	}
 }
 
 void GraphicsScene::sendTagReq(eTagState type)
@@ -1024,7 +1061,9 @@ void GraphicsScene::reqUnitState(QString stationCim)
 	m_stationCim = stationCim;
 
 	// 加载设备状态数据
-	PBNS::DevStateMsg_Request req;
+	//PBNS::DevStateMsg_Request req;
+	PBNS::OprationMsg_Request req;
+	getLineList(req);
 
 	req.set_saveid(m_saveId);
 	req.set_stationcim(stationCim.toStdString());
@@ -1088,11 +1127,26 @@ void GraphicsScene::clearItem()
 	this->clear();
 }
 
+void GraphicsScene::putLine2List(PBNS::StateBean bean)
+{
+	PBNS::StateBean sbean;
+	int idx = findDevByCim(m_lineList,bean.cimid().c_str(),sbean);
+	if (idx > 0)
+	{
+		m_lineList.removeAt(idx);
+	}
+	else
+	{
+		m_lineList.push_back(bean);
+	}
+
+}
+
 void GraphicsScene::putDev2OpList(QString cim,int state)
 {
 	// 查找是否已经存在
 	PBNS::StateBean bean;
-	int idx = findDevByCim(cim,bean);
+	int idx = findDevByCim(m_opDevList,cim,bean);
 	if (idx>=0)
 	{
 		m_opDevList.removeAt(idx);
@@ -1108,11 +1162,11 @@ void GraphicsScene::putDev2OpList(QString cim,int state)
 	m_opDevList.push_back(bean);
 }
 
-int GraphicsScene::findDevByCim(QString cim,PBNS::StateBean & sbean)
+int GraphicsScene::findDevByCim(QList<PBNS::StateBean>dlist,QString cim,PBNS::StateBean & sbean)
 {
-	for (int i = 0;i<m_opDevList.size();i++)
+	for (int i = 0;i<dlist.size();i++)
 	{
-		sbean = m_opDevList.at(i);
+		sbean = dlist.at(i);
 		if (sbean.cimid() == cim.toStdString())
 		{
 			return i;
