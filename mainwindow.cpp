@@ -560,6 +560,9 @@ void MainWindow::recvdata(int msgtype,const char* msg,int msglength)
 	case CMD_SERVER_BUSY:
 		showMsg("服务器正在进行拓扑分析，请稍后再试...");
 		break;
+	case CMD_SERVER_LINE:
+		m_sence->recvServerLine(msg,msglength);
+		break;
 	default:
 		break;
 	}

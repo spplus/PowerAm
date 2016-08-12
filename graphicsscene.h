@@ -56,6 +56,8 @@ public:
 	// 是否已经打开过
 	bool			isOpened(QString fileName);
 
+	// 接收到服务器端的进出线列表
+	void			recvServerLine(const char* msg,int length);
 public slots:
 
 	// 前进
@@ -154,7 +156,7 @@ protected:
 	void						getLineList(PBNS::OprationMsg_Request& req);
 	void						putResList2OpList(PBNS::OprationMsg_Response res);
 	void						putResList2OpLine(PBNS::OprationMsg_Response res);
-
+	
 private:
 	// 当前操作是否已经完成
 	bool						m_isOpFinished;

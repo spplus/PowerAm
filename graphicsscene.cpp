@@ -200,6 +200,14 @@ void GraphicsScene::setClose()
 	//switchChange(1);
 }
 
+void GraphicsScene::recvServerLine(const char* msg,int length)
+{
+	PBNS::OprationMsg_Response res;
+	res.ParseFromArray(msg,length);
+	// 把服务器端返回的进出线列表加入到本地列表中
+	putResList2OpLine(res);
+}
+
 void GraphicsScene::recvBreakerOpRes(const char* msg,int length)
 {
 	
